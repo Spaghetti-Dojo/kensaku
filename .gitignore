@@ -1,0 +1,5 @@
+/.idea/
+/build/
+/coverage
+/vendor/
+/node_modules/

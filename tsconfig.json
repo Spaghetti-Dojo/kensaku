@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@types": [
+        "./sources/js/src/@types"
+      ],
+      "@entities-search": [
+        "./sources/js/src"
+      ],
+    },
+  },
+  "include": [
+    "./sources/js/**/*",
+    "./tests/js/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
