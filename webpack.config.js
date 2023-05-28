@@ -16,7 +16,6 @@ module.exports = {
     extensions: ['.ts', '.tsx'],
     alias: {
       '@entities-search': path.resolve(__dirname, 'sources/js/src'),
-      '@types': path.resolve(__dirname, 'sources/js/src/@types'),
     },
   },
 }
