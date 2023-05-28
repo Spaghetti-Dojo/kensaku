@@ -1,26 +1,33 @@
 {
   "compilerOptions": {
+    "alwaysStrict": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "useUnknownInCatchVariables": true,
     "resolveJsonModule": true,
     "sourceMap": true,
     "jsx": "react",
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "alwaysStrict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@types": [
-        "./sources/js/src/@types"
-      ],
       "@entities-search": [
         "./sources/js/src"
       ],
     },
   },
   "include": [
-    "./sources/js/**/*",
-    "./tests/js/**/*"
+    "sources/js/**/*",
+    "tests/js/**/*"
   ],
   "exclude": [
     "node_modules"
