@@ -6,6 +6,9 @@
   "main": "./sources/js/src/index.ts",
   "types": "./sources/js/src/@types/index.d.ts",
   "license": "GPL-2.0-or-later",
+  "engines": {
+    "node": "16"
+  },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
     "@jest/globals": "^29.4.3",
