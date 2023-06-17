@@ -1,9 +1,11 @@
 import { PostTypesSelect } from '../../../../sources/js/src/components/post-types-select';
 import { EntitiesSearch } from '@entities-search-types';
 import { faker } from '@faker-js/faker';
-import { describe, it, expect } from '@jest/globals';
+import { describe, jest, it, expect } from '@jest/globals';
 import { render } from '@testing-library/react';
 import React from 'react';
+
+jest.mock('react-select', () => () => <div className="react-select" />);
 
 describe('Post Types Select Component', () => {
 	it('render the select to choose post types from', () => {
