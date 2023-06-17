@@ -20,9 +20,12 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
+      "@entities-search-types": [
+        "./sources/js/src/@types"
+      ],
       "@entities-search": [
         "./sources/js/src"
-      ],
+      ]
     },
   },
   "include": [
