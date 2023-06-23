@@ -1,4 +1,5 @@
 import { EntitiesSearch } from '@entities-search-types';
+
 import { useSelect } from '@wordpress/data';
 
 type Selectors = {

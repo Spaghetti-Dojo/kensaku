@@ -1,8 +1,11 @@
-import { useQueryViewablePostTypes } from '../../../../sources/js/src/hooks/use-query-viewable-post-types';
-import { describe, it, jest, expect } from '@jest/globals';
 import { fromPartial } from '@total-typescript/shoehorn';
+
+import { describe, it, jest, expect } from '@jest/globals';
+
 import { BaseEntityRecords } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
+
+import { useQueryViewablePostTypes } from '../../../../sources/js/src/hooks/use-query-viewable-post-types';
 
 jest.mock('@wordpress/data', () => {
 	return {

@@ -1,8 +1,12 @@
-import { convertPostTypesToControlOptions } from '../../../../sources/js/src/utils/convert-post-types-to-control-options';
 import { EntitiesSearch } from '@entities-search-types';
-import { faker } from '@faker-js/faker';
-import { describe, it, expect } from '@jest/globals';
+
 import { fromPartial } from '@total-typescript/shoehorn';
+
+import { describe, it, expect } from '@jest/globals';
+
+import { faker } from '@faker-js/faker';
+
+import { convertPostTypesToControlOptions } from '../../../../sources/js/src/utils/convert-post-types-to-control-options';
 
 describe('Convert Post Types To Control Options', () => {
 	it('convert post types to control options', () => {
@@ -25,5 +29,9 @@ describe('Convert Post Types To Control Options', () => {
 					0
 			).toEqual(true);
 		}
+	});
+
+	it('returns empty list if post types are empty', () => {
+		expect(convertPostTypesToControlOptions([])).toEqual([]);
 	});
 });
