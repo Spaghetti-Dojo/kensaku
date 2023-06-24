@@ -14,8 +14,7 @@ describe('Convert Post Types To Control Options', () => {
 
 		for (let count = 0; count <= 10; ++count) {
 			postTypes.push(
-				fromPartial<EntitiesSearch.EditablePostType>({
-					viewable: true,
+				fromPartial<EntitiesSearch.PostType<'view'>>({
 					slug: faker.word.noun(),
 					name: faker.random.word(),
 				})
