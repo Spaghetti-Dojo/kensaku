@@ -5,7 +5,7 @@ import { describe, it, jest, expect } from '@jest/globals';
 import { BaseEntityRecords } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 
-import { useQueryViewablePostTypes } from '../../../../sources/js/src/hooks/use-query-viewable-post-types';
+import { useQueryEditableViewablePostTypes } from '../../../../sources/js/src/hooks/use-query-editable-viewable-post-types';
 
 jest.mock('@wordpress/data', () => {
 	return {
@@ -30,7 +30,7 @@ describe('Post Types Query', () => {
 			},
 		});
 
-		const viewablePostTypes = useQueryViewablePostTypes();
+		const viewablePostTypes = useQueryEditableViewablePostTypes();
 
 		expect(viewablePostTypes?.length).toEqual(1);
 		expect(viewablePostTypes?.[0]?.viewable).toEqual(true);
@@ -41,7 +41,7 @@ describe('Post Types Query', () => {
 			getPostTypes: () => null,
 		});
 
-		const viewablePostTypes = useQueryViewablePostTypes();
+		const viewablePostTypes = useQueryEditableViewablePostTypes();
 		expect(viewablePostTypes).toEqual(null);
 	});
 });
