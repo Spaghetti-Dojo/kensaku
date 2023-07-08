@@ -1,14 +1,13 @@
-import { BaseEntityRecords } from '@wordpress/core-data';
+import type { Set } from 'immutable';
+
+import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
 export namespace EntitiesSearch {
-	export type PostType<C> = BaseEntityRecords.Type<C>;
+	export type PostType<C extends Context = 'view'> =
+		BaseEntityRecords.Type<C>;
 
-	export type EditablePostType = PostType<'edit'>;
-
-	export type EditableViewablePostType = {
-		[K in keyof EditablePostType]: K extends 'viewable'
-			? true
-			: EditablePostType[K];
+	export type ViewablePostType = {
+		[K in keyof PostType]: K extends 'viewable' ? true : PostType[K];
 	};
 
 	export type ControlOption<V extends any> = Readonly<{
@@ -31,6 +30,6 @@ export namespace EntitiesSearch {
 	 * Components
 	 */
 	export interface PostTypeSelect {
-		readonly options: ControlOption<string>[];
+		readonly options: Set<ControlOption<string>>;
 	}
 }

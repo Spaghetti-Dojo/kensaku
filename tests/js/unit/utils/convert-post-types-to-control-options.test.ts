@@ -1,6 +1,7 @@
 import { EntitiesSearch } from '@entities-search-types';
 
 import { fromPartial } from '@total-typescript/shoehorn';
+import { Set } from 'immutable';
 
 import { describe, it, expect } from '@jest/globals';
 
@@ -10,11 +11,11 @@ import { convertPostTypesToControlOptions } from '../../../../sources/js/src/uti
 
 describe('Convert Post Types To Control Options', () => {
 	it('convert post types to control options', () => {
-		const postTypes = [];
+		const postTypes = Set<EntitiesSearch.PostType>([]);
 
 		for (let count = 0; count <= 10; ++count) {
-			postTypes.push(
-				fromPartial<EntitiesSearch.PostType<'view'>>({
+			postTypes.add(
+				fromPartial<EntitiesSearch.PostType>({
 					slug: faker.word.noun(),
 					name: faker.random.word(),
 				})
@@ -24,13 +25,14 @@ describe('Convert Post Types To Control Options', () => {
 		const options = convertPostTypesToControlOptions(postTypes);
 		for (const postType of postTypes) {
 			expect(
-				options.findIndex((option) => option.value === postType.slug) >=
-					0
+				options.includes({ label: postType.name, value: postType.slug })
 			).toEqual(true);
 		}
 	});
 
 	it('returns empty list if post types are empty', () => {
-		expect(convertPostTypesToControlOptions([])).toEqual([]);
+		expect(convertPostTypesToControlOptions(Set([])).isEmpty()).toEqual(
+			true
+		);
 	});
 });

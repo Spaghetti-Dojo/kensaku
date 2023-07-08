@@ -7,5 +7,5 @@ import Select from 'react-select';
 export function PostTypesSelect(
 	props: EntitiesSearch.PostTypeSelect
 ): JSX.Element | null {
-	return <Select options={props.options} />;
+	return <Select options={props.options.toArray()} />;
 }

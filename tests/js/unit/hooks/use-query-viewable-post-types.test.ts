@@ -1,11 +1,8 @@
-import { fromPartial } from '@total-typescript/shoehorn';
-
+import { useQueryViewablePostTypes } from '../../../../sources/js/src/hooks/use-query-viewable-post-types';
 import { describe, it, jest, expect } from '@jest/globals';
-
+import { fromPartial } from '@total-typescript/shoehorn';
 import { BaseEntityRecords } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-
-import { useQueryEditableViewablePostTypes } from '../../../../sources/js/src/hooks/use-query-editable-viewable-post-types';
 
 jest.mock('@wordpress/data', () => {
 	return {
@@ -30,10 +27,11 @@ describe('Post Types Query', () => {
 			},
 		});
 
-		const viewablePostTypes = useQueryEditableViewablePostTypes();
-
-		expect(viewablePostTypes?.length).toEqual(1);
-		expect(viewablePostTypes?.[0]?.viewable).toEqual(true);
+		const viewablePostTypes = useQueryViewablePostTypes();
+		expect(viewablePostTypes?.size).toEqual(1);
+		for (const viewablePostType of viewablePostTypes?.values() ?? []) {
+			expect(viewablePostType?.viewable).toEqual(true);
+		}
 	});
 
 	it('returns null while resolving the post types', () => {
@@ -41,7 +39,7 @@ describe('Post Types Query', () => {
 			getPostTypes: () => null,
 		});
 
-		const viewablePostTypes = useQueryEditableViewablePostTypes();
+		const viewablePostTypes = useQueryViewablePostTypes();
 		expect(viewablePostTypes).toEqual(null);
 	});
 });

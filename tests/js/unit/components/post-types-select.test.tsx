@@ -1,5 +1,6 @@
 import { EntitiesSearch } from '@entities-search-types';
 
+import { Set } from 'immutable';
 import React from 'react';
 
 import { describe, jest, it, expect } from '@jest/globals';
@@ -14,10 +15,10 @@ jest.mock('react-select', () => () => <div className="react-select" />);
 
 describe('Post Types Select Component', () => {
 	it('render the select to choose post types from', () => {
-		const options: EntitiesSearch.PostTypeSelect['options'] = [];
+		let options = Set<EntitiesSearch.ControlOption<string>>([]);
 
 		for (let count = 0; count <= 10; ++count) {
-			options.push({
+			options = options.add({
 				label: faker.random.word(),
 				value: faker.word.noun(),
 			});
