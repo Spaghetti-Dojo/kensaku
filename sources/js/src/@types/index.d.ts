@@ -3,25 +3,29 @@ import type { Set } from 'immutable';
 import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
 export namespace EntitiesSearch {
+	export const enum ResolveStatus {
+		ERROR = 'ERROR',
+		SUCCESS = 'SUCCESS',
+		RESOLVING = 'RESOLVING',
+	}
+
 	export type PostType<C extends Context = 'view'> =
 		BaseEntityRecords.Type<C>;
 
-	export type ViewablePostType = {
-		[K in keyof PostType]: K extends 'viewable' ? true : PostType[K];
-	};
+	export type ViewablePostType = Readonly<{
+		[K in keyof PostType<'edit'>]: K extends 'viewable'
+			? true
+			: PostType<'edit'>[K];
+	}>;
 
 	export type ControlOption<V extends any> = Readonly<{
 		value: V;
 		label: string;
 	}>;
 
-	export type EntitiesRecords<RecordType> = {
-		records: RecordType[] | null;
-	} & ResolveStatus;
-
-	export type ResolveStatus = Readonly<{
+	export type EntitiesRecords<Entity> = Readonly<{
+		records(): Set<Entity>;
 		isResolving(): boolean;
-		isIdle(): boolean;
 		errored(): boolean;
 		succeed(): boolean;
 	}>;

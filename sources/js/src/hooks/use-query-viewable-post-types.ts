@@ -1,26 +1,22 @@
 import { EntitiesSearch } from '@entities-search-types';
 
-import { Set } from 'immutable';
+import { useEntityRecords } from './use-entity-records';
 
-import { useSelect } from '@wordpress/data';
-
-type Selectors = {
-	getPostTypes(): EntitiesSearch.PostType[] | null;
-};
-
-export function useQueryViewablePostTypes(): Set<EntitiesSearch.ViewablePostType> | null {
-	const coreSelectors = useSelect(
-		(select: (store: string) => Selectors) => select('core'),
-		[]
+// TODO `useQueryViewablePostTypes` require more unit tests
+export function useQueryViewablePostTypes(): EntitiesSearch.EntitiesRecords<EntitiesSearch.ViewablePostType> {
+	const entitiesRecords = useEntityRecords<EntitiesSearch.PostType<'edit'>>(
+		'root',
+		'postTypes'
 	);
-	const postTypes = coreSelectors.getPostTypes();
 
-	if (postTypes === null) {
-		return null;
-	}
+	const viewablePostTypes = entitiesRecords
+		.records()
+		.filter((postType) => postType.viewable);
 
-	const viewablePostTypes: EntitiesSearch.ViewablePostType[] =
-		postTypes.filter((postType) => postType.viewable);
-
-	return Set(viewablePostTypes);
+	// TODO Need to convert PostType to ViewablePostType
+	return {
+		...entitiesRecords,
+		// @ts-ignore
+		records: () => viewablePostTypes,
+	};
 }

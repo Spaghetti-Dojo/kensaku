@@ -1,32 +1,30 @@
 import { EntitiesSearch } from '@entities-search-types';
 
+import { Set } from 'immutable';
+
 import { useEntityRecords as useCoreEntityRecords } from '@wordpress/core-data';
 
-// TODO Return Immutable Entities Records
-export function useEntityRecords<RecordType>(
+// TODO `useEntityRecords` needs tests
+export function useEntityRecords<Entity>(
 	kind: string,
 	name: string,
 	queryArgs: Record<string, unknown> = {}
-): EntitiesSearch.EntitiesRecords<RecordType> {
-	const entitiesRecords = useCoreEntityRecords<RecordType>(
-		kind,
-		name,
-		queryArgs
-	);
+): EntitiesSearch.EntitiesRecords<Entity> {
+	const entities = useCoreEntityRecords<Entity>(kind, name, queryArgs);
+	const status = entities.status as any as EntitiesSearch.ResolveStatus;
 
-	const makeStatusCallback = (
-		entitiesRecords: ReturnType<typeof useCoreEntityRecords<RecordType>>,
-		status: string
-	) => entitiesRecords?.hasResolved && entitiesRecords?.status === status;
-
-	return {
-		records: entitiesRecords?.records ?? null,
+	return Object.freeze({
+		records: () => Set(entities.records ?? []),
 		isResolving: () =>
-			(entitiesRecords?.isResolving && !entitiesRecords?.hasResolved) ??
-			false,
-		isIdle: () =>
-			entitiesRecords?.isResolving && entitiesRecords?.status === 'IDLE',
-		errored: () => makeStatusCallback(entitiesRecords, 'ERROR'),
-		succeed: () => makeStatusCallback(entitiesRecords, 'SUCCESS'),
-	};
+			entities.isResolving &&
+			!entities.hasResolved &&
+			status === EntitiesSearch.ResolveStatus.RESOLVING,
+		errored: () => makeStatusCallback(entities, 'ERROR'),
+		succeed: () => makeStatusCallback(entities, 'SUCCESS'),
+	});
 }
+
+const makeStatusCallback = <Entity>(
+	entities: ReturnType<typeof useCoreEntityRecords<Entity>>,
+	status: string
+) => entities?.hasResolved && entities?.status === status;
