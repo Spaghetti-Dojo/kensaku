@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "A WordPress package to search Entities including Rest API Endpoints and React Components",
   "author": "guido scialfa <dev@guidoscialfa.com>",
-  "main": "./sources/js/src/index.ts",
-  "types": "./sources/js/src/@types/index.d.ts",
+  "main": "./build/index.js",
   "license": "GPL-2.0-or-later",
   "engines": {
     "node": "16"

@@ -1,6 +1,6 @@
-import { EntitiesSearch } from '@entities-search-types';
-
 import { Set } from 'immutable';
+
+import EntitiesSearch from '../@types';
 
 export function convertPostTypesToControlOptions(
 	postTypes: Set<EntitiesSearch.PostType>

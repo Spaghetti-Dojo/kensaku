@@ -1,26 +1,23 @@
-const path = require('path');
 const baseConfiguration = require('@wordpress/scripts/config/webpack.config');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
 module.exports = {
 	...baseConfiguration,
+	entry: './sources/js/src/index.ts',
 	plugins: [
 		...baseConfiguration.plugins.filter(
 			(plugin) =>
 				plugin.constructor.name !== 'DependencyExtractionWebpackPlugin'
 		),
 		new DependencyExtractionWebpackPlugin({
-			outputFormat: 'json',
+			outputFormat: 'php',
 		}),
 	],
-	resolve: {
-		extensions: ['.ts', '.tsx'],
-		alias: {
-			'@entities-search': path.resolve(__dirname, 'sources/js/src'),
-			'@entities-search-types': path.resolve(
-				__dirname,
-				'sources/js/src/@types'
-			),
+	output: {
+		...baseConfiguration.output,
+		library: {
+			name: 'entitiesSearch',
+			type: 'window',
 		},
 	},
 };

@@ -2,7 +2,10 @@ import type { Set } from 'immutable';
 
 import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
-export namespace EntitiesSearch {
+export = EntitiesSearch;
+export as namespace EntitiesSearch;
+
+declare namespace EntitiesSearch {
 	export const enum ResolveStatus {
 		ERROR = 'ERROR',
 		SUCCESS = 'SUCCESS',

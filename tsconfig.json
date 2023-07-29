@@ -21,14 +21,6 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "moduleResolution": "NodeNext",
-    "paths": {
-      "@entities-search-types": [
-        "./sources/js/src/@types"
-      ],
-      "@entities-search": [
-        "./sources/js/src"
-      ]
-    },
   },
   "include": [
     "sources/js/**/*",

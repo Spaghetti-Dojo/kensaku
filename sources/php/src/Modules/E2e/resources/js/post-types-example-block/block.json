@@ -1,0 +1,8 @@
+{
+  "apiVersion": 3,
+  "title": "Post Types Example Block",
+  "name": "widoz-entities-search/post-types-example-block",
+  "category": "uncategorized",
+  "icon": "wordpress",
+  "editorScript": "widoz-entities-search-e2e-post-types-example-block"
+}

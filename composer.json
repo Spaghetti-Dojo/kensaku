@@ -3,6 +3,7 @@
   "description": "A WordPress package to search Entities including Rest API Endpoints and React Components",
   "type": "library",
   "license": "GPL-v2-or-later",
+  "version": "1.0.0",
   "autoload": {
     "psr-4": {
       "Widoz\\EntitiesSearch\\": "sources/php/src/"

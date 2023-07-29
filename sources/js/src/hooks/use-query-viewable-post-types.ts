@@ -1,5 +1,6 @@
-import { EntitiesSearch } from '@entities-search-types';
+import { Set } from 'immutable';
 
+import EntitiesSearch from '../@types';
 import { useEntityRecords } from './use-entity-records';
 
 // TODO `useQueryViewablePostTypes` require more unit tests
@@ -16,7 +17,8 @@ export function useQueryViewablePostTypes(): EntitiesSearch.EntitiesRecords<Enti
 	// TODO Need to convert PostType to ViewablePostType
 	return {
 		...entitiesRecords,
+		// TODO Find a way to remove the ignore
 		// @ts-ignore
-		records: () => viewablePostTypes,
+		records: () => Set(viewablePostTypes),
 	};
 }

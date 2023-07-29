@@ -1,5 +1,3 @@
-import { EntitiesSearch } from '@entities-search-types';
-
 import { Set } from 'immutable';
 import React from 'react';
 
@@ -9,6 +7,7 @@ import { render } from '@testing-library/react';
 
 import { faker } from '@faker-js/faker';
 
+import EntitiesSearch from '../../../../sources/js/src/@types';
 import { PostTypesSelect } from '../../../../sources/js/src/components/post-types-select';
 
 jest.mock('react-select', () => () => <div className="react-select" />);

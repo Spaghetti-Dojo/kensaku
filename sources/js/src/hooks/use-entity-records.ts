@@ -1,8 +1,8 @@
-import { EntitiesSearch } from '@entities-search-types';
-
 import { Set } from 'immutable';
 
 import { useEntityRecords as useCoreEntityRecords } from '@wordpress/core-data';
+
+import EntitiesSearch from '../@types';
 
 // TODO `useEntityRecords` needs tests
 export function useEntityRecords<Entity>(
