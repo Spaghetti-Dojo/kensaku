@@ -1,7 +1,6 @@
 name: JS Quality Assurance
 on:
   pull_request:
-    types: [ assigned, opened, reopened, ready_for_review, synchronize ]
   push:
     branches:
       - main
