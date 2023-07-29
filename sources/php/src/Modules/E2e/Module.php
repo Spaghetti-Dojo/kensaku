@@ -23,13 +23,13 @@ class Module implements Modularity\Module\ExecutableModule
     {
     }
 
-    public function run(Container\ContainerInterface $c): bool
+    public function run(Container\ContainerInterface $container): bool
     {
         // TODO Add WpContext to avoid run if not the right context.
 
-        \add_action('init', function () use ($c) {
+        \add_action('init', static function () use ($container) {
             /** @var Modularity\Properties\Properties $properties */
-            $properties = $c->get(Modularity\Package::PROPERTIES);
+            $properties = $container->get(Modularity\Package::PROPERTIES);
 
             self::postTypesExample($properties);
         });
@@ -45,7 +45,8 @@ class Module implements Modularity\Module\ExecutableModule
             'widoz-entities-search-e2e-post-types-example-block',
             "{$baseUrl}/sources/php/src/Modules/E2e/resources/js/post-types-example-block/index.js",
             ['widoz-entities-search'],
-            '0.0.0'
+            '0.0.0',
+            true,
         );
 
         \register_block_type_from_metadata(

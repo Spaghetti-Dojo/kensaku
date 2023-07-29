@@ -23,13 +23,13 @@ class Module implements Modularity\Module\ExecutableModule
     {
     }
 
-    public function run(Container\ContainerInterface $c): bool
+    public function run(Container\ContainerInterface $container): bool
     {
         // TODO Add WpContext to avoid run if not the right context.
 
-        \add_action('init', function () use ($c) {
+        \add_action('init', static function () use ($container) {
             /** @var Modularity\Properties\Properties $properties */
-            $properties = $c->get(Modularity\Package::PROPERTIES);
+            $properties = $container->get(Modularity\Package::PROPERTIES);
 
             $baseDir = \untrailingslashit($properties->basePath());
             $baseUrl = \untrailingslashit($properties->baseUrl());
@@ -41,7 +41,8 @@ class Module implements Modularity\Module\ExecutableModule
                 'widoz-entities-search',
                 "{$baseUrl}/build/main.js",
                 $asset['dependencies'],
-                $version
+                $version,
+                true
             );
         });
 

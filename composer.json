@@ -21,15 +21,21 @@
   },
   "require-dev": {
     "roots/wordpress": "^6.2",
-    "inpsyde/modularity": "^1.5"
+    "inpsyde/modularity": "^1.5",
+    "inpsyde/php-coding-standards": "^1.0"
   },
   "config": {
     "platform": {
       "php": "8.0"
     },
     "allow-plugins": {
-      "roots/wordpress-core-installer": true
+      "roots/wordpress-core-installer": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
+  },
+  "scripts": {
+    "cs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+    "cs:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
   },
   "extra": {
     "wordpress-install-dir": "vendor/wordpress/wordpress",
