@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - feature/post-types-select
+
     paths:
       - '**/workflows/*js*'
       - '**.js'
@@ -24,12 +24,6 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
+          cache: 'yarn'
           node-version: '16'
-
-      - name: Install
-        run: yarn install
-
-      - name: QA
-        uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: yarn lint:js
+        run: yarn install && yarn lint:js
