@@ -1,7 +1,7 @@
 const baseConfiguration = require('@wordpress/scripts/config/webpack.config');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const path = require('path');
-
+console.log('baseConfiguration', baseConfiguration.devtool);
 module.exports = {
 	...baseConfiguration,
 	entry: './sources/js/src/index.ts',

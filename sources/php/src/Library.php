@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Widoz\EntitiesSearch;
 
 use Inpsyde\Modularity;
-use Widoz\EntitiesSearch\Modules;
 
 class Library
 {

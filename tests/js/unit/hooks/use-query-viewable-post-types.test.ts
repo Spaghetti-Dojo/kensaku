@@ -1,9 +1,9 @@
 import { fromPartial } from '@total-typescript/shoehorn';
+import EntitiesSearch from '@types';
 import { Set } from 'immutable';
 
 import { describe, it, jest, expect } from '@jest/globals';
 
-import EntitiesSearch from '../../../../sources/js/src/@types';
 import { useEntityRecords } from '../../../../sources/js/src/hooks/use-entity-records';
 import { useQueryViewablePostTypes } from '../../../../sources/js/src/hooks/use-query-viewable-post-types';
 

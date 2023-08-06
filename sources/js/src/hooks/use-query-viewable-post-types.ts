@@ -7,7 +7,7 @@ import { useEntityRecords } from './use-entity-records';
 export function useQueryViewablePostTypes(): EntitiesSearch.EntitiesRecords<EntitiesSearch.ViewablePostType> {
 	const entitiesRecords = useEntityRecords<EntitiesSearch.PostType<'edit'>>(
 		'root',
-		'postTypes'
+		'postType'
 	);
 
 	const viewablePostTypes = entitiesRecords

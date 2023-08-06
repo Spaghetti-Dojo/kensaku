@@ -6,7 +6,11 @@ window.addEventListener('DOMContentLoaded', () => {
 	const { useBlockProps } = wp.blockEditor;
 	const { Spinner } = wp.components;
 
-	const { PostTypesSelect, useQueryViewablePostTypes } = entitiesSearch;
+	const {
+		PostTypesSelect,
+		useQueryViewablePostTypes,
+		convertPostTypesToControlOptions,
+	} = entitiesSearch;
 
 	// TODO Check why the object form does not work.
 	registerBlockType('widoz-entities-search/post-types-example-block', {
@@ -29,7 +33,11 @@ window.addEventListener('DOMContentLoaded', () => {
 			return createElement(
 				'div',
 				blockProps,
-				createElement(PostTypesSelect, { options: options.records() })
+				createElement(PostTypesSelect, {
+					options: convertPostTypesToControlOptions(
+						options.records()
+					),
+				})
 			);
 		},
 		save: () => null,
