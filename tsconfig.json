@@ -21,8 +21,12 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "moduleResolution": "NodeNext",
+    "paths": {
+      "@types": ["./@types/index.d.ts"],
+    }
   },
   "include": [
+    "@types",
     "sources/js/**/*",
     "tests/js/**/*"
   ],

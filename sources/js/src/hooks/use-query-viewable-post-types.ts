@@ -1,6 +1,6 @@
+import EntitiesSearch from '@types';
 import { Set } from 'immutable';
 
-import EntitiesSearch from '../@types';
 import { useEntityRecords } from './use-entity-records';
 
 // TODO `useQueryViewablePostTypes` require more unit tests

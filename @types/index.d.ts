@@ -2,18 +2,16 @@ import type { Set } from 'immutable';
 
 import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
-export = EntitiesSearch;
-export as namespace EntitiesSearch;
+export default EntitiesSearch;
 
 declare namespace EntitiesSearch {
-	export const enum ResolveStatus {
+	const enum ResolveStatus {
 		ERROR = 'ERROR',
 		SUCCESS = 'SUCCESS',
 		RESOLVING = 'RESOLVING',
 	}
 
-	export type PostType<C extends Context = 'view'> =
-		BaseEntityRecords.Type<C>;
+	type PostType<C extends Context = 'view'> = BaseEntityRecords.Type<C>;
 
 	export type ViewablePostType = Readonly<{
 		[K in keyof PostType<'edit'>]: K extends 'viewable'
@@ -21,12 +19,12 @@ declare namespace EntitiesSearch {
 			: PostType<'edit'>[K];
 	}>;
 
-	export type ControlOption<V extends any> = Readonly<{
+	type ControlOption<V extends any> = Readonly<{
 		value: V;
 		label: string;
 	}>;
 
-	export type EntitiesRecords<Entity> = Readonly<{
+	type EntitiesRecords<Entity> = Readonly<{
 		records(): Set<Entity>;
 		isResolving(): boolean;
 		errored(): boolean;
@@ -36,7 +34,7 @@ declare namespace EntitiesSearch {
 	/**
 	 * Components
 	 */
-	export interface PostTypeSelect {
+	interface PostTypeSelect {
 		readonly options: Set<ControlOption<string>>;
 	}
 }
