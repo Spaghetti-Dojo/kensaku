@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		category: 'uncategorized',
 		icon: 'wordpress',
 		editorScript: 'widoz-entities-search-e2e-post-types-example-block',
-		edit: function Edit() {
+		edit: function Edit(props) {
 			const blockProps = useBlockProps({
 				className: 'widoz-entities-search-e2e-post-types-example-block',
 			});
@@ -37,6 +37,8 @@ window.addEventListener('DOMContentLoaded', () => {
 					options: convertPostTypesToControlOptions(
 						options.records()
 					),
+					value: props.attributes.postType,
+					onChange: (postType) => props.setAttributes({ postType }),
 				})
 			);
 		},

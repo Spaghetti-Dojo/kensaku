@@ -1,10 +1,32 @@
 import EntitiesSearch from '@types';
 import React, { JSX } from 'react';
 import Select from 'react-select';
+import type { Props } from 'react-select';
 
-// TODO Make the Component able to work with different libraries (probably the best would be adding a context Provider).
+type SelectPropsWithoutOptions = Omit<
+	Props<
+		EntitiesSearch.ControlOption<EntitiesSearch.PostTypeSelect['value']>,
+		false
+	>,
+	keyof EntitiesSearch.PostTypeSelect | 'isMulti' | 'option'
+>;
+
+interface PostTypeSelectProps
+	extends EntitiesSearch.PostTypeSelect,
+		SelectPropsWithoutOptions {}
+
 export function PostTypesSelect(
-	props: EntitiesSearch.PostTypeSelect
+	props: PostTypeSelectProps
 ): JSX.Element | null {
-	return <Select options={props.options.toArray()} />;
+	const value = props.options.find((option) => option.value === props.value);
+
+	return (
+		<Select
+			{...props}
+			isMulti={false}
+			value={value ?? props.defaultValue ?? props.options.first() ?? null}
+			options={props.options.toArray()}
+			onChange={(opt) => props.onChange(opt?.value ?? null)}
+		/>
+	);
 }

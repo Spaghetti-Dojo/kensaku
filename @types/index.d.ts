@@ -5,7 +5,7 @@ import { BaseEntityRecords, Context } from '@wordpress/core-data';
 export default EntitiesSearch;
 
 declare namespace EntitiesSearch {
-	const enum ResolveStatus {
+	enum ResolveStatus {
 		ERROR = 'ERROR',
 		SUCCESS = 'SUCCESS',
 		RESOLVING = 'RESOLVING',
@@ -13,7 +13,7 @@ declare namespace EntitiesSearch {
 
 	type PostType<C extends Context = 'view'> = BaseEntityRecords.Type<C>;
 
-	export type ViewablePostType = Readonly<{
+	type ViewablePostType = Readonly<{
 		[K in keyof PostType<'edit'>]: K extends 'viewable'
 			? true
 			: PostType<'edit'>[K];
@@ -35,6 +35,8 @@ declare namespace EntitiesSearch {
 	 * Components
 	 */
 	interface PostTypeSelect {
-		readonly options: Set<ControlOption<string>>;
+		readonly value: PostType['slug'];
+		readonly options: Set<ControlOption<PostTypeSelect['value']>>;
+		readonly onChange: (value: PostTypeSelect['value'] | null) => void;
 	}
 }

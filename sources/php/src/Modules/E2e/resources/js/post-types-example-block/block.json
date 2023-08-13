@@ -4,5 +4,11 @@
   "name": "widoz-entities-search/post-types-example-block",
   "category": "uncategorized",
   "icon": "wordpress",
-  "editorScript": "widoz-entities-search-e2e-post-types-example-block"
+  "editorScript": "widoz-entities-search-e2e-post-types-example-block",
+  "attributes": {
+    "postType": {
+      "type": "string",
+      "default": "post"
+    }
+  }
 }
