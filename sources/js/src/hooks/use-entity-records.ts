@@ -3,7 +3,16 @@ import { Set } from 'immutable';
 
 import { useEntityRecords as useCoreEntityRecords } from '@wordpress/core-data';
 
-// TODO `useEntityRecords` needs tests
+/**
+ * The hook will return an empty collection while resolving.
+ * This is to guarantee a better flow in the data manipulation, therefore do not count on the data returned by the
+ * `records()` as an indicator of the hook status.
+ *
+ * @internal
+ * @param kind The kind of entity to fetch. E.g. 'root', 'postType', 'taxonomy', etc.
+ * @param name The name of the entity to fetch. E.g. 'post', 'page', 'category', etc.
+ * @param queryArgs The query args to pass to the entity fetch. E.g. { per_page: 100 }
+ */
 export function useEntityRecords<Entity>(
 	kind: string,
 	name: string,

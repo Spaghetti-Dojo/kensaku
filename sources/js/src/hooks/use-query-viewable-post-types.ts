@@ -3,7 +3,6 @@ import { Set } from 'immutable';
 
 import { useEntityRecords } from './use-entity-records';
 
-// TODO `useQueryViewablePostTypes` require more unit tests
 export function useQueryViewablePostTypes(): EntitiesSearch.EntitiesRecords<EntitiesSearch.ViewablePostType> {
 	const entitiesRecords = useEntityRecords<EntitiesSearch.PostType<'edit'>>(
 		'root',
