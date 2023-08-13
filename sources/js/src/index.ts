@@ -1,4 +1,4 @@
-export * from './components/post-types-select';
+export * from './components/post-type-select';
 
 export * from './hooks/use-entity-records';
 export * from './hooks/use-query-viewable-post-types';

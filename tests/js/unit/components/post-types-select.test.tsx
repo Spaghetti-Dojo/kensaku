@@ -8,7 +8,7 @@ import { render } from '@testing-library/react';
 
 import { faker } from '@faker-js/faker';
 
-import { PostTypesSelect } from '../../../../sources/js/src/components/post-types-select';
+import { PostTypeSelect } from '../../../../sources/js/src/components/post-type-select';
 
 jest.mock('react-select', () => () => <div className="react-select" />);
 
@@ -23,7 +23,7 @@ describe('Post Types Select Component', () => {
 			});
 		}
 
-		const { asFragment } = render(<PostTypesSelect options={options} />);
+		const { asFragment } = render(<PostTypeSelect options={options} />);
 
 		expect(asFragment()).toMatchSnapshot();
 	});

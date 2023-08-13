@@ -15,9 +15,7 @@ interface PostTypeSelectProps
 	extends EntitiesSearch.PostTypeSelect,
 		SelectPropsWithoutOptions {}
 
-export function PostTypesSelect(
-	props: PostTypeSelectProps
-): JSX.Element | null {
+export function PostTypeSelect(props: PostTypeSelectProps): JSX.Element | null {
 	const value = props.options.find((option) => option.value === props.value);
 
 	return (
