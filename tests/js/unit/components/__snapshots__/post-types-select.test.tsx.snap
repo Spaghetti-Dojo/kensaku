@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Post Types Select Component render the select to choose post types from 1`] = `
-<DocumentFragment>
-  <div
-    class="react-select"
-  />
-</DocumentFragment>
-`;
