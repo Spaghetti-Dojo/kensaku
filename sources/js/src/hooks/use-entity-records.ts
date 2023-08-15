@@ -3,6 +3,12 @@ import { Set } from 'immutable';
 
 import { useEntityRecords as useCoreEntityRecords } from '@wordpress/core-data';
 
+enum ResolveStatus {
+	ERROR = 'ERROR',
+	SUCCESS = 'SUCCESS',
+	RESOLVING = 'RESOLVING',
+}
+
 /**
  * The hook will return an empty collection while resolving.
  * This is to guarantee a better flow in the data manipulation, therefore do not count on the data returned by the
@@ -19,14 +25,14 @@ export function useEntityRecords<Entity>(
 	queryArgs: Record<string, unknown> = {}
 ): EntitiesSearch.EntitiesRecords<Entity> {
 	const entities = useCoreEntityRecords<Entity>(kind, name, queryArgs);
-	const status = entities.status as any as EntitiesSearch.ResolveStatus;
+	const status = entities.status as any as ResolveStatus;
 
 	return Object.freeze({
 		records: () => Set(entities.records ?? []),
 		isResolving: () =>
 			entities.isResolving &&
 			!entities.hasResolved &&
-			status === EntitiesSearch.ResolveStatus.RESOLVING,
+			status === ResolveStatus.RESOLVING,
 		errored: () => makeStatusCallback(entities, 'ERROR'),
 		succeed: () => makeStatusCallback(entities, 'SUCCESS'),
 	});

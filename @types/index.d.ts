@@ -5,12 +5,6 @@ import { BaseEntityRecords, Context } from '@wordpress/core-data';
 export default EntitiesSearch;
 
 declare namespace EntitiesSearch {
-	enum ResolveStatus {
-		ERROR = 'ERROR',
-		SUCCESS = 'SUCCESS',
-		RESOLVING = 'RESOLVING',
-	}
-
 	type PostType<C extends Context = 'view'> = BaseEntityRecords.Type<C>;
 
 	type ViewablePostType = Readonly<{
