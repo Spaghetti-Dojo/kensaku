@@ -6,7 +6,8 @@ import { useEntityRecords } from './use-entity-records';
 /**
  * Hook to obtain the `viewable` post types only.
  * This is an api on top of `useEntityRecords` to facilitate the usage of the `viewable` post types.
- * @api
+ *
+ * @public
  */
 export function useQueryViewablePostTypes(): EntitiesSearch.EntitiesRecords<EntitiesSearch.ViewablePostType> {
 	const entitiesRecords = useEntityRecords<EntitiesSearch.PostType<'edit'>>(
