@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 	const { wp, entitiesSearch } = window;
 
 	const { createElement } = wp.element;
@@ -7,14 +7,14 @@ window.addEventListener('DOMContentLoaded', () => {
 	const { Spinner } = wp.components;
 
 	const {
-		PostTypesSelect,
+		PostTypeSelect,
 		useQueryViewablePostTypes,
 		convertPostTypesToControlOptions,
 	} = entitiesSearch;
 
 	// TODO Check why the object form does not work.
 	registerBlockType('widoz-entities-search/post-types-example-block', {
-		apiVersion: 3,
+		apiVersion: 2,
 		title: 'Post Types Example Block',
 		category: 'uncategorized',
 		icon: 'wordpress',
@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			return createElement(
 				'div',
 				blockProps,
-				createElement(PostTypesSelect, {
+				createElement(PostTypeSelect, {
 					options: convertPostTypesToControlOptions(
 						options.records()
 					),

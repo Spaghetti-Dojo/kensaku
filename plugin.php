@@ -33,7 +33,6 @@ function package(): Modularity\Package
     return $package;
 }
 
-
 \add_action(
     'plugins_loaded',
     fn() => package()
