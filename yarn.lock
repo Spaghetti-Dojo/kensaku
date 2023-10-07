@@ -2958,6 +2958,20 @@
     react "^18.2.0"
     react-dom "^18.2.0"
 
+"@wordpress/element@^5.12.0":
+  version "5.20.0"
+  resolved "https://registry.yarnpkg.com/@wordpress/element/-/element-5.20.0.tgz#424d62d6ffc7f879fb4bfd35bcb6572f9916cebf"
+  integrity sha512-EO2cXUTrACQJ0JG+nuQnnaKu/qJbnBPmTgy6HCfU90um1G3kdG/iHh+T1YCi/WqxW+6UrL7I8FbxPfcEJvvONA==
+  dependencies:
+    "@babel/runtime" "^7.16.0"
+    "@types/react" "^18.0.21"
+    "@types/react-dom" "^18.0.6"
+    "@wordpress/escape-html" "^2.43.0"
+    change-case "^4.1.2"
+    is-plain-object "^5.0.0"
+    react "^18.2.0"
+    react-dom "^18.2.0"
+
 "@wordpress/env@^5.9.0":
   version "5.16.0"
   resolved "https://registry.yarnpkg.com/@wordpress/env/-/env-5.16.0.tgz#ee809a11c98b685ebff16db7d9dfd7befbb7c29b"
@@ -2980,6 +2994,13 @@
   version "2.34.0"
   resolved "https://registry.yarnpkg.com/@wordpress/escape-html/-/escape-html-2.34.0.tgz#8be273b80d273981a21438ba601a2c75ec55c5df"
   integrity sha512-xVBtkAfQmOeXb76CQESJeChDq1EA73PCUCJNRxRyDhCIyHBYWp+DmtvhXfwwuHnf0haJhQY2iQNqt5eKZPjBdQ==
+  dependencies:
+    "@babel/runtime" "^7.16.0"
+
+"@wordpress/escape-html@^2.43.0":
+  version "2.43.0"
+  resolved "https://registry.yarnpkg.com/@wordpress/escape-html/-/escape-html-2.43.0.tgz#d6343766f10c22e425f6265111ee9b9b6fb8c716"
+  integrity sha512-+hLbsx4PXGnziUSS/7W9B47xgh2VUg11rSbe3Q3bTMCFWaYqk0cvAk5C74Re99Hiekct99HmpnmyVq+we8bkUQ==
   dependencies:
     "@babel/runtime" "^7.16.0"
 
@@ -9094,9 +9115,9 @@ postcss-value-parser@^4.1.0, postcss-value-parser@^4.2.0:
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
 postcss@^8.4.19, postcss@^8.4.21, postcss@^8.4.5:
-  version "8.4.24"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.24.tgz#f714dba9b2284be3cc07dbd2fc57ee4dc972d2df"
-  integrity sha512-M0RzbcI0sO/XJNucsGjvWU9ERWxb/ytp1w6dKtxTKgixdtQDq4rmx/g8W1hnaheq9jgwL/oyEdH5Bc4WwJKMqg==
+  version "8.4.31"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.31.tgz#92b451050a9f914da6755af352bdc0192508656d"
+  integrity sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==
   dependencies:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
