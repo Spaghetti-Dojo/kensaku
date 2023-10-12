@@ -17,6 +17,9 @@ class Library
     {
     }
 
+    /**
+     * @throws \Exception
+     */
     public function package(): Modularity\Package
     {
         $properties = Modularity\Properties\LibraryProperties::new(

@@ -31,7 +31,7 @@ describe('useEntityRecords', () => {
 			hasResolved: true,
 			isResolving: false,
 			// @ts-ignore
-			status: EntitiesSearch.ResolveStatus.SUCCESS,
+			status: 'SUCCESS',
 		});
 
 		const result = useEntityRecords<EntitiesSearch.PostType<'edit'>>(
@@ -58,7 +58,7 @@ describe('useEntityRecords', () => {
 			hasResolved: false,
 			isResolving: true,
 			// @ts-ignore
-			status: EntitiesSearch.ResolveStatus.RESOLVING,
+			status: 'RESOLVING',
 		});
 
 		const result = useEntityRecords<EntitiesSearch.PostType<'edit'>>(
@@ -81,7 +81,7 @@ describe('useEntityRecords', () => {
 			hasResolved: true,
 			isResolving: false,
 			// @ts-ignore
-			status: EntitiesSearch.ResolveStatus.ERROR,
+			status: 'ERROR',
 		});
 
 		const result = useEntityRecords<EntitiesSearch.PostType<'edit'>>(
@@ -103,7 +103,7 @@ describe('useEntityRecords', () => {
 			hasResolved: false,
 			isResolving: true,
 			// @ts-ignore
-			status: EntitiesSearch.ResolveStatus.RESOLVING,
+			status: 'RESOLVING',
 		});
 
 		const result = useEntityRecords<EntitiesSearch.PostType<'edit'>>(

@@ -44,6 +44,7 @@
     "wp-env": "wp-env",
     "build": "wp-scripts build --webpack-src-dir=./sources/js/src",
     "build:dev": "wp-scripts start --webpack--devtool=inline-source-map --webpack-src-dir=./sources/js/src",
+    "cs": "yarn prettier --check ./sources/js",
     "cs:fix": "wp-scripts format ./sources/js",
     "lint:js": "wp-scripts lint-js",
     "lint:js:fix": "wp-scripts lint-js --fix",

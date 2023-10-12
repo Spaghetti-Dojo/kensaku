@@ -17,13 +17,12 @@ export function useQueryViewablePostTypes(): EntitiesSearch.EntitiesRecords<Enti
 
 	const viewablePostTypes = entitiesRecords
 		.records()
-		.filter((postType) => postType.viewable);
+		.filter(
+			(postType) => postType.viewable
+		) as Set<EntitiesSearch.ViewablePostType>;
 
-	// TODO Need to convert PostType to ViewablePostType
 	return {
 		...entitiesRecords,
-		// TODO Find a way to remove the ignore
-		// @ts-ignore
 		records: () => Set(viewablePostTypes),
 	};
 }
