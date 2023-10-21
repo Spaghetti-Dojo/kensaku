@@ -1,7 +1,3 @@
-*.json
-*.scss
-*.css
-
 .psalm
 .github
 

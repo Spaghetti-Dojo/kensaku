@@ -1,46 +1,40 @@
 {
-  "name": "widoz/entities-search",
-  "description": "A WordPress package to search Entities including Rest API Endpoints and React Components",
-  "type": "library",
-  "license": "GPL-v2-or-later",
-  "version": "1.0.0",
-  "autoload": {
-    "psr-4": {
-      "Widoz\\EntitiesSearch\\": "sources/php/src/"
-    }
-  },
-  "authors": [
-    {
-      "name": "guido scialfa",
-      "email": "dev@guidoscialfa.com"
-    }
-  ],
-  "minimum-stability": "stable",
-  "require": {
-    "php": ">=8.0"
-  },
-  "require-dev": {
-    "roots/wordpress": "^6.2",
-    "inpsyde/modularity": "^1.5",
-    "inpsyde/php-coding-standards": "^1.0"
-  },
-  "config": {
-    "platform": {
-      "php": "8.0"
-    },
-    "allow-plugins": {
-      "roots/wordpress-core-installer": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true
-    }
-  },
-  "scripts": {
-    "cs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
-    "cs:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
-  },
-  "extra": {
-    "wordpress-install-dir": "vendor/wordpress/wordpress",
-    "installer-disable": [
-      "wordpress"
-    ]
-  }
+	"name": "widoz/entities-search",
+	"description": "A WordPress package to search Entities including Rest API Endpoints and React Components",
+	"type": "library",
+	"license": "GPL-v2-or-later",
+	"version": "1.0.0",
+	"autoload": {
+		"psr-4": {
+			"Widoz\\EntitiesSearch\\": "sources/php/src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "guido scialfa",
+			"email": "dev@guidoscialfa.com"
+		}
+	],
+	"minimum-stability": "stable",
+	"require": {
+		"php": ">=8.0"
+	},
+	"require-dev": {
+		"inpsyde/modularity": "^1.5",
+		"inpsyde/php-coding-standards": "^1.0",
+		"roots/wordpress-no-content": "^6.3"
+	},
+	"config": {
+		"platform": {
+			"php": "8.0"
+		},
+		"allow-plugins": {
+			"roots/wordpress-core-installer": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"cs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+		"cs:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
+	}
 }

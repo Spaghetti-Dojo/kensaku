@@ -1,2 +1,12 @@
 {
+	"php.suggest.basic": true,
+	"php.validate.enable": true,
+	"php.validate.executablePath": "/usr/bin/php",
+	"php.format.codeStyle": "Off",
+	"phpCodeSniffer.standardCustom": "./phpcs.xml",
+	"phpCodeSniffer.standard": "Custom",
+	"phpCodeSniffer.autoExecutable": true,
+	"[php]": {
+		"editor.defaultFormatter": "obliviousharmony.vscode-php-codesniffer"
+	}
 }
