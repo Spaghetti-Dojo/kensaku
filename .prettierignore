@@ -4,4 +4,4 @@
 ./coverage
 ./vendor
 ./node_modules
-./public
+./build

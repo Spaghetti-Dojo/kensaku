@@ -2,10 +2,10 @@ import EntitiesSearch from '@types';
 import React, { JSX } from 'react';
 import Select from 'react-select';
 
-export function PostTypeSelect<V>(
-	props: EntitiesSearch.PostTypeSelect<V>
+export function PostsSelect<V>(
+	props: EntitiesSearch.PostsSelect<V>
 ): JSX.Element | null {
-	const value = props.options.find((option) => option.value === props.value);
+	const value = props.options.find((option) => option.value === props.values);
 
 	return (
 		<Select

@@ -1,6 +1,12 @@
 import type { Set } from 'immutable';
+import React, { ComponentType } from 'react';
 
 import { BaseEntityRecords, Context } from '@wordpress/core-data';
+
+type ComponentStateAware<V> = {
+	value: Set<V>;
+	setValue(value: ComponentStateAware['value']): void;
+};
 
 export default EntitiesSearch;
 
@@ -28,9 +34,22 @@ declare namespace EntitiesSearch {
 	/**
 	 * Components
 	 */
-	interface PostTypeSelect {
-		readonly value: PostType['slug'];
-		readonly options: Set<ControlOption<PostTypeSelect['value']>>;
+	// TODO Check the ControlOption because it might not be a good idea to hide it inside the type.
+	interface PostTypeSelect<V> {
+		readonly value: ControlOption<V>;
+		readonly options: Set<PostTypeSelect['value']>;
 		readonly onChange: (value: PostTypeSelect['value'] | null) => void;
+	}
+
+	// TODO Check the ControlOption because it might not be a good idea to hide it inside the type.
+	interface PostsSelect<V> {
+		readonly values: Array<ControlOption<V>>;
+		readonly options: Set<ControlOption<V>>;
+		readonly onChange: (values: PostsSelect['value'] | null) => void;
+	}
+
+	interface PostsController<P, T> {
+		readonly postsComponent: React.ComponentType<ComponentStateAware<P>>;
+		readonly typesComponent: React.ComponentType<ComponentStateAware<T>>;
 	}
 }

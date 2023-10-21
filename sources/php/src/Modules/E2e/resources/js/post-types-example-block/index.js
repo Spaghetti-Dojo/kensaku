@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const {
 		PostTypeSelect,
+		PostsSelect,
 		useQueryViewablePostTypes,
 		convertPostTypesToControlOptions,
 	} = entitiesSearch;
@@ -29,6 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (options.isResolving()) {
 				return Spinner();
 			}
+
+			const PostTypeSelectElement = createElement(PostTypeSelect, {
+				options: convertPostTypesToControlOptions(options.records()),
+				value: props.attributes.postType,
+				onChange: (postType) => props.setAttributes({ postType }),
+			});
+
+			const PostsSelectElement = createElement(PostsSelect, {
+				postType: props.attributes.postType,
+				values: props.attributes.posts,
+				onChange: (posts) => props.setAttributes({ posts }),
+			});
 
 			return createElement(
 				'div',

@@ -11,10 +11,7 @@ import { faker } from '@faker-js/faker';
 
 import { PostTypeSelect } from '../../../../sources/js/src/components/post-type-select';
 
-type ReactSelect = EntitiesSearch.PostTypeSelect & {
-	value: EntitiesSearch.ControlOption<string>;
-	onChange(value: EntitiesSearch.ControlOption<string> | null): void;
-};
+type ReactSelect = EntitiesSearch.PostTypeSelect<string>;
 
 jest.mock('react-select', () => (props: ReactSelect) => (
 	<select
@@ -26,7 +23,7 @@ jest.mock('react-select', () => (props: ReactSelect) => (
 				) ?? null
 			)
 		}
-		value={props.value}
+		value={props.value.value}
 		className="react-select"
 	>
 		{props.options.map((option: any) => (
@@ -55,7 +52,7 @@ describe('Post Types Select Component', () => {
 		render(
 			<PostTypeSelect
 				options={options}
-				value={option.value}
+				value={option}
 				onChange={(value) => (expectedValue = value)}
 			/>
 		);
