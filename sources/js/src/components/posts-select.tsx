@@ -1,18 +1,19 @@
 import EntitiesSearch from '@types';
+import { Set } from 'immutable';
 import React, { JSX } from 'react';
 import Select from 'react-select';
 
 export function PostsSelect<V>(
 	props: EntitiesSearch.PostsSelect<V>
 ): JSX.Element | null {
-	const value = props.options.find((option) => option.value === props.values);
-
 	return (
 		<Select
-			isMulti={false}
-			value={value ?? props.options.first() ?? null}
+			isMulti={true}
+			value={props.value?.toArray()}
 			options={props.options.toArray()}
-			onChange={(opt) => props.onChange(opt?.value ?? null)}
+			onChange={(options) =>
+				props.onChange(options.length <= 0 ? null : Set(options))
+			}
 		/>
 	);
 }

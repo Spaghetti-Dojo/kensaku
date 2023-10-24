@@ -15,8 +15,8 @@ declare namespace EntitiesSearch {
 
 	type ViewablePostType = Readonly<{
 		[K in keyof PostType<'edit'>]: K extends 'viewable'
-			? true
-			: PostType<'edit'>[K];
+		? true
+		: PostType<'edit'>[K];
 	}>;
 
 	type ControlOption<V extends any> = Readonly<{
@@ -43,7 +43,7 @@ declare namespace EntitiesSearch {
 
 	// TODO Check the ControlOption because it might not be a good idea to hide it inside the type.
 	interface PostsSelect<V> {
-		readonly values: Array<ControlOption<V>>;
+		readonly value: Set<ControlOption<V>> | null;
 		readonly options: Set<ControlOption<V>>;
 		readonly onChange: (values: PostsSelect['value'] | null) => void;
 	}

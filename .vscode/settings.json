@@ -8,5 +8,6 @@
 	"phpCodeSniffer.autoExecutable": true,
 	"[php]": {
 		"editor.defaultFormatter": "obliviousharmony.vscode-php-codesniffer"
-	}
+	},
+	"prettier.configPath": ".prettierrc.js"
 }

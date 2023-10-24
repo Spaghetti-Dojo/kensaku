@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		category: 'uncategorized',
 		icon: 'wordpress',
 		editorScript: 'widoz-entities-search-e2e-post-types-example-block',
-		edit: function Edit(props) {
+		edit: function Edit() {
 			const blockProps = useBlockProps({
 				className: 'widoz-entities-search-e2e-post-types-example-block',
 			});

@@ -2,14 +2,23 @@ import EntitiesSearch from '@types';
 import { Set } from 'immutable';
 import React from 'react';
 
+
+
 import { describe, jest, it, expect } from '@jest/globals';
+
+
 
 import { fireEvent } from '@testing-library/dom';
 import { render, screen } from '@testing-library/react';
 
+
+
 import { faker } from '@faker-js/faker';
 
+
+
 import { PostTypeSelect } from '../../../../sources/js/src/components/post-type-select';
+import { buildOptions } from '../utils';
 
 type ReactSelect = EntitiesSearch.PostTypeSelect<string>;
 
@@ -62,16 +71,3 @@ describe('Post Types Select Component', () => {
 		expect(expectedValue).toEqual(option.value);
 	});
 });
-
-function buildOptions(): Set<EntitiesSearch.ControlOption<string>> {
-	let options = Set<EntitiesSearch.ControlOption<string>>([]);
-
-	for (let count = 0; count < 9; ++count) {
-		options = options.add({
-			label: faker.random.word(),
-			value: faker.word.noun(),
-		});
-	}
-
-	return options;
-}
