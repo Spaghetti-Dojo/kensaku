@@ -28,7 +28,6 @@
 			"php": "8.0"
 		},
 		"allow-plugins": {
-			"roots/wordpress-core-installer": true,
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	},
