@@ -1,14 +1,12 @@
 {
-  "core": "WordPress/WordPress",
-  "plugins": [
-    "."
-  ],
-  "env": {
-    "development": {
-      "phpVersion": "8.0",
-      "mappings": {
-        "wp-content/plugins/entities-search": "."
-      }
-    }
-  }
+	"core": "./vendor/roots/wordpress-no-content",
+	"plugins": ["."],
+	"env": {
+		"development": {
+			"phpVersion": "8.0",
+			"mappings": {
+				"wp-content/plugins/entities-search": "."
+			}
+		}
+	}
 }
