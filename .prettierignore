@@ -1,11 +1,7 @@
-*.json
-*.scss
-*.css
-
 .psalm
 .github
 
 ./coverage
 ./vendor
 ./node_modules
-./public
+./build

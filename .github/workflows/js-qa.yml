@@ -1,0 +1,41 @@
+name: JS Quality Assurance
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+    paths:
+      - '**/workflows/*js*'
+      - '**.js'
+      - '**.jsx'
+      - '**.ts'
+      - '**.tsx'
+      - '**.json'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: "!github.event.pull_request.draft"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version: '16'
+
+      - name: Install
+        run: yarn install
+
+      - name: Coding Style
+        run: yarn cs
+
+      - name: Linting JavaScript
+        run: yarn lint:js
+
+      - name: Unit Tests
+        run: yarn test
