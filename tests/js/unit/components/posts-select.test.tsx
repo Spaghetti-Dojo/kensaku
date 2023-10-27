@@ -46,7 +46,7 @@ describe('Posts Select', () => {
 		render(
 			<PostsSelect
 				options={options}
-				values={Set([option])}
+				value={Set([option])}
 				onChange={() => {
 					expectedCalled = true;
 				}}
