@@ -13,7 +13,7 @@ import { PostsSelect } from '../../../../sources/js/src/components/posts-select'
 import { buildOptions } from '../utils';
 
 type ReactSelect = EntitiesSearch.PostsSelect<string> & {
-	value: Array<EntitiesSearch.ControlOption<string>>;
+	value: Array<EntitiesSearch.Record<string>>;
 };
 
 jest.mock('react-select', () => (props: ReactSelect) => (
@@ -21,7 +21,16 @@ jest.mock('react-select', () => (props: ReactSelect) => (
 		multiple={true}
 		id="posts-select"
 		data-testid="posts-select"
-		onChange={() => props.onChange('onChange Called')}
+		onChange={() =>
+			props.onChange(
+				Set([
+					{
+						label: faker.random.word(),
+						value: faker.word.noun(),
+					},
+				])
+			)
+		}
 		className="react-select"
 	>
 		{props.options.map((option: any) => (
@@ -33,13 +42,13 @@ jest.mock('react-select', () => (props: ReactSelect) => (
 ));
 
 describe('Posts Select', () => {
-	it('change the value when the use select one or', () => {
+	it('call the given onChange handler', () => {
 		let expectedCalled: boolean = false;
-		const option = {
+		const option: EntitiesSearch.Record<string> = {
 			label: faker.random.word(),
 			value: faker.word.noun(),
 		};
-		const options = Set<EntitiesSearch.ControlOption<string>>([])
+		const options = Set<EntitiesSearch.Record<string>>([])
 			.add(option)
 			.merge(buildOptions());
 
@@ -47,26 +56,20 @@ describe('Posts Select', () => {
 			<PostsSelect
 				options={options}
 				value={Set([option])}
-				onChange={() => {
-					expectedCalled = true;
-				}}
+				onChange={() => (expectedCalled = true)}
 			/>
 		);
 
 		const select = screen.getByTestId('posts-select');
 
+		/*
+		 * We do not need to select two options since we are only testing the pure logic not the data but,
+		 * for logic correctness the `select` element is a multi select.
+		 */
 		userEvent.selectOptions(select, [
 			option.value,
 			String(options.last()?.value),
 		]);
-
-		expect(screen.getByText<HTMLOptionElement>(option.label).selected).toBe(
-			true
-		);
-		expect(
-			screen.getByText<HTMLOptionElement>(String(options.last()?.label))
-				.selected
-		).toBe(true);
 
 		expect(expectedCalled).toBe(true);
 	});

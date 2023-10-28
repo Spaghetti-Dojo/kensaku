@@ -21,7 +21,8 @@
 	},
 	"require-dev": {
 		"inpsyde/modularity": "^1.5",
-		"inpsyde/php-coding-standards": "^1.0"
+		"inpsyde/php-coding-standards": "^1.0",
+		"roots/wordpress-no-content": "^6.3"
 	},
 	"config": {
 		"platform": {

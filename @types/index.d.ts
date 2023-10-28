@@ -1,7 +1,12 @@
 import type { Set } from 'immutable';
-import React, { ComponentType } from 'react';
+import React from 'react';
 
 import { BaseEntityRecords, Context } from '@wordpress/core-data';
+
+type ComponentStateAware<V> = {
+	value: Set<V>;
+	setValue(value: ComponentStateAware<V>['value']): void;
+};
 
 export default EntitiesSearch;
 
@@ -14,7 +19,7 @@ declare namespace EntitiesSearch {
 			: PostType<'edit'>[K];
 	}>;
 
-	type ControlOption<V extends any> = Readonly<{
+	type Record<V extends any> = Readonly<{
 		value: V;
 		label: string;
 	}>;
@@ -34,18 +39,16 @@ declare namespace EntitiesSearch {
 	/**
 	 * Components
 	 */
-	// TODO Check the ControlOption because it might not be a good idea to hide it inside the type.
 	interface PostTypeSelect<V> {
-		readonly value: ControlOption<V>;
-		readonly options: Set<PostTypeSelect['value']>;
-		readonly onChange: (value: PostTypeSelect['value'] | null) => void;
+		readonly value: Record<V> | null;
+		readonly options: Set<NonNullable<PostTypeSelect<V>['value']>>;
+		readonly onChange: (value: PostTypeSelect<V>['value']) => void;
 	}
 
-	// TODO Check the ControlOption because it might not be a good idea to hide it inside the type.
 	interface PostsSelect<V> {
-		readonly value: Set<ControlOption<V>> | null;
-		readonly options: Set<ControlOption<V>>;
-		readonly onChange: (values: PostsSelect['value'] | null) => void;
+		readonly value: Set<Record<V>> | null;
+		readonly options: NonNullable<PostsSelect<V>['value']>;
+		readonly onChange: (values: PostsSelect<V>['value']) => void;
 	}
 
 	interface PostsController<P, T> {

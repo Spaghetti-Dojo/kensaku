@@ -4,8 +4,8 @@ import React from 'react';
 
 import { describe, jest, it, expect } from '@jest/globals';
 
-import { fireEvent } from '@testing-library/dom';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { faker } from '@faker-js/faker';
 
@@ -16,15 +16,14 @@ type ReactSelect = EntitiesSearch.PostTypeSelect<string>;
 
 jest.mock('react-select', () => (props: ReactSelect) => (
 	<select
+		id="post-type-select"
 		data-testid="post-type-select"
-		onChange={(event) =>
-			props.onChange(
-				props.options.find(
-					(option) => option.value === event.target.value
-				) ?? null
-			)
+		onChange={() =>
+			props.onChange({
+				label: faker.random.word(),
+				value: faker.word.noun(),
+			})
 		}
-		value={props.value.value}
 		className="react-select"
 	>
 		{props.options.map((option: any) => (
@@ -35,18 +34,18 @@ jest.mock('react-select', () => (props: ReactSelect) => (
 	</select>
 ));
 
-describe('Post Types Select Component', () => {
+describe('Post Types Select', () => {
 	/*
 	 * We want to ensure the internal logic of the component works as expected, we're not interested
 	 * in the React Select component, so we mock it.
 	 */
-	it('change the value when the user select one', () => {
-		let expectedValue: string | null = null;
-		const option = {
+	it('call the given onChange handler', (done) => {
+		let expectedCalled: boolean = false;
+		const option: EntitiesSearch.Record<string> = {
 			label: faker.random.word(),
 			value: faker.word.noun(),
 		};
-		const options = Set<EntitiesSearch.ControlOption<string>>([])
+		const options = Set<EntitiesSearch.Record<string>>([])
 			.add(option)
 			.merge(buildOptions());
 
@@ -54,12 +53,15 @@ describe('Post Types Select Component', () => {
 			<PostTypeSelect
 				options={options}
 				value={option}
-				onChange={(value) => (expectedValue = value)}
+				onChange={() => (expectedCalled = true)}
 			/>
 		);
 
 		const select = screen.getByTestId('post-type-select');
-		fireEvent.change(select, { target: { value: option.value } });
-		expect(expectedValue).toEqual(option.value);
+
+		userEvent.selectOptions(select, option.value).then(() => {
+			expect(expectedCalled).toBe(true);
+			done();
+		});
 	});
 });

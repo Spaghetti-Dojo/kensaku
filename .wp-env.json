@@ -1,5 +1,5 @@
 {
-	"core": "WordPress/WordPress#6.3",
+	"core": "./vendor/roots/wordpress-no-content",
 	"plugins": ["."],
 	"env": {
 		"development": {
