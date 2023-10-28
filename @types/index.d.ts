@@ -3,11 +3,6 @@ import React, { ComponentType } from 'react';
 
 import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
-type ComponentStateAware<V> = {
-	value: Set<V>;
-	setValue(value: ComponentStateAware['value']): void;
-};
-
 export default EntitiesSearch;
 
 declare namespace EntitiesSearch {
@@ -15,14 +10,19 @@ declare namespace EntitiesSearch {
 
 	type ViewablePostType = Readonly<{
 		[K in keyof PostType<'edit'>]: K extends 'viewable'
-		? true
-		: PostType<'edit'>[K];
+			? true
+			: PostType<'edit'>[K];
 	}>;
 
 	type ControlOption<V extends any> = Readonly<{
 		value: V;
 		label: string;
 	}>;
+
+	type ComponentStateAware<V> = {
+		value: Set<V>;
+		setValue(value: ComponentStateAware['value']): void;
+	};
 
 	type EntitiesRecords<Entity> = Readonly<{
 		records(): Set<Entity>;

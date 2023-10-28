@@ -2,20 +2,12 @@ import EntitiesSearch from '@types';
 import { Set } from 'immutable';
 import React from 'react';
 
-
-
 import { describe, jest, it, expect } from '@jest/globals';
-
-
 
 import { fireEvent } from '@testing-library/dom';
 import { render, screen } from '@testing-library/react';
 
-
-
 import { faker } from '@faker-js/faker';
-
-
 
 import { PostTypeSelect } from '../../../../sources/js/src/components/post-type-select';
 import { buildOptions } from '../utils';
