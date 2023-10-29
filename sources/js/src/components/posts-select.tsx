@@ -8,7 +8,7 @@ import { onChangeControlOptionsHandle } from '../utils/on-change-control-options
 
 export function PostsSelect<V>(
 	props: EntitiesSearch.PostsSelect<V>
-): JSX.Element | null {
+): JSX.Element {
 	const matchedValues = matchOptionValues(props.value, props.options);
 
 	return (
