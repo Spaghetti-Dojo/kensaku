@@ -13,7 +13,7 @@ import { PostsSelect } from '../../../../sources/js/src/components/posts-select'
 import { buildOptions } from '../utils';
 
 type ReactSelect = EntitiesSearch.PostsSelect<string> & {
-	value: Array<EntitiesSearch.Record<string>>;
+	value: Array<EntitiesSearch.ControlOption<string>>;
 };
 
 jest.mock('react-select', () => (props: ReactSelect) => (
@@ -21,16 +21,7 @@ jest.mock('react-select', () => (props: ReactSelect) => (
 		multiple={true}
 		id="posts-select"
 		data-testid="posts-select"
-		onChange={() =>
-			props.onChange(
-				Set([
-					{
-						label: faker.random.word(),
-						value: faker.word.noun(),
-					},
-				])
-			)
-		}
+		onChange={() => props.onChange(Set([faker.word.noun()]))}
 		className="react-select"
 	>
 		{props.options.map((option: any) => (
@@ -44,18 +35,18 @@ jest.mock('react-select', () => (props: ReactSelect) => (
 describe('Posts Select', () => {
 	it('call the given onChange handler', () => {
 		let expectedCalled: boolean = false;
-		const option: EntitiesSearch.Record<string> = {
+		const option: EntitiesSearch.ControlOption<string> = {
 			label: faker.random.word(),
 			value: faker.word.noun(),
 		};
-		const options = Set<EntitiesSearch.Record<string>>([])
+		const options = Set<EntitiesSearch.ControlOption<string>>([])
 			.add(option)
 			.merge(buildOptions());
 
 		render(
 			<PostsSelect
 				options={options}
-				value={Set([option])}
+				value={Set([option.value])}
 				onChange={() => (expectedCalled = true)}
 			/>
 		);

@@ -3,8 +3,8 @@ import { Set } from 'immutable';
 
 import { faker } from '@faker-js/faker';
 
-export function buildOptions(): Set<EntitiesSearch.Record<string>> {
-	let options = Set<EntitiesSearch.Record<string>>([]);
+export function buildOptions(): Set<EntitiesSearch.ControlOption<string>> {
+	let options = Set<EntitiesSearch.ControlOption<string>>([]);
 
 	for (let count = 0; count < 9; ++count) {
 		options = options.add({

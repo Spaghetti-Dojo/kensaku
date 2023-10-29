@@ -19,13 +19,13 @@ declare namespace EntitiesSearch {
 			: PostType<'edit'>[K];
 	}>;
 
-	type Record<V extends any> = Readonly<{
+	type ControlOption<V extends any> = Readonly<{
 		value: V;
 		label: string;
 	}>;
 
 	type ComponentStateAware<V> = {
-		value: Set<V>;
+		value: V;
 		setValue(value: ComponentStateAware['value']): void;
 	};
 
@@ -40,19 +40,21 @@ declare namespace EntitiesSearch {
 	 * Components
 	 */
 	interface PostTypeSelect<V> {
-		readonly value: Record<V> | null;
-		readonly options: Set<NonNullable<PostTypeSelect<V>['value']>>;
+		readonly value: V | null;
+		readonly options: Set<ControlOption<V>>;
 		readonly onChange: (value: PostTypeSelect<V>['value']) => void;
 	}
 
 	interface PostsSelect<V> {
-		readonly value: Set<Record<V>> | null;
-		readonly options: NonNullable<PostsSelect<V>['value']>;
+		readonly value: Set<V> | null;
+		readonly options: Set<ControlOption<V>>;
 		readonly onChange: (values: PostsSelect<V>['value']) => void;
 	}
 
 	interface PostsController<P, T> {
-		readonly postsComponent: React.ComponentType<ComponentStateAware<P>>;
+		readonly postsComponent: React.ComponentType<
+			ComponentStateAware<Set<P>>
+		>;
 		readonly typesComponent: React.ComponentType<ComponentStateAware<T>>;
 	}
 }

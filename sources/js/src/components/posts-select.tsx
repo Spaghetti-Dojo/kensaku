@@ -3,19 +3,22 @@ import { Set } from 'immutable';
 import React, { JSX } from 'react';
 import Select from 'react-select';
 
-import { isControlOption } from '../utils/is-control-option';
+import { matchOptionValues } from '../utils/match-option-values';
+import { onChangeControlOptionsHandle } from '../utils/on-change-control-options-handle';
 
 export function PostsSelect<V>(
 	props: EntitiesSearch.PostsSelect<V>
 ): JSX.Element | null {
+	const values = matchOptionValues(props.value, props.options);
+
 	return (
 		<Select
 			isMulti={true}
-			value={props.value?.toArray()}
+			value={values?.toArray() ?? []}
 			options={props.options.toArray()}
-			onChange={(options) => {
-				props.onChange(Set(options.filter(isControlOption)));
-			}}
+			onChange={(options) =>
+				onChangeControlOptionsHandle(props.onChange, Set(options))
+			}
 		/>
 	);
 }

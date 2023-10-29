@@ -50,9 +50,7 @@ describe('Posts Post Types Controller', () => {
 		);
 
 		const PostsComponent = (
-			props: EntitiesSearch.ComponentStateAware<
-				EntitiesSearch.ControlOption<string>
-			>
+			props: EntitiesSearch.ComponentStateAware<Set<string>>
 		) => {
 			return (
 				<PostsSelect
@@ -73,7 +71,7 @@ describe('Posts Post Types Controller', () => {
 		const postComponentElement = screen.getByTestId('posts-component');
 		userEvent.click(postComponentElement).then(() => {
 			// @ts-ignore
-			expect(STATE['posts'].toArray()).toEqual(['post-one', 'post-two']);
+			expect(STATE.posts.toArray()).toEqual(['post-one', 'post-two']);
 			done();
 		});
 	});
@@ -85,20 +83,18 @@ describe('Posts Post Types Controller', () => {
 		) => (
 			<button
 				data-testid="post-type-component"
-				onClick={() => props.onChange(Set(['post-type']))}
+				onClick={() => props.onChange('post-type')}
 			>
 				Update Component State
 			</button>
 		);
 
 		const PostTypeComponent = (
-			props: EntitiesSearch.ComponentStateAware<
-				EntitiesSearch.ControlOption<string>
-			>
+			props: EntitiesSearch.ComponentStateAware<string>
 		) => {
 			return (
 				<PostTypeSelect
-					value={props.value.first()}
+					value={props.value}
 					onChange={props.setValue}
 					options={Set([])}
 				/>
@@ -117,7 +113,7 @@ describe('Posts Post Types Controller', () => {
 		);
 		userEvent.click(postTypeComponentElement).then(() => {
 			// @ts-ignore
-			expect(STATE['types'].toArray()).toEqual(['post-type']);
+			expect(STATE.types.toArray()).toEqual(['post-type']);
 			done();
 		});
 	});

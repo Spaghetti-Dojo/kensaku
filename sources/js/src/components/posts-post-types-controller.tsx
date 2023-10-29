@@ -21,8 +21,8 @@ export const PostsPostTypesController = <P, T>(
 
 	const Types = () => (
 		<props.typesComponent
-			value={state.types}
-			setValue={(types) => setState({ ...state, types })}
+			value={state.types.first()}
+			setValue={(type) => setState({ ...state, types: Set([type]) })}
 		/>
 	);
 

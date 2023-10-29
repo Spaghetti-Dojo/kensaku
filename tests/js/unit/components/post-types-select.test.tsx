@@ -18,12 +18,7 @@ jest.mock('react-select', () => (props: ReactSelect) => (
 	<select
 		id="post-type-select"
 		data-testid="post-type-select"
-		onChange={() =>
-			props.onChange({
-				label: faker.random.word(),
-				value: faker.word.noun(),
-			})
-		}
+		onChange={() => props.onChange(faker.word.noun())}
 		className="react-select"
 	>
 		{props.options.map((option: any) => (
@@ -41,18 +36,18 @@ describe('Post Types Select', () => {
 	 */
 	it('call the given onChange handler', (done) => {
 		let expectedCalled: boolean = false;
-		const option: EntitiesSearch.Record<string> = {
+		const option: EntitiesSearch.ControlOption<string> = {
 			label: faker.random.word(),
 			value: faker.word.noun(),
 		};
-		const options = Set<EntitiesSearch.Record<string>>([])
+		const options = Set<EntitiesSearch.ControlOption<string>>([])
 			.add(option)
 			.merge(buildOptions());
 
 		render(
 			<PostTypeSelect
 				options={options}
-				value={option}
+				value={option.value}
 				onChange={() => (expectedCalled = true)}
 			/>
 		);
