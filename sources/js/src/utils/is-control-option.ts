@@ -1,8 +1,8 @@
 import EntitiesSearch from '@types';
 
-export const isControlOption = (
+export function isControlOption(
 	value: unknown
-): value is EntitiesSearch.ControlOption<any> => {
+): value is EntitiesSearch.ControlOption<any> {
 	if (!value) {
 		return false;
 	}
@@ -11,4 +11,4 @@ export const isControlOption = (
 	}
 
 	return value.hasOwnProperty('label') && value.hasOwnProperty('value');
-};
+}

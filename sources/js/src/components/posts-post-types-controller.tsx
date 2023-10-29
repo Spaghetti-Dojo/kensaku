@@ -4,9 +4,9 @@ import React, { JSX } from 'react';
 
 import { useState } from '@wordpress/element';
 
-export const PostsPostTypesController = <P, T>(
+export function PostsPostTypesController<P, T>(
 	props: EntitiesSearch.PostsController<P, T>
-): JSX.Element => {
+): JSX.Element {
 	const [state, setState] = useState({
 		posts: Set<P>(),
 		types: Set<T>(),
@@ -32,4 +32,4 @@ export const PostsPostTypesController = <P, T>(
 			<Posts />
 		</>
 	);
-};
+}

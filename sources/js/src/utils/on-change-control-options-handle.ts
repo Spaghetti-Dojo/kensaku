@@ -8,12 +8,12 @@ import { isControlOption } from './is-control-option';
  * @param handler
  * @param options
  */
-export const onChangeControlOptionsHandle = <V>(
+export function onChangeControlOptionsHandle<V>(
 	handler: (values: Set<V> | null) => void,
 	options: Set<EntitiesSearch.ControlOption<V>> | null
-): void => {
+): void {
 	if (options === null) return;
 	const controlOptions = Set(options).filter(isControlOption);
 	const values = controlOptions.map((option) => option.value);
 	handler(values.size > 0 ? values : null);
-};
+}
