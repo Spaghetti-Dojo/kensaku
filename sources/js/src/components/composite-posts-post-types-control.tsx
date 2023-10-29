@@ -4,7 +4,7 @@ import React, { JSX } from 'react';
 
 import { useState } from '@wordpress/element';
 
-export function PostsPostTypesController<P, T>(
+export function CompositePostsPostTypesControl<P, T>(
 	props: EntitiesSearch.PostsController<P, T>
 ): JSX.Element {
 	const [state, setState] = useState({

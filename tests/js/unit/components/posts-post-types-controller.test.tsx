@@ -7,7 +7,7 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { PostsPostTypesController } from '../../../../sources/js/src/components/posts-post-types-controller';
+import { CompositePostsPostTypesControl } from '../../../../sources/js/src/components/composite-posts-post-types-control';
 
 type State = {
 	posts: Set<string>;
@@ -29,7 +29,7 @@ describe('Posts Post Types Controller', () => {
 		const PostTypeComponent = () => <div>Post Type Component</div>;
 
 		const { asFragment } = render(
-			<PostsPostTypesController
+			<CompositePostsPostTypesControl
 				postsComponent={PostsComponent}
 				typesComponent={PostTypeComponent}
 			/>
@@ -62,7 +62,7 @@ describe('Posts Post Types Controller', () => {
 		};
 
 		render(
-			<PostsPostTypesController
+			<CompositePostsPostTypesControl
 				postsComponent={PostsComponent}
 				typesComponent={PostTypeComponent}
 			/>
@@ -102,7 +102,7 @@ describe('Posts Post Types Controller', () => {
 		};
 
 		render(
-			<PostsPostTypesController
+			<CompositePostsPostTypesControl
 				postsComponent={PostsComponent}
 				typesComponent={PostTypeComponent}
 			/>
