@@ -5,4 +5,4 @@ export * from './components/composite-posts-post-types-control';
 export * from './hooks/use-entity-records';
 export * from './hooks/use-query-viewable-post-types';
 
-export * from './utils/convert-post-types-to-control-options';
+export * from './utils/convert-entities-to-control-options';
