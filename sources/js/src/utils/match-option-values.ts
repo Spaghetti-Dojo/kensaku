@@ -2,9 +2,9 @@ import EntitiesSearch from '@types';
 import { Set } from 'immutable';
 
 export function matchOptionValues<V>(
-	value: Set<V> | null,
+	collection: Set<V> | null,
 	options: Set<EntitiesSearch.ControlOption<V>>
 ): Set<EntitiesSearch.ControlOption<V>> | null {
-	if (!value) return null;
-	return options.filter((option) => value?.has(option.value));
+	if (!collection) return null;
+	return options.filter((option) => collection?.has(option.value));
 }
