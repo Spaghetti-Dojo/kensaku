@@ -12,24 +12,16 @@ export function CompositePostsPostTypesControl<P, T>(
 		types: Set<T>(),
 	});
 
-	const Posts = () => (
-		<props.postsComponent
-			value={state.posts}
-			setValue={(posts) => setState({ ...state, posts })}
-		/>
-	);
-
-	const Types = () => (
-		<props.typesComponent
-			value={state.types.first()}
-			setValue={(type) => setState({ ...state, types: Set([type]) })}
-		/>
-	);
-
 	return (
 		<>
-			<Types />
-			<Posts />
+			<props.typesComponent
+				value={state.types.first()}
+				setValue={(type) => setState({ ...state, types: Set([type]) })}
+			/>
+			<props.postsComponent
+				value={state.posts}
+				setValue={(posts) => setState({ ...state, posts })}
+			/>
 		</>
 	);
 }
