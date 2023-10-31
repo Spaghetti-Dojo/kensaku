@@ -10,5 +10,17 @@ export function isControlOption(
 		return false;
 	}
 
-	return value.hasOwnProperty('label') && value.hasOwnProperty('value');
+	if (Object.keys(value).length !== 2) {
+		return false;
+	}
+	if (!value.hasOwnProperty('label') || !value.hasOwnProperty('value')) {
+		return false;
+	}
+
+	// @ts-ignore we know the `label` property exists because of the previous check.
+	if (typeof value.label !== 'string') {
+		return false;
+	}
+
+	return true;
 }
