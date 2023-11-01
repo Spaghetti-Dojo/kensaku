@@ -2,17 +2,25 @@ import EntitiesSearch from '@types';
 import { Set } from 'immutable';
 import React from 'react';
 
+
+
 import { describe, jest, it, expect } from '@jest/globals';
+
+
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+
+
 import { faker } from '@faker-js/faker';
+
+
 
 import { PostTypeSelect } from '../../../../sources/js/src/components/post-type-select';
 import { buildOptions } from '../utils';
 
-type ReactSelect = EntitiesSearch.PostTypeSelect<string>;
+type ReactSelect = EntitiesSearch.PostTypeControl<string>;
 
 jest.mock('react-select', () => (props: ReactSelect) => (
 	<>
@@ -90,10 +98,11 @@ describe('Post Types Select', () => {
 		const select = screen.getByTestId('post-type-select');
 
 		const clear = select.parentNode?.querySelector('.clear');
-		clear &&
+		if (clear) {
 			userEvent.click(clear).then(() => {
 				expect(expectedCalled).toBe(null);
 				done();
 			});
+		}
 	});
 });

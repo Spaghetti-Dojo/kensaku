@@ -12,7 +12,7 @@ import { faker } from '@faker-js/faker';
 import { PostsSelect } from '../../../../sources/js/src/components/posts-select';
 import { buildOptions } from '../utils';
 
-type ReactSelect = EntitiesSearch.PostsSelect<string> & {
+type ReactSelect = EntitiesSearch.PostsControl<string> & {
 	value: Array<EntitiesSearch.ControlOption<string>>;
 };
 

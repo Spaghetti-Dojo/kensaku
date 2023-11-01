@@ -1,16 +1,14 @@
 import type { Set } from 'immutable';
 import React from 'react';
 
-import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
-type ComponentStateAware<V> = {
-	value: Set<V>;
-	setValue(value: ComponentStateAware<V>['value']): void;
-};
+
+import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
 export default EntitiesSearch;
 
 declare namespace EntitiesSearch {
+	type Post<C extends Context = 'view'> = BaseEntityRecords.Post<C>;
 	type PostType<C extends Context = 'view'> = BaseEntityRecords.Type<C>;
 
 	type ViewablePostType = Readonly<{
@@ -24,11 +22,6 @@ declare namespace EntitiesSearch {
 		label: string;
 	}>;
 
-	type ComponentStateAware<V> = {
-		value: V;
-		setValue(value: ComponentStateAware['value']): void;
-	};
-
 	type EntitiesRecords<Entity> = Readonly<{
 		records(): Set<Entity>;
 		isResolving(): boolean;
@@ -39,22 +32,24 @@ declare namespace EntitiesSearch {
 	/**
 	 * Components
 	 */
-	interface PostTypeSelect<V> {
+	interface PostTypeControl<V> {
 		readonly value: V | null;
 		readonly options: Set<ControlOption<V>>;
-		readonly onChange: (value: PostTypeSelect<V>['value']) => void;
+		readonly onChange: (value: PostTypeControl<V>['value']) => void;
 	}
 
-	interface PostsSelect<V> {
+	interface PostsControl<V> {
 		readonly value: Set<V> | null;
 		readonly options: Set<ControlOption<V>>;
-		readonly onChange: (values: PostsSelect<V>['value']) => void;
+		readonly onChange: (values: PostsControl<V>['value']) => void;
 	}
 
-	interface PostsController<P, T> {
-		readonly postsComponent: React.ComponentType<
-			ComponentStateAware<Set<P>>
-		>;
-		readonly typesComponent: React.ComponentType<ComponentStateAware<T>>;
+	interface PostsPostTypesController<P, T> {
+		posts: PostsControl<P>;
+		postType: PostTypeControl<T>;
+		children: (
+			posts: PostsPostTypesController<P, T>['posts'],
+			postType: PostsPostTypesController<P, T>['postType']
+		) => React.ReactNode;
 	}
 }
