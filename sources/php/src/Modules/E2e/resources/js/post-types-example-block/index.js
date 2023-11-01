@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		PostsSelect,
 		PostsPostTypesController,
 		useQueryViewablePostTypes,
-		convertPostTypesToControlOptions,
+		convertEntitiesToControlOptions,
 	} = entitiesSearch;
 
 	// TODO Check why the object form does not work.
@@ -21,7 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		category: 'uncategorized',
 		icon: 'wordpress',
 		editorScript: 'widoz-entities-search-e2e-post-types-example-block',
-		edit: function Edit() {
+		attributes: {
+			posts: {
+				type: 'array',
+			},
+			postType: {
+				type: 'string',
+			},
+		},
+		edit: function Edit(props) {
 			const blockProps = useBlockProps({
 				className: 'widoz-entities-search-e2e-post-types-example-block',
 			});
@@ -32,41 +40,40 @@ document.addEventListener('DOMContentLoaded', () => {
 				return Spinner();
 			}
 
-			const PostTypeSelectStateAware = ({ value, setValue }) =>
-				createElement(PostTypeSelect, {
-					options: convertPostTypesToControlOptions(
-						postTypesOptions.records()
-					),
-					value,
-					onChange: (postType) => setValue(postType),
-				});
-
-			// TODO Convert posts to Control Options.
-			const PostSelectStateAware = ({ value, setValue }) =>
-				createElement(PostsSelect, {
-					options: Immutable.Set([
-						{
-							label: 'Post 1',
-							value: 'post-1',
-						},
-						{
-							label: 'Post 2',
-							value: 'post-2',
-						},
-						{
-							label: 'Post 3',
-							value: 'post-3',
-						},
-					]),
-					value,
-					onChange: (posts) => setValue(posts),
-				});
-
 			const PostPostTypesControllerElement = createElement(
 				PostsPostTypesController,
 				{
-					postsComponent: PostSelectStateAware,
-					typesComponent: PostTypeSelectStateAware,
+					posts: {
+						value: '',
+						options: Immutable.Set([
+							{
+								label: 'Post 1',
+								value: 'post-1',
+							},
+							{
+								label: 'Post 2',
+								value: 'post-2',
+							},
+							{
+								label: 'Post 3',
+								value: 'post-3',
+							},
+						]),
+						onChange: (posts) => props.setAttributes({ posts }),
+					},
+					postType: {
+						value: '',
+						options: convertEntitiesToControlOptions(
+							postTypesOptions.records()
+						),
+						onChange: (postType) => setValue({ postType }),
+					},
+				},
+				(posts, type) => {
+					return [
+						createElement(PostTypeSelect, type),
+						createElement(PostsSelect, posts),
+					];
 				}
 			);
 

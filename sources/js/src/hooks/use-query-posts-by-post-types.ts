@@ -1,5 +1,4 @@
 import EntitiesSearch from '@types';
-import { Set } from 'immutable';
 
 import { useEntityRecords } from './use-entity-records';
 
