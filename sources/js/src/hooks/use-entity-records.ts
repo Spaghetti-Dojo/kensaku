@@ -33,12 +33,14 @@ export function useEntityRecords<Entity>(
 			entities.isResolving &&
 			!entities.hasResolved &&
 			status === ResolveStatus.RESOLVING,
-		errored: () => makeStatusCallback(entities, 'ERROR'),
-		succeed: () => makeStatusCallback(entities, 'SUCCESS'),
+		errored: () => makeStatusCallback(entities, ResolveStatus.ERROR),
+		succeed: () => makeStatusCallback(entities, ResolveStatus.SUCCESS),
 	});
 }
 
-const makeStatusCallback = <Entity>(
+function makeStatusCallback<Entity>(
 	entities: ReturnType<typeof useCoreEntityRecords<Entity>>,
 	status: string
-) => entities?.hasResolved && entities?.status === status;
+): boolean {
+	return entities?.hasResolved && entities?.status === status;
+}
