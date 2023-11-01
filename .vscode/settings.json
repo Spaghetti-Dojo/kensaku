@@ -6,8 +6,14 @@
 	"phpCodeSniffer.standardCustom": "./phpcs.xml",
 	"phpCodeSniffer.standard": "Custom",
 	"phpCodeSniffer.autoExecutable": true,
-	"[php]": {
-		"editor.defaultFormatter": "obliviousharmony.vscode-php-codesniffer"
+	"prettier.configPath": ".prettierrc.js",
+	"files.readonlyInclude": {
+		"**/node_modules/**/src/**": true
 	},
-	"prettier.configPath": ".prettierrc.js"
+	"favorites.resources": [
+		{
+			"filePath": "vendor/roots/wordpress-no-content/wp-includes/rest-api",
+			"group": "Default"
+		}
+	]
 }
