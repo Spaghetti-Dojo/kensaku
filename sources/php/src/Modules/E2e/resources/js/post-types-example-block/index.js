@@ -21,14 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		category: 'uncategorized',
 		icon: 'wordpress',
 		editorScript: 'widoz-entities-search-e2e-post-types-example-block',
-		attributes: {
-			posts: {
-				type: 'array',
-			},
-			postType: {
-				type: 'string',
-			},
-		},
 		edit: function Edit(props) {
 			const blockProps = useBlockProps({
 				className: 'widoz-entities-search-e2e-post-types-example-block',
@@ -44,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				PostsPostTypesController,
 				{
 					posts: {
-						value: '',
+						value: null,
 						options: Immutable.Set([
 							{
 								label: 'Post 1',
@@ -62,17 +54,24 @@ document.addEventListener('DOMContentLoaded', () => {
 						onChange: (posts) => props.setAttributes({ posts }),
 					},
 					postType: {
-						value: '',
+						value: null,
 						options: convertEntitiesToControlOptions(
 							postTypesOptions.records()
 						),
-						onChange: (postType) => setValue({ postType }),
+						onChange: (postType) =>
+							props.setAttributes({ postType }),
 					},
 				},
 				(posts, type) => {
 					return [
-						createElement(PostTypeSelect, type),
-						createElement(PostsSelect, posts),
+						createElement(PostTypeSelect, {
+							...type,
+							key: 'post-type-select',
+						}),
+						createElement(PostsSelect, {
+							...posts,
+							key: 'posts-select',
+						}),
 					];
 				}
 			);
