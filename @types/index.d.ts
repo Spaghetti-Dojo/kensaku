@@ -1,8 +1,6 @@
 import type { Set } from 'immutable';
 import React from 'react';
 
-
-
 import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
 export default EntitiesSearch;
@@ -38,8 +36,10 @@ declare namespace EntitiesSearch {
 		readonly onChange: (value: PostTypeControl<V>['value']) => void;
 	}
 
-	interface PostsControl<V> {
+	interface PostsControl<V, T> {
 		readonly value: Set<V> | null;
+		// TODO See if it's possible to reuse PostTypeControl<V>['value'] here.
+		readonly postType: string;
 		readonly options: Set<ControlOption<V>>;
 		readonly onChange: (values: PostsControl<V>['value']) => void;
 	}

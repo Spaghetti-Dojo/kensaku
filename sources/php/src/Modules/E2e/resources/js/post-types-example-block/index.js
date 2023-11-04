@@ -37,24 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				{
 					posts: {
 						value: null,
-						options: Immutable.Set([
-							{
-								label: 'Post 1',
-								value: 'post-1',
-							},
-							{
-								label: 'Post 2',
-								value: 'post-2',
-							},
-							{
-								label: 'Post 3',
-								value: 'post-3',
-							},
-						]),
+						postType: props.attributes.postType,
+						// TODO Reintegrate the posts by posts type hook to pass the values at the first render
+						options: Immutable.Set(),
 						onChange: (posts) => props.setAttributes({ posts }),
 					},
 					postType: {
-						value: null,
+						value: props.attributes.postType,
 						options: convertEntitiesToControlOptions(
 							postTypesOptions.records()
 						),

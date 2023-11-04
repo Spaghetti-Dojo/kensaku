@@ -25,6 +25,7 @@ export function PostsPostTypesController<P, T>(
 	const posts = {
 		...props.posts,
 		value: state.posts,
+		postType: state.postType,
 		onChange: onChangePosts,
 	};
 
