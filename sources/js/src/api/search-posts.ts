@@ -4,27 +4,31 @@ import { fetch } from './fetch';
 
 type Properties = Readonly<{
 	title: { rendered: string; raw: string } | string;
-	slug: string;
+	id: number;
 }>;
 
-export async function searchPosts(
+// TODO Parametrize the fields
+export async function searchPosts<E>(
 	type: string,
 	phrase: string
-): Promise<Array<Properties>> {
-	// @ts-ignore
+): Promise<Array<E>> {
 	const params = new URLSearchParams({
-		_fields: 'title,slug',
-		s: phrase,
+		_fields: 'title,id',
+		search: phrase,
+		subtype: type,
+		posts_per_page: '10',
 	});
 
+	// TODO What happen in the case of an error?
 	return fetch({
-		path: `?rest_route=/wp/v2/${type}&${params.toString()}`,
+		path: `?rest_route=/wp/v2/search&${params.toString()}`,
 	});
 }
 
+// TODO For now it would be a string but it should be a generic
 export function buildSelectOption(
 	entity: Properties
-): EntitiesSearch.ControlOption<Properties['slug']> {
+): EntitiesSearch.ControlOption<number> {
 	let entityTitle = '';
 
 	if (typeof entity.title === 'object') {
@@ -36,6 +40,6 @@ export function buildSelectOption(
 
 	return {
 		label: entityTitle ?? '',
-		value: entity.slug ?? '',
+		value: entity.id ?? 0,
 	};
 }

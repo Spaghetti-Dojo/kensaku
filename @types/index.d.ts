@@ -36,20 +36,25 @@ declare namespace EntitiesSearch {
 		readonly onChange: (value: PostTypeControl<V>['value']) => void;
 	}
 
-	interface PostsControl<V, T> {
+	interface PostsControl<V> {
 		readonly value: Set<V> | null;
-		// TODO See if it's possible to reuse PostTypeControl<V>['value'] here.
-		readonly postType: string;
 		readonly options: Set<ControlOption<V>>;
 		readonly onChange: (values: PostsControl<V>['value']) => void;
+		readonly searchPosts?: (
+			phrase: string
+		) => Promise<PostsControl<V>['options']>;
 	}
 
-	interface PostsPostTypesController<P, T> {
-		posts: PostsControl<P>;
-		postType: PostTypeControl<T>;
-		children: (
-			posts: PostsPostTypesController<P, T>['posts'],
-			postType: PostsPostTypesController<P, T>['postType']
+	interface CompositePostsPostTypes<P, T> {
+		readonly posts: PostsControl<P>;
+		readonly postType: PostTypeControl<T>;
+		readonly searchPosts?: (
+			phrase: string,
+			postType: PostTypeControl<T>['value']
+		) => Promise<PostsControl<P>['options']>;
+		readonly children: (
+			posts: CompositePostsPostTypes<P, T>['posts'],
+			postType: CompositePostsPostTypes<P, T>['postType']
 		) => React.ReactNode;
 	}
 }

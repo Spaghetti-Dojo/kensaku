@@ -7,9 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	const { Spinner } = wp.components;
 
 	const {
+		searchPosts,
+		buildSelectOption,
 		PostTypeSelect,
 		PostsSelect,
-		PostsPostTypesController,
+		CompositePostsPostTypes,
 		useQueryViewablePostTypes,
 		convertEntitiesToControlOptions,
 	} = entitiesSearch;
@@ -33,14 +35,19 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const PostPostTypesControllerElement = createElement(
-				PostsPostTypesController,
+				CompositePostsPostTypes,
 				{
+					// TODO Wrap around a throttle or debounce function
+					searchPosts: async (phrase, postType) => {
+						const entities = await searchPosts(postType, phrase);
+						return entities.map(buildSelectOption);
+					},
 					posts: {
-						value: null,
-						postType: props.attributes.postType,
+						value: Immutable.Set(props.attributes.posts),
 						// TODO Reintegrate the posts by posts type hook to pass the values at the first render
 						options: Immutable.Set(),
-						onChange: (posts) => props.setAttributes({ posts }),
+						onChange: (posts) =>
+							props.setAttributes({ posts: posts?.toArray() }),
 					},
 					postType: {
 						value: props.attributes.postType,

@@ -13,7 +13,7 @@ export function onChangeControlOptionsHandle<V>(
 	options: Set<EntitiesSearch.ControlOption<V>> | null
 ): void {
 	if (options === null) return;
-	const controlOptions = Set(options).filter(isControlOption);
+	const controlOptions = options.filter(isControlOption);
 	const values = controlOptions.map((option) => option.value);
 	handler(values.size > 0 ? values : null);
 }

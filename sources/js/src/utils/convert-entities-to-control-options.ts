@@ -10,6 +10,7 @@ export function convertEntitiesToControlOptions(
 	return entities.map(convertEntityToControlOption);
 }
 
+// TODO The key to use from which retrieve the value must be passed specifically.
 function convertEntityToControlOption(entity: Entity): ControlOption {
 	return {
 		label: entity.name,
