@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+	const UNSUPPORTED_CPTS = ['attachment'];
+
 	const { wp, entitiesSearch, Immutable } = window;
 
 	const { createElement } = wp.element;
@@ -45,14 +47,23 @@ document.addEventListener('DOMContentLoaded', () => {
 					posts: {
 						value: Immutable.Set(props.attributes.posts),
 						// TODO Reintegrate the posts by posts type hook to pass the values at the first render
-						options: Immutable.Set(),
+						options: Immutable.Set([
+							{ label: 'Sample Option 1', value: 120 },
+							{ label: 'Entities Option 2', value: 3 },
+							{ label: 'Option 3', value: 4 },
+						]),
 						onChange: (posts) =>
 							props.setAttributes({ posts: posts?.toArray() }),
 					},
 					postType: {
 						value: props.attributes.postType,
 						options: convertEntitiesToControlOptions(
-							postTypesOptions.records()
+							postTypesOptions
+								.records()
+								.filter(
+									(record) =>
+										!UNSUPPORTED_CPTS.includes(record.slug)
+								)
 						),
 						onChange: (postType) =>
 							props.setAttributes({ postType }),
@@ -60,14 +71,26 @@ document.addEventListener('DOMContentLoaded', () => {
 				},
 				(posts, type) => {
 					return [
-						createElement(PostTypeSelect, {
-							...type,
-							key: 'post-type-select',
-						}),
-						createElement(PostsSelect, {
-							...posts,
-							key: 'posts-select',
-						}),
+						createElement(
+							'div',
+							{
+								className: 'wz-post-types-control-wrapper',
+								key: 'post-type-select',
+							},
+							createElement(PostTypeSelect, {
+								...type,
+							})
+						),
+						createElement(
+							'div',
+							{
+								className: 'wz-posts-control-wrapper',
+								key: 'posts-select',
+							},
+							createElement(PostsSelect, {
+								...posts,
+							})
+						),
 					];
 				}
 			);

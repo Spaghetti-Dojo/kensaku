@@ -2,9 +2,9 @@ import EntitiesSearch from '@types';
 import { Set } from 'immutable';
 import React from 'react';
 
-import { describe, jest, it, expect } from '@jest/globals';
+import { describe, it, expect } from '@jest/globals';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { faker } from '@faker-js/faker';
@@ -12,29 +12,9 @@ import { faker } from '@faker-js/faker';
 import { PostsSelect } from '../../../../sources/js/src/components/posts-select';
 import { buildOptions } from '../utils';
 
-type ReactSelect = EntitiesSearch.PostsControl<string> & {
-	value: Array<EntitiesSearch.ControlOption<string>>;
-};
-
-jest.mock('react-select', () => (props: ReactSelect) => (
-	<select
-		multiple={true}
-		id="posts-select"
-		data-testid="posts-select"
-		onChange={() => props.onChange(Set([faker.word.noun()]))}
-		className="react-select"
-	>
-		{props.options.map((option: any) => (
-			<option key={option.value} value={option.value}>
-				{option.label}
-			</option>
-		))}
-	</select>
-));
-
 describe('Posts Select', () => {
 	it('call the given onChange handler', () => {
-		let expectedCalled: boolean = false;
+		let expectedValue: EntitiesSearch.PostsControl<string>['value'];
 		const option: EntitiesSearch.ControlOption<string> = {
 			label: faker.random.word(),
 			value: faker.word.noun(),
@@ -43,25 +23,26 @@ describe('Posts Select', () => {
 			.add(option)
 			.merge(buildOptions());
 
-		render(
+		const rendered = render(
 			<PostsSelect
 				options={options}
 				value={Set([option.value])}
-				onChange={() => (expectedCalled = true)}
+				onChange={(value) => (expectedValue = value)}
 			/>
 		);
 
-		const select = screen.getByTestId('posts-select');
+		const valuesToSelect = [option.value, String(options.last()?.value)];
+		const select = rendered.container.querySelector(
+			'.wz-posts-select'
+		) as HTMLSelectElement;
 
 		/*
 		 * We do not need to select two options since we are only testing the pure logic not the data but,
 		 * for logic correctness the `select` element is a multi select.
 		 */
-		userEvent.selectOptions(select, [
-			option.value,
-			String(options.last()?.value),
-		]);
+		userEvent.selectOptions(select, valuesToSelect);
 
-		expect(expectedCalled).toBe(true);
+		expect(expectedValue?.has(valuesToSelect[0] as string)).toBe(true);
+		expect(expectedValue?.has(valuesToSelect[1] as string)).toBe(true);
 	});
 });

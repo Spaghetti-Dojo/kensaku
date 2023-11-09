@@ -31,15 +31,17 @@ declare namespace EntitiesSearch {
 	 * Components
 	 */
 	interface PostTypeControl<V> {
-		readonly value: V | null;
+		readonly value?: V | undefined;
 		readonly options: Set<ControlOption<V>>;
 		readonly onChange: (value: PostTypeControl<V>['value']) => void;
+		readonly className?: string;
 	}
 
 	interface PostsControl<V> {
-		readonly value: Set<V> | null;
+		readonly value?: Set<V> | undefined;
 		readonly options: Set<ControlOption<V>>;
 		readonly onChange: (values: PostsControl<V>['value']) => void;
+		readonly className?: string;
 		readonly searchPosts?: (
 			phrase: string
 		) => Promise<PostsControl<V>['options']>;

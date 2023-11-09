@@ -14,7 +14,7 @@ class Module implements Modularity\Module\ExecutableModule
 {
     use Modularity\Module\ModuleClassNameIdTrait;
 
-    public static function new(): Module
+    public static function new(): self
     {
         return new self();
     }

@@ -1,33 +1,22 @@
 import EntitiesSearch from '@types';
-import { Set } from 'immutable';
+import classnames from 'classnames';
 import React, { JSX } from 'react';
-import Select, { SingleValue } from 'react-select';
 
-import { matchOptionValues } from '../utils/match-option-values';
-
-export function PostTypeSelect<V>(
-	props: EntitiesSearch.PostTypeControl<V>
+export function PostTypeSelect(
+	props: EntitiesSearch.PostTypeControl<string>
 ): JSX.Element {
-	const matchedValues = matchOptionValues(Set([props.value]), props.options);
-
+	const className = classnames(props.className, 'wz-post-type-select');
 	return (
-		<Select
-			isMulti={false}
-			value={matchedValues?.first() ?? null}
-			options={props.options.toArray()}
-			onChange={(option) =>
-				props.onChange(isNonNullableValue(option) ? option.value : null)
-			}
-		/>
+		<select
+			className={className}
+			value={props.value}
+			onChange={(event) => props.onChange(event.target.value)}
+		>
+			{props.options.map((option) => (
+				<option key={option.value} value={option.value}>
+					{option.label}
+				</option>
+			))}
+		</select>
 	);
-}
-
-function isNonNullableValue<V>(
-	value: SingleValue<
-		EntitiesSearch.ControlOption<EntitiesSearch.PostTypeControl<V>['value']>
-	>
-): value is EntitiesSearch.ControlOption<
-	NonNullable<EntitiesSearch.PostTypeControl<V>['value']>
-> {
-	return value !== null && value.value !== null;
 }

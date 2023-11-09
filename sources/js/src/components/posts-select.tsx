@@ -1,26 +1,31 @@
 import EntitiesSearch from '@types';
+import classnames from 'classnames';
 import { Set } from 'immutable';
 import React, { JSX } from 'react';
-import AsyncSelect from 'react-select/async';
 
-import { matchOptionValues } from '../utils/match-option-values';
-import { onChangeControlOptionsHandle } from '../utils/on-change-control-options-handle';
-
-export function PostsSelect<V>(
-	props: EntitiesSearch.PostsControl<V>
+export function PostsSelect(
+	props: EntitiesSearch.PostsControl<string>
 ): JSX.Element {
-	const matchedValues = matchOptionValues(props.value, props.options);
+	const className = classnames(props.className, 'wz-posts-select');
 
 	return (
-		<AsyncSelect
-			isMulti={true}
-			value={matchedValues?.toArray() ?? []}
-			options={props.options.toArray()}
-			// @ts-ignore I think here React Select is wrong 🤔
-			loadOptions={props.searchPosts}
-			onChange={(options) =>
-				onChangeControlOptionsHandle(props.onChange, Set(options))
-			}
-		/>
+		<select
+			multiple
+			className={className}
+			value={props?.value?.toArray()}
+			onChange={(event) => {
+				const values = Array.from(event.target.options)
+					.filter((option) => option.selected)
+					.map((option) => option.value);
+
+				props.onChange(Set(values));
+			}}
+		>
+			{props.options.map((option) => (
+				<option key={option.value} value={option.value}>
+					{option.label}
+				</option>
+			))}
+		</select>
 	);
 }
