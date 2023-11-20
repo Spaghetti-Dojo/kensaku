@@ -2,7 +2,7 @@ import type EntitiesSearch from '@types';
 import { Set } from 'immutable';
 import React, { JSX } from 'react';
 
-import { useState, useEffect, useCallback } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 
 import { isUndefined } from '../utils/is-undefined';
 
@@ -27,27 +27,24 @@ export function CompositePostsPostTypes<P, T>(
 		props.postType.onChange(postType);
 	};
 
-	const searchPostsByPostType = useCallback(
-		async (phrase: string) => {
-			if (isUndefined(props.searchPosts)) {
-				return Promise.resolve(Set([]));
-			}
+	const searchPostsByPostType = async (phrase: string) => {
+		if (isUndefined(props.searchPosts)) {
+			return Promise.resolve(Set([]));
+		}
 
-			return props
-				.searchPosts(phrase, state.postType)
-				.then((newOptions) => {
-					const immutableOptions = Set(newOptions);
-					setPostsOptions(immutableOptions);
-					return immutableOptions;
-				})
-				.catch(() => {
-					const emptySet = Set([]);
-					setPostsOptions(emptySet);
-					return Set(emptySet);
-				});
-		},
-		[props.searchPosts, state.postType]
-	);
+		return props
+			.searchPosts(phrase, state.postType)
+			.then((newOptions) => {
+				const immutableOptions = Set(newOptions);
+				setPostsOptions(immutableOptions);
+				return immutableOptions;
+			})
+			.catch(() => {
+				const emptySet = Set([]);
+				setPostsOptions(emptySet);
+				return Set(emptySet);
+			});
+	};
 
 	useEffect(() => {
 		searchPostsByPostType('');
