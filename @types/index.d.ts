@@ -30,33 +30,34 @@ declare namespace EntitiesSearch {
 	/**
 	 * Components
 	 */
-	interface PostTypeControl<V> {
-		readonly value?: V | undefined;
-		readonly options: Set<ControlOption<V>>;
-		readonly onChange: (value: PostTypeControl<V>['value']) => void;
-		readonly className?: string;
-	}
+	interface PostTypeControl<V>
+		extends Readonly<{
+			value?: V | undefined;
+			options: Set<ControlOption<V>>;
+			onChange: (value: PostTypeControl<V>['value']) => void;
+			className?: string;
+		}> {}
 
-	interface PostsControl<V> {
-		readonly value?: Set<V> | undefined;
-		readonly options: Set<ControlOption<V>>;
-		readonly onChange: (values: PostsControl<V>['value']) => void;
-		readonly className?: string;
-		readonly searchPosts?: (
-			phrase: string
-		) => Promise<PostsControl<V>['options']>;
-	}
+	interface PostsControl<V>
+		extends Readonly<{
+			value?: Set<V> | undefined;
+			options: Set<ControlOption<V>>;
+			onChange: (values: PostsControl<V>['value']) => void;
+			className?: string;
+		}> {}
 
-	interface CompositePostsPostTypes<P, T> {
-		readonly posts: PostsControl<P>;
-		readonly postType: PostTypeControl<T>;
-		readonly searchPosts?: (
-			phrase: string,
-			postType: PostTypeControl<T>['value']
-		) => Promise<PostsControl<P>['options']>;
-		readonly children: (
-			posts: CompositePostsPostTypes<P, T>['posts'],
-			postType: CompositePostsPostTypes<P, T>['postType']
-		) => React.ReactNode;
-	}
+	interface CompositePostsPostTypes<P, T>
+		extends Readonly<{
+			postType: PostTypeControl<T>;
+			// TODO When the `searchPosts` are given, the `posts` shouldn't get passed the `options` prop.
+			posts: PostsControl<P>;
+			searchPosts?: (
+				phrase: string,
+				postType: PostTypeControl<T>['value']
+			) => Promise<PostsControl<P>['options']>;
+			children: (
+				posts: CompositePostsPostTypes<P, T>['posts'],
+				postType: CompositePostsPostTypes<P, T>['postType']
+			) => React.ReactNode;
+		}> {}
 }

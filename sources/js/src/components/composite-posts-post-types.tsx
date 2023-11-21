@@ -4,7 +4,7 @@ import React, { JSX } from 'react';
 
 import { useState, useEffect } from '@wordpress/element';
 
-import { isUndefined } from '../utils/is-undefined';
+import { isFunction } from '../utils/is-function';
 
 export function CompositePostsPostTypes<P, T>(
 	props: EntitiesSearch.CompositePostsPostTypes<P, T>
@@ -28,7 +28,7 @@ export function CompositePostsPostTypes<P, T>(
 	};
 
 	const searchPostsByPostType = async (phrase: string) => {
-		if (isUndefined(props.searchPosts)) {
+		if (!isFunction(props.searchPosts)) {
 			return Promise.resolve(Set([]));
 		}
 
@@ -48,12 +48,14 @@ export function CompositePostsPostTypes<P, T>(
 
 	useEffect(() => {
 		searchPostsByPostType('');
-	}, [searchPostsByPostType]);
+	}, [state.postType]);
 
 	const posts = {
 		...props.posts,
 		value: state.posts,
-		options: postsOptions.size > 0 ? postsOptions : props.posts.options,
+		options: isFunction(props.searchPosts)
+			? postsOptions
+			: props.posts.options,
 		onChange: onChangePosts,
 		searchPosts: searchPostsByPostType,
 	};
