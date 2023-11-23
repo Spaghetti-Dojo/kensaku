@@ -22,7 +22,7 @@ export function CompositePostsPostTypes<P, T>(
 		props.posts.onChange(posts);
 	};
 
-	const onChangePostType = (postType: T | undefined) => {
+	const onChangePostType = (postType: T) => {
 		setState({ ...state, postType, posts: Set([]) });
 		props.postType.onChange(postType);
 	};
@@ -42,7 +42,7 @@ export function CompositePostsPostTypes<P, T>(
 			.catch(() => {
 				const emptySet = Set([]);
 				setPostsOptions(emptySet);
-				return Set(emptySet);
+				return emptySet;
 			});
 	};
 
@@ -50,17 +50,16 @@ export function CompositePostsPostTypes<P, T>(
 		searchPostsByPostType('');
 	}, [state.postType]);
 
-	const posts = {
+	const posts: EntitiesSearch.PostsControl<P> = {
 		...props.posts,
 		value: state.posts,
 		options: isFunction(props.searchPosts)
 			? postsOptions
 			: props.posts.options,
 		onChange: onChangePosts,
-		searchPosts: searchPostsByPostType,
 	};
 
-	const postType = {
+	const postType: EntitiesSearch.PostTypeControl<T> = {
 		...props.postType,
 		value: state.postType,
 		onChange: onChangePostType,

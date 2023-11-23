@@ -32,18 +32,18 @@ declare namespace EntitiesSearch {
 	 */
 	interface PostTypeControl<V>
 		extends Readonly<{
-			value?: V | undefined;
+			value: V;
 			options: Set<ControlOption<V>>;
-			onChange: (value: PostTypeControl<V>['value']) => void;
 			className?: string;
+			onChange(value: PostTypeControl<V>['value']): void;
 		}> {}
 
 	interface PostsControl<V>
 		extends Readonly<{
 			value?: Set<V> | undefined;
 			options: Set<ControlOption<V>>;
-			onChange: (values: PostsControl<V>['value']) => void;
 			className?: string;
+			onChange(values: PostsControl<V>['value']): void;
 		}> {}
 
 	interface CompositePostsPostTypes<P, T>
@@ -55,9 +55,9 @@ declare namespace EntitiesSearch {
 				phrase: string,
 				postType: PostTypeControl<T>['value']
 			) => Promise<PostsControl<P>['options']>;
-			children: (
+			children(
 				posts: CompositePostsPostTypes<P, T>['posts'],
 				postType: CompositePostsPostTypes<P, T>['postType']
-			) => React.ReactNode;
+			): React.ReactNode;
 		}> {}
 }
