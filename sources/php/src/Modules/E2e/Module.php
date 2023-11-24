@@ -34,6 +34,17 @@ class Module implements Modularity\Module\ExecutableModule
             self::postTypesExample($properties);
         });
 
+        \add_action('init', static function() {
+            \register_post_type('e2e-post-type', [
+                'label' => 'E2E Post Type Example',
+                'public' => true,
+                'show_in_rest' => true,
+                'supports' => ['title', 'editor', 'thumbnail'],
+                'taxonomies' => ['category', 'post_tag'],
+                'rewrite' => ['slug' => 'e2e-post-type-example'],
+            ]);
+        });
+
         return true;
     }
 

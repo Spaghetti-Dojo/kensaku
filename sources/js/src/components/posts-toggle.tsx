@@ -2,10 +2,16 @@ import EntitiesSearch from '@types';
 import classnames from 'classnames';
 import React, { JSX } from 'react';
 
+import { NoOptionsMessage } from './no-options-message';
+
 export function PostsToggle(
 	props: EntitiesSearch.PostsControl<number>
 ): JSX.Element {
 	const className = classnames(props.className, 'wz-posts-toggle');
+
+	if (props.options.size <= 0) {
+		return <NoOptionsMessage />;
+	}
 
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { target } = event;

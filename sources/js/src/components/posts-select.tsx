@@ -3,10 +3,16 @@ import classnames from 'classnames';
 import { Set } from 'immutable';
 import React, { JSX } from 'react';
 
+import { NoOptionsMessage } from './no-options-message';
+
 export function PostsSelect(
 	props: EntitiesSearch.PostsControl<string>
 ): JSX.Element {
 	const className = classnames(props.className, 'wz-posts-select');
+
+	if (props.options.size <= 0) {
+		return <NoOptionsMessage />;
+	}
 
 	return (
 		<select
