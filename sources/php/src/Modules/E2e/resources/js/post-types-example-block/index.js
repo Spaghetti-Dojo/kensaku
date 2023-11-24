@@ -10,9 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const {
 		searchPosts,
-		PostTypeSelect,
 		PostTypeRadio,
-		PostsSelect,
 		PostsToggle,
 		CompositePostsPostTypes,
 		useQueryViewablePostTypes,

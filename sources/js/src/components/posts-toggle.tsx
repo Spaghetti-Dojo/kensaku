@@ -34,9 +34,10 @@ export function PostsToggle(
 		<div className={className}>
 			{props.options.map((option) => (
 				<div key={option.value} className="wz-posts-toggle-item">
-					<label>
+					<label htmlFor={`wz-post-type-toggle-${option.value}`}>
 						<input
 							type="checkbox"
+							id={`wz-post-type-toggle-${option.value}`}
 							checked={props.value?.has(option.value)}
 							value={option.value}
 							onChange={onChange}

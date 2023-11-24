@@ -11,9 +11,10 @@ export function PostTypeRadio(
 		<div className={className}>
 			{props.options.map((option) => (
 				<div key={option.value} className="wz-posts-toggle-item">
-					<label>
+					<label htmlFor={`wz-post-type-radio-${option.value}`}>
 						<input
 							type="radio"
+							id={`wz-post-type-radio-${option.value}`}
 							checked={props.value === option.value}
 							value={option.value}
 							onChange={(event) =>

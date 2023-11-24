@@ -23,18 +23,19 @@ export function CompositePostsPostTypes<P, T>(
 	};
 
 	const onChangePostType = (postType: T) => {
+		searchPostsByPostType('', postType);
 		setState({ ...state, postType, posts: Set([]) });
 		props.postType.onChange(postType);
 		props.posts.onChange(Set([]));
 	};
 
-	const searchPostsByPostType = async (phrase: string) => {
+	const searchPostsByPostType = async (phrase: string, postType: T) => {
 		if (!isFunction(props.searchPosts)) {
-			return Promise.resolve(Set([]));
+			return Promise.resolve(Set(props.posts.options));
 		}
 
 		return props
-			.searchPosts(phrase, state.postType)
+			.searchPosts(phrase, postType)
 			.then((newOptions) => {
 				const immutableOptions = Set(newOptions);
 				setPostsOptions(immutableOptions);
@@ -48,8 +49,9 @@ export function CompositePostsPostTypes<P, T>(
 	};
 
 	useEffect(() => {
-		searchPostsByPostType('');
-	}, [state.postType]);
+		searchPostsByPostType('', state.postType);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const posts: EntitiesSearch.PostsControl<P> = {
 		...props.posts,
