@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const {
 		searchPosts,
 		PostTypeSelect,
+		PostTypeRadio,
 		PostsSelect,
 		PostsToggle,
 		CompositePostsPostTypes,
@@ -76,15 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
 							'div',
 							{
 								className: 'wz-post-types-control-wrapper',
-								key: 'post-type-select',
+								key: 'post-type',
 							},
-							createElement(PostTypeSelect, type)
+							createElement(PostTypeRadio, type)
 						),
 						createElement(
 							'div',
 							{
 								className: 'wz-posts-control-wrapper',
-								key: 'posts-toggle',
+								key: 'posts',
 							},
 							createElement(PostsToggle, posts)
 						),

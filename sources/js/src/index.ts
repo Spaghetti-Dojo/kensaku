@@ -1,5 +1,6 @@
 export * from './components/composite-posts-post-types';
 export * from './components/post-type-select';
+export * from './components/post-type-radio';
 export * from './components/posts-select';
 export * from './components/posts-toggle';
 
