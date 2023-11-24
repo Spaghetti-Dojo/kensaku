@@ -58,7 +58,7 @@ describe('CompositePostsPostTypes', () => {
 	/**
 	 * This test want to ensure it is possible to select a post having a post type set.
 	 */
-	it('Allow to select a post having a post type set', (done) => {
+	it('Allow to select a post', (done) => {
 		let expectedPosts: EntitiesSearch.PostsControl<string>['value'];
 
 		const rendered = render(
@@ -91,9 +91,62 @@ describe('CompositePostsPostTypes', () => {
 			'.wz-posts-select'
 		) as HTMLSelectElement;
 
-		userEvent.selectOptions(postsSelect, ['post-1']).then(() => {
-			expect(expectedPosts?.has('post-1')).toBe(true);
+		userEvent.selectOptions(postsSelect, ['post-2']).then(() => {
+			expect(expectedPosts?.has('post-2')).toBe(true);
 			done();
+		});
+	});
+
+	/**
+	 * This test want to ensure the selected posts state is reset to an empty collection when the post type change.
+	 */
+	it('Reset the selected posts state when the post type changes', (done) => {
+		let expectedPosts: EntitiesSearch.PostsControl<string>['value'];
+
+		const rendered = render(
+			<CompositePostsPostTypes
+				posts={{
+					value: Set([]),
+					options: Set([
+						{ label: 'Post 1', value: 'post-1' },
+						{ label: 'Post 2', value: 'post-2' },
+					]),
+					onChange: (value) => (expectedPosts = value),
+				}}
+				postType={{
+					value: 'post',
+					options: Set([
+						{ label: 'Post', value: 'post' },
+						{ label: 'Page', value: 'page' },
+					]),
+					onChange: () => {},
+				}}
+			>
+				{(posts, postType) => {
+					return (
+						<>
+							<PostTypeSelect {...postType} />
+							<PostsSelect {...posts} />
+						</>
+					);
+				}}
+			</CompositePostsPostTypes>
+		);
+
+		const postTypeSelect = rendered.container.querySelector(
+			'.wz-post-type-select'
+		) as HTMLSelectElement;
+		const postsSelect = rendered.container.querySelector(
+			'.wz-posts-select'
+		) as HTMLSelectElement;
+
+		userEvent.selectOptions(postsSelect, ['post-2']).then(() => {
+			expect(expectedPosts?.has('post-2')).toBe(true);
+
+			userEvent.selectOptions(postTypeSelect, 'page').then(() => {
+				expect(expectedPosts?.size).toBe(0);
+				done();
+			});
 		});
 	});
 

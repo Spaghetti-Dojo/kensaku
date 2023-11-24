@@ -4,7 +4,7 @@ import { describe, it, expect } from '@jest/globals';
 
 import { faker } from '@faker-js/faker';
 
-import { convertEntitiesToControlOptions } from '../../../../sources/js/src/utils/convert-entities-to-control-options';
+import { convertPostTypeEntitiesToControlOptions } from '../../../../sources/js/src/utils/convert-post-type-entities-to-control-options';
 
 describe('Convert Entities To Control Options', () => {
 	it('correctly convert entities to control options', () => {
@@ -17,7 +17,7 @@ describe('Convert Entities To Control Options', () => {
 			});
 		}
 
-		const options = convertEntitiesToControlOptions(entities);
+		const options = convertPostTypeEntitiesToControlOptions(entities);
 		for (const postType of entities) {
 			expect(
 				options.includes({ label: postType.name, value: postType.slug })
@@ -26,8 +26,8 @@ describe('Convert Entities To Control Options', () => {
 	});
 
 	it('returns empty list if entities set is empty', () => {
-		expect(convertEntitiesToControlOptions(Set([])).isEmpty()).toEqual(
-			true
-		);
+		expect(
+			convertPostTypeEntitiesToControlOptions(Set([])).isEmpty()
+		).toEqual(true);
 	});
 });

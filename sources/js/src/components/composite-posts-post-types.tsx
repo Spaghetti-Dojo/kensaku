@@ -25,6 +25,7 @@ export function CompositePostsPostTypes<P, T>(
 	const onChangePostType = (postType: T) => {
 		setState({ ...state, postType, posts: Set([]) });
 		props.postType.onChange(postType);
+		props.posts.onChange(Set([]));
 	};
 
 	const searchPostsByPostType = async (phrase: string) => {

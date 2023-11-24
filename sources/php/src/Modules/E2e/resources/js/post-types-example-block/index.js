@@ -10,12 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const {
 		searchPosts,
-		buildSelectOption,
 		PostTypeSelect,
 		PostsSelect,
+		PostsToggle,
 		CompositePostsPostTypes,
 		useQueryViewablePostTypes,
-		convertEntitiesToControlOptions,
+		convertPostTypeEntitiesToControlOptions,
+		convertPostEntitiesToControlOptions,
 	} = entitiesSearch;
 
 	// TODO Check why the object form does not work.
@@ -40,10 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				CompositePostsPostTypes,
 				{
 					// TODO Wrap around a throttle or debounce function
-					searchPosts: async (phrase, postType) => {
-						const entities = await searchPosts(postType, phrase);
-						return entities.map(buildSelectOption);
-					},
+					searchPosts: async (phrase, postType) =>
+						convertPostEntitiesToControlOptions(
+							await searchPosts(postType, phrase)
+						),
 					posts: {
 						value: Immutable.Set(props.attributes.posts),
 						// TODO Reintegrate the posts by posts type hook to pass the values at the first render
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					},
 					postType: {
 						value: props.attributes.postType,
-						options: convertEntitiesToControlOptions(
+						options: convertPostTypeEntitiesToControlOptions(
 							postTypesOptions
 								.records()
 								.filter(
@@ -77,19 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
 								className: 'wz-post-types-control-wrapper',
 								key: 'post-type-select',
 							},
-							createElement(PostTypeSelect, {
-								...type,
-							})
+							createElement(PostTypeSelect, type)
 						),
 						createElement(
 							'div',
 							{
 								className: 'wz-posts-control-wrapper',
-								key: 'posts-select',
+								key: 'posts-toggle',
 							},
-							createElement(PostsSelect, {
-								...posts,
-							})
+							createElement(PostsToggle, posts)
 						),
 					];
 				}
