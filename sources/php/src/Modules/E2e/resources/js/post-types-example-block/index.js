@@ -42,7 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
 				{
 					// TODO Wrap around a throttle or debounce function
 					searchPosts: async (phrase, postType) => {
-						const posts = await searchPosts(postType, phrase);
+						const posts = await searchPosts(
+							postType,
+							phrase,
+							props.attributes.posts
+						);
 						return convertPostEntitiesToControlOptions(posts);
 					},
 					posts: {

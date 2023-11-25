@@ -12,10 +12,8 @@ export function CompositePostsPostTypes<P, T>(
 	const [state, setState] = useState({
 		posts: props.posts.value,
 		postType: props.postType.value,
+		postsOptions: OrderedSet<EntitiesSearch.ControlOption<P>>([]),
 	});
-	const [postsOptions, setPostsOptions] = useState<
-		OrderedSet<EntitiesSearch.ControlOption<P>>
-	>(OrderedSet([]));
 
 	const onChangePosts = (posts: OrderedSet<P> | undefined) => {
 		setState({ ...state, posts });
@@ -32,14 +30,13 @@ export function CompositePostsPostTypes<P, T>(
 	const searchPostsByPostType = async (phrase: string, postType: T) => {
 		return props
 			.searchPosts(phrase, postType)
-			.then((newOptions) => {
-				const immutableOptions = OrderedSet(newOptions);
-				setPostsOptions(immutableOptions);
-				return immutableOptions;
+			.then((postsOptions) => {
+				setState({ ...state, postsOptions });
+				return postsOptions;
 			})
 			.catch(() => {
 				const emptySet = OrderedSet([]);
-				setPostsOptions(emptySet);
+				setState({ ...state, postsOptions: emptySet });
 				return emptySet;
 			});
 	};
@@ -52,7 +49,10 @@ export function CompositePostsPostTypes<P, T>(
 	const posts: EntitiesSearch.PostsControl<P> = {
 		...props.posts,
 		value: state.posts,
-		options: orderSelectedOptionsAtTheTop<P>(postsOptions, state.posts),
+		options: orderSelectedOptionsAtTheTop<P>(
+			state.postsOptions,
+			state.posts
+		),
 		onChange: onChangePosts,
 	};
 
