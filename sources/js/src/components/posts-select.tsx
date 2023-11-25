@@ -5,6 +5,8 @@ import React, { JSX } from 'react';
 
 import { NoOptionsMessage } from './no-options-message';
 
+// TODO Must accept string or number? because the value might be the ID of the posts.
+// TODO Add className property to the other related components
 export function PostsSelect(
 	props: EntitiesSearch.PostsControl<string>
 ): JSX.Element {

@@ -4,8 +4,6 @@ import React, { JSX } from 'react';
 
 import { useState, useEffect } from '@wordpress/element';
 
-import { isFunction } from '../utils/is-function';
-
 export function CompositePostsPostTypes<P, T>(
 	props: EntitiesSearch.CompositePostsPostTypes<P, T>
 ): JSX.Element {
@@ -30,10 +28,6 @@ export function CompositePostsPostTypes<P, T>(
 	};
 
 	const searchPostsByPostType = async (phrase: string, postType: T) => {
-		if (!isFunction(props.searchPosts)) {
-			return Promise.resolve(Set(props.posts.options));
-		}
-
 		return props
 			.searchPosts(phrase, postType)
 			.then((newOptions) => {
@@ -56,9 +50,7 @@ export function CompositePostsPostTypes<P, T>(
 	const posts: EntitiesSearch.PostsControl<P> = {
 		...props.posts,
 		value: state.posts,
-		options: isFunction(props.searchPosts)
-			? postsOptions
-			: props.posts.options,
+		options: postsOptions,
 		onChange: onChangePosts,
 	};
 
@@ -68,5 +60,12 @@ export function CompositePostsPostTypes<P, T>(
 		onChange: onChangePostType,
 	};
 
-	return <>{props.children(posts, postType)}</>;
+	// TODO Add debouncing to the `search` callback
+	const search: EntitiesSearch.Search<P>['search'] = (phrase) =>
+		searchPostsByPostType(
+			typeof phrase === 'string' ? phrase : phrase.target.value,
+			state.postType
+		);
+
+	return <>{props.children(posts, postType, search)}</>;
 }

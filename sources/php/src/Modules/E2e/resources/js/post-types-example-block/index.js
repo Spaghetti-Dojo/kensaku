@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		searchPosts,
 		PostTypeRadio,
 		PostsToggle,
+		Search,
 		CompositePostsPostTypes,
 		useQueryViewablePostTypes,
 		convertPostTypeEntitiesToControlOptions,
@@ -46,12 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
 						),
 					posts: {
 						value: Immutable.Set(props.attributes.posts),
-						// TODO Reintegrate the posts by posts type hook to pass the values at the first render
-						options: Immutable.Set([
-							{ label: 'Sample Option 1', value: 120 },
-							{ label: 'Entities Option 2', value: 3 },
-							{ label: 'Option 3', value: 4 },
-						]),
 						onChange: (posts) =>
 							props.setAttributes({ posts: posts?.toArray() }),
 					},
@@ -69,24 +64,17 @@ document.addEventListener('DOMContentLoaded', () => {
 							props.setAttributes({ postType }),
 					},
 				},
-				(posts, type) => {
+				(posts, type, search) => {
 					return [
-						createElement(
-							'div',
-							{
-								className: 'wz-post-types-control-wrapper',
-								key: 'post-type',
-							},
-							createElement(PostTypeRadio, type)
-						),
-						createElement(
-							'div',
-							{
-								className: 'wz-posts-control-wrapper',
-								key: 'posts',
-							},
-							createElement(PostsToggle, posts)
-						),
+						createElement(PostTypeRadio, {
+							...type,
+							key: 'post-type-radio',
+						}),
+						createElement(Search, { search, key: 'search' }),
+						createElement(PostsToggle, {
+							...posts,
+							key: 'posts-toggle',
+						}),
 					];
 				}
 			);

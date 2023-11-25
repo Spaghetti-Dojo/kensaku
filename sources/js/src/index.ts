@@ -3,6 +3,7 @@ export * from './components/post-type-select';
 export * from './components/post-type-radio';
 export * from './components/posts-select';
 export * from './components/posts-toggle';
+export * from './components/search';
 
 export * from './hooks/use-entity-records';
 export * from './hooks/use-query-viewable-post-types';

@@ -1,5 +1,5 @@
 import type { Set } from 'immutable';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
@@ -46,18 +46,26 @@ declare namespace EntitiesSearch {
 			onChange(values: PostsControl<V>['value']): void;
 		}> {}
 
+	interface Search<V>
+		extends Readonly<{
+			id?: string;
+			search(
+				phrase: string | React.ChangeEvent<HTMLInputElement>
+			): Promise<Set<ControlOption<V>>>;
+		}> {}
+
 	interface CompositePostsPostTypes<P, T>
 		extends Readonly<{
 			postType: PostTypeControl<T>;
-			// TODO When the `searchPosts` are given, the `posts` shouldn't get passed the `options` prop.
 			posts: PostsControl<P>;
-			searchPosts?: (
+			searchPosts: (
 				phrase: string,
 				postType: PostTypeControl<T>['value']
 			) => Promise<PostsControl<P>['options']>;
 			children(
 				posts: CompositePostsPostTypes<P, T>['posts'],
-				postType: CompositePostsPostTypes<P, T>['postType']
+				postType: CompositePostsPostTypes<P, T>['postType'],
+				search: Search<P>['search']
 			): React.ReactNode;
 		}> {}
 }
