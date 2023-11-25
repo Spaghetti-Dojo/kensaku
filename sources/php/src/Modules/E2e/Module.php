@@ -14,6 +14,20 @@ class Module implements Modularity\Module\ExecutableModule
 {
     use Modularity\Module\ModuleClassNameIdTrait;
 
+    private const POST_TYPES = [
+        [
+            'name' => 'e2e-post-type',
+            'configuration' => [
+                'label' => 'E2E Post Type Example',
+                'public' => true,
+                'show_in_rest' => true,
+                'supports' => ['title', 'editor', 'thumbnail'],
+                'taxonomies' => ['category', 'post_tag'],
+                'rewrite' => ['slug' => 'e2e-post-type-example'],
+            ],
+        ],
+    ];
+
     public static function new(): self
     {
         return new self();
@@ -23,26 +37,34 @@ class Module implements Modularity\Module\ExecutableModule
     {
     }
 
+    /**
+     * phpcs:disable Inpsyde.CodeQuality.NestingLevel.High
+     */
     public function run(Container\ContainerInterface $container): bool
     {
+        // phpcs:enable Inpsyde.CodeQuality.NestingLevel.High
+
         // TODO Add WpContext to avoid run if not the right context.
 
         \add_action('init', static function () use ($container) {
             /** @var Modularity\Properties\Properties $properties */
             $properties = $container->get(Modularity\Package::PROPERTIES);
-
             self::postTypesExample($properties);
         });
 
-        \add_action('init', static function() {
-            \register_post_type('e2e-post-type', [
-                'label' => 'E2E Post Type Example',
-                'public' => true,
-                'show_in_rest' => true,
-                'supports' => ['title', 'editor', 'thumbnail'],
-                'taxonomies' => ['category', 'post_tag'],
-                'rewrite' => ['slug' => 'e2e-post-type-example'],
-            ]);
+        \add_action('init', static function () {
+            ['name' => $name, 'configuration' => $configuration] = self::POST_TYPES[0];
+            for ($i = 1; $i < 5; $i++) {
+                $mergedConfiguration = \array_merge(
+                    $configuration,
+                    [
+                        'label' => "{$configuration['label']} $i",
+                        'rewrite' => ['slug' => "{$configuration['rewrite']['slug']}-$i"],
+                    ]
+                );
+                // phpcs:disable WordPress.NamingConventions.ValidPostTypeSlug.PartiallyDynamic
+                \register_post_type("{$name}-$i", $mergedConfiguration);
+            }
         });
 
         return true;
