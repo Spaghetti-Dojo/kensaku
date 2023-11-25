@@ -7,16 +7,16 @@ import { fetch } from './fetch';
 export async function searchPosts<E>(
 	type: string,
 	phrase: string,
-	exclude: Array<number> = []
+	queryArguments: Record<string, unknown>
 ): Promise<OrderedSet<E>> {
 	const params = new URLSearchParams({
-		_fields: 'title,id',
-		search: phrase,
-		subtype: type,
 		per_page: '10',
 		order: 'DESC',
 		orderBy: 'title',
-		exclude: exclude.join(','),
+		...queryArguments,
+		search: phrase,
+		subtype: type,
+		_fields: 'title,id',
 	});
 
 	// TODO What happen in the case of an error?

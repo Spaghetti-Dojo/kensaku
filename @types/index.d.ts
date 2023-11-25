@@ -49,9 +49,7 @@ declare namespace EntitiesSearch {
 	interface Search<V>
 		extends Readonly<{
 			id?: string;
-			search(
-				phrase: string | React.ChangeEvent<HTMLInputElement>
-			): Promise<OrderedSet<ControlOption<V>>>;
+			search(phrase: string | React.ChangeEvent<HTMLInputElement>);
 		}> {}
 
 	interface CompositePostsPostTypes<P, T>
@@ -60,7 +58,8 @@ declare namespace EntitiesSearch {
 			posts: PostsControl<P>;
 			searchPosts: (
 				phrase: string,
-				postType: PostTypeControl<T>['value']
+				postType: PostTypeControl<T>['value'],
+				queryArguments?: Record<string, unknown>
 			) => Promise<PostsControl<P>['options']>;
 			children(
 				posts: CompositePostsPostTypes<P, T>['posts'],

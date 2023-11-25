@@ -23,19 +23,44 @@ export function CompositePostsPostTypes<P, T>(
 	};
 
 	const onChangePostType = (postType: T) => {
-		searchPostsByPostType('', postType);
+		searchPostsByPostType('', postType, state.posts);
 		setState({ ...state, postType, posts: OrderedSet([]) });
 		props.postType.onChange(postType);
 		props.posts.onChange(OrderedSet([]));
 	};
 
-	const searchPostsByPostType = async (phrase: string, postType: T) => {
-		return props
-			.searchPosts(phrase, postType)
-			.then((newOptions) => {
-				const immutableOptions = OrderedSet(newOptions);
-				setPostsOptions(immutableOptions);
-				return immutableOptions;
+	const searchPostsByPostType = async (
+		phrase: string,
+		postType: T,
+		posts?: EntitiesSearch.PostsControl<P>['value']
+	) => {
+		const selectedOptions = posts?.toArray() ?? [];
+
+		const promises: Array<
+			ReturnType<
+				EntitiesSearch.CompositePostsPostTypes<P, T>['searchPosts']
+			>
+		> = [
+			props.searchPosts(phrase, postType, {
+				exclude: selectedOptions,
+			}),
+		];
+
+		if (selectedOptions.length > 0) {
+			promises.push(
+				props.searchPosts('', postType, {
+					include: selectedOptions,
+					per_page: '-1',
+				})
+			);
+		}
+
+		Promise.all(promises)
+			.then((result) => {
+				const options = result[0] ?? OrderedSet();
+				const selectedOptions = result[1] ?? OrderedSet();
+				setPostsOptions(options.merge(selectedOptions));
+				return options;
 			})
 			.catch(() => {
 				const emptySet = OrderedSet([]);
@@ -45,7 +70,7 @@ export function CompositePostsPostTypes<P, T>(
 	};
 
 	useEffect(() => {
-		searchPostsByPostType('', state.postType);
+		searchPostsByPostType('', state.postType, state.posts);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -63,11 +88,18 @@ export function CompositePostsPostTypes<P, T>(
 	};
 
 	// TODO Add debouncing to the `search` callback
-	const search: EntitiesSearch.Search<P>['search'] = (phrase) =>
-		searchPostsByPostType(
-			typeof phrase === 'string' ? phrase : phrase.target.value,
-			state.postType
-		);
+	const search: EntitiesSearch.Search<P>['search'] = (phraseOrEvent) => {
+		const phrase =
+			typeof phraseOrEvent === 'string'
+				? phraseOrEvent
+				: phraseOrEvent.target.value;
+
+		/*
+		 * Not performing the search when the phrase is empty help us in keeping the state, so that it's not necessary
+		 * to do another rest call to retrieve the selected option.
+		 */
+		phrase && searchPostsByPostType(phrase, state.postType);
+	};
 
 	return <>{props.children(posts, postType, search)}</>;
 }
