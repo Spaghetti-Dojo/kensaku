@@ -1,4 +1,4 @@
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import { makeControlOption } from './make-control-option';
 
@@ -8,7 +8,7 @@ type Properties = Readonly<{
 }>;
 
 export function convertPostEntitiesToControlOptions(
-	postsEntities: Set<Properties>
+	postsEntities: OrderedSet<Properties>
 ) {
 	return postsEntities.map((entity) => {
 		let entityTitle = '';

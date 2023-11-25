@@ -1,4 +1,4 @@
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import { fetch } from './fetch';
 
@@ -6,12 +6,14 @@ import { fetch } from './fetch';
 export async function searchPosts<E>(
 	type: string,
 	phrase: string
-): Promise<Set<E>> {
+): Promise<OrderedSet<E>> {
 	const params = new URLSearchParams({
 		_fields: 'title,id',
 		search: phrase,
 		subtype: type,
-		posts_per_page: '10',
+		per_page: '10',
+		order: 'DESC',
+		orderBy: 'title',
 	});
 
 	// TODO What happen in the case of an error?
@@ -19,5 +21,5 @@ export async function searchPosts<E>(
 		path: `?rest_route=/wp/v2/search&${params.toString()}`,
 	});
 
-	return Set(entities);
+	return OrderedSet(entities);
 }

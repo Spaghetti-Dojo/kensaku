@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				CompositePostsPostTypes,
 				{
 					// TODO Wrap around a throttle or debounce function
-					searchPosts: async (phrase, postType) =>
-						convertPostEntitiesToControlOptions(
-							await searchPosts(postType, phrase)
-						),
+					searchPosts: async (phrase, postType) => {
+						const posts = await searchPosts(postType, phrase);
+						return convertPostEntitiesToControlOptions(posts);
+					},
 					posts: {
 						value: Immutable.Set(props.attributes.posts),
 						onChange: (posts) =>

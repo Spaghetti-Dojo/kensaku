@@ -1,5 +1,5 @@
 import EntitiesSearch from '@types';
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import { useEntityRecords } from './use-entity-records';
 
@@ -20,10 +20,10 @@ export function useQueryViewablePostTypes(): EntitiesSearch.EntitiesRecords<Enti
 		.records()
 		.filter(
 			(postType) => postType.viewable
-		) as Set<EntitiesSearch.ViewablePostType>;
+		) as OrderedSet<EntitiesSearch.ViewablePostType>;
 
 	return {
 		...entitiesRecords,
-		records: () => Set(viewablePostTypes),
+		records: () => OrderedSet(viewablePostTypes),
 	};
 }

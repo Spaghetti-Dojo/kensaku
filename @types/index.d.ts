@@ -1,5 +1,5 @@
-import type { Set } from 'immutable';
-import React, { PropsWithChildren } from 'react';
+import type { OrderedSet } from 'immutable';
+import React from 'react';
 
 import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
@@ -21,7 +21,7 @@ declare namespace EntitiesSearch {
 	}>;
 
 	type EntitiesRecords<Entity> = Readonly<{
-		records(): Set<Entity>;
+		records(): OrderedSet<Entity>;
 		isResolving(): boolean;
 		errored(): boolean;
 		succeed(): boolean;
@@ -33,15 +33,15 @@ declare namespace EntitiesSearch {
 	interface PostTypeControl<V>
 		extends Readonly<{
 			value: V;
-			options: Set<ControlOption<V>>;
+			options: OrderedSet<ControlOption<V>>;
 			className?: string;
 			onChange(value: PostTypeControl<V>['value']): void;
 		}> {}
 
 	interface PostsControl<V>
 		extends Readonly<{
-			value?: Set<V> | undefined;
-			options: Set<ControlOption<V>>;
+			value?: OrderedSet<V> | undefined;
+			options: OrderedSet<ControlOption<V>>;
 			className?: string;
 			onChange(values: PostsControl<V>['value']): void;
 		}> {}
@@ -51,7 +51,7 @@ declare namespace EntitiesSearch {
 			id?: string;
 			search(
 				phrase: string | React.ChangeEvent<HTMLInputElement>
-			): Promise<Set<ControlOption<V>>>;
+			): Promise<OrderedSet<ControlOption<V>>>;
 		}> {}
 
 	interface CompositePostsPostTypes<P, T>

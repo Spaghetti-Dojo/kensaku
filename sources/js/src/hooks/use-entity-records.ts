@@ -1,5 +1,5 @@
 import EntitiesSearch from '@types';
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import { useEntityRecords as useCoreEntityRecords } from '@wordpress/core-data';
 
@@ -28,7 +28,7 @@ export function useEntityRecords<Entity>(
 	const status = entities.status as any as ResolveStatus;
 
 	return Object.freeze({
-		records: () => Set(entities.records ?? []),
+		records: () => OrderedSet(entities.records ?? []),
 		isResolving: () =>
 			entities.isResolving &&
 			!entities.hasResolved &&

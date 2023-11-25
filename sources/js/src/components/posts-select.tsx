@@ -1,6 +1,6 @@
 import EntitiesSearch from '@types';
 import classnames from 'classnames';
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 import React, { JSX } from 'react';
 
 import { NoOptionsMessage } from './no-options-message';
@@ -26,7 +26,7 @@ export function PostsSelect(
 					.filter((option) => option.selected)
 					.map((option) => option.value);
 
-				props.onChange(Set(values));
+				props.onChange(OrderedSet(values));
 			}}
 		>
 			{props.options.map((option) => (
