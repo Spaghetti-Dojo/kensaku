@@ -55,14 +55,14 @@ declare namespace EntitiesSearch {
 	interface CompositePostsPostTypes<P, T>
 		extends Readonly<{
 			postType: PostTypeControl<T>;
-			posts: PostsControl<P>;
+			posts: Omit<PostsControl<P>, 'options'>;
 			searchPosts: (
 				phrase: string,
 				postType: PostTypeControl<T>['value'],
 				queryArguments?: Record<string, unknown>
 			) => Promise<PostsControl<P>['options']>;
 			children(
-				posts: CompositePostsPostTypes<P, T>['posts'],
+				posts: PostsControl<P>,
 				postType: CompositePostsPostTypes<P, T>['postType'],
 				search: Search<P>['search']
 			): React.ReactNode;

@@ -1,10 +1,10 @@
 import EntitiesSearch from '@types';
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 import React from 'react';
 
 import { describe, it, expect, jest } from '@jest/globals';
 
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { CompositePostsPostTypes } from '../../../../sources/js/src/components/composite-posts-post-types';
@@ -25,14 +25,14 @@ describe('CompositePostsPostTypes', () => {
 
 		const rendered = render(
 			<CompositePostsPostTypes
+				searchPosts={() => Promise.resolve(OrderedSet([]))}
 				posts={{
-					value: Set([]),
-					options: Set([]),
+					value: OrderedSet([]),
 					onChange: () => {},
 				}}
 				postType={{
 					value: 'post',
-					options: Set([
+					options: OrderedSet([
 						{ label: 'Post', value: 'post' },
 						{ label: 'Page', value: 'page' },
 					]),
@@ -58,80 +58,91 @@ describe('CompositePostsPostTypes', () => {
 	/**
 	 * This test want to ensure it is possible to select a post having a post type set.
 	 */
-	it('Allow to select a post', (done) => {
+	it('Allow to select a post', async () => {
 		let expectedPosts: EntitiesSearch.PostsControl<string>['value'];
 
-		const rendered = render(
-			<CompositePostsPostTypes
-				posts={{
-					value: Set([]),
-					options: Set([
-						{ label: 'Post 1', value: 'post-1' },
-						{ label: 'Post 2', value: 'post-2' },
-					]),
-					onChange: (value) => (expectedPosts = value),
-				}}
-				postType={{
-					value: null,
-					options: Set([]),
-					onChange: () => {},
-				}}
-			>
-				{(posts, _postType) => {
-					return (
-						<>
-							<PostsSelect {...posts} />
-						</>
-					);
-				}}
-			</CompositePostsPostTypes>
-		);
+		const rendered = await act(async () => {
+			return render(
+				<CompositePostsPostTypes
+					searchPosts={() =>
+						Promise.resolve(
+							OrderedSet([
+								{ label: 'Post 1', value: 'post-1' },
+								{ label: 'Post 2', value: 'post-2' },
+							])
+						)
+					}
+					posts={{
+						value: OrderedSet([]),
+						onChange: (value) => (expectedPosts = value),
+					}}
+					postType={{
+						value: 'post',
+						options: OrderedSet([]),
+						onChange: () => {},
+					}}
+				>
+					{(posts) => {
+						return (
+							<>
+								<PostsSelect {...posts} />
+							</>
+						);
+					}}
+				</CompositePostsPostTypes>
+			);
+		});
 
 		const postsSelect = rendered.container.querySelector(
 			'.wz-posts-select'
 		) as HTMLSelectElement;
 
-		userEvent.selectOptions(postsSelect, ['post-2']).then(() => {
-			expect(expectedPosts?.has('post-2')).toBe(true);
-			done();
-		});
+		await userEvent.selectOptions(postsSelect, ['post-2']);
+
+		expect(expectedPosts?.has('post-2')).toBe(true);
 	});
 
 	/**
 	 * This test want to ensure the selected posts state is reset to an empty collection when the post type change.
 	 */
-	it('Reset the selected posts state when the post type changes', (done) => {
+	it('Reset the selected posts state when the post type changes', async () => {
 		let expectedPosts: EntitiesSearch.PostsControl<string>['value'];
 
-		const rendered = render(
-			<CompositePostsPostTypes
-				posts={{
-					value: Set([]),
-					options: Set([
-						{ label: 'Post 1', value: 'post-1' },
-						{ label: 'Post 2', value: 'post-2' },
-					]),
-					onChange: (value) => (expectedPosts = value),
-				}}
-				postType={{
-					value: 'post',
-					options: Set([
-						{ label: 'Post', value: 'post' },
-						{ label: 'Page', value: 'page' },
-					]),
-					onChange: () => {},
-				}}
-			>
-				{(posts, postType) => {
-					return (
-						<>
-							<PostTypeSelect {...postType} />
-							<PostsSelect {...posts} />
-						</>
-					);
-				}}
-			</CompositePostsPostTypes>
-		);
+		const rendered = await act(async () => {
+			return render(
+				<CompositePostsPostTypes
+					searchPosts={() =>
+						Promise.resolve(
+							OrderedSet([
+								{ label: 'Post 1', value: 'post-1' },
+								{ label: 'Post 2', value: 'post-2' },
+							])
+						)
+					}
+					posts={{
+						value: OrderedSet([]),
+						onChange: (value) => (expectedPosts = value),
+					}}
+					postType={{
+						value: 'post',
+						options: OrderedSet([
+							{ label: 'Post', value: 'post' },
+							{ label: 'Page', value: 'page' },
+						]),
+						onChange: () => {},
+					}}
+				>
+					{(posts, postType) => {
+						return (
+							<>
+								<PostTypeSelect {...postType} />
+								<PostsSelect {...posts} />
+							</>
+						);
+					}}
+				</CompositePostsPostTypes>
+			);
+		});
 
 		const postTypeSelect = rendered.container.querySelector(
 			'.wz-post-type-select'
@@ -140,14 +151,11 @@ describe('CompositePostsPostTypes', () => {
 			'.wz-posts-select'
 		) as HTMLSelectElement;
 
-		userEvent.selectOptions(postsSelect, ['post-2']).then(() => {
-			expect(expectedPosts?.has('post-2')).toBe(true);
+		await userEvent.selectOptions(postsSelect, ['post-2']);
+		expect(expectedPosts?.has('post-2')).toBe(true);
 
-			userEvent.selectOptions(postTypeSelect, 'page').then(() => {
-				expect(expectedPosts?.size).toBe(0);
-				done();
-			});
-		});
+		await userEvent.selectOptions(postTypeSelect, 'page');
+		expect(expectedPosts?.size).toBe(0);
 	});
 
 	/**
@@ -158,23 +166,10 @@ describe('CompositePostsPostTypes', () => {
 
 		const rendered = render(
 			<CompositePostsPostTypes
-				posts={{
-					value: Set([]),
-					options: Set([]),
-					onChange: () => {},
-				}}
-				postType={{
-					value: 'post',
-					options: Set([
-						{ label: 'Post', value: 'post' },
-						{ label: 'Page', value: 'page' },
-					]),
-					onChange: () => {},
-				}}
 				searchPosts={(_phrase, _postType) => {
 					if (_postType === 'page') {
 						return Promise.resolve(
-							Set([
+							OrderedSet([
 								{ label: 'Page 1', value: 'page-1' },
 								{ label: 'Page 2', value: 'page-2' },
 							])
@@ -182,11 +177,23 @@ describe('CompositePostsPostTypes', () => {
 					}
 
 					return Promise.resolve(
-						Set([
+						OrderedSet([
 							{ label: 'Post 1', value: 'post-1' },
 							{ label: 'Post 2', value: 'post-2' },
 						])
 					);
+				}}
+				posts={{
+					value: OrderedSet([]),
+					onChange: () => {},
+				}}
+				postType={{
+					value: 'post',
+					options: OrderedSet([
+						{ label: 'Post', value: 'post' },
+						{ label: 'Page', value: 'page' },
+					]),
+					onChange: () => {},
 				}}
 			>
 				{(posts, postType) => {
@@ -224,20 +231,19 @@ describe('CompositePostsPostTypes', () => {
 
 		const rendered = render(
 			<CompositePostsPostTypes
+				searchPosts={() => Promise.reject('Error')}
 				posts={{
-					value: Set([]),
-					options: Set([]),
+					value: OrderedSet([]),
 					onChange: () => {},
 				}}
 				postType={{
 					value: 'post',
-					options: Set([
+					options: OrderedSet([
 						{ label: 'Post', value: 'post' },
 						{ label: 'Page', value: 'page' },
 					]),
 					onChange: () => {},
 				}}
-				searchPosts={() => Promise.reject('Error')}
 			>
 				{(posts, postType) => {
 					expectedPosts = posts.options;

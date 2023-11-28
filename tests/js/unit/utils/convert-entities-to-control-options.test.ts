@@ -1,4 +1,4 @@
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import { describe, it, expect } from '@jest/globals';
 
@@ -8,7 +8,7 @@ import { convertPostTypeEntitiesToControlOptions } from '../../../../sources/js/
 
 describe('Convert Entities To Control Options', () => {
 	it('correctly convert entities to control options', () => {
-		const entities = Set<{ slug: string; name: string }>([]);
+		const entities = OrderedSet<{ slug: string; name: string }>([]);
 
 		for (let count = 0; count <= 10; ++count) {
 			entities.add({
@@ -27,7 +27,7 @@ describe('Convert Entities To Control Options', () => {
 
 	it('returns empty list if entities set is empty', () => {
 		expect(
-			convertPostTypeEntitiesToControlOptions(Set([])).isEmpty()
+			convertPostTypeEntitiesToControlOptions(OrderedSet([])).isEmpty()
 		).toEqual(true);
 	});
 });

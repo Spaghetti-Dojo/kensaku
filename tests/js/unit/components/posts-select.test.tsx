@@ -1,5 +1,5 @@
 import EntitiesSearch from '@types';
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 import React from 'react';
 
 import { describe, it, expect } from '@jest/globals';
@@ -13,20 +13,20 @@ import { PostsSelect } from '../../../../sources/js/src/components/posts-select'
 import { buildOptions } from '../utils';
 
 describe('Posts Select', () => {
-	it('call the given onChange handler', () => {
+	it('call the given onChange handler', async () => {
 		let expectedValue: EntitiesSearch.PostsControl<string>['value'];
 		const option: EntitiesSearch.ControlOption<string> = {
 			label: faker.random.word(),
 			value: faker.word.noun(),
 		};
-		const options = Set<EntitiesSearch.ControlOption<string>>([])
+		const options = OrderedSet<EntitiesSearch.ControlOption<string>>([])
 			.add(option)
 			.merge(buildOptions());
 
 		const rendered = render(
 			<PostsSelect
 				options={options}
-				value={Set([option.value])}
+				value={OrderedSet([option.value])}
 				onChange={(value) => (expectedValue = value)}
 			/>
 		);
@@ -40,7 +40,7 @@ describe('Posts Select', () => {
 		 * We do not need to select two options since we are only testing the pure logic not the data but,
 		 * for logic correctness the `select` element is a multi select.
 		 */
-		userEvent.selectOptions(select, valuesToSelect);
+		await userEvent.selectOptions(select, valuesToSelect);
 
 		expect(expectedValue?.has(valuesToSelect[0] as string)).toBe(true);
 		expect(expectedValue?.has(valuesToSelect[1] as string)).toBe(true);

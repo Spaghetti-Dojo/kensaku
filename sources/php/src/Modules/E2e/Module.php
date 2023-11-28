@@ -44,6 +44,11 @@ class Module implements Modularity\Module\ExecutableModule
     {
         // phpcs:enable Inpsyde.CodeQuality.NestingLevel.High
 
+        $env = \defined('WP_ENVIRONMENT_TYPE') ? WP_ENVIRONMENT_TYPE : '';
+        if (!\in_array($env, ['development', 'local'], true)) {
+            return false;
+        }
+
         // TODO Add WpContext to avoid run if not the right context.
 
         \add_action('init', static function () use ($container) {

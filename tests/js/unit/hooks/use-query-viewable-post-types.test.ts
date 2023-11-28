@@ -1,6 +1,6 @@
 import { fromPartial } from '@total-typescript/shoehorn';
 import EntitiesSearch from '@types';
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 
 import { describe, it, jest, expect } from '@jest/globals';
 
@@ -25,7 +25,7 @@ describe('Post Types Query', () => {
 			errored: () => false,
 			succeed: () => true,
 			records: () =>
-				Set([
+				OrderedSet([
 					fromPartial<EntitiesSearch.PostType<'edit'>>({
 						slug: 'viewable-post-type',
 						viewable: true,
@@ -49,7 +49,7 @@ describe('Post Types Query', () => {
 			isResolving: () => true,
 			errored: () => false,
 			succeed: () => false,
-			records: () => Set([]),
+			records: () => OrderedSet([]),
 		});
 
 		const viewablePostTypes = useQueryViewablePostTypes();

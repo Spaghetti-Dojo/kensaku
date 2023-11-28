@@ -1,5 +1,5 @@
 import EntitiesSearch from '@types';
-import { Set } from 'immutable';
+import { OrderedSet } from 'immutable';
 import React from 'react';
 
 import { describe, it, expect } from '@jest/globals';
@@ -23,7 +23,7 @@ describe('Post Types Select', () => {
 			label: faker.random.word(),
 			value: faker.word.noun(),
 		};
-		const options = Set<EntitiesSearch.ControlOption<string>>([])
+		const options = OrderedSet<EntitiesSearch.ControlOption<string>>([])
 			.add(option)
 			.merge(buildOptions());
 

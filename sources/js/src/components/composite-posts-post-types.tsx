@@ -17,18 +17,6 @@ export function CompositePostsPostTypes<P, T>(
 		OrderedSet<EntitiesSearch.ControlOption<P>>
 	>(OrderedSet([]));
 
-	const onChangePosts = (posts: OrderedSet<P> | undefined) => {
-		setState({ ...state, posts });
-		props.posts.onChange(posts);
-	};
-
-	const onChangePostType = (postType: T) => {
-		searchPostsByPostType('', postType, state.posts);
-		setState({ ...state, postType, posts: OrderedSet([]) });
-		props.postType.onChange(postType);
-		props.posts.onChange(OrderedSet([]));
-	};
-
 	const searchPostsByPostType = async (
 		phrase: string,
 		postType: T,
@@ -41,6 +29,7 @@ export function CompositePostsPostTypes<P, T>(
 				EntitiesSearch.CompositePostsPostTypes<P, T>['searchPosts']
 			>
 		> = [
+			// TODO Let pass the OrderedSet to `searchPosts`.
 			props.searchPosts(phrase, postType, {
 				exclude: selectedOptions,
 			}),
@@ -74,6 +63,18 @@ export function CompositePostsPostTypes<P, T>(
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	const onChangePosts = (posts: OrderedSet<P> | undefined) => {
+		setState({ ...state, posts });
+		props.posts.onChange(posts);
+	};
+
+	const onChangePostType = (postType: T) => {
+		searchPostsByPostType('', postType);
+		setState({ ...state, postType, posts: OrderedSet([]) });
+		props.postType.onChange(postType);
+		props.posts.onChange(OrderedSet([]));
+	};
+
 	const posts: EntitiesSearch.PostsControl<P> = {
 		...props.posts,
 		value: state.posts,
@@ -94,11 +95,7 @@ export function CompositePostsPostTypes<P, T>(
 				? phraseOrEvent
 				: phraseOrEvent.target.value;
 
-		/*
-		 * Not performing the search when the phrase is empty help us in keeping the state, so that it's not necessary
-		 * to do another rest call to retrieve the selected option.
-		 */
-		phrase && searchPostsByPostType(phrase, state.postType);
+		searchPostsByPostType(phrase, state.postType, state.posts);
 	};
 
 	return <>{props.children(posts, postType, search)}</>;
