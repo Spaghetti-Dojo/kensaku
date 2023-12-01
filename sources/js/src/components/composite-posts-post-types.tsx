@@ -22,23 +22,20 @@ export function CompositePostsPostTypes<P, T>(
 		postType: T,
 		posts?: EntitiesSearch.PostsControl<P>['value']
 	) => {
-		const selectedOptions = posts?.toArray() ?? [];
-
 		const promises: Array<
 			ReturnType<
 				EntitiesSearch.CompositePostsPostTypes<P, T>['searchPosts']
 			>
 		> = [
-			// TODO Let pass the OrderedSet to `searchPosts`.
 			props.searchPosts(phrase, postType, {
-				exclude: selectedOptions,
+				exclude: posts,
 			}),
 		];
 
-		if (selectedOptions.length > 0) {
+		if (posts?.size ?? 0 > 0) {
 			promises.push(
 				props.searchPosts('', postType, {
-					include: selectedOptions,
+					include: posts,
 					per_page: '-1',
 				})
 			);
