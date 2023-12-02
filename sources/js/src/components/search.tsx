@@ -1,8 +1,15 @@
 import EntitiesSearch from '@types';
-import React, { JSX } from 'react';
+import React, { JSX, PropsWithChildren, useCallback } from 'react';
 
 export function Search<V>(props: EntitiesSearch.Search<V>): JSX.Element {
 	const [searchValue, setSearchValue] = React.useState<string>('');
+
+	const Container = useCallback(
+		(props: PropsWithChildren) => (
+			<div className="wz-posts-control-with-search">{props.children}</div>
+		),
+		[props.id]
+	);
 
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchValue(event.target.value);
@@ -17,15 +24,17 @@ export function Search<V>(props: EntitiesSearch.Search<V>): JSX.Element {
 
 	if (props.id) {
 		return (
-			<label htmlFor={props.id}>
-				<input id={props.id} {...inputProps} />
-			</label>
+			<Container>
+				<label htmlFor={props.id}>
+					<input id={props.id} {...inputProps} />
+				</label>
+			</Container>
 		);
 	}
 
 	return (
-		<div className="wz-posts-control-with-search">
+		<Container>
 			<input {...inputProps} />
-		</div>
+		</Container>
 	);
 }
