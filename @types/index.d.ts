@@ -27,7 +27,34 @@ declare namespace EntitiesSearch {
 		succeed(): boolean;
 	}>;
 
-	/**
+	/*
+	 * Storage
+	 */
+	type PostsState<CO> = Readonly<{
+		initialPostsOptions: OrderedSet<EntitiesSearch.ControlOption<CO>>;
+		postsOptions: PostsState<CO>['initialPostsOptions'];
+		selectedPostsOptions: PostsState<CO>['postsOptions'];
+		cachedPostsOptions: PostsState<CO>['initialPostsOptions'];
+	}>;
+
+	type PostsAction<V> =
+		| {
+				type: 'UPDATE_POSTS_OPTIONS';
+				postsOptions: PostsState<V>['postsOptions'];
+		  }
+		| {
+				type: 'SET_INITIAL_POSTS_OPTIONS';
+				postsOptions: PostsState<V>['initialPostsOptions'];
+		  }
+		| {
+				type: 'UPDATE_SELECTED_POSTS_OPTIONS';
+				posts:
+					| OrderedSet<V>
+					| PostsState<V>['selectedPostsOptions']
+					| undefined;
+		  };
+
+	/*
 	 * Components
 	 */
 	interface PostTypeControl<V>

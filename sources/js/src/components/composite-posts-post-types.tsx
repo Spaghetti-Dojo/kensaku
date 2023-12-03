@@ -4,31 +4,27 @@ import React, { JSX } from 'react';
 
 import { useState, useEffect } from '@wordpress/element';
 
+import { usePostsStorage } from '../hooks/use-posts-storage';
 import { orderSelectedOptionsAtTheTop } from '../utils/order-selected-options-at-the-top';
 import { uniqueOrderedSet } from '../utils/unique-ordered-set';
 
 export function CompositePostsPostTypes<P, T>(
 	props: EntitiesSearch.CompositePostsPostTypes<P, T>
 ): JSX.Element {
-	const [state, setState] = useState({
+	const { state, dispatch } = usePostsStorage<P>();
+
+	const [valuesState, setValuesState] = useState({
 		posts: props.posts.value,
 		postType: props.postType.value,
 	});
-	const [postsOptions, setPostsOptions] = useState<
-		OrderedSet<EntitiesSearch.ControlOption<P>>
-	>(OrderedSet([]));
-	const [cachedPostsOptions, setCachedPostsOptions] = useState<
-		OrderedSet<EntitiesSearch.ControlOption<P>>
-	>(OrderedSet([]));
-	const [firstPostsOptions, setFirstPostsOptions] = useState<
-		OrderedSet<EntitiesSearch.ControlOption<P>>
-	>(OrderedSet([]));
-	const [selectedPostsOptions, setSelectedPostsOptions] = useState<
-		OrderedSet<EntitiesSearch.ControlOption<P>>
-	>(OrderedSet([]));
 
 	useEffect(() => {
-		searchPostsByPostType('', state.postType, state.posts, true);
+		searchPostsByPostType(
+			'',
+			valuesState.postType,
+			valuesState.posts,
+			true
+		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -39,7 +35,10 @@ export function CompositePostsPostTypes<P, T>(
 		first: boolean = false
 	) => {
 		if (phrase === '' && !first) {
-			setPostsOptions(firstPostsOptions);
+			dispatch({
+				type: 'UPDATE_POSTS_OPTIONS',
+				postsOptions: state.initialPostsOptions,
+			});
 			return;
 		}
 
@@ -67,23 +66,31 @@ export function CompositePostsPostTypes<P, T>(
 				const options = result[0] ?? OrderedSet();
 				const selectedOptions = result[1] ?? OrderedSet();
 
-				first && setSelectedPostsOptions(selectedOptions);
-				first && setCachedPostsOptions(options);
-				first && setFirstPostsOptions(options);
+				if (first) {
+					dispatch({
+						type: 'UPDATE_SELECTED_POSTS_OPTIONS',
+						posts: selectedOptions,
+					});
+					dispatch({
+						type: 'SET_INITIAL_POSTS_OPTIONS',
+						postsOptions: options,
+					});
+				}
 
-				setPostsOptions(options);
-				setCachedPostsOptions(
-					uniqueOrderedSet(
-						cachedPostsOptions.merge(options).merge(selectedOptions)
-					)
-				);
+				dispatch({
+					type: 'UPDATE_POSTS_OPTIONS',
+					postsOptions: options,
+				});
 
 				return options;
 			})
 			.catch(() => {
 				// TODO Add warning for user feedback.
 				const emptySet = OrderedSet([]);
-				setPostsOptions(emptySet);
+				dispatch({
+					type: 'UPDATE_POSTS_OPTIONS',
+					postsOptions: emptySet,
+				});
 				return emptySet;
 			});
 	};
@@ -95,37 +102,40 @@ export function CompositePostsPostTypes<P, T>(
 				? phraseOrEvent
 				: phraseOrEvent.target.value;
 
-		searchPostsByPostType(phrase, state.postType, state.posts);
+		searchPostsByPostType(phrase, valuesState.postType, valuesState.posts);
 	};
 
 	const onChangePosts = (posts: OrderedSet<P> | undefined) => {
-		setState({ ...state, posts });
-		setSelectedPostsOptions(
-			cachedPostsOptions.filter((option) => posts?.has(option.value))
-		);
+		setValuesState({ ...valuesState, posts });
+		dispatch({
+			type: 'UPDATE_SELECTED_POSTS_OPTIONS',
+			posts,
+		});
 		props.posts.onChange(posts);
 	};
 
 	const onChangePostType = (postType: T) => {
 		searchPostsByPostType('', postType);
-		setState({ ...state, postType, posts: OrderedSet([]) });
+		setValuesState({ ...valuesState, postType, posts: OrderedSet([]) });
 		props.postType.onChange(postType);
 		props.posts.onChange(OrderedSet([]));
 	};
 
 	const posts: EntitiesSearch.PostsControl<P> = {
 		...props.posts,
-		value: state.posts,
+		value: valuesState.posts,
 		options: orderSelectedOptionsAtTheTop<P>(
-			uniqueOrderedSet(selectedPostsOptions.merge(postsOptions)),
-			state.posts
+			uniqueOrderedSet(
+				state.selectedPostsOptions.merge(state.postsOptions)
+			),
+			valuesState.posts
 		),
 		onChange: onChangePosts,
 	};
 
 	const postType: EntitiesSearch.PostTypeControl<T> = {
 		...props.postType,
-		value: state.postType,
+		value: valuesState.postType,
 		onChange: onChangePostType,
 	};
 
