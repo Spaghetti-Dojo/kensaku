@@ -5,6 +5,7 @@ import React, { JSX } from 'react';
 import { useState, useEffect } from '@wordpress/element';
 
 import { orderSelectedOptionsAtTheTop } from '../utils/order-selected-options-at-the-top';
+import { uniqueOrderedSet } from '../utils/unique-ordered-set';
 
 export function CompositePostsPostTypes<P, T>(
 	props: EntitiesSearch.CompositePostsPostTypes<P, T>
@@ -16,12 +17,32 @@ export function CompositePostsPostTypes<P, T>(
 	const [postsOptions, setPostsOptions] = useState<
 		OrderedSet<EntitiesSearch.ControlOption<P>>
 	>(OrderedSet([]));
+	const [cachedPostsOptions, setCachedPostsOptions] = useState<
+		OrderedSet<EntitiesSearch.ControlOption<P>>
+	>(OrderedSet([]));
+	const [firstPostsOptions, setFirstPostsOptions] = useState<
+		OrderedSet<EntitiesSearch.ControlOption<P>>
+	>(OrderedSet([]));
+	const [selectedPostsOptions, setSelectedPostsOptions] = useState<
+		OrderedSet<EntitiesSearch.ControlOption<P>>
+	>(OrderedSet([]));
+
+	useEffect(() => {
+		searchPostsByPostType('', state.postType, state.posts, true);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const searchPostsByPostType = async (
 		phrase: string,
 		postType: T,
-		posts?: EntitiesSearch.PostsControl<P>['value']
+		posts?: EntitiesSearch.PostsControl<P>['value'],
+		first: boolean = false
 	) => {
+		if (phrase === '' && !first) {
+			setPostsOptions(firstPostsOptions);
+			return;
+		}
+
 		const promises: Array<
 			ReturnType<
 				EntitiesSearch.CompositePostsPostTypes<P, T>['searchPosts']
@@ -32,7 +53,7 @@ export function CompositePostsPostTypes<P, T>(
 			}),
 		];
 
-		if (posts?.size ?? 0 > 0) {
+		if (first && (posts?.size ?? 0 > 0)) {
 			promises.push(
 				props.searchPosts('', postType, {
 					include: posts,
@@ -45,23 +66,43 @@ export function CompositePostsPostTypes<P, T>(
 			.then((result) => {
 				const options = result[0] ?? OrderedSet();
 				const selectedOptions = result[1] ?? OrderedSet();
-				setPostsOptions(options.merge(selectedOptions));
+
+				first && setSelectedPostsOptions(selectedOptions);
+				first && setCachedPostsOptions(options);
+				first && setFirstPostsOptions(options);
+
+				setPostsOptions(options);
+				setCachedPostsOptions(
+					uniqueOrderedSet(
+						cachedPostsOptions.merge(options).merge(selectedOptions)
+					)
+				);
+
 				return options;
 			})
 			.catch(() => {
+				// TODO Add warning for user feedback.
 				const emptySet = OrderedSet([]);
 				setPostsOptions(emptySet);
 				return emptySet;
 			});
 	};
 
-	useEffect(() => {
-		searchPostsByPostType('', state.postType, state.posts);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	// TODO Add debouncing to the `search` callback
+	const search: EntitiesSearch.Search<P>['search'] = (phraseOrEvent) => {
+		const phrase =
+			typeof phraseOrEvent === 'string'
+				? phraseOrEvent
+				: phraseOrEvent.target.value;
+
+		searchPostsByPostType(phrase, state.postType, state.posts);
+	};
 
 	const onChangePosts = (posts: OrderedSet<P> | undefined) => {
 		setState({ ...state, posts });
+		setSelectedPostsOptions(
+			cachedPostsOptions.filter((option) => posts?.has(option.value))
+		);
 		props.posts.onChange(posts);
 	};
 
@@ -75,7 +116,10 @@ export function CompositePostsPostTypes<P, T>(
 	const posts: EntitiesSearch.PostsControl<P> = {
 		...props.posts,
 		value: state.posts,
-		options: orderSelectedOptionsAtTheTop<P>(postsOptions, state.posts),
+		options: orderSelectedOptionsAtTheTop<P>(
+			uniqueOrderedSet(selectedPostsOptions.merge(postsOptions)),
+			state.posts
+		),
 		onChange: onChangePosts,
 	};
 
@@ -83,16 +127,6 @@ export function CompositePostsPostTypes<P, T>(
 		...props.postType,
 		value: state.postType,
 		onChange: onChangePostType,
-	};
-
-	// TODO Add debouncing to the `search` callback
-	const search: EntitiesSearch.Search<P>['search'] = (phraseOrEvent) => {
-		const phrase =
-			typeof phraseOrEvent === 'string'
-				? phraseOrEvent
-				: phraseOrEvent.target.value;
-
-		searchPostsByPostType(phrase, state.postType, state.posts);
 	};
 
 	return <>{props.children(posts, postType, search)}</>;
