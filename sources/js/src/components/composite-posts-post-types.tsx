@@ -12,7 +12,7 @@ export function CompositePostsPostTypes<P, T>(
 	props: EntitiesSearch.CompositePostsPostTypes<P, T>
 ): JSX.Element {
 	const { state, dispatch } = usePostsStorage<P>();
-
+	const [searchPhrase, setSearchPhrase] = useState<string>('');
 	const [valuesState, setValuesState] = useState({
 		posts: props.posts.value,
 		postType: props.postType.value,
@@ -82,6 +82,8 @@ export function CompositePostsPostTypes<P, T>(
 					postsOptions: options,
 				});
 
+				setSearchPhrase(phrase);
+
 				return options;
 			})
 			.catch(() => {
@@ -106,6 +108,7 @@ export function CompositePostsPostTypes<P, T>(
 	};
 
 	const onChangePosts = (posts: OrderedSet<P> | undefined) => {
+		searchPostsByPostType(searchPhrase, valuesState.postType, posts);
 		setValuesState({ ...valuesState, posts });
 		dispatch({
 			type: 'UPDATE_SELECTED_POSTS_OPTIONS',
