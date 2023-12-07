@@ -4,14 +4,14 @@ import React, { JSX } from 'react';
 
 import { useState, useEffect } from '@wordpress/element';
 
-import { usePostsStorage } from '../hooks/use-posts-storage';
+import { usePostsOptionsStorage } from '../hooks/use-posts-options-storage';
 import { orderSelectedOptionsAtTheTop } from '../utils/order-selected-options-at-the-top';
 import { uniqueOrderedSet } from '../utils/unique-ordered-set';
 
 export function CompositePostsPostTypes<P, T>(
 	props: EntitiesSearch.CompositePostsPostTypes<P, T>
 ): JSX.Element {
-	const { state, dispatch } = usePostsStorage<P>();
+	const { state, dispatch } = usePostsOptionsStorage<P>();
 	const [searchPhrase, setSearchPhrase] = useState<string>('');
 	const [valuesState, setValuesState] = useState({
 		posts: props.posts.value,

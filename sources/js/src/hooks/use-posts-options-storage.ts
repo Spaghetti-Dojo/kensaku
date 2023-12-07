@@ -11,7 +11,7 @@ type _Reducer<V> = Reducer<
 	EntitiesSearch.PostsAction<V>
 >;
 
-export function usePostsStorage<V>(): Readonly<{
+export function usePostsOptionsStorage<V>(): Readonly<{
 	state: EntitiesSearch.PostsState<V>;
 	dispatch: Dispatch<EntitiesSearch.PostsAction<V>>;
 }> {
