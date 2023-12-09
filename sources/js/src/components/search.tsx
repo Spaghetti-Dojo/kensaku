@@ -1,7 +1,7 @@
 import EntitiesSearch from '@types';
 import React, { JSX, PropsWithChildren, useCallback } from 'react';
 
-export function Search<V>(props: EntitiesSearch.Search<V>): JSX.Element {
+export function Search(props: EntitiesSearch.Search): JSX.Element {
 	const [searchValue, setSearchValue] = React.useState<string>('');
 
 	const Container = useCallback(

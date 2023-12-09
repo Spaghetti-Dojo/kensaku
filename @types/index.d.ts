@@ -73,7 +73,7 @@ declare namespace EntitiesSearch {
 			onChange(values: PostsControl<V>['value']): void;
 		}> {}
 
-	interface Search<V>
+	interface Search
 		extends Readonly<{
 			id?: string;
 			search(phrase: string | React.ChangeEvent<HTMLInputElement>);
@@ -91,7 +91,9 @@ declare namespace EntitiesSearch {
 			children(
 				posts: PostsControl<P>,
 				postType: CompositePostsPostTypes<P, T>['postType'],
-				search: Search<P>['search']
+				search: (
+					phrase: Parameters<Search<P, T>['search']>[0]
+				) => ReturnType<Search<P, T>['search']>
 			): React.ReactNode;
 		}> {}
 }

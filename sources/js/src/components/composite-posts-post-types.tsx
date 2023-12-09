@@ -8,6 +8,14 @@ import { usePostsOptionsStorage } from '../hooks/use-posts-options-storage';
 import { orderSelectedOptionsAtTheTop } from '../utils/order-selected-options-at-the-top';
 import { uniqueOrderedSet } from '../utils/unique-ordered-set';
 
+type SearchPhrase = Parameters<EntitiesSearch.Search['search']>[0];
+type PostType<V> = EntitiesSearch.PostTypeControl<V>['value'];
+type Posts<V> = EntitiesSearch.PostsControl<V>['value'];
+type SearchPosts<P, T> = EntitiesSearch.CompositePostsPostTypes<
+	P,
+	T
+>['searchPosts'];
+
 export function CompositePostsPostTypes<P, T>(
 	props: EntitiesSearch.CompositePostsPostTypes<P, T>
 ): JSX.Element {
@@ -29,12 +37,20 @@ export function CompositePostsPostTypes<P, T>(
 	}, []);
 
 	const searchPostsByPostType = async (
-		phrase: string,
-		postType: T,
-		posts?: EntitiesSearch.PostsControl<P>['value'],
-		first: boolean = false
+		phraseOrEvent: SearchPhrase,
+		postType: PostType<T>,
+		posts?: Posts<P>,
+		firstOptionsLoad: boolean = false
 	) => {
-		if (phrase === '' && !first) {
+		const phrase =
+			typeof phraseOrEvent === 'string'
+				? phraseOrEvent
+				: phraseOrEvent.target.value;
+
+		/*
+		 * This is a cleanup, the user has deleted the search phrase, and we render the original options.s
+		 */
+		if (phrase === '' && !firstOptionsLoad) {
 			dispatch({
 				type: 'UPDATE_POSTS_OPTIONS',
 				postsOptions: state.initialPostsOptions,
@@ -42,17 +58,20 @@ export function CompositePostsPostTypes<P, T>(
 			return;
 		}
 
-		const promises: Array<
-			ReturnType<
-				EntitiesSearch.CompositePostsPostTypes<P, T>['searchPosts']
-			>
-		> = [
+		/*
+		 * Collect the options based on the search phrase and the post type.
+		 */
+		const promises: Array<ReturnType<SearchPosts<P, T>>> = [
 			props.searchPosts(phrase, postType, {
 				exclude: posts,
 			}),
 		];
 
-		if (first && (posts?.size ?? 0 > 0)) {
+		/*
+		 * Includes the selected options if it is the first search.
+		 * We do want to include the selected options during the first load.
+		 */
+		if (firstOptionsLoad && (posts?.size ?? 0 > 0)) {
 			promises.push(
 				props.searchPosts('', postType, {
 					include: posts,
@@ -66,7 +85,10 @@ export function CompositePostsPostTypes<P, T>(
 				const options = result[0] ?? OrderedSet();
 				const selectedOptions = result[1] ?? OrderedSet();
 
-				if (first) {
+				/*
+				 * Related to the first load, we need to update the selected options and the initial options.
+				 */
+				if (firstOptionsLoad) {
 					dispatch({
 						type: 'UPDATE_SELECTED_POSTS_OPTIONS',
 						posts: selectedOptions,
@@ -97,17 +119,7 @@ export function CompositePostsPostTypes<P, T>(
 			});
 	};
 
-	// TODO Add debouncing to the `search` callback
-	const search: EntitiesSearch.Search<P>['search'] = (phraseOrEvent) => {
-		const phrase =
-			typeof phraseOrEvent === 'string'
-				? phraseOrEvent
-				: phraseOrEvent.target.value;
-
-		searchPostsByPostType(phrase, valuesState.postType, valuesState.posts);
-	};
-
-	const onChangePosts = (posts: OrderedSet<P> | undefined) => {
+	const onChangePosts = (posts: Posts<P>) => {
 		searchPostsByPostType(searchPhrase, valuesState.postType, posts);
 		setValuesState({ ...valuesState, posts });
 		dispatch({
@@ -142,5 +154,19 @@ export function CompositePostsPostTypes<P, T>(
 		onChange: onChangePostType,
 	};
 
-	return <>{props.children(posts, postType, search)}</>;
+	return (
+		<>
+			{props.children(
+				posts,
+				postType,
+				// TODO Add debouncing to the `search` callback
+				(phrase: SearchPhrase) =>
+					searchPostsByPostType(
+						phrase,
+						valuesState.postType,
+						valuesState.posts
+					)
+			)}
+		</>
+	);
 }
