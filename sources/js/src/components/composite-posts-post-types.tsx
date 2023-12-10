@@ -130,10 +130,12 @@ export function CompositePostsPostTypes<P, T>(
 	};
 
 	const onChangePostType = (postType: T) => {
-		searchPostsByPostType('', postType);
-		setValuesState({ ...valuesState, postType, posts: OrderedSet([]) });
+		const emptyOrderedSet = OrderedSet([]);
+		// Consider a change of post type as a first load.
+		searchPostsByPostType('', postType, emptyOrderedSet, true);
+		setValuesState({ ...valuesState, postType, posts: emptyOrderedSet });
 		props.postType.onChange(postType);
-		props.posts.onChange(OrderedSet([]));
+		props.posts.onChange(emptyOrderedSet);
 	};
 
 	const posts: EntitiesSearch.PostsControl<P> = {
