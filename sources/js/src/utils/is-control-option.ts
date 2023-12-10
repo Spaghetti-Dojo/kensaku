@@ -7,5 +7,10 @@ export function isControlOption(
 		return false;
 	}
 
-	return typeof option === 'object' && 'value' in option && 'label' in option;
+	return (
+		typeof option === 'object' &&
+		'value' in option &&
+		'label' in option &&
+		typeof option.label === 'string'
+	);
 }
