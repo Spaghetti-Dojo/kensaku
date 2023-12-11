@@ -31,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				className: 'widoz-entities-search-e2e-post-types-example-block',
 			});
 
-			const postTypesOptions = useQueryViewablePostTypes();
+			const postTypesEntities = useQueryViewablePostTypes();
 
-			if (postTypesOptions.isResolving()) {
+			if (postTypesEntities.isResolving()) {
 				return Spinner();
 			}
 
@@ -42,12 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
 				{
 					// TODO Wrap around a throttle or debounce function
 					searchPosts: async (phrase, postType, queryArguments) => {
-						const posts = await searchPosts(
+						const postsEntities = await searchPosts(
 							postType,
 							phrase,
 							queryArguments
 						);
-						return convertPostEntitiesToControlOptions(posts);
+						return convertPostEntitiesToControlOptions(
+							postsEntities
+						);
 					},
 					posts: {
 						value: Immutable.Set(props.attributes.posts),
@@ -57,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					postType: {
 						value: props.attributes.postType,
 						options: convertPostTypeEntitiesToControlOptions(
-							postTypesOptions
+							postTypesEntities
 								.records()
 								.filter(
 									(record) =>

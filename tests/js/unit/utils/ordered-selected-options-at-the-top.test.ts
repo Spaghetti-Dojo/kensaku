@@ -62,9 +62,6 @@ describe('Ordered Selected Options at the Top', () => {
 		expect(result.includes(`${rawCollection[3]}`)).toEqual(true);
 	});
 
-	/*
-	 * Return the given options when the collection is empty
-	 */
 	it('should return the given selected options when the collection is empty', () => {
 		const options = OrderedSet<EntitiesSearch.ControlOption<string>>(
 			generateOptions()
@@ -78,9 +75,6 @@ describe('Ordered Selected Options at the Top', () => {
 		expect(result).toBe(options);
 	});
 
-	/*
-	 * Early return if the options are empty
-	 */
 	it('should return the given options when the options are empty', () => {
 		const options = OrderedSet<EntitiesSearch.ControlOption<string>>();
 

@@ -3,13 +3,15 @@ import { OrderedSet } from 'immutable';
 
 import { makeControlOption } from './make-control-option';
 
-type Entity = { name: string; slug: string };
+type Entity = EntitiesSearch.PostType;
 type ControlOption = EntitiesSearch.ControlOption<Entity['slug']>;
 
 export function convertPostTypeEntitiesToControlOptions(
 	entities: OrderedSet<Entity>
 ): OrderedSet<ControlOption> {
-	return entities.map((entity) =>
+	const mutableOptions = entities.map((entity) =>
 		makeControlOption(entity.name, entity.slug)
 	);
+
+	return OrderedSet(mutableOptions);
 }

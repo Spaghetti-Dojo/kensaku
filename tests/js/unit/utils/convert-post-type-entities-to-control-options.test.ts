@@ -1,3 +1,5 @@
+import { fromPartial } from '@total-typescript/shoehorn';
+import EntitiesSearch from '@types';
 import { OrderedSet } from 'immutable';
 
 import { describe, it, expect } from '@jest/globals';
@@ -8,20 +10,23 @@ import { convertPostTypeEntitiesToControlOptions } from '../../../../sources/js/
 
 describe('Convert Entities To Control Options', () => {
 	it('correctly convert entities to control options', () => {
-		const entities = OrderedSet<{ slug: string; name: string }>([]);
-
-		for (let count = 0; count <= 10; ++count) {
-			entities.add({
-				slug: faker.word.noun(),
-				name: faker.random.word(),
-			});
+		const rawEntities = [];
+		for (let count = 0; count < 10; ++count) {
+			rawEntities.push(
+				fromPartial<EntitiesSearch.PostType>({
+					slug: faker.word.noun(),
+					name: faker.word.noun(),
+				})
+			);
 		}
 
-		const options = convertPostTypeEntitiesToControlOptions(entities);
+		const entities = OrderedSet(rawEntities);
+
+		const options = convertPostTypeEntitiesToControlOptions(entities).map(
+			(option) => option.value
+		);
 		for (const postType of entities) {
-			expect(
-				options.includes({ label: postType.name, value: postType.slug })
-			).toEqual(true);
+			expect(options.includes(postType.slug)).toEqual(true);
 		}
 	});
 

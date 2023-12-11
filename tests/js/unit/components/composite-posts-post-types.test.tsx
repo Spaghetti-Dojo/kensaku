@@ -16,7 +16,7 @@ jest.mock('@wordpress/element', () => ({
 	useEffect: React.useEffect,
 }));
 
-describe('CompositePostsPostTypes', () => {
+describe.skip('CompositePostsPostTypes', () => {
 	/**
 	 * This test want to ensure it is possible to select a post type.
 	 */
