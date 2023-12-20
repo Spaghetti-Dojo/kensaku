@@ -138,4 +138,65 @@ describe('reducer', () => {
 
 		expect(newState.selectedPostsOptions).toEqual(OrderedSet([]));
 	});
+
+	it('Does not set the initial posts options when the options are already set', () => {
+		state = {
+			...state,
+			initialPostsOptions: OrderedSet([
+				{
+					value: 1,
+					label: 'Option One',
+				},
+				{
+					value: 2,
+					label: 'Option Two',
+				},
+			]),
+		};
+
+		const newState = reducer(state, {
+			type: 'SET_INITIAL_POSTS_OPTIONS',
+			postsOptions: OrderedSet([
+				{
+					value: 3,
+					label: 'Option Three',
+				},
+				{
+					value: 4,
+					label: 'Option Four',
+				},
+			]),
+		});
+
+		expect(newState.initialPostsOptions).toEqual(state.initialPostsOptions);
+	});
+
+	it('When setting initial posts options it also cache them', () => {
+		const postsOptions = OrderedSet([
+			{
+				value: 3,
+				label: 'Option Three',
+			},
+			{
+				value: 4,
+				label: 'Option Four',
+			},
+		]);
+
+		const newState = reducer(state, {
+			type: 'SET_INITIAL_POSTS_OPTIONS',
+			postsOptions,
+		});
+
+		expect(newState.cachedPostsOptions).toEqual(postsOptions);
+	});
+
+	it('does nothing if the action type is not recognized', () => {
+		const newState = reducer(state, {
+			// @ts-ignore
+			type: 'NOT_RECOGNIZED_ACTION',
+		});
+
+		expect(newState).toEqual(state);
+	});
 });
