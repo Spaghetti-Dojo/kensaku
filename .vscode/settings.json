@@ -8,8 +8,8 @@
 	"phpCodeSniffer.autoExecutable": true,
 	"prettier.configPath": ".prettierrc.js",
 	"files.readonlyInclude": {
-		"**/node_modules/**/src/**": true,
-		"**/vendor/**/roots/**": true
+		"**/node_modules/**": true,
+		"**/vendor/**": true
 	},
 	"favorites.resources": [
 		{
