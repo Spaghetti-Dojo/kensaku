@@ -9,15 +9,27 @@ declare namespace EntitiesSearch {
 	type Post<C extends Context = 'view'> = BaseEntityRecords.Post<C>;
 	type PostType<C extends Context = 'view'> = BaseEntityRecords.Type<C>;
 
-	type ViewablePostType = Readonly<{
-		[K in keyof PostType<'edit'>]: K extends 'viewable'
-			? true
-			: PostType<'edit'>[K];
-	}>;
+	interface PostEntityFields
+		extends Readonly<{
+			id: number;
+			title: string;
+			url: string;
+			type: string;
+			subtype: string;
+		}> {}
 
 	type ControlOption<V extends any> = Readonly<{
 		value: V;
 		label: string;
+	}>;
+
+	/*
+	 * Hooks
+	 */
+	type ViewablePostType = Readonly<{
+		[K in keyof PostType<'edit'>]: K extends 'viewable'
+			? true
+			: PostType<'edit'>[K];
 	}>;
 
 	type EntitiesRecords<Entity> = Readonly<{
@@ -26,6 +38,13 @@ declare namespace EntitiesSearch {
 		errored(): boolean;
 		succeed(): boolean;
 	}>;
+
+	/*
+	 * Api
+	 */
+	type SearchQueryFields = ReadonlyArray<
+		keyof EntitiesSearch.PostEntityFields
+	>;
 
 	/*
 	 * Storage

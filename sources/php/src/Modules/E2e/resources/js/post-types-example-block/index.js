@@ -48,7 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
 							queryArguments
 						);
 						return convertPostEntitiesToControlOptions(
-							postsEntities
+							postsEntities,
+							'title',
+							'id'
 						);
 					},
 					posts: {

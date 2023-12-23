@@ -1,3 +1,4 @@
+import EntitiesSearch from '@types';
 import { OrderedSet, Set } from 'immutable';
 
 import { fetch } from './fetch';
@@ -10,24 +11,30 @@ export async function searchPosts<E>(
 	queryArguments: {
 		exclude: Set<string>;
 		include: Set<string>;
+		fields: EntitiesSearch.SearchQueryFields;
 		[p: string]: unknown;
 	}
 ): Promise<OrderedSet<E>> {
-	const { exclude, include, ...restArguments } = queryArguments;
+	const {
+		exclude,
+		include,
+		fields = ['title', 'id'],
+		...restArguments
+	} = queryArguments;
 
 	// @ts-ignore we need to pass string[] to the URLSearchParams
 	const params = new URLSearchParams({
 		per_page: '10',
 		order: 'DESC',
 		orderBy: 'title',
+		_fields: serializeFields(fields),
 		...{
 			exclude: exclude?.toArray() ?? [],
 			include: include?.toArray() ?? [],
 			...restArguments,
 		},
 		search: phrase,
-		subtype: type,
-		_fields: 'title,id',
+		subtype: type
 	});
 
 	// TODO What happen in the case of an error?
@@ -36,4 +43,8 @@ export async function searchPosts<E>(
 	});
 
 	return OrderedSet(entities);
+}
+
+function serializeFields(fields: EntitiesSearch.SearchQueryFields): string {
+	return fields.join(',');
 }

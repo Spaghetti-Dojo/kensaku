@@ -3,12 +3,26 @@ import { OrderedSet } from 'immutable';
 
 import { makeControlOption } from './make-control-option';
 
+type FieldsNames = keyof EntitiesSearch.PostEntityFields;
+
 export function convertPostEntitiesToControlOptions(
-	postsEntities: OrderedSet<EntitiesSearch.Post>
-): OrderedSet<EntitiesSearch.ControlOption<number>> {
-	const mutableOptions = postsEntities.map((entity) =>
-		makeControlOption(entity.title.rendered, entity.id)
-	);
+	postsEntities: OrderedSet<EntitiesSearch.PostEntityFields>,
+	labelKey: FieldsNames,
+	valueKey: FieldsNames
+): OrderedSet<EntitiesSearch.ControlOption<string | number>> {
+	const mutableOptions = postsEntities.map((entity) => {
+		const label = entity[labelKey];
+		labelKeyIsString(label);
+		return makeControlOption(label, entity[valueKey]);
+	});
 
 	return OrderedSet(mutableOptions);
+}
+
+function labelKeyIsString(label: unknown): asserts label is string {
+	if (typeof label !== 'string') {
+		throw new Error(
+			'convertPostEntitiesToControlOptions: Label Key must be a string'
+		);
+	}
 }
