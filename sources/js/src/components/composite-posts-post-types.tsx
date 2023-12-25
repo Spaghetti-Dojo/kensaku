@@ -1,5 +1,5 @@
 import type EntitiesSearch from '@types';
-import { OrderedSet } from 'immutable';
+import { OrderedSet, Set } from 'immutable';
 import React, { JSX } from 'react';
 
 import { useState, useEffect } from '@wordpress/element';
@@ -20,94 +20,67 @@ export function CompositePostsPostTypes<P, T>(
 	props: EntitiesSearch.CompositePostsPostTypes<P, T>
 ): JSX.Element {
 	const { state, dispatch } = usePostsOptionsStorage<P>();
-	const [searchPhrase, setSearchPhrase] = useState<string>('');
 	const [valuesState, setValuesState] = useState({
 		posts: props.posts.value,
 		postType: props.postType.value,
 	});
 
 	useEffect(() => {
-		searchPostsByPostType(
-			'',
-			valuesState.postType,
-			valuesState.posts,
-			true
+		let promises = Set<ReturnType<SearchPosts<P, T>>>().asMutable();
+
+		promises.add(
+			props.searchPosts('', valuesState.postType, {
+				exclude: valuesState.posts,
+			})
 		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
-	const searchPostsByPostType = async (
-		phraseOrEvent: SearchPhrase,
-		postType: PostType<T>,
-		posts?: Posts<P>,
-		firstOptionsLoad: boolean = false
-	) => {
-		const phrase =
-			typeof phraseOrEvent === 'string'
-				? phraseOrEvent
-				: phraseOrEvent.target.value;
-
-		/*
-		 * This is a cleanup, the user has deleted the search phrase, and we render the original options.s
-		 */
-		if (phrase === '' && !firstOptionsLoad) {
-			dispatch({
-				type: 'UPDATE_POSTS_OPTIONS',
-				postsOptions: state.initialPostsOptions,
-			});
-			return;
-		}
-
-		/*
-		 * Collect the options based on the search phrase and the post type.
-		 */
-		const promises: Array<ReturnType<SearchPosts<P, T>>> = [
-			props.searchPosts(phrase, postType, {
-				exclude: posts,
-			}),
-		];
-
-		/*
-		 * Includes the selected options if it is the first search.
-		 * We do want to include the selected options during the first load.
-		 */
-		if (firstOptionsLoad && (posts?.size ?? 0 > 0)) {
-			promises.push(
-				props.searchPosts('', postType, {
-					include: posts,
+		if ((valuesState.posts?.size ?? 0) > 0) {
+			promises.add(
+				props.searchPosts('', valuesState.postType, {
+					include: valuesState.posts,
 					per_page: '-1',
 				})
 			);
 		}
 
-		Promise.all(promises)
-			.then((result) => {
-				const options = result[0] ?? OrderedSet();
-				const selectedOptions = result[1] ?? OrderedSet();
+		Promise.all(promises).then((result) => {
+			const postsOptions = result[0] ?? OrderedSet([]);
+			const selectedPostsOptions = result[1] ?? OrderedSet([]);
 
-				/*
-				 * Related to the first load, we need to update the selected options and the initial options.
-				 */
-				if (firstOptionsLoad) {
-					dispatch({
-						type: 'UPDATE_SELECTED_POSTS_OPTIONS',
-						posts: selectedOptions,
-					});
-					dispatch({
-						type: 'SET_INITIAL_POSTS_OPTIONS',
-						postsOptions: options,
-					});
-				}
+			dispatch({
+				type: 'UPDATE_SELECTED_POSTS_OPTIONS',
+				selectedPostsOptions,
+			});
+			dispatch({
+				type: 'SET_CONTEXUAL_POSTS_OPTIONS',
+				contextualPostsOptions: postsOptions,
+			});
+			dispatch({
+				type: 'UPDATE_POSTS_OPTIONS',
+				postsOptions,
+			});
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
+	const searchPostsByPostType = async (
+		phrase: string,
+		postType: PostType<T>
+	) => {
+		if (!phrase) {
+			return;
+		}
+
+		props
+			.searchPosts(phrase, postType, {
+				exclude: valuesState.posts,
+			})
+			.then((result) =>
 				dispatch({
 					type: 'UPDATE_POSTS_OPTIONS',
-					postsOptions: options,
-				});
-
-				setSearchPhrase(phrase);
-
-				return options;
-			})
+					postsOptions: result,
+				})
+			)
 			.catch(() => {
 				// TODO Add warning for user feedback.
 				const emptySet = OrderedSet([]);
@@ -120,22 +93,71 @@ export function CompositePostsPostTypes<P, T>(
 	};
 
 	const onChangePosts = (posts: Posts<P>) => {
-		searchPostsByPostType(searchPhrase, valuesState.postType, posts);
+		// TODO It is the state still necessary having the reducer?
 		setValuesState({ ...valuesState, posts });
-		dispatch({
-			type: 'UPDATE_SELECTED_POSTS_OPTIONS',
-			posts,
-		});
 		props.posts.onChange(posts);
+
+		if ((posts?.size ?? 0) <= 0) {
+			dispatch({
+				type: 'UPDATE_SELECTED_POSTS_OPTIONS',
+				selectedPostsOptions: OrderedSet([]),
+			});
+			dispatch({
+				type: 'UPDATE_POSTS_OPTIONS',
+				postsOptions: state.contexualPostsOptions,
+			});
+			return;
+		}
+
+		let promises = Set<ReturnType<SearchPosts<P, T>>>([
+			props.searchPosts('', valuesState.postType, {
+				exclude: posts,
+			}),
+			props.searchPosts('', valuesState.postType, {
+				include: posts,
+				per_page: '-1',
+			}),
+		]);
+
+		Promise.all(promises).then((result) => {
+			const postsOptions = result[0] ?? OrderedSet([]);
+			const selectedPostsOptions = result[1] ?? OrderedSet([]);
+
+			dispatch({
+				type: 'UPDATE_SELECTED_POSTS_OPTIONS',
+				selectedPostsOptions,
+			});
+			dispatch({
+				type: 'UPDATE_POSTS_OPTIONS',
+				postsOptions,
+			});
+		});
 	};
 
 	const onChangePostType = (postType: T) => {
-		const emptyOrderedSet = OrderedSet([]);
-		// Consider a change of post type as a first load.
-		searchPostsByPostType('', postType, emptyOrderedSet, true);
-		setValuesState({ ...valuesState, postType, posts: emptyOrderedSet });
+		const posts = OrderedSet([]);
+		setValuesState({ postType, posts });
 		props.postType.onChange(postType);
-		props.posts.onChange(emptyOrderedSet);
+		props.posts.onChange(posts);
+
+		props
+			.searchPosts('', postType, {
+				exclude: valuesState.posts,
+			})
+			.then((result) => {
+				dispatch({
+					type: 'SET_CONTEXUAL_POSTS_OPTIONS',
+					contextualPostsOptions: result,
+				});
+				dispatch({
+					type: 'UPDATE_POSTS_OPTIONS',
+					postsOptions: result,
+				});
+				dispatch({
+					type: 'UPDATE_SELECTED_POSTS_OPTIONS',
+					selectedPostsOptions: posts,
+				});
+			});
 	};
 
 	const posts: EntitiesSearch.PostsControl<P> = {
@@ -162,13 +184,26 @@ export function CompositePostsPostTypes<P, T>(
 				posts,
 				postType,
 				// TODO Add debouncing to the `search` callback
-				(phrase: SearchPhrase) =>
-					searchPostsByPostType(
-						phrase,
-						valuesState.postType,
-						valuesState.posts
-					)
+				(phrase: SearchPhrase) => {
+					const _phrase = extractPhrase(phrase);
+
+					if (_phrase === '') {
+						dispatch({
+							type: 'UPDATE_POSTS_OPTIONS',
+							postsOptions: state.contexualPostsOptions,
+						});
+						return;
+					}
+
+					searchPostsByPostType(_phrase, valuesState.postType);
+				}
 			)}
 		</>
 	);
+}
+
+function extractPhrase(phraseOrEvent: SearchPhrase): string {
+	return typeof phraseOrEvent === 'string'
+		? phraseOrEvent
+		: phraseOrEvent.target.value;
 }

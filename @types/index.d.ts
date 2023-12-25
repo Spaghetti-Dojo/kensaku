@@ -50,10 +50,10 @@ declare namespace EntitiesSearch {
 	 * Storage
 	 */
 	type PostsState<CO> = Readonly<{
-		initialPostsOptions: OrderedSet<EntitiesSearch.ControlOption<CO>>;
-		postsOptions: PostsState<CO>['initialPostsOptions'];
+		contexualPostsOptions: OrderedSet<EntitiesSearch.ControlOption<CO>>;
+		postsOptions: PostsState<CO>['contexualPostsOptions'];
 		selectedPostsOptions: PostsState<CO>['postsOptions'];
-		cachedPostsOptions: PostsState<CO>['initialPostsOptions'];
+		cachedPostsOptions: PostsState<CO>['contexualPostsOptions'];
 	}>;
 
 	type PostsAction<V> =
@@ -62,15 +62,12 @@ declare namespace EntitiesSearch {
 				postsOptions: PostsState<V>['postsOptions'];
 		  }
 		| {
-				type: 'SET_INITIAL_POSTS_OPTIONS';
-				postsOptions: PostsState<V>['initialPostsOptions'];
+				type: 'SET_CONTEXUAL_POSTS_OPTIONS';
+				contextualPostsOptions: PostsState<V>['contexualPostsOptions'];
 		  }
 		| {
 				type: 'UPDATE_SELECTED_POSTS_OPTIONS';
-				posts:
-					| OrderedSet<V>
-					| PostsState<V>['selectedPostsOptions']
-					| undefined;
+				selectedPostsOptions: PostsState<V>['selectedPostsOptions'];
 		  };
 
 	/*
