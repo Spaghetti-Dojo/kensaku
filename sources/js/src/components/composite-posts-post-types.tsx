@@ -20,6 +20,7 @@ export function CompositePostsPostTypes<P, T>(
 	props: EntitiesSearch.CompositePostsPostTypes<P, T>
 ): JSX.Element {
 	const { state, dispatch } = usePostsOptionsStorage<P>();
+	const [searchPhrase, setSearchPhrase] = useState('');
 	const [valuesState, setValuesState] = useState({
 		posts: props.posts.value,
 		postType: props.postType.value,
@@ -110,7 +111,7 @@ export function CompositePostsPostTypes<P, T>(
 		}
 
 		let promises = Set<ReturnType<SearchPosts<P, T>>>([
-			props.searchPosts('', valuesState.postType, {
+			props.searchPosts(searchPhrase, valuesState.postType, {
 				exclude: posts,
 			}),
 			props.searchPosts('', valuesState.postType, {
@@ -186,6 +187,8 @@ export function CompositePostsPostTypes<P, T>(
 				// TODO Add debouncing to the `search` callback
 				(phrase: SearchPhrase) => {
 					const _phrase = extractPhrase(phrase);
+
+					setSearchPhrase(_phrase);
 
 					if (_phrase === '') {
 						dispatch({
