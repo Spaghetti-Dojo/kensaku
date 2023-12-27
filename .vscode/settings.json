@@ -16,5 +16,6 @@
 			"filePath": "vendor/roots/wordpress-no-content/wp-includes/rest-api",
 			"group": "Default"
 		}
-	]
+	],
+	"typescript.tsdk": "node_modules/typescript/lib"
 }
