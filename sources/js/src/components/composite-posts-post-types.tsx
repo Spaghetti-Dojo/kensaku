@@ -22,7 +22,7 @@ export function CompositePostsPostTypes<P, T>(
 	const { state, dispatch } = usePostsOptionsStorage<P>();
 	const [searchPhrase, setSearchPhrase] = useState('');
 	const [valuesState, setValuesState] = useState({
-		posts: props.posts.value,
+		posts: props.posts.value ?? OrderedSet([]),
 		postType: props.postType.value,
 	});
 
@@ -35,7 +35,7 @@ export function CompositePostsPostTypes<P, T>(
 			})
 		);
 
-		if ((valuesState.posts?.size ?? 0) > 0) {
+		if (valuesState.posts.size > 0) {
 			promises.add(
 				props.searchPosts('', valuesState.postType, {
 					include: valuesState.posts,
@@ -95,7 +95,7 @@ export function CompositePostsPostTypes<P, T>(
 
 	const onChangePosts = (posts: Posts<P>) => {
 		// TODO It is the state still necessary having the reducer?
-		setValuesState({ ...valuesState, posts });
+		setValuesState({ ...valuesState, posts: posts ?? OrderedSet([]) });
 		props.posts.onChange(posts);
 
 		if ((posts?.size ?? 0) <= 0) {

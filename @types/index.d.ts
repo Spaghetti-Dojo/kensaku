@@ -53,7 +53,6 @@ declare namespace EntitiesSearch {
 		contexualPostsOptions: OrderedSet<EntitiesSearch.ControlOption<CO>>;
 		postsOptions: PostsState<CO>['contexualPostsOptions'];
 		selectedPostsOptions: PostsState<CO>['postsOptions'];
-		cachedPostsOptions: PostsState<CO>['contexualPostsOptions'];
 	}>;
 
 	type PostsAction<V> =

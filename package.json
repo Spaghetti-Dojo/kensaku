@@ -1,54 +1,55 @@
 {
-  "name": "entities-search",
-  "version": "1.0.0",
-  "description": "A WordPress package to search Entities including Rest API Endpoints and React Components",
-  "author": "guido scialfa <dev@guidoscialfa.com>",
-  "main": "./build/index.js",
-  "license": "GPL-2.0-or-later",
-  "engines": {
-    "node": "16"
-  },
-  "devDependencies": {
-    "@faker-js/faker": "^8",
-    "@jest/globals": "^29.4.3",
-    "@testing-library/dom": "^9.3.1",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.5.1",
-    "@total-typescript/shoehorn": "^0.1.0",
-    "@trivago/prettier-plugin-sort-imports": "^4.0.0",
-    "@wordpress/dependency-extraction-webpack-plugin": "^4.8.0",
-    "@wordpress/env": "^5.9.0",
-    "@wordpress/eslint-plugin": "^14.8.0",
-    "@wordpress/scripts": "^26.0.0",
-    "eslint-import-resolver-typescript": "^3.5.5",
-    "jest": "^29.4.3",
-    "jest-environment-jsdom": "^29.5.0",
-    "prettier": "^2.8.1",
-    "ts-jest": "^29.0.5",
-    "ts-loader": "^9.4.2",
-    "ts-node": "^10.9.1",
-    "typescript": "~5.1.0",
-    "yarn": "^1.22.19"
-  },
-  "dependencies": {
-    "@wordpress/api-fetch": "~6.21.0",
-    "@wordpress/components": "~23.1.0",
-    "@wordpress/compose": "^6.23.0",
-    "@wordpress/core-data": "~6.12.0",
-    "@wordpress/element": "^5.23.0",
-    "@wordpress/i18n": "~4.24.0",
-    "classnames": "^2.3.2",
-    "immutable": "~4.3.0",
-    "react": "~18.2.0"
-  },
-  "scripts": {
-    "wp-env": "wp-env",
-    "build": "wp-scripts build --webpack-src-dir=./sources/js/src",
-    "build:dev": "wp-scripts start --webpack--devtool=inline-source-map --webpack-src-dir=./sources/js/src",
-    "cs": "yarn prettier --check ./sources/js",
-    "cs:fix": "wp-scripts format ./sources/js",
-    "lint:js": "wp-scripts lint-js",
-    "lint:js:fix": "wp-scripts lint-js --fix",
-    "test": "jest"
-  }
+	"name": "entities-search",
+	"version": "1.0.0",
+	"description": "A WordPress package to search Entities including Rest API Endpoints and React Components",
+	"author": "guido scialfa <dev@guidoscialfa.com>",
+	"main": "./build/index.js",
+	"license": "GPL-2.0-or-later",
+	"engines": {
+		"node": "16"
+	},
+	"devDependencies": {
+		"@faker-js/faker": "^8",
+		"@jest/globals": "^29.4.3",
+		"@testing-library/dom": "^9.3.1",
+		"@testing-library/react": "^14.0.0",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@testing-library/user-event": "^14.5.1",
+		"@total-typescript/shoehorn": "^0.1.0",
+		"@trivago/prettier-plugin-sort-imports": "^4.0.0",
+		"@wordpress/dependency-extraction-webpack-plugin": "^4.8.0",
+		"@wordpress/env": "^5.9.0",
+		"@wordpress/eslint-plugin": "^14.8.0",
+		"@wordpress/scripts": "^26.0.0",
+		"eslint-import-resolver-typescript": "^3.5.5",
+		"jest": "^29.4.3",
+		"jest-environment-jsdom": "^29.5.0",
+		"prettier": "^2.8.1",
+		"ts-jest": "^29.0.5",
+		"ts-loader": "^9.4.2",
+		"ts-node": "^10.9.1",
+		"typescript": "~5.1.0",
+		"yarn": "^1.22.19"
+	},
+	"dependencies": {
+		"@wordpress/api-fetch": "~6.21.0",
+		"@wordpress/components": "~23.1.0",
+		"@wordpress/compose": "^6.23.0",
+		"@wordpress/core-data": "~6.12.0",
+		"@wordpress/element": "^5.23.0",
+		"@wordpress/i18n": "~4.24.0",
+		"classnames": "^2.3.2",
+		"immutable": "~4.3.0",
+		"react": "~18.2.0"
+	},
+	"scripts": {
+		"wp-env": "wp-env",
+		"build": "wp-scripts build --webpack-src-dir=./sources/js/src",
+		"build:dev": "wp-scripts start --webpack--devtool=inline-source-map --webpack-src-dir=./sources/js/src",
+		"cs": "yarn prettier --check ./sources/js",
+		"cs:fix": "wp-scripts format ./sources/js",
+		"lint:js": "wp-scripts lint-js",
+		"lint:js:fix": "wp-scripts lint-js --fix",
+		"test": "jest"
+	}
 }

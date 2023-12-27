@@ -8,7 +8,7 @@ export function buildOptions(): Set<EntitiesSearch.ControlOption<string>> {
 
 	for (let count = 0; count < 9; ++count) {
 		options = options.add({
-			label: faker.random.word(),
+			label: faker.word.words(2),
 			value: faker.word.noun(),
 		});
 	}

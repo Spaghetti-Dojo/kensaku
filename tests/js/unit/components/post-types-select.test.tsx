@@ -20,7 +20,7 @@ describe('Post Types Select', () => {
 	it('call the given onChange handler', (done) => {
 		let expectedValue: EntitiesSearch.PostTypeControl<string>['value'] = '';
 		const option: EntitiesSearch.ControlOption<string> = {
-			label: faker.random.word(),
+			label: faker.word.words(2),
 			value: faker.word.noun(),
 		};
 		const options = OrderedSet<EntitiesSearch.ControlOption<string>>([])

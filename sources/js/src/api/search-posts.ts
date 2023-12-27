@@ -11,7 +11,7 @@ export async function searchPosts<E>(
 	queryArguments: {
 		exclude: Set<string>;
 		include: Set<string>;
-		fields: EntitiesSearch.SearchQueryFields;
+		fields?: EntitiesSearch.SearchQueryFields;
 		[p: string]: unknown;
 	}
 ): Promise<OrderedSet<E>> {
@@ -27,14 +27,14 @@ export async function searchPosts<E>(
 		per_page: '10',
 		order: 'DESC',
 		orderBy: 'title',
-		_fields: serializeFields(fields),
 		...{
 			exclude: exclude?.toArray() ?? [],
 			include: include?.toArray() ?? [],
 			...restArguments,
 		},
 		search: phrase,
-		subtype: type
+		subtype: type,
+		_fields: serializeFields(fields),
 	});
 
 	// TODO What happen in the case of an error?

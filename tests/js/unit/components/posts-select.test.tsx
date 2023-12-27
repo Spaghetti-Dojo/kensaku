@@ -16,7 +16,7 @@ describe('Posts Select', () => {
 	it('call the given onChange handler', async () => {
 		let expectedValue: EntitiesSearch.PostsControl<string>['value'];
 		const option: EntitiesSearch.ControlOption<string> = {
-			label: faker.random.word(),
+			label: faker.word.words(2),
 			value: faker.word.noun(),
 		};
 		const options = OrderedSet<EntitiesSearch.ControlOption<string>>([])
