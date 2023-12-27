@@ -8,5 +8,8 @@
 				"wp-content/plugins/entities-search": "."
 			}
 		}
+	},
+	"config": {
+		"WP_ENVIRONMENT_TYPE": "local"
 	}
 }
