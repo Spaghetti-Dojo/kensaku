@@ -2,7 +2,7 @@ import EntitiesSearch from '@types';
 import { OrderedSet } from 'immutable';
 import React from 'react';
 
-import { describe, it, expect, jest } from '@jest/globals';
+import { describe, it, expect } from '@jest/globals';
 
 import { render, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -10,11 +10,6 @@ import userEvent from '@testing-library/user-event';
 import { CompositePostsPostTypes } from '../../../../sources/js/src/components/composite-posts-post-types';
 import { PostTypeSelect } from '../../../../sources/js/src/components/post-type-select';
 import { PostsSelect } from '../../../../sources/js/src/components/posts-select';
-
-jest.mock('@wordpress/element', () => ({
-	useState: React.useState,
-	useEffect: React.useEffect,
-}));
 
 describe.skip('CompositePostsPostTypes', () => {
 	/**

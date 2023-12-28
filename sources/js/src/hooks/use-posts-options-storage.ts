@@ -1,7 +1,5 @@
 import EntitiesSearch from '@types';
-import { Reducer, Dispatch } from 'react';
-
-import { useReducer } from '@wordpress/element';
+import { Reducer, Dispatch, useReducer } from 'react';
 
 import { makeInitialState } from '../storage/posts/initial-state';
 import { reducer } from '../storage/posts/reducer';

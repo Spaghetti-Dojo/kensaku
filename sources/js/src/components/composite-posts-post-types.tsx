@@ -1,8 +1,6 @@
 import type EntitiesSearch from '@types';
 import { OrderedSet, Set } from 'immutable';
-import React, { JSX } from 'react';
-
-import { useState, useEffect } from '@wordpress/element';
+import React, { JSX, useState, useEffect } from 'react';
 
 import { usePostsOptionsStorage } from '../hooks/use-posts-options-storage';
 import { orderSelectedOptionsAtTheTop } from '../utils/order-selected-options-at-the-top';
