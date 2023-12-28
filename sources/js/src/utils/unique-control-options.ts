@@ -1,7 +1,7 @@
 import EntitiesSearch from '@types';
 import { OrderedSet } from 'immutable';
 
-export function uniqueOrderedSet<V>(
+export function uniqueControlOptions<V>(
 	set: OrderedSet<EntitiesSearch.ControlOption<V>>
 ): OrderedSet<EntitiesSearch.ControlOption<V>> {
 	const uniqueOptions = OrderedSet<EntitiesSearch.ControlOption<V>>(

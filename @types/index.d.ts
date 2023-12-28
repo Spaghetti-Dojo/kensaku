@@ -61,7 +61,7 @@ declare namespace EntitiesSearch {
 				postsOptions: PostsState<V>['postsOptions'];
 		  }
 		| {
-				type: 'SET_CONTEXUAL_POSTS_OPTIONS';
+				type: 'UPDATE_CONTEXUAL_POSTS_OPTIONS';
 				contextualPostsOptions: PostsState<V>['contexualPostsOptions'];
 		  }
 		| {

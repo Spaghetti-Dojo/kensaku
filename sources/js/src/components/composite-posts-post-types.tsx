@@ -6,7 +6,7 @@ import { useState, useEffect } from '@wordpress/element';
 
 import { usePostsOptionsStorage } from '../hooks/use-posts-options-storage';
 import { orderSelectedOptionsAtTheTop } from '../utils/order-selected-options-at-the-top';
-import { uniqueOrderedSet } from '../utils/unique-ordered-set';
+import { uniqueControlOptions } from '../utils/unique-control-options';
 
 type SearchPhrase = Parameters<EntitiesSearch.Search['search']>[0];
 type PostType<V> = EntitiesSearch.PostTypeControl<V>['value'];
@@ -53,7 +53,7 @@ export function CompositePostsPostTypes<P, T>(
 				selectedPostsOptions,
 			});
 			dispatch({
-				type: 'SET_CONTEXUAL_POSTS_OPTIONS',
+				type: 'UPDATE_CONTEXUAL_POSTS_OPTIONS',
 				contextualPostsOptions: postsOptions,
 			});
 			dispatch({
@@ -147,7 +147,7 @@ export function CompositePostsPostTypes<P, T>(
 			})
 			.then((result) => {
 				dispatch({
-					type: 'SET_CONTEXUAL_POSTS_OPTIONS',
+					type: 'UPDATE_CONTEXUAL_POSTS_OPTIONS',
 					contextualPostsOptions: result,
 				});
 				dispatch({
@@ -165,7 +165,7 @@ export function CompositePostsPostTypes<P, T>(
 		...props.posts,
 		value: valuesState.posts,
 		options: orderSelectedOptionsAtTheTop<P>(
-			uniqueOrderedSet(
+			uniqueControlOptions(
 				state.selectedPostsOptions.merge(state.postsOptions)
 			),
 			valuesState.posts

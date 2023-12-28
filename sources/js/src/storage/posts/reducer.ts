@@ -5,7 +5,7 @@ export function reducer<P>(
 	action: EntitiesSearch.PostsAction<P>
 ): EntitiesSearch.PostsState<P> {
 	switch (action.type) {
-		case 'SET_CONTEXUAL_POSTS_OPTIONS':
+		case 'UPDATE_CONTEXUAL_POSTS_OPTIONS':
 			return {
 				...state,
 				contexualPostsOptions: action.contextualPostsOptions,

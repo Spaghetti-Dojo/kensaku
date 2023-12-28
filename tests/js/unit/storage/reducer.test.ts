@@ -18,6 +18,25 @@ describe('reducer', () => {
 		};
 	});
 
+	it('Update the Contextual Posts Options', () => {
+		const contextualPostsOptions = OrderedSet([
+			{
+				value: faker.number.int(10),
+				label: 'Post One',
+			},
+			{
+				value: faker.number.int({ min: 11, max: 20 }),
+				label: 'Post Two',
+			},
+		]);
+		const newState = reducer(state, {
+			type: 'UPDATE_CONTEXUAL_POSTS_OPTIONS',
+			contextualPostsOptions,
+		});
+
+		expect(newState.contexualPostsOptions).toEqual(contextualPostsOptions);
+	});
+
 	it('Update the Posts Options', () => {
 		const postsOptions = OrderedSet([
 			{
