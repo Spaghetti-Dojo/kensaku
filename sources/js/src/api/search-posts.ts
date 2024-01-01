@@ -3,10 +3,12 @@ import { OrderedSet, Set } from 'immutable';
 
 import { fetch } from './fetch';
 
-// TODO Parametrize the fields
+// TODO Parametrize the fields.
 // TODO Write the underline search function.
-export async function searchPosts<E>(
-	type: string,
+// TODO Make the `queryArguments` optional.
+export async function searchEntities<E>(
+	kindName: string,
+	entityName: string,
 	phrase: string,
 	queryArguments: {
 		exclude: Set<string>;
@@ -32,8 +34,9 @@ export async function searchPosts<E>(
 			include: include?.toArray() ?? [],
 			...restArguments,
 		},
+		type: kindName,
 		search: phrase,
-		subtype: type,
+		subtype: entityName,
 		_fields: serializeFields(fields),
 	});
 

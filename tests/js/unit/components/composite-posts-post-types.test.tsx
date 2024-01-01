@@ -20,7 +20,7 @@ describe.skip('CompositePostsPostTypes', () => {
 
 		const rendered = render(
 			<CompositePostsPostTypes
-				searchPosts={() => Promise.resolve(OrderedSet([]))}
+				searchEntities={() => Promise.resolve(OrderedSet([]))}
 				posts={{
 					value: OrderedSet([]),
 					onChange: () => {},
@@ -59,7 +59,7 @@ describe.skip('CompositePostsPostTypes', () => {
 		const rendered = await act(async () => {
 			return render(
 				<CompositePostsPostTypes
-					searchPosts={() =>
+					searchEntities={() =>
 						Promise.resolve(
 							OrderedSet([
 								{ label: 'Post 1', value: 'post-1' },
@@ -106,7 +106,7 @@ describe.skip('CompositePostsPostTypes', () => {
 		const rendered = await act(async () => {
 			return render(
 				<CompositePostsPostTypes
-					searchPosts={() =>
+					searchEntities={() =>
 						Promise.resolve(
 							OrderedSet([
 								{ label: 'Post 1', value: 'post-1' },
@@ -161,7 +161,7 @@ describe.skip('CompositePostsPostTypes', () => {
 
 		const rendered = render(
 			<CompositePostsPostTypes
-				searchPosts={(_phrase, _postType) => {
+				searchEntities={(_phrase, _postType) => {
 					if (_postType === 'page') {
 						return Promise.resolve(
 							OrderedSet([
@@ -226,7 +226,7 @@ describe.skip('CompositePostsPostTypes', () => {
 
 		const rendered = render(
 			<CompositePostsPostTypes
-				searchPosts={() => Promise.reject('Error')}
+				searchEntities={() => Promise.reject('Error')}
 				posts={{
 					value: OrderedSet([]),
 					onChange: () => {},

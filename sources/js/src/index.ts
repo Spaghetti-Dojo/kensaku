@@ -7,8 +7,9 @@ export * from './components/search';
 
 export * from './hooks/use-entity-records';
 export * from './hooks/use-query-viewable-post-types';
+export * from './hooks/use-query-viewable-taxonomies';
 
-export * from './utils/convert-post-type-entities-to-control-options';
+export * from './utils/convert-entities-to-control-options';
 export * from './utils/convert-post-entities-to-control-options';
 
 export * from './api/fetch';

@@ -8,6 +8,7 @@ export default EntitiesSearch;
 declare namespace EntitiesSearch {
 	type Post<C extends Context = 'view'> = BaseEntityRecords.Post<C>;
 	type PostType<C extends Context = 'view'> = BaseEntityRecords.Type<C>;
+	type Taxonomy<C extends Context = 'view'> = BaseEntityRecords.Taxonomy<C>;
 
 	interface PostEntityFields
 		extends Readonly<{
@@ -30,6 +31,15 @@ declare namespace EntitiesSearch {
 		[K in keyof PostType<'edit'>]: K extends 'viewable'
 			? true
 			: PostType<'edit'>[K];
+	}>;
+
+	// TODO Need Type Test.
+	type ViewableTaxonomy = Readonly<{
+		[K in keyof Taxonomy<'edit'>]: K extends 'visibility'
+			? BaseEntityRecords.TaxonomyVisibility & {
+					publicly_queryable: true;
+			  }
+			: Taxonomy<'edit'>[K];
 	}>;
 
 	type EntitiesRecords<Entity> = Readonly<{
@@ -98,9 +108,9 @@ declare namespace EntitiesSearch {
 		extends Readonly<{
 			postType: PostTypeControl<T>;
 			posts: Omit<PostsControl<P>, 'options'>;
-			searchPosts: (
+			searchEntities: (
 				phrase: string,
-				postType: PostTypeControl<T>['value'],
+				kind: PostTypeControl<T>['value'],
 				queryArguments?: Record<string, unknown>
 			) => Promise<PostsControl<P>['options']>;
 			children(

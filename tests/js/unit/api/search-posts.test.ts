@@ -4,7 +4,7 @@ import { Set } from 'immutable';
 import { describe, expect, it, jest } from '@jest/globals';
 
 import { fetch } from '../../../../sources/js/src/api/fetch';
-import { searchPosts } from '../../../../sources/js/src/api/search-posts';
+import { searchEntities } from '../../../../sources/js/src/api/search-posts';
 
 jest.mock('../../../../sources/js/src/api/fetch', () => ({
 	fetch: jest.fn(),
@@ -16,11 +16,11 @@ describe('Search Posts', () => {
 		jest.mocked(fetch).mockImplementation((options: any) => {
 			const { path } = options;
 			expect(path).toBe(
-				'?rest_route=/wp/v2/search&per_page=10&order=DESC&orderBy=title&exclude=1%2C3&include=2%2C5&search=foo&subtype=post&_fields=title%2Cid'
+				'?rest_route=/wp/v2/search&per_page=10&order=DESC&orderBy=title&exclude=1%2C3&include=2%2C5&type=post&search=foo&subtype=post&_fields=title%2Cid'
 			);
 		});
 
-		searchPosts('post', 'foo', {
+		searchEntities('post', 'post', 'foo', {
 			exclude: Set<string>(['1', '3']),
 			include: Set<string>(['2', '5']),
 		});
@@ -35,10 +35,15 @@ describe('Search Posts', () => {
 		// @ts-ignore
 		jest.mocked(fetch).mockResolvedValue(expected);
 
-		const entities = await searchPosts<EntitiesSearch.Post>('post', 'foo', {
-			exclude: Set<string>(['1', '3']),
-			include: Set<string>(['2', '5']),
-		});
+		const entities = await searchEntities<EntitiesSearch.Post>(
+			'post',
+			'post',
+			'foo',
+			{
+				exclude: Set<string>(['1', '3']),
+				include: Set<string>(['2', '5']),
+			}
+		);
 
 		entities.toArray().forEach((entity, index) => {
 			expect(entity.id).toEqual(expected[index]?.id);

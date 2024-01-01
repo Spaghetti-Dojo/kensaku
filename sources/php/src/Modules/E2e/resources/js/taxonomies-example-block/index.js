@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-	const UNSUPPORTED_CPTS = ['attachment'];
-
 	const { wp, entitiesSearch, Immutable } = window;
 
 	const { createElement } = wp.element;
@@ -14,79 +12,74 @@ document.addEventListener('DOMContentLoaded', () => {
 		PostsToggle,
 		Search,
 		CompositePostsPostTypes,
-		useQueryViewablePostTypes,
+		useQueryViewableTaxonomies,
 		convertEntitiesToControlOptions,
 		convertPostEntitiesToControlOptions,
 	} = entitiesSearch;
 
 	// TODO Check why the object form does not work.
-	registerBlockType('widoz-entities-search/post-types-example-block', {
+	registerBlockType('widoz-entities-search/taxonomies-example-block', {
 		apiVersion: 2,
-		title: 'Post Types Example Block',
+		title: 'Taxonomies Example Block',
 		category: 'uncategorized',
 		icon: 'wordpress',
-		editorScript: 'widoz-entities-search-e2e-post-types-example-block',
+		editorScript: 'widoz-entities-search-e2e-taxonomies-example-block',
 		edit: function Edit(props) {
 			const blockProps = useBlockProps({
-				className: 'widoz-entities-search-e2e-post-types-example-block',
+				className: 'widoz-entities-search-e2e-taxonomies-example-block',
 			});
 
-			const postTypesEntities = useQueryViewablePostTypes();
+			const taxonomiesEntities = useQueryViewableTaxonomies();
 
-			if (postTypesEntities.isResolving()) {
+			if (taxonomiesEntities.isResolving()) {
 				return Spinner();
 			}
 
-			const PostPostTypesControllerElement = createElement(
+			const TermTaxonomiesControllerElement = createElement(
 				CompositePostsPostTypes,
 				{
 					// TODO Wrap around a throttle or debounce function
 					searchEntities: async (
 						phrase,
-						postType,
+						entityName,
 						queryArguments
 					) => {
-						const postsEntities = await searchEntities(
-							'post',
-							postType,
+						const entities = await searchEntities(
+							'term',
+							entityName,
 							phrase,
 							queryArguments
 						);
 						return convertPostEntitiesToControlOptions(
-							postsEntities,
+							entities,
 							'title',
 							'id'
 						);
 					},
 					posts: {
-						value: Immutable.Set(props.attributes.posts),
-						onChange: (posts) =>
-							props.setAttributes({ posts: posts?.toArray() }),
+						value: Immutable.Set(props.attributes.terms),
+						onChange: (terms) =>
+							props.setAttributes({ terms: terms?.toArray() }),
 					},
 					postType: {
-						value: props.attributes.postType,
+						value: props.attributes.taxonomy,
 						options: convertEntitiesToControlOptions(
-							postTypesEntities
-								.records()
-								.filter(
-									(record) =>
-										!UNSUPPORTED_CPTS.includes(record.slug)
-								)
+							taxonomiesEntities.records()
 						),
-						onChange: (postType) =>
-							props.setAttributes({ postType }),
+						onChange: (taxonomy) =>
+							props.setAttributes({ taxonomy }),
 					},
 				},
 				(posts, type, search) => {
 					return [
 						createElement(PostTypeRadio, {
 							...type,
-							key: 'post-type-radio',
+							key: 'taxonomy-radio',
 						}),
 						createElement(Search, { search, key: 'search' }),
 						createElement(PostsToggle, {
 							...posts,
-							key: 'posts-toggle',
+							key: 'terms-toggle',
 						}),
 					];
 				}
@@ -95,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			return createElement(
 				'div',
 				blockProps,
-				PostPostTypesControllerElement
+				TermTaxonomiesControllerElement
 			);
 		},
 		save: () => null,

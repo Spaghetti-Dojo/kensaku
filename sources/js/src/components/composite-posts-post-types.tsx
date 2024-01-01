@@ -9,10 +9,10 @@ import { uniqueControlOptions } from '../utils/unique-control-options';
 type SearchPhrase = Parameters<EntitiesSearch.Search['search']>[0];
 type PostType<V> = EntitiesSearch.PostTypeControl<V>['value'];
 type Posts<V> = EntitiesSearch.PostsControl<V>['value'];
-type SearchPosts<P, T> = EntitiesSearch.CompositePostsPostTypes<
+type SearchEntities<P, T> = EntitiesSearch.CompositePostsPostTypes<
 	P,
 	T
->['searchPosts'];
+>['searchEntities'];
 
 export function CompositePostsPostTypes<P, T>(
 	props: EntitiesSearch.CompositePostsPostTypes<P, T>
@@ -25,17 +25,17 @@ export function CompositePostsPostTypes<P, T>(
 	});
 
 	useEffect(() => {
-		let promises = Set<ReturnType<SearchPosts<P, T>>>().asMutable();
+		let promises = Set<ReturnType<SearchEntities<P, T>>>().asMutable();
 
 		promises.add(
-			props.searchPosts('', valuesState.postType, {
+			props.searchEntities('', valuesState.postType, {
 				exclude: valuesState.posts,
 			})
 		);
 
 		if (valuesState.posts.size > 0) {
 			promises.add(
-				props.searchPosts('', valuesState.postType, {
+				props.searchEntities('', valuesState.postType, {
 					include: valuesState.posts,
 					per_page: '-1',
 				})
@@ -62,7 +62,7 @@ export function CompositePostsPostTypes<P, T>(
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const searchPostsByPostType = async (
+	const searchEntitiesByKind = async (
 		phrase: string,
 		postType: PostType<T>
 	) => {
@@ -71,7 +71,7 @@ export function CompositePostsPostTypes<P, T>(
 		}
 
 		props
-			.searchPosts(phrase, postType, {
+			.searchEntities(phrase, postType, {
 				exclude: valuesState.posts,
 			})
 			.then((result) =>
@@ -108,11 +108,11 @@ export function CompositePostsPostTypes<P, T>(
 			return;
 		}
 
-		let promises = Set<ReturnType<SearchPosts<P, T>>>([
-			props.searchPosts(searchPhrase, valuesState.postType, {
+		let promises = Set<ReturnType<SearchEntities<P, T>>>([
+			props.searchEntities(searchPhrase, valuesState.postType, {
 				exclude: posts,
 			}),
-			props.searchPosts('', valuesState.postType, {
+			props.searchEntities('', valuesState.postType, {
 				include: posts,
 				per_page: '-1',
 			}),
@@ -140,7 +140,7 @@ export function CompositePostsPostTypes<P, T>(
 		props.posts.onChange(posts);
 
 		props
-			.searchPosts('', postType, {
+			.searchEntities('', postType, {
 				exclude: valuesState.posts,
 			})
 			.then((result) => {
@@ -196,7 +196,7 @@ export function CompositePostsPostTypes<P, T>(
 						return;
 					}
 
-					searchPostsByPostType(_phrase, valuesState.postType);
+					searchEntitiesByKind(_phrase, valuesState.postType);
 				}
 			)}
 		</>

@@ -6,7 +6,7 @@ import { describe, it, expect } from '@jest/globals';
 
 import { faker } from '@faker-js/faker';
 
-import { convertPostTypeEntitiesToControlOptions } from '../../../../sources/js/src/utils/convert-post-type-entities-to-control-options';
+import { convertEntitiesToControlOptions } from '../../../../sources/js/src/utils/convert-entities-to-control-options';
 
 describe('Convert Entities To Control Options', () => {
 	it('correctly convert entities to control options', () => {
@@ -22,7 +22,7 @@ describe('Convert Entities To Control Options', () => {
 
 		const entities = OrderedSet(rawEntities);
 
-		const options = convertPostTypeEntitiesToControlOptions(entities).map(
+		const options = convertEntitiesToControlOptions(entities).map(
 			(option) => option.value
 		);
 		for (const postType of entities) {
@@ -32,7 +32,7 @@ describe('Convert Entities To Control Options', () => {
 
 	it('returns empty list if entities set is empty', () => {
 		expect(
-			convertPostTypeEntitiesToControlOptions(OrderedSet([])).isEmpty()
+			convertEntitiesToControlOptions(OrderedSet([])).isEmpty()
 		).toEqual(true);
 	});
 });

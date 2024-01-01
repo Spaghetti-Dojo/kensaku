@@ -96,8 +96,20 @@ class Module implements Modularity\Module\ExecutableModule
             true,
         );
 
+        \wp_register_script(
+            'widoz-entities-search-e2e-taxonomies-example-block',
+            "{$baseUrl}/sources/php/src/Modules/E2e/resources/js/taxonomies-example-block/index.js",
+            ['widoz-entities-search', 'immutable'],
+            '0.0.0',
+            true,
+        );
+
         \register_block_type_from_metadata(
             __DIR__ . '/resources/js/post-types-example-block/block.json',
+        );
+
+        \register_block_type_from_metadata(
+            __DIR__ . '/resources/js/taxonomies-example-block/block.json',
         );
     }
 }
