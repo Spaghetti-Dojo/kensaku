@@ -3,10 +3,10 @@ import { OrderedSet } from 'immutable';
 
 import { makeControlOption } from './make-control-option';
 
-type FieldsNames = keyof EntitiesSearch.PostEntityFields;
+type FieldsNames = keyof EntitiesSearch.SearchEntityFields;
 // TODO See if this function can be generalized. See convertEntitiesToControlOptions too.
 export function convertPostEntitiesToControlOptions(
-	postsEntities: OrderedSet<EntitiesSearch.PostEntityFields>,
+	postsEntities: OrderedSet<EntitiesSearch.SearchEntityFields>,
 	labelKey: FieldsNames,
 	valueKey: FieldsNames
 ): OrderedSet<EntitiesSearch.ControlOption<string | number>> {

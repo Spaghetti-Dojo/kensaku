@@ -7,25 +7,25 @@ import { describe, it, expect } from '@jest/globals';
 import { render, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { CompositePostsPostTypes } from '../../../../sources/js/src/components/composite-posts-post-types';
-import { PostTypeSelect } from '../../../../sources/js/src/components/post-type-select';
-import { PostsSelect } from '../../../../sources/js/src/components/posts-select';
+import { CompositeEntitiesByKind } from '../../../../sources/js/src/components/composite-entities-by-kind';
+import { EntitiesSelectControl } from '../../../../sources/js/src/components/entities-select-control';
+import { KindSelectControl } from '../../../../sources/js/src/components/kind-select-control';
 
-describe.skip('CompositePostsPostTypes', () => {
+describe.skip('CompositeEntitiesByKind', () => {
 	/**
 	 * This test want to ensure it is possible to select a post type.
 	 */
 	it('Allow to select a post type', (done) => {
-		let expectedPostType: EntitiesSearch.PostTypeControl<string>['value'];
+		let expectedPostType: EntitiesSearch.KindControl<string>['value'];
 
 		const rendered = render(
-			<CompositePostsPostTypes
+			<CompositeEntitiesByKind
 				searchEntities={() => Promise.resolve(OrderedSet([]))}
-				posts={{
+				entities={{
 					value: OrderedSet([]),
 					onChange: () => {},
 				}}
-				postType={{
+				kind={{
 					value: 'post',
 					options: OrderedSet([
 						{ label: 'Post', value: 'post' },
@@ -35,13 +35,13 @@ describe.skip('CompositePostsPostTypes', () => {
 				}}
 			>
 				{(_posts, postType) => {
-					return <PostTypeSelect {...postType} />;
+					return <KindSelectControl {...postType} />;
 				}}
-			</CompositePostsPostTypes>
+			</CompositeEntitiesByKind>
 		);
 
 		const postTypeSelect = rendered.container.querySelector(
-			'.wz-post-type-select'
+			'.wz-select-control'
 		) as HTMLSelectElement;
 
 		userEvent.selectOptions(postTypeSelect, 'page').then(() => {
@@ -54,11 +54,11 @@ describe.skip('CompositePostsPostTypes', () => {
 	 * This test want to ensure it is possible to select a post having a post type set.
 	 */
 	it('Allow to select a post', async () => {
-		let expectedPosts: EntitiesSearch.PostsControl<string>['value'];
+		let expectedPosts: EntitiesSearch.EntitiesControl<string>['value'];
 
 		const rendered = await act(async () => {
 			return render(
-				<CompositePostsPostTypes
+				<CompositeEntitiesByKind
 					searchEntities={() =>
 						Promise.resolve(
 							OrderedSet([
@@ -67,11 +67,11 @@ describe.skip('CompositePostsPostTypes', () => {
 							])
 						)
 					}
-					posts={{
+					entities={{
 						value: OrderedSet([]),
 						onChange: (value) => (expectedPosts = value),
 					}}
-					postType={{
+					kind={{
 						value: 'post',
 						options: OrderedSet([]),
 						onChange: () => {},
@@ -80,16 +80,16 @@ describe.skip('CompositePostsPostTypes', () => {
 					{(posts) => {
 						return (
 							<>
-								<PostsSelect {...posts} />
+								<EntitiesSelectControl {...posts} />
 							</>
 						);
 					}}
-				</CompositePostsPostTypes>
+				</CompositeEntitiesByKind>
 			);
 		});
 
 		const postsSelect = rendered.container.querySelector(
-			'.wz-posts-select'
+			'.wz-entities-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions(postsSelect, ['post-2']);
@@ -101,11 +101,11 @@ describe.skip('CompositePostsPostTypes', () => {
 	 * This test want to ensure the selected posts state is reset to an empty collection when the post type change.
 	 */
 	it('Reset the selected posts state when the post type changes', async () => {
-		let expectedPosts: EntitiesSearch.PostsControl<string>['value'];
+		let expectedPosts: EntitiesSearch.EntitiesControl<string>['value'];
 
 		const rendered = await act(async () => {
 			return render(
-				<CompositePostsPostTypes
+				<CompositeEntitiesByKind
 					searchEntities={() =>
 						Promise.resolve(
 							OrderedSet([
@@ -114,11 +114,11 @@ describe.skip('CompositePostsPostTypes', () => {
 							])
 						)
 					}
-					posts={{
+					entities={{
 						value: OrderedSet([]),
 						onChange: (value) => (expectedPosts = value),
 					}}
-					postType={{
+					kind={{
 						value: 'post',
 						options: OrderedSet([
 							{ label: 'Post', value: 'post' },
@@ -130,20 +130,20 @@ describe.skip('CompositePostsPostTypes', () => {
 					{(posts, postType) => {
 						return (
 							<>
-								<PostTypeSelect {...postType} />
-								<PostsSelect {...posts} />
+								<KindSelectControl {...postType} />
+								<EntitiesSelectControl {...posts} />
 							</>
 						);
 					}}
-				</CompositePostsPostTypes>
+				</CompositeEntitiesByKind>
 			);
 		});
 
 		const postTypeSelect = rendered.container.querySelector(
-			'.wz-post-type-select'
+			'.wz-select-control'
 		) as HTMLSelectElement;
 		const postsSelect = rendered.container.querySelector(
-			'.wz-posts-select'
+			'.wz-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions(postsSelect, ['post-2']);
@@ -157,10 +157,10 @@ describe.skip('CompositePostsPostTypes', () => {
 	 * This test want to ensure the post options are updated when the post type changes.
 	 */
 	it('Update the post options when the post type changes', (done) => {
-		let expectedPosts: EntitiesSearch.PostsControl<string>['options'];
+		let expectedPosts: EntitiesSearch.EntitiesControl<string>['options'];
 
 		const rendered = render(
-			<CompositePostsPostTypes
+			<CompositeEntitiesByKind
 				searchEntities={(_phrase, _postType) => {
 					if (_postType === 'page') {
 						return Promise.resolve(
@@ -178,11 +178,11 @@ describe.skip('CompositePostsPostTypes', () => {
 						])
 					);
 				}}
-				posts={{
+				entities={{
 					value: OrderedSet([]),
 					onChange: () => {},
 				}}
-				postType={{
+				kind={{
 					value: 'post',
 					options: OrderedSet([
 						{ label: 'Post', value: 'post' },
@@ -196,16 +196,16 @@ describe.skip('CompositePostsPostTypes', () => {
 
 					return (
 						<>
-							<PostTypeSelect {...postType} />
-							<PostsSelect {...posts} />
+							<KindSelectControl {...postType} />
+							<EntitiesSelectControl {...posts} />
 						</>
 					);
 				}}
-			</CompositePostsPostTypes>
+			</CompositeEntitiesByKind>
 		);
 
 		const postTypeSelect = rendered.container.querySelector(
-			'.wz-post-type-select'
+			'.wz-select-control'
 		) as HTMLSelectElement;
 
 		userEvent.selectOptions(postTypeSelect, 'page').then(() => {
@@ -222,16 +222,16 @@ describe.skip('CompositePostsPostTypes', () => {
 	 * in retrieving them.
 	 */
 	it('Set the post options to an empty collection when there is an issue in retrieving them', (done) => {
-		let expectedPosts: EntitiesSearch.PostsControl<string>['options'];
+		let expectedPosts: EntitiesSearch.EntitiesControl<string>['options'];
 
 		const rendered = render(
-			<CompositePostsPostTypes
+			<CompositeEntitiesByKind
 				searchEntities={() => Promise.reject('Error')}
-				posts={{
+				entities={{
 					value: OrderedSet([]),
 					onChange: () => {},
 				}}
-				postType={{
+				kind={{
 					value: 'post',
 					options: OrderedSet([
 						{ label: 'Post', value: 'post' },
@@ -245,16 +245,16 @@ describe.skip('CompositePostsPostTypes', () => {
 
 					return (
 						<>
-							<PostTypeSelect {...postType} />
-							<PostsSelect {...posts} />
+							<KindSelectControl {...postType} />
+							<EntitiesSelectControl {...posts} />
 						</>
 					);
 				}}
-			</CompositePostsPostTypes>
+			</CompositeEntitiesByKind>
 		);
 
 		const postTypeSelect = rendered.container.querySelector(
-			'.wz-post-type-select'
+			'.wz-select-control'
 		) as HTMLSelectElement;
 
 		userEvent.selectOptions(postTypeSelect, 'page').then(() => {

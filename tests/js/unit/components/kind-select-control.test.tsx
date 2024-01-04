@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event';
 
 import { faker } from '@faker-js/faker';
 
-import { PostTypeSelect } from '../../../../sources/js/src/components/post-type-select';
+import { KindSelectControl } from '../../../../sources/js/src/components/kind-select-control';
 import { buildOptions } from '../utils';
 
 describe('Post Types Select', () => {
@@ -18,7 +18,7 @@ describe('Post Types Select', () => {
 	 * in the React Select component, so we mock it.
 	 */
 	it('call the given onChange handler', (done) => {
-		let expectedValue: EntitiesSearch.PostTypeControl<string>['value'] = '';
+		let expectedValue: EntitiesSearch.KindControl<string>['value'] = '';
 		const option: EntitiesSearch.ControlOption<string> = {
 			label: faker.word.words(2),
 			value: faker.word.noun(),
@@ -28,7 +28,7 @@ describe('Post Types Select', () => {
 			.merge(buildOptions());
 
 		const rendered = render(
-			<PostTypeSelect
+			<KindSelectControl
 				options={options}
 				value={option.value}
 				onChange={(value) => (expectedValue = value)}
@@ -36,7 +36,7 @@ describe('Post Types Select', () => {
 		);
 
 		const select = rendered.container.querySelector(
-			'.wz-post-type-select'
+			'.wz-select-control'
 		) as HTMLSelectElement;
 
 		userEvent.selectOptions(select, option.value).then(() => {

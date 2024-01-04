@@ -4,7 +4,7 @@ import { Set } from 'immutable';
 import { describe, expect, it, jest } from '@jest/globals';
 
 import { fetch } from '../../../../sources/js/src/api/fetch';
-import { searchEntities } from '../../../../sources/js/src/api/search-posts';
+import { searchEntities } from '../../../../sources/js/src/api/search-entities';
 
 jest.mock('../../../../sources/js/src/api/fetch', () => ({
 	fetch: jest.fn(),

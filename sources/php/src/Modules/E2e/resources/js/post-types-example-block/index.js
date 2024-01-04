@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const {
 		searchEntities,
-		PostTypeRadio,
-		PostsToggle,
-		Search,
-		CompositePostsPostTypes,
+		KindRadioControl,
+		EntitiesToggleControl,
+		SearchControl,
+		CompositeEntitiesByKind,
 		useQueryViewablePostTypes,
 		convertEntitiesToControlOptions,
 		convertPostEntitiesToControlOptions,
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const PostPostTypesControllerElement = createElement(
-				CompositePostsPostTypes,
+				CompositeEntitiesByKind,
 				{
 					// TODO Wrap around a throttle or debounce function
 					searchEntities: async (
@@ -58,12 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
 							'id'
 						);
 					},
-					posts: {
+					entities: {
 						value: Immutable.Set(props.attributes.posts),
 						onChange: (posts) =>
 							props.setAttributes({ posts: posts?.toArray() }),
 					},
-					postType: {
+					kind: {
 						value: props.attributes.postType,
 						options: convertEntitiesToControlOptions(
 							postTypesEntities
@@ -79,12 +79,15 @@ document.addEventListener('DOMContentLoaded', () => {
 				},
 				(posts, type, search) => {
 					return [
-						createElement(PostTypeRadio, {
+						createElement(KindRadioControl, {
 							...type,
 							key: 'post-type-radio',
 						}),
-						createElement(Search, { search, key: 'search' }),
-						createElement(PostsToggle, {
+						createElement(SearchControl, {
+							onChange: search,
+							key: 'search',
+						}),
+						createElement(EntitiesToggleControl, {
 							...posts,
 							key: 'posts-toggle',
 						}),

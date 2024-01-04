@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const {
 		searchEntities,
-		PostTypeRadio,
-		PostsToggle,
-		Search,
-		CompositePostsPostTypes,
+		KindRadioControl,
+		EntitiesToggleControl,
+		SearchControl,
+		CompositeEntitiesByKind,
 		useQueryViewableTaxonomies,
 		convertEntitiesToControlOptions,
 		convertPostEntitiesToControlOptions,
@@ -36,32 +36,32 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const TermTaxonomiesControllerElement = createElement(
-				CompositePostsPostTypes,
+				CompositeEntitiesByKind,
 				{
 					// TODO Wrap around a throttle or debounce function
 					searchEntities: async (
 						phrase,
-						entityName,
+						taxonomyName,
 						queryArguments
 					) => {
-						const entities = await searchEntities(
+						const terms = await searchEntities(
 							'term',
-							entityName,
+							taxonomyName,
 							phrase,
 							queryArguments
 						);
 						return convertPostEntitiesToControlOptions(
-							entities,
+							terms,
 							'title',
 							'id'
 						);
 					},
-					posts: {
+					entities: {
 						value: Immutable.Set(props.attributes.terms),
 						onChange: (terms) =>
 							props.setAttributes({ terms: terms?.toArray() }),
 					},
-					postType: {
+					kind: {
 						value: props.attributes.taxonomy,
 						options: convertEntitiesToControlOptions(
 							taxonomiesEntities.records()
@@ -70,15 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
 							props.setAttributes({ taxonomy }),
 					},
 				},
-				(posts, type, search) => {
+				(terms, taxonomy, search) => {
 					return [
-						createElement(PostTypeRadio, {
-							...type,
+						createElement(KindRadioControl, {
+							...taxonomy,
 							key: 'taxonomy-radio',
 						}),
-						createElement(Search, { search, key: 'search' }),
-						createElement(PostsToggle, {
-							...posts,
+						createElement(SearchControl, {
+							onChange: search,
+							key: 'search',
+						}),
+						createElement(EntitiesToggleControl, {
+							...terms,
 							key: 'terms-toggle',
 						}),
 					];

@@ -10,7 +10,7 @@ declare namespace EntitiesSearch {
 	type PostType<C extends Context = 'view'> = BaseEntityRecords.Type<C>;
 	type Taxonomy<C extends Context = 'view'> = BaseEntityRecords.Taxonomy<C>;
 
-	interface PostEntityFields
+	interface SearchEntityFields
 		extends Readonly<{
 			id: number;
 			title: string;
@@ -53,72 +53,72 @@ declare namespace EntitiesSearch {
 	 * Api
 	 */
 	type SearchQueryFields = ReadonlyArray<
-		keyof EntitiesSearch.PostEntityFields
+		keyof EntitiesSearch.SearchEntityFields
 	>;
 
 	/*
 	 * Storage
 	 */
-	type PostsState<CO> = Readonly<{
-		contexualPostsOptions: OrderedSet<EntitiesSearch.ControlOption<CO>>;
-		postsOptions: PostsState<CO>['contexualPostsOptions'];
-		selectedPostsOptions: PostsState<CO>['postsOptions'];
+	type EntitiesState<CO> = Readonly<{
+		contexualEntitiesOptions: OrderedSet<EntitiesSearch.ControlOption<CO>>;
+		entitiesOptions: EntitiesState<CO>['contexualEntitiesOptions'];
+		selectedEntitiesOptions: EntitiesState<CO>['entitiesOptions'];
 	}>;
 
-	type PostsAction<V> =
+	type EntitiesAction<V> =
 		| {
-				type: 'UPDATE_POSTS_OPTIONS';
-				postsOptions: PostsState<V>['postsOptions'];
+				type: 'UPDATE_ENTITIES_OPTIONS';
+				entitiesOptions: EntitiesState<V>['entitiesOptions'];
 		  }
 		| {
-				type: 'UPDATE_CONTEXUAL_POSTS_OPTIONS';
-				contextualPostsOptions: PostsState<V>['contexualPostsOptions'];
+				type: 'UPDATE_CONTEXUAL_ENTITIES_OPTIONS';
+				contextualEntitiesOptions: EntitiesState<V>['contexualEntitiesOptions'];
 		  }
 		| {
-				type: 'UPDATE_SELECTED_POSTS_OPTIONS';
-				selectedPostsOptions: PostsState<V>['selectedPostsOptions'];
+				type: 'UPDATE_SELECTED_ENTITIES_OPTIONS';
+				selectedEntitiesOptions: EntitiesState<V>['selectedEntitiesOptions'];
 		  };
 
 	/*
 	 * Components
 	 */
-	interface PostTypeControl<V>
+	interface KindControl<V>
 		extends Readonly<{
 			value: V;
 			options: OrderedSet<ControlOption<V>>;
 			className?: string;
-			onChange(value: PostTypeControl<V>['value']): void;
+			onChange(value: KindControl<V>['value']): void;
 		}> {}
 
-	interface PostsControl<V>
+	interface EntitiesControl<V>
 		extends Readonly<{
 			value?: OrderedSet<V> | undefined;
 			options: OrderedSet<ControlOption<V>>;
 			className?: string;
-			onChange(values: PostsControl<V>['value']): void;
+			onChange(values: EntitiesControl<V>['value']): void;
 		}> {}
 
-	interface Search
+	interface SearchControl
 		extends Readonly<{
 			id?: string;
-			search(phrase: string | React.ChangeEvent<HTMLInputElement>);
+			onChange(phrase: string | React.ChangeEvent<HTMLInputElement>);
 		}> {}
 
-	interface CompositePostsPostTypes<P, T>
+	interface CompositeEntitiesKinds<P, T>
 		extends Readonly<{
-			postType: PostTypeControl<T>;
-			posts: Omit<PostsControl<P>, 'options'>;
+			kind: KindControl<T>;
+			entities: Omit<EntitiesControl<P>, 'options'>;
 			searchEntities: (
 				phrase: string,
-				kind: PostTypeControl<T>['value'],
+				kind: KindControl<T>['value'],
 				queryArguments?: Record<string, unknown>
-			) => Promise<PostsControl<P>['options']>;
+			) => Promise<EntitiesControl<P>['options']>;
 			children(
-				posts: PostsControl<P>,
-				postType: CompositePostsPostTypes<P, T>['postType'],
+				entities: EntitiesControl<P>,
+				kind: CompositeEntitiesKinds<P, T>['kind'],
 				search: (
-					phrase: Parameters<Search<P, T>['search']>[0]
-				) => ReturnType<Search<P, T>['search']>
+					phrase: Parameters<SearchControl<P, T>['search']>[0]
+				) => ReturnType<SearchControl<P, T>['search']>
 			): React.ReactNode;
 		}> {}
 }

@@ -13,7 +13,7 @@ describe('Convert Entities To Control Options', () => {
 		const rawEntities = [];
 		for (let count = 0; count < 10; ++count) {
 			rawEntities.push(
-				fromPartial<EntitiesSearch.PostEntityFields>({
+				fromPartial<EntitiesSearch.SearchEntityFields>({
 					title: faker.word.noun(),
 					id: faker.number.int(),
 				})
@@ -21,7 +21,7 @@ describe('Convert Entities To Control Options', () => {
 		}
 
 		const entities =
-			OrderedSet<EntitiesSearch.PostEntityFields>(rawEntities);
+			OrderedSet<EntitiesSearch.SearchEntityFields>(rawEntities);
 
 		const options = convertPostEntitiesToControlOptions(
 			entities,
@@ -37,7 +37,7 @@ describe('Convert Entities To Control Options', () => {
 		const rawEntities = [];
 		for (let count = 0; count < 10; ++count) {
 			rawEntities.push(
-				fromPartial<EntitiesSearch.PostEntityFields>({
+				fromPartial<EntitiesSearch.SearchEntityFields>({
 					title: faker.word.noun(),
 					id: faker.number.int(),
 				})
@@ -45,7 +45,7 @@ describe('Convert Entities To Control Options', () => {
 		}
 
 		const entities =
-			OrderedSet<EntitiesSearch.PostEntityFields>(rawEntities);
+			OrderedSet<EntitiesSearch.SearchEntityFields>(rawEntities);
 
 		expect(() => {
 			// To make the test fail, we pass the id as the label key

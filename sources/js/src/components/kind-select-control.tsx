@@ -2,10 +2,15 @@ import EntitiesSearch from '@types';
 import classnames from 'classnames';
 import React, { JSX } from 'react';
 
-export function PostTypeSelect(
-	props: EntitiesSearch.PostTypeControl<string>
+export function KindSelectControl(
+	props: EntitiesSearch.KindControl<string>
 ): JSX.Element {
-	const className = classnames(props.className, 'wz-post-type-select');
+	const className = classnames(
+		props.className,
+		'wz-select-control',
+		'wz-select-control--kind'
+	);
+
 	return (
 		<select
 			className={className}
@@ -13,7 +18,11 @@ export function PostTypeSelect(
 			onChange={(event) => props.onChange(event.target.value)}
 		>
 			{props.options.map((option) => (
-				<option key={option.value} value={option.value}>
+				<option
+					key={option.value}
+					className={`wz-select-control-item wz-select-control-item--${option.value}`}
+					value={option.value}
+				>
 					{option.label}
 				</option>
 			))}

@@ -5,16 +5,16 @@ import { beforeEach, describe, expect, it } from '@jest/globals';
 
 import { faker } from '@faker-js/faker';
 
-import { reducer } from '../../../../sources/js/src/storage/posts/reducer';
+import { reducer } from '../../../../sources/js/src/storage/entities/reducer';
 
-let state: EntitiesSearch.PostsState<number>;
+let state: EntitiesSearch.EntitiesState<number>;
 
 describe('reducer', () => {
 	beforeEach(() => {
 		state = {
-			contexualPostsOptions: OrderedSet([]).asMutable(),
-			postsOptions: OrderedSet([]).asMutable(),
-			selectedPostsOptions: OrderedSet([]).asMutable(),
+			contexualEntitiesOptions: OrderedSet([]).asMutable(),
+			entitiesOptions: OrderedSet([]).asMutable(),
+			selectedEntitiesOptions: OrderedSet([]).asMutable(),
 		};
 	});
 
@@ -30,11 +30,13 @@ describe('reducer', () => {
 			},
 		]);
 		const newState = reducer(state, {
-			type: 'UPDATE_CONTEXUAL_POSTS_OPTIONS',
-			contextualPostsOptions,
+			type: 'UPDATE_CONTEXUAL_ENTITIES_OPTIONS',
+			contextualEntitiesOptions: contextualPostsOptions,
 		});
 
-		expect(newState.contexualPostsOptions).toEqual(contextualPostsOptions);
+		expect(newState.contexualEntitiesOptions).toEqual(
+			contextualPostsOptions
+		);
 	});
 
 	it('Update the Posts Options', () => {
@@ -49,11 +51,11 @@ describe('reducer', () => {
 			},
 		]);
 		const newState = reducer(state, {
-			type: 'UPDATE_POSTS_OPTIONS',
-			postsOptions,
+			type: 'UPDATE_ENTITIES_OPTIONS',
+			entitiesOptions: postsOptions,
 		});
 
-		expect(newState.postsOptions).toEqual(postsOptions);
+		expect(newState.entitiesOptions).toEqual(postsOptions);
 	});
 
 	it('Update the Selected Posts Options with Control Options', () => {
@@ -68,11 +70,11 @@ describe('reducer', () => {
 			},
 		]);
 		const newState = reducer(state, {
-			type: 'UPDATE_SELECTED_POSTS_OPTIONS',
-			selectedPostsOptions: posts,
+			type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
+			selectedEntitiesOptions: posts,
 		});
 
-		expect(newState.selectedPostsOptions).toEqual(posts);
+		expect(newState.selectedEntitiesOptions).toEqual(posts);
 	});
 
 	it('does nothing if the action type is not recognized', () => {

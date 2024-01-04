@@ -9,12 +9,12 @@ import userEvent from '@testing-library/user-event';
 
 import { faker } from '@faker-js/faker';
 
-import { PostsSelect } from '../../../../sources/js/src/components/posts-select';
+import { EntitiesSelectControl } from '../../../../sources/js/src/components/entities-select-control';
 import { buildOptions } from '../utils';
 
 describe('Posts Select', () => {
 	it('call the given onChange handler', async () => {
-		let expectedValue: EntitiesSearch.PostsControl<string>['value'];
+		let expectedValue: EntitiesSearch.EntitiesControl<string>['value'];
 		const option: EntitiesSearch.ControlOption<string> = {
 			label: faker.word.words(2),
 			value: faker.word.noun(),
@@ -24,7 +24,7 @@ describe('Posts Select', () => {
 			.merge(buildOptions());
 
 		const rendered = render(
-			<PostsSelect
+			<EntitiesSelectControl
 				options={options}
 				value={OrderedSet([option.value])}
 				onChange={(value) => (expectedValue = value)}
@@ -33,7 +33,7 @@ describe('Posts Select', () => {
 
 		const valuesToSelect = [option.value, String(options.last()?.value)];
 		const select = rendered.container.querySelector(
-			'.wz-posts-select'
+			'.wz-entities-select-control'
 		) as HTMLSelectElement;
 
 		/*

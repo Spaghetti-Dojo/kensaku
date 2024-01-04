@@ -7,10 +7,14 @@ import { NoOptionsMessage } from './no-options-message';
 
 // TODO Must accept string or number? because the value might be the ID of the posts.
 // TODO Add className property to the other related components
-export function PostsSelect(
-	props: EntitiesSearch.PostsControl<string>
+export function EntitiesSelectControl(
+	props: EntitiesSearch.EntitiesControl<string>
 ): JSX.Element {
-	const className = classnames(props.className, 'wz-posts-select');
+	const className = classnames(
+		props.className,
+		'wz-entities-select-control',
+		'wz-entities-select-control--entities'
+	);
 
 	if (props.options.size <= 0) {
 		return <NoOptionsMessage />;
@@ -30,7 +34,11 @@ export function PostsSelect(
 			}}
 		>
 			{props.options.map((option) => (
-				<option key={option.value} value={option.value}>
+				<option
+					key={option.value}
+					className={`wz-entities-select-control-item wz-entities-select-control-item--${option.value}`}
+					value={option.value}
+				>
 					{option.label}
 				</option>
 			))}

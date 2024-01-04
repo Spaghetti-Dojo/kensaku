@@ -4,10 +4,14 @@ import React, { JSX } from 'react';
 
 import { NoOptionsMessage } from './no-options-message';
 
-export function PostsToggle(
-	props: EntitiesSearch.PostsControl<number>
+export function EntitiesToggleControl(
+	props: EntitiesSearch.EntitiesControl<number>
 ): JSX.Element {
-	const className = classnames(props.className, 'wz-posts-toggle');
+	const className = classnames(
+		props.className,
+		'wz-toggle-control',
+		'wz-toggle-control--entities'
+	);
 
 	if (props.options.size <= 0) {
 		return <NoOptionsMessage />;
@@ -33,11 +37,16 @@ export function PostsToggle(
 	return (
 		<div className={className}>
 			{props.options.map((option) => (
-				<div key={option.value} className="wz-posts-toggle-item">
-					<label htmlFor={`wz-post-type-toggle-${option.value}`}>
+				<div
+					key={option.value}
+					className="wz-entities-toggle-control-item"
+				>
+					<label
+						htmlFor={`wz-entities-toggle-control-item__input-${option.value}`}
+					>
 						<input
 							type="checkbox"
-							id={`wz-post-type-toggle-${option.value}`}
+							id={`wz-entities-toggle-control-item__input-${option.value}`}
 							checked={props.value?.has(option.value)}
 							value={option.value}
 							onChange={onChange}
