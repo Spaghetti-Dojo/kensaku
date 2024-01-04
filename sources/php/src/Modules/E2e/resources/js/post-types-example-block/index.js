@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		SearchControl,
 		CompositeEntitiesByKind,
 		useQueryViewablePostTypes,
-		convertPostEntitiesToControlOptions,
+		convertEntitiesToControlOptions,
 	} = entitiesSearch;
 
 	// TODO Check why the object form does not work.
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							phrase,
 							queryArguments
 						);
-						return convertPostEntitiesToControlOptions(
+						return convertEntitiesToControlOptions(
 							postsEntities,
 							'title',
 							'id'
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					},
 					kind: {
 						value: props.attributes.postType,
-						options: convertPostEntitiesToControlOptions(
+						options: convertEntitiesToControlOptions(
 							postTypesEntities
 								.records()
 								.filter(

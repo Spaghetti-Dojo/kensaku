@@ -6,7 +6,7 @@ import { describe, expect, it } from '@jest/globals';
 
 import { faker } from '@faker-js/faker';
 
-import { convertPostEntitiesToControlOptions } from '../../../../sources/js/src/utils/convert-entities-to-control-options';
+import { convertEntitiesToControlOptions } from '../../../../sources/js/src/utils/convert-entities-to-control-options';
 
 describe('Convert Entities To Control Options', () => {
 	it('correctly convert entities to control options', () => {
@@ -23,7 +23,7 @@ describe('Convert Entities To Control Options', () => {
 		const entities =
 			OrderedSet<EntitiesSearch.SearchEntityFields>(rawEntities);
 
-		const options = convertPostEntitiesToControlOptions(
+		const options = convertEntitiesToControlOptions(
 			entities,
 			'title',
 			'id'
@@ -49,7 +49,7 @@ describe('Convert Entities To Control Options', () => {
 
 		expect(() => {
 			// To make the test fail, we pass the id as the label key
-			convertPostEntitiesToControlOptions(entities, 'id', 'id');
+			convertEntitiesToControlOptions(entities, 'id', 'id');
 		}).toThrow();
 	});
 });

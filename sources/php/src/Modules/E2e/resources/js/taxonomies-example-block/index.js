@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		SearchControl,
 		CompositeEntitiesByKind,
 		useQueryViewableTaxonomies,
-		convertPostEntitiesToControlOptions,
+		convertEntitiesToControlOptions,
 	} = entitiesSearch;
 
 	// TODO Check why the object form does not work.
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							phrase,
 							queryArguments
 						);
-						return convertPostEntitiesToControlOptions(
+						return convertEntitiesToControlOptions(
 							terms,
 							'title',
 							'id'
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					},
 					kind: {
 						value: props.attributes.taxonomy,
-						options: convertPostEntitiesToControlOptions(
+						options: convertEntitiesToControlOptions(
 							taxonomiesEntities.records(),
 							'name',
 							'slug'

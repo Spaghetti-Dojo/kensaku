@@ -3,7 +3,7 @@ import { OrderedSet } from 'immutable';
 
 import { makeControlOption } from './make-control-option';
 
-export function convertPostEntitiesToControlOptions<
+export function convertEntitiesToControlOptions<
 	EntitiesFields extends { [p: string]: any }
 >(
 	entities: OrderedSet<EntitiesFields>,
