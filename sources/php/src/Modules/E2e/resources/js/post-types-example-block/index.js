@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		SearchControl,
 		CompositeEntitiesByKind,
 		useQueryViewablePostTypes,
-		convertEntitiesToControlOptions,
 		convertPostEntitiesToControlOptions,
 	} = entitiesSearch;
 
@@ -65,13 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
 					},
 					kind: {
 						value: props.attributes.postType,
-						options: convertEntitiesToControlOptions(
+						options: convertPostEntitiesToControlOptions(
 							postTypesEntities
 								.records()
 								.filter(
 									(record) =>
 										!UNSUPPORTED_CPTS.includes(record.slug)
-								)
+								),
+							'name',
+							'slug'
 						),
 						onChange: (postType) =>
 							props.setAttributes({ postType }),

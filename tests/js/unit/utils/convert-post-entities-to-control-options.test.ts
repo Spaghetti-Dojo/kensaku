@@ -6,7 +6,7 @@ import { describe, expect, it } from '@jest/globals';
 
 import { faker } from '@faker-js/faker';
 
-import { convertPostEntitiesToControlOptions } from '../../../../sources/js/src/utils/convert-post-entities-to-control-options';
+import { convertPostEntitiesToControlOptions } from '../../../../sources/js/src/utils/convert-entities-to-control-options';
 
 describe('Convert Entities To Control Options', () => {
 	it('correctly convert entities to control options', () => {

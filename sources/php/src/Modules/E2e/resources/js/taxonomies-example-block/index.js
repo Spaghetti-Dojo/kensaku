@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		SearchControl,
 		CompositeEntitiesByKind,
 		useQueryViewableTaxonomies,
-		convertEntitiesToControlOptions,
 		convertPostEntitiesToControlOptions,
 	} = entitiesSearch;
 
@@ -63,8 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
 					},
 					kind: {
 						value: props.attributes.taxonomy,
-						options: convertEntitiesToControlOptions(
-							taxonomiesEntities.records()
+						options: convertPostEntitiesToControlOptions(
+							taxonomiesEntities.records(),
+							'name',
+							'slug'
 						),
 						onChange: (taxonomy) =>
 							props.setAttributes({ taxonomy }),
