@@ -2,7 +2,7 @@ import { fromPartial } from '@total-typescript/shoehorn';
 import EntitiesSearch from '@types';
 import { OrderedSet } from 'immutable';
 
-import { describe, it, expect } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 
 import { faker } from '@faker-js/faker';
 
@@ -13,26 +13,43 @@ describe('Convert Entities To Control Options', () => {
 		const rawEntities = [];
 		for (let count = 0; count < 10; ++count) {
 			rawEntities.push(
-				fromPartial<EntitiesSearch.PostType>({
-					slug: faker.word.noun(),
-					name: faker.word.noun(),
+				fromPartial<EntitiesSearch.SearchEntityFields>({
+					title: faker.word.noun(),
+					id: faker.number.int(),
 				})
 			);
 		}
 
-		const entities = OrderedSet(rawEntities);
+		const entities =
+			OrderedSet<EntitiesSearch.SearchEntityFields>(rawEntities);
 
-		const options = convertEntitiesToControlOptions(entities).map(
-			(option) => option.value
-		);
-		for (const postType of entities) {
-			expect(options.includes(postType.slug)).toEqual(true);
+		const options = convertEntitiesToControlOptions(
+			entities,
+			'title',
+			'id'
+		).map((option) => option.value);
+		for (const entity of entities) {
+			expect(options.includes(entity.id)).toEqual(true);
 		}
 	});
 
-	it('returns empty list if entities set is empty', () => {
-		expect(
-			convertEntitiesToControlOptions(OrderedSet([])).isEmpty()
-		).toEqual(true);
+	it('throws an error if the option label is not a string', () => {
+		const rawEntities = [];
+		for (let count = 0; count < 10; ++count) {
+			rawEntities.push(
+				fromPartial<EntitiesSearch.SearchEntityFields>({
+					title: faker.word.noun(),
+					id: faker.number.int(),
+				})
+			);
+		}
+
+		const entities =
+			OrderedSet<EntitiesSearch.SearchEntityFields>(rawEntities);
+
+		expect(() => {
+			// To make the test fail, we pass the id as the label key
+			convertEntitiesToControlOptions(entities, 'id', 'id');
+		}).toThrow();
 	});
 });
