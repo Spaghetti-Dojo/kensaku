@@ -12,6 +12,7 @@
 		"@faker-js/faker": "^8",
 		"@jest/globals": "^29.4.3",
 		"@testing-library/dom": "^9.3.1",
+		"@testing-library/jest-dom": "^6.2.0",
 		"@testing-library/react": "^14.0.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.5.1",

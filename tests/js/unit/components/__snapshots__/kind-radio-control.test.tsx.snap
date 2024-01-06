@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KindRadioControl renders the NoOptionsMessage when there are no options 1`] = `
+<div
+  class="test-class wz-radio-control wz-radio-control--kind"
+/>
+`;
+
+exports[`KindRadioControl renders the component 1`] = `
+<input
+  checked=""
+  id="wz-radio-control-item__input-option-one"
+  type="radio"
+  value="option-one"
+/>
+`;
