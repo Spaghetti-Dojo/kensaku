@@ -2,7 +2,7 @@ import EntitiesSearch from '@types';
 import { OrderedSet } from 'immutable';
 import React from 'react';
 
-import { describe, it, expect } from '@jest/globals';
+import { describe, it, expect, beforeAll, jest } from '@jest/globals';
 
 import { render, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -10,11 +10,13 @@ import userEvent from '@testing-library/user-event';
 import { CompositeEntitiesByKind } from '../../../../sources/js/src/components/composite-entities-by-kind';
 import { EntitiesSelectControl } from '../../../../sources/js/src/components/entities-select-control';
 import { KindSelectControl } from '../../../../sources/js/src/components/kind-select-control';
+import { SearchControl } from '../../../../sources/js/src/components/search-control';
 
 describe('CompositeEntitiesByKind', () => {
-	/**
-	 * This test want to ensure it is possible to select a post type.
-	 */
+	beforeAll(() => {
+		jest.spyOn(console, 'warn').mockImplementation(() => {});
+	});
+
 	it('Allow to select a post type', (done) => {
 		let expectedPostType: EntitiesSearch.KindControl<string>['value'];
 
@@ -50,9 +52,6 @@ describe('CompositeEntitiesByKind', () => {
 		});
 	});
 
-	/**
-	 * This test want to ensure it is possible to select a post having a post type set.
-	 */
 	it('Allow to select a post', async () => {
 		let expectedPosts: EntitiesSearch.EntitiesControl<string>['value'];
 
@@ -97,9 +96,6 @@ describe('CompositeEntitiesByKind', () => {
 		expect(expectedPosts?.has('post-2')).toBe(true);
 	});
 
-	/**
-	 * This test want to ensure the selected posts state is reset to an empty collection when the post type change.
-	 */
 	it('Reset the selected posts state when the post type changes', async () => {
 		let expectedPosts: EntitiesSearch.EntitiesControl<string>['value'];
 
@@ -153,9 +149,6 @@ describe('CompositeEntitiesByKind', () => {
 		expect(expectedPosts?.size).toBe(0);
 	});
 
-	/**
-	 * This test want to ensure the post options are updated when the post type changes.
-	 */
 	it('Update the post options when the post type changes', (done) => {
 		let expectedPosts: EntitiesSearch.EntitiesControl<string>['options'];
 
@@ -217,10 +210,6 @@ describe('CompositeEntitiesByKind', () => {
 		});
 	});
 
-	/**
-	 * This test want to ensure the post options are set to an empty collection when there's an issue
-	 * in retrieving them.
-	 */
 	it('Set the post options to an empty collection when there is an issue in retrieving them', (done) => {
 		let expectedPosts: EntitiesSearch.EntitiesControl<string>['options'];
 
@@ -258,6 +247,75 @@ describe('CompositeEntitiesByKind', () => {
 
 		userEvent.selectOptions(postTypeSelect, 'page').then(() => {
 			expect(expectedPosts.size).toBe(0);
+			done();
+		});
+	});
+
+	it('Search entities by kind by a search phrase excluding the given entities', (done) => {
+		let expectedSearchPhrase: string;
+		let expectedKind: string;
+		let expectedQuery: Record<string, unknown> | undefined;
+
+		const rendered = render(
+			<CompositeEntitiesByKind
+				searchEntities={(phrase, kind, query) => {
+					if (phrase === '') {
+						return Promise.resolve(
+							OrderedSet([
+								{
+									label: 'Entity 1',
+									value: 'entity-1',
+								},
+								{
+									label: 'Entity 2',
+									value: 'entity-2',
+								},
+								{
+									label: 'Entity 3',
+									value: 'entity-3',
+								},
+							])
+						);
+					}
+
+					expectedSearchPhrase = phrase;
+					expectedKind = kind;
+					expectedQuery = query;
+
+					return Promise.resolve(OrderedSet([]));
+				}}
+				entities={{
+					value: OrderedSet(['entity-3']),
+					onChange: () => {},
+				}}
+				kind={{
+					value: 'post',
+					options: OrderedSet([]),
+					onChange: () => {},
+				}}
+			>
+				{(posts, postType, search) => {
+					return (
+						<>
+							<KindSelectControl {...postType} />
+							<SearchControl onChange={search} />
+							<EntitiesSelectControl {...posts} />
+						</>
+					);
+				}}
+			</CompositeEntitiesByKind>
+		);
+
+		const searchInput = rendered.container.querySelector(
+			'.wz-search-control__input'
+		) as HTMLInputElement;
+
+		userEvent.type(searchInput, 'Hello World').then(() => {
+			expect(expectedSearchPhrase).toBe('Hello World');
+			expect(expectedKind).toBe('post');
+			expect(expectedQuery?.['exclude']).toEqual(
+				OrderedSet(['entity-3'])
+			);
 			done();
 		});
 	});

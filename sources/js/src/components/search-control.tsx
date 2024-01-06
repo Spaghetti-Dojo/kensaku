@@ -23,6 +23,7 @@ export function SearchControl(
 	const inputProps = {
 		type: 'search',
 		value: searchValue,
+		className: 'wz-search-control__input',
 		onChange,
 	};
 
