@@ -1,6 +1,8 @@
 import EntitiesSearch from '@types';
 import React, { JSX, PropsWithChildren, useCallback } from 'react';
 
+import { __ } from '@wordpress/i18n';
+
 export function SearchControl(
 	props: EntitiesSearch.SearchControl
 ): JSX.Element {
@@ -28,6 +30,7 @@ export function SearchControl(
 		return (
 			<Container>
 				<label htmlFor={props.id}>
+					{__('Search', 'wz-entities-search')}
 					<input id={props.id} {...inputProps} />
 				</label>
 			</Container>

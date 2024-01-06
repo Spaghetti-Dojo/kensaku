@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchControl renders the input outside the label if the id prop is not passed 1`] = `
+<input
+  type="search"
+  value=""
+/>
+`;
+
+exports[`SearchControl renders the input within the label if the id prop is passed 1`] = `
+<input
+  id="search"
+  type="search"
+  value=""
+/>
+`;
