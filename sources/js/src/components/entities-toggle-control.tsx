@@ -37,16 +37,13 @@ export function EntitiesToggleControl(
 	return (
 		<div className={className}>
 			{props.options.map((option) => (
-				<div
-					key={option.value}
-					className="wz-entities-toggle-control-item"
-				>
+				<div key={option.value} className="wz-toggle-control-item">
 					<label
-						htmlFor={`wz-entities-toggle-control-item__input-${option.value}`}
+						htmlFor={`wz-toggle-control-item__input-${option.value}`}
 					>
 						<input
 							type="checkbox"
-							id={`wz-entities-toggle-control-item__input-${option.value}`}
+							id={`wz-toggle-control-item__input-${option.value}`}
 							checked={props.value?.has(option.value)}
 							value={option.value}
 							onChange={onChange}

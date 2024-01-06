@@ -5,7 +5,7 @@ export function reducer<P>(
 	action: EntitiesSearch.EntitiesAction<P>
 ): EntitiesSearch.EntitiesState<P> {
 	switch (action.type) {
-		case 'UPDATE_CONTEXUAL_ENTITIES_OPTIONS':
+		case 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS':
 			return {
 				...state,
 				contexualEntitiesOptions: action.contextualEntitiesOptions,

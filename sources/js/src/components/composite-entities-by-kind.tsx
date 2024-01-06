@@ -42,23 +42,27 @@ export function CompositeEntitiesByKind<P, T>(
 			);
 		}
 
-		Promise.all(promises).then((result) => {
-			const entitiesOptions = result[0] ?? OrderedSet([]);
-			const selectedEntitiesOptions = result[1] ?? OrderedSet([]);
+		Promise.all(promises)
+			.then((result) => {
+				const entitiesOptions = result[0] ?? OrderedSet([]);
+				const selectedEntitiesOptions = result[1] ?? OrderedSet([]);
 
-			dispatch({
-				type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
-				selectedEntitiesOptions: selectedEntitiesOptions,
+				dispatch({
+					type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
+					selectedEntitiesOptions,
+				});
+				dispatch({
+					type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS',
+					contextualEntitiesOptions: entitiesOptions,
+				});
+				dispatch({
+					type: 'UPDATE_ENTITIES_OPTIONS',
+					entitiesOptions,
+				});
+			})
+			.catch((error) => {
+				console.warn(`Composite Entities by Kind: ${error}`);
 			});
-			dispatch({
-				type: 'UPDATE_CONTEXUAL_ENTITIES_OPTIONS',
-				contextualEntitiesOptions: entitiesOptions,
-			});
-			dispatch({
-				type: 'UPDATE_ENTITIES_OPTIONS',
-				entitiesOptions: entitiesOptions,
-			});
-		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -118,19 +122,25 @@ export function CompositeEntitiesByKind<P, T>(
 			}),
 		]);
 
-		Promise.all(promises).then((result) => {
-			const entitiesOptions = result[0] ?? OrderedSet([]);
-			const selectedEntitiesOptions = result[1] ?? OrderedSet([]);
+		Promise.all(promises)
+			.then((result) => {
+				const entitiesOptions = result[0] ?? OrderedSet([]);
+				const selectedEntitiesOptions = result[1] ?? OrderedSet([]);
 
-			dispatch({
-				type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
-				selectedEntitiesOptions,
+				dispatch({
+					type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
+					selectedEntitiesOptions,
+				});
+				dispatch({
+					type: 'UPDATE_ENTITIES_OPTIONS',
+					entitiesOptions,
+				});
+			})
+			.catch((error) => {
+				console.warn(
+					`Composite Entities by Kind - on Change Entities: ${error}`
+				);
 			});
-			dispatch({
-				type: 'UPDATE_ENTITIES_OPTIONS',
-				entitiesOptions,
-			});
-		});
 	};
 
 	const onChangeKind = (kind: T) => {
@@ -145,7 +155,7 @@ export function CompositeEntitiesByKind<P, T>(
 			})
 			.then((result) => {
 				dispatch({
-					type: 'UPDATE_CONTEXUAL_ENTITIES_OPTIONS',
+					type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS',
 					contextualEntitiesOptions: result,
 				});
 				dispatch({
@@ -156,6 +166,11 @@ export function CompositeEntitiesByKind<P, T>(
 					type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
 					selectedEntitiesOptions: entities,
 				});
+			})
+			.catch((error) => {
+				console.warn(
+					`Composite Entities by Kind - on Change Kind: ${error}`
+				);
 			});
 	};
 
@@ -177,30 +192,24 @@ export function CompositeEntitiesByKind<P, T>(
 		onChange: onChangeKind,
 	};
 
-	return (
-		<>
-			{props.children(
-				entities,
-				kind,
-				// TODO Add debouncing to the `search` callback
-				(phrase: SearchPhrase) => {
-					const _phrase = extractPhrase(phrase);
+	// TODO Add debouncing to the `search` callback
+	const search = (phrase: SearchPhrase) => {
+		const _phrase = extractPhrase(phrase);
 
-					setSearchPhrase(_phrase);
+		setSearchPhrase(_phrase);
 
-					if (_phrase === '') {
-						dispatch({
-							type: 'UPDATE_ENTITIES_OPTIONS',
-							entitiesOptions: state.contexualEntitiesOptions,
-						});
-						return;
-					}
+		if (_phrase === '') {
+			dispatch({
+				type: 'UPDATE_ENTITIES_OPTIONS',
+				entitiesOptions: state.contexualEntitiesOptions,
+			});
+			return;
+		}
 
-					searchEntitiesByKind(_phrase, entitiesAndKind.kind);
-				}
-			)}
-		</>
-	);
+		searchEntitiesByKind(_phrase, entitiesAndKind.kind);
+	};
+
+	return <>{props.children(entities, kind, search)}</>;
 }
 
 function extractPhrase(phraseOrEvent: SearchPhrase): string {

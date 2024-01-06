@@ -11,7 +11,7 @@ import { CompositeEntitiesByKind } from '../../../../sources/js/src/components/c
 import { EntitiesSelectControl } from '../../../../sources/js/src/components/entities-select-control';
 import { KindSelectControl } from '../../../../sources/js/src/components/kind-select-control';
 
-describe.skip('CompositeEntitiesByKind', () => {
+describe('CompositeEntitiesByKind', () => {
 	/**
 	 * This test want to ensure it is possible to select a post type.
 	 */
@@ -89,7 +89,7 @@ describe.skip('CompositeEntitiesByKind', () => {
 		});
 
 		const postsSelect = rendered.container.querySelector(
-			'.wz-entities-select-control'
+			'.wz-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions(postsSelect, ['post-2']);
@@ -140,10 +140,10 @@ describe.skip('CompositeEntitiesByKind', () => {
 		});
 
 		const postTypeSelect = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wz-select-control--kind'
 		) as HTMLSelectElement;
 		const postsSelect = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wz-select-control--entities'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions(postsSelect, ['post-2']);
@@ -242,7 +242,6 @@ describe.skip('CompositeEntitiesByKind', () => {
 			>
 				{(posts, postType) => {
 					expectedPosts = posts.options;
-
 					return (
 						<>
 							<KindSelectControl {...postType} />
@@ -254,7 +253,7 @@ describe.skip('CompositeEntitiesByKind', () => {
 		);
 
 		const postTypeSelect = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wz-select-control--kind'
 		) as HTMLSelectElement;
 
 		userEvent.selectOptions(postTypeSelect, 'page').then(() => {

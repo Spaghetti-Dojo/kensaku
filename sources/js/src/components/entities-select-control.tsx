@@ -12,8 +12,8 @@ export function EntitiesSelectControl(
 ): JSX.Element {
 	const className = classnames(
 		props.className,
-		'wz-entities-select-control',
-		'wz-entities-select-control--entities'
+		'wz-select-control',
+		'wz-select-control--entities'
 	);
 
 	if (props.options.size <= 0) {
@@ -36,7 +36,7 @@ export function EntitiesSelectControl(
 			{props.options.map((option) => (
 				<option
 					key={option.value}
-					className={`wz-entities-select-control-item wz-entities-select-control-item--${option.value}`}
+					className={`wz-select-control-item wz-select-control-item--${option.value}`}
 					value={option.value}
 				>
 					{option.label}

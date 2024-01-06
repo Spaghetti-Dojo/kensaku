@@ -71,7 +71,7 @@ declare namespace EntitiesSearch {
 				entitiesOptions: EntitiesState<V>['entitiesOptions'];
 		  }
 		| {
-				type: 'UPDATE_CONTEXUAL_ENTITIES_OPTIONS';
+				type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS';
 				contextualEntitiesOptions: EntitiesState<V>['contexualEntitiesOptions'];
 		  }
 		| {

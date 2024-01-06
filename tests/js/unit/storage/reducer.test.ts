@@ -30,7 +30,7 @@ describe('reducer', () => {
 			},
 		]);
 		const newState = reducer(state, {
-			type: 'UPDATE_CONTEXUAL_ENTITIES_OPTIONS',
+			type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS',
 			contextualEntitiesOptions: contextualPostsOptions,
 		});
 
