@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EntitiesToggleControl renders correctly 1`] = `
+<div
+  class="test-class wz-toggle-control wz-toggle-control--entities"
+>
+  <div
+    class="wz-toggle-control-item"
+  >
+    <label
+      for="wz-toggle-control-item__input-1"
+    >
+      <input
+        id="wz-toggle-control-item__input-1"
+        type="checkbox"
+        value="1"
+      />
+      Option 1
+    </label>
+  </div>
+  <div
+    class="wz-toggle-control-item"
+  >
+    <label
+      for="wz-toggle-control-item__input-2"
+    >
+      <input
+        id="wz-toggle-control-item__input-2"
+        type="checkbox"
+        value="2"
+      />
+      Option 2
+    </label>
+  </div>
+  <div
+    class="wz-toggle-control-item"
+  >
+    <label
+      for="wz-toggle-control-item__input-3"
+    >
+      <input
+        id="wz-toggle-control-item__input-3"
+        type="checkbox"
+        value="3"
+      />
+      Option 3
+    </label>
+  </div>
+</div>
+`;
+
+exports[`EntitiesToggleControl renders the NoOptionsMessage when there are no options 1`] = `
+<p
+  class="wz-entities-search-no-option-message"
+>
+  No options
+</p>
+`;

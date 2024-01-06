@@ -5,7 +5,7 @@ import React, { JSX } from 'react';
 import { NoOptionsMessage } from './no-options-message';
 
 export function EntitiesToggleControl(
-	props: EntitiesSearch.EntitiesControl<number>
+	props: EntitiesSearch.EntitiesControl<string>
 ): JSX.Element {
 	const className = classnames(
 		props.className,
@@ -20,18 +20,12 @@ export function EntitiesToggleControl(
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { target } = event;
 
-		if (!(target instanceof HTMLInputElement)) {
+		if (target.checked && !props.value?.has(target.value)) {
+			props.onChange(props.value?.add(target.value));
 			return;
 		}
 
-		const value = Number(target.value);
-
-		if (target.checked && !props.value?.has(value)) {
-			props.onChange(props.value?.add(value));
-			return;
-		}
-
-		props.onChange(props.value?.delete(value));
+		props.onChange(props.value?.delete(target.value));
 	};
 
 	return (
