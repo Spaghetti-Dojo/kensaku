@@ -17,7 +17,7 @@ describe('CompositeEntitiesByKind', () => {
 		jest.spyOn(console, 'warn').mockImplementation(() => {});
 	});
 
-	it('Allow to select a post type', (done) => {
+	it('Allow to select a kind', (done) => {
 		let expectedPostType: EntitiesSearch.KindControl<string>['value'];
 
 		const rendered = render(
@@ -36,8 +36,8 @@ describe('CompositeEntitiesByKind', () => {
 					onChange: (value) => (expectedPostType = value),
 				}}
 			>
-				{(_posts, postType) => {
-					return <KindSelectControl {...postType} />;
+				{(_posts, kind) => {
+					return <KindSelectControl {...kind} />;
 				}}
 			</CompositeEntitiesByKind>
 		);
@@ -52,7 +52,7 @@ describe('CompositeEntitiesByKind', () => {
 		});
 	});
 
-	it('Allow to select a post', async () => {
+	it('Allow to select an entity', async () => {
 		let expectedPosts: EntitiesSearch.EntitiesControl<string>['value'];
 
 		const rendered = await act(async () => {
@@ -76,12 +76,8 @@ describe('CompositeEntitiesByKind', () => {
 						onChange: () => {},
 					}}
 				>
-					{(posts) => {
-						return (
-							<>
-								<EntitiesSelectControl {...posts} />
-							</>
-						);
+					{(entities) => {
+						return <EntitiesSelectControl {...entities} />;
 					}}
 				</CompositeEntitiesByKind>
 			);
@@ -96,11 +92,11 @@ describe('CompositeEntitiesByKind', () => {
 		expect(expectedPosts?.has('post-2')).toBe(true);
 	});
 
-	it('Reset the selected posts state when the post type changes', async () => {
+	it('Reset the selected entities when the kind change', async () => {
 		let expectedPosts: EntitiesSearch.EntitiesControl<string>['value'];
 
-		const rendered = await act(async () => {
-			return render(
+		const rendered = await act(async () =>
+			render(
 				<CompositeEntitiesByKind
 					searchEntities={() =>
 						Promise.resolve(
@@ -123,17 +119,17 @@ describe('CompositeEntitiesByKind', () => {
 						onChange: () => {},
 					}}
 				>
-					{(posts, postType) => {
+					{(entities, kind) => {
 						return (
 							<>
-								<KindSelectControl {...postType} />
-								<EntitiesSelectControl {...posts} />
+								<KindSelectControl {...kind} />
+								<EntitiesSelectControl {...entities} />
 							</>
 						);
 					}}
 				</CompositeEntitiesByKind>
-			);
-		});
+			)
+		);
 
 		const postTypeSelect = rendered.container.querySelector(
 			'.wz-select-control--kind'
@@ -149,68 +145,74 @@ describe('CompositeEntitiesByKind', () => {
 		expect(expectedPosts?.size).toBe(0);
 	});
 
-	it('Update the post options when the post type changes', (done) => {
-		let expectedPosts: EntitiesSearch.EntitiesControl<string>['options'];
+	it('Pass to the children the updated entities options when the kind change', async () => {
+		let expectedPosts: EntitiesSearch.EntitiesControl<string>['options'] =
+			OrderedSet();
 
-		const rendered = render(
-			<CompositeEntitiesByKind
-				searchEntities={(_phrase, _postType) => {
-					if (_postType === 'page') {
+		const rendered = await act(() =>
+			render(
+				<CompositeEntitiesByKind
+					searchEntities={(_phrase, _postType) => {
+						if (_postType === 'page') {
+							return Promise.resolve(
+								OrderedSet([
+									{ label: 'Page 1', value: 'page-1' },
+									{ label: 'Page 2', value: 'page-2' },
+								])
+							);
+						}
+
 						return Promise.resolve(
 							OrderedSet([
-								{ label: 'Page 1', value: 'page-1' },
-								{ label: 'Page 2', value: 'page-2' },
+								{ label: 'Post 1', value: 'post-1' },
+								{ label: 'Post 2', value: 'post-2' },
 							])
 						);
-					}
+					}}
+					entities={{
+						value: OrderedSet([]),
+						onChange: () => {},
+					}}
+					kind={{
+						value: 'post',
+						options: OrderedSet([
+							{ label: 'Post', value: 'post' },
+							{ label: 'Page', value: 'page' },
+						]),
+						onChange: () => {},
+					}}
+				>
+					{(entities, kind) => {
+						expectedPosts = entities.options;
 
-					return Promise.resolve(
-						OrderedSet([
-							{ label: 'Post 1', value: 'post-1' },
-							{ label: 'Post 2', value: 'post-2' },
-						])
-					);
-				}}
-				entities={{
-					value: OrderedSet([]),
-					onChange: () => {},
-				}}
-				kind={{
-					value: 'post',
-					options: OrderedSet([
-						{ label: 'Post', value: 'post' },
-						{ label: 'Page', value: 'page' },
-					]),
-					onChange: () => {},
-				}}
-			>
-				{(posts, postType) => {
-					expectedPosts = posts.options;
-
-					return (
-						<>
-							<KindSelectControl {...postType} />
-							<EntitiesSelectControl {...posts} />
-						</>
-					);
-				}}
-			</CompositeEntitiesByKind>
+						return (
+							<>
+								<KindSelectControl {...kind} />
+								<EntitiesSelectControl {...entities} />
+							</>
+						);
+					}}
+				</CompositeEntitiesByKind>
+			)
 		);
 
 		const postTypeSelect = rendered.container.querySelector(
 			'.wz-select-control'
 		) as HTMLSelectElement;
 
-		userEvent.selectOptions(postTypeSelect, 'page').then(() => {
-			expect(expectedPosts.size).toBe(2);
-			const options = expectedPosts.toArray();
-			expect(options[0]?.value).toBe('page-1');
-			expect(options[1]?.value).toBe('page-2');
-			done();
-		});
+		expect(expectedPosts.size).toBe(2);
+		let options = expectedPosts.toArray();
+		expect(options[0]?.value).toBe('post-1');
+		expect(options[1]?.value).toBe('post-2');
+
+		await userEvent.selectOptions(postTypeSelect, 'page');
+		expect(expectedPosts.size).toBe(2);
+		options = expectedPosts.toArray();
+		expect(options[0]?.value).toBe('page-1');
+		expect(options[1]?.value).toBe('page-2');
 	});
 
-	it('Set the post options to an empty collection when there is an issue in retrieving them', (done) => {
+	it('Set the entities options to an empty collection when there is an issue in retrieving them', (done) => {
 		let expectedPosts: EntitiesSearch.EntitiesControl<string>['options'];
 
 		const rendered = render(
@@ -229,12 +231,12 @@ describe('CompositeEntitiesByKind', () => {
 					onChange: () => {},
 				}}
 			>
-				{(posts, postType) => {
-					expectedPosts = posts.options;
+				{(entities, kind) => {
+					expectedPosts = entities.options;
 					return (
 						<>
-							<KindSelectControl {...postType} />
-							<EntitiesSelectControl {...posts} />
+							<KindSelectControl {...kind} />
+							<EntitiesSelectControl {...entities} />
 						</>
 					);
 				}}
@@ -260,22 +262,7 @@ describe('CompositeEntitiesByKind', () => {
 			<CompositeEntitiesByKind
 				searchEntities={(phrase, kind, query) => {
 					if (phrase === '') {
-						return Promise.resolve(
-							OrderedSet([
-								{
-									label: 'Entity 1',
-									value: 'entity-1',
-								},
-								{
-									label: 'Entity 2',
-									value: 'entity-2',
-								},
-								{
-									label: 'Entity 3',
-									value: 'entity-3',
-								},
-							])
-						);
+						return Promise.resolve(OrderedSet([]));
 					}
 
 					expectedSearchPhrase = phrase;
@@ -294,12 +281,12 @@ describe('CompositeEntitiesByKind', () => {
 					onChange: () => {},
 				}}
 			>
-				{(posts, postType, search) => {
+				{(entities, kind, search) => {
 					return (
 						<>
-							<KindSelectControl {...postType} />
+							<KindSelectControl {...kind} />
 							<SearchControl onChange={search} />
-							<EntitiesSelectControl {...posts} />
+							<EntitiesSelectControl {...entities} />
 						</>
 					);
 				}}
@@ -318,5 +305,112 @@ describe('CompositeEntitiesByKind', () => {
 			);
 			done();
 		});
+	});
+
+	it('Does not call searchEntities when the phrase is empty string', async () => {
+		let searchEntitiesCalled = false;
+
+		const rendered = render(
+			<CompositeEntitiesByKind
+				searchEntities={() => {
+					searchEntitiesCalled = true;
+					return Promise.resolve(OrderedSet([]));
+				}}
+				entities={{
+					value: OrderedSet([]),
+					onChange: () => {},
+				}}
+				kind={{
+					value: 'post',
+					options: OrderedSet([]),
+					onChange: () => {},
+				}}
+			>
+				{(_, __, search) => {
+					return <SearchControl onChange={search} />;
+				}}
+			</CompositeEntitiesByKind>
+		);
+
+		const searchInput = rendered.container.querySelector(
+			'.wz-search-control__input'
+		) as HTMLInputElement;
+
+		await userEvent.type(searchInput, 'Hello World');
+		expect(searchEntitiesCalled).toBe(true);
+		searchEntitiesCalled = false;
+
+		await userEvent.clear(searchInput);
+		await userEvent.type(searchInput, ' ');
+		expect(searchEntitiesCalled).toBe(false);
+	});
+
+	it('Call searchEntities with the right parameters when mounting the component', async () => {
+		const entities = OrderedSet(['1', '2']);
+
+		const searchEntities = jest.fn() as jest.Mock<
+			EntitiesSearch.CompositeEntitiesKinds<
+				string,
+				string
+			>['searchEntities']
+		>;
+
+		await act(() =>
+			render(
+				<CompositeEntitiesByKind
+					searchEntities={searchEntities}
+					entities={{
+						value: entities,
+						onChange: () => {},
+					}}
+					kind={{
+						value: 'post',
+						options: OrderedSet([]),
+						onChange: () => {},
+					}}
+				>
+					{(_, __, search) => {
+						return <SearchControl onChange={search} />;
+					}}
+				</CompositeEntitiesByKind>
+			)
+		);
+
+		expect(searchEntities).toHaveBeenNthCalledWith(2, '', 'post', {
+			include: entities,
+			per_page: '-1',
+		});
+	});
+
+	it('Catch the error thrown by searchEntities when the component mount', async () => {
+		let errorMessage = '';
+		const searchEntities = jest.fn(() => Promise.reject('Error'));
+
+		jest.spyOn(console, 'error').mockImplementation((_errorMessage) => {
+			errorMessage = _errorMessage;
+		});
+
+		await act(() => {
+			render(
+				<CompositeEntitiesByKind
+					searchEntities={searchEntities}
+					entities={{
+						value: OrderedSet([]),
+						onChange: () => {},
+					}}
+					kind={{
+						value: 'post',
+						options: OrderedSet([]),
+						onChange: () => {},
+					}}
+				>
+					{(_, __, search) => {
+						return <SearchControl onChange={search} />;
+					}}
+				</CompositeEntitiesByKind>
+			);
+		});
+
+		expect(errorMessage).toMatch('Error');
 	});
 });

@@ -7,7 +7,6 @@ import { orderSelectedOptionsAtTheTop } from '../utils/order-selected-options-at
 import { uniqueControlOptions } from '../utils/unique-control-options';
 
 type SearchPhrase = Parameters<EntitiesSearch.SearchControl['onChange']>[0];
-type Kind<V> = EntitiesSearch.KindControl<V>['value'];
 type Entities<V> = EntitiesSearch.EntitiesControl<V>['value'];
 type SearchEntities<P, T> = EntitiesSearch.CompositeEntitiesKinds<
 	P,
@@ -25,7 +24,7 @@ export function CompositeEntitiesByKind<P, T>(
 	});
 
 	useEffect(() => {
-		let promises = Set<ReturnType<SearchEntities<P, T>>>().asMutable();
+		const promises = Set<ReturnType<SearchEntities<P, T>>>().asMutable();
 
 		promises.add(
 			props.searchEntities('', entitiesAndKind.kind, {
@@ -61,36 +60,10 @@ export function CompositeEntitiesByKind<P, T>(
 				});
 			})
 			.catch((error) => {
-				console.warn(`Composite Entities by Kind: ${error}`);
+				console.error(`Composite Entities by Kind: ${error}`);
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	const searchEntitiesByKind = async (phrase: string, kind: Kind<T>) => {
-		if (!phrase) {
-			return;
-		}
-
-		props
-			.searchEntities(phrase, kind, {
-				exclude: entitiesAndKind.entities,
-			})
-			.then((result) =>
-				dispatch({
-					type: 'UPDATE_ENTITIES_OPTIONS',
-					entitiesOptions: result,
-				})
-			)
-			.catch(() => {
-				// TODO Add warning for user feedback.
-				const emptySet = OrderedSet([]);
-				dispatch({
-					type: 'UPDATE_ENTITIES_OPTIONS',
-					entitiesOptions: emptySet,
-				});
-				return emptySet;
-			});
-	};
 
 	const onChangeEntities = (entities: Entities<P>) => {
 		// TODO It is the state still necessary having the reducer?
@@ -112,7 +85,7 @@ export function CompositeEntitiesByKind<P, T>(
 			return;
 		}
 
-		let promises = Set<ReturnType<SearchEntities<P, T>>>([
+		const promises = Set<ReturnType<SearchEntities<P, T>>>([
 			props.searchEntities(searchPhrase, entitiesAndKind.kind, {
 				exclude: entities,
 			}),
@@ -206,14 +179,35 @@ export function CompositeEntitiesByKind<P, T>(
 			return;
 		}
 
-		searchEntitiesByKind(_phrase, entitiesAndKind.kind);
+		props
+			.searchEntities(_phrase, entitiesAndKind.kind, {
+				exclude: entitiesAndKind.entities,
+			})
+			.then((result) =>
+				dispatch({
+					type: 'UPDATE_ENTITIES_OPTIONS',
+					entitiesOptions: result,
+				})
+			)
+			.catch(() => {
+				// TODO Add warning for user feedback.
+				const emptySet = OrderedSet([]);
+				dispatch({
+					type: 'UPDATE_ENTITIES_OPTIONS',
+					entitiesOptions: emptySet,
+				});
+				return emptySet;
+			});
 	};
 
 	return <>{props.children(entities, kind, search)}</>;
 }
 
 function extractPhrase(phraseOrEvent: SearchPhrase): string {
-	return typeof phraseOrEvent === 'string'
-		? phraseOrEvent
-		: phraseOrEvent.target.value;
+	const phrase =
+		typeof phraseOrEvent === 'string'
+			? phraseOrEvent
+			: phraseOrEvent.target.value;
+
+	return phrase.trim();
 }
