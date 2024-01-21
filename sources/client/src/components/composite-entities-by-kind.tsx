@@ -1,0 +1,122 @@
+import type EntitiesSearch from '@types';
+import React, { JSX, useState } from 'react';
+
+import { doAction } from '@wordpress/hooks';
+
+import { useEntitiesOptionsStorage } from '../hooks/use-entities-options-storage';
+import { useSearch } from '../hooks/use-search';
+import { orderSelectedOptionsAtTheTop } from '../utils/order-selected-options-at-the-top';
+import { uniqueControlOptions } from '../utils/unique-control-options';
+import { Set } from '../vo/set';
+
+export function CompositeEntitiesByKind<E, K>(
+	props: EntitiesSearch.CompositeEntitiesKinds<E, K>
+): JSX.Element {
+	const { state, dispatch } = useEntitiesOptionsStorage<E, K>(
+		{
+			entities: props.entities.value,
+			kind: props.kind.value,
+		},
+		props.searchEntities
+	);
+	const [searchPhrase, setSearchPhrase] = useState('');
+	const search = useSearch<E, K>(
+		setSearchPhrase,
+		props.searchEntities,
+		state.kind,
+		state.entities,
+		dispatch
+	);
+
+	const onChangeEntities = (entities: EntitiesSearch.Entities<E>) => {
+		props.entities.onChange(entities);
+
+		if (entities.length() <= 0) {
+			dispatch({
+				type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
+				selectedEntitiesOptions: new Set(),
+			});
+			return;
+		}
+
+		Promise.all([
+			props.searchEntities(searchPhrase, state.kind),
+			props.searchEntities('', state.kind, {
+				include: entities,
+				per_page: '-1',
+			}),
+		])
+			.then((result) => {
+				const currentEntitiesOptions = result[0] ?? new Set();
+				const selectedEntitiesOptions = result[1] ?? new Set();
+
+				dispatch({
+					type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
+					selectedEntitiesOptions,
+				});
+				dispatch({
+					type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
+					currentEntitiesOptions,
+				});
+			})
+			.catch((error) => {
+				doAction('wp-entities-search.on-change-entities.error', error);
+			});
+	};
+
+	const onChangeKind = (kind: EntitiesSearch.Kind<K>) => {
+		const _kind = kind instanceof Set ? kind : new Set([kind]);
+		const emptySet = new Set<any>();
+
+		props.kind.onChange(_kind);
+		props.entities.onChange(emptySet);
+
+		if (_kind.length() <= 0) {
+			dispatch({
+				type: 'CLEAN_ENTITIES_OPTIONS',
+			});
+			dispatch({ type: 'UPDATE_KIND', kind: _kind });
+			return;
+		}
+
+		props
+			.searchEntities(searchPhrase, _kind, {
+				exclude: state.entities,
+			})
+			.then((entitiesOptions) => {
+				dispatch({
+					type: 'UPDATE_ENTITIES_OPTIONS_FOR_NEW_KIND',
+					entitiesOptions,
+					kind: _kind,
+				});
+			})
+			.catch((error) => {
+				dispatch({
+					type: 'CLEAN_ENTITIES_OPTIONS',
+				});
+				doAction('wp-entities-search.on-change-kind.error', error);
+			});
+	};
+
+	const entities: EntitiesSearch.BaseControl<E> = {
+		...props.entities,
+		value: state.entities,
+		options: orderSelectedOptionsAtTheTop<E>(
+			uniqueControlOptions(
+				state.selectedEntitiesOptions.concat(
+					state.currentEntitiesOptions
+				)
+			),
+			state.entities
+		),
+		onChange: onChangeEntities,
+	};
+
+	const kind: EntitiesSearch.BaseControl<K> = {
+		...props.kind,
+		value: state.kind,
+		onChange: onChangeKind,
+	};
+
+	return <>{props.children(entities, kind, search)}</>;
+}

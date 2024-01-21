@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset>
+    <file>./sources/server/</file>
+
+    <arg value="sp"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php,inc"/>
+
+	<config name="text_domain" value="wp-entities-search"/>
+    <config name="testVersion" value="8.0-"/>
+    <config name="ignore_warnings_on_exit" value="1"/>
+
+    <rule ref="Inpsyde" />
+
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+</ruleset>

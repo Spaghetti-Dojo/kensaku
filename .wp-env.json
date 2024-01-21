@@ -1,0 +1,15 @@
+{
+	"core": "./vendor/roots/wordpress-no-content",
+	"plugins": ["."],
+	"env": {
+		"development": {
+			"phpVersion": "8.0",
+			"mappings": {
+				"wp-content/plugins/wp-entities-search": "."
+			}
+		}
+	},
+	"config": {
+		"WP_ENVIRONMENT_TYPE": "local"
+	}
+}

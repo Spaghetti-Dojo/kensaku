@@ -1,0 +1,38 @@
+{
+	"name": "widoz/wp-entities-search",
+	"description": "A WordPress package to search Entities including Rest API Endpoints and React Components",
+	"type": "library",
+	"license": "GPL-v2-or-later",
+	"autoload": {
+		"psr-4": {
+			"Widoz\\Wp\\EntitiesSearch\\": "sources/server/src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "guido scialfa",
+			"email": "dev@guidoscialfa.com"
+		}
+	],
+	"minimum-stability": "stable",
+	"require": {
+		"php": ">=8.0"
+	},
+	"require-dev": {
+		"inpsyde/modularity": "^1.5",
+		"inpsyde/php-coding-standards": "^1.0",
+		"roots/wordpress-no-content": "^6.3"
+	},
+	"config": {
+		"platform": {
+			"php": "8.0"
+		},
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"cs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
+		"cs:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
+	}
+}

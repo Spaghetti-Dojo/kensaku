@@ -1,0 +1,18 @@
+{
+	"apiVersion": 3,
+	"title": "Taxonomies Example Block",
+	"name": "wp-entities-search/taxonomies-example-block",
+	"category": "uncategorized",
+	"icon": "wordpress",
+	"editorScript": "wp-entities-search-e2e-taxonomies-example-block",
+	"attributes": {
+		"taxonomy": {
+			"type": "array",
+			"default": ["category"]
+		},
+		"terms": {
+			"type": "array",
+			"default": []
+		}
+	}
+}
