@@ -12,7 +12,8 @@ more Post Types but also, to search for Terms belonging to one or more Taxonomie
 3. Components
 4. Hooks
 5. Logging
-6. Storage
+6. Integration
+7. Storage
 
 ## License
 
