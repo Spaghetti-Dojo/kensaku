@@ -12,7 +12,7 @@ import { Set } from '../vo/set';
 export function CompositeEntitiesByKind<E, K>(
 	props: EntitiesSearch.CompositeEntitiesKinds<E, K>
 ): JSX.Element {
-	const { state, dispatch } = useEntitiesOptionsStorage<E, K>(
+	const [state, dispatch] = useEntitiesOptionsStorage<E, K>(
 		{
 			entities: props.entities.value,
 			kind: props.kind.value,
