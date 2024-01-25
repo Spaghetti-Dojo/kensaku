@@ -15,10 +15,12 @@ type _Reducer<E, K> = Reducer<
 export function useEntitiesOptionsStorage<E, K>(
 	initialState: Partial<EntitiesSearch.EntitiesState<E, K>>,
 	searchEntities: EntitiesSearch.SearchEntitiesFunction<E, K>
-): Readonly<{
-	state: EntitiesSearch.EntitiesState<E, K>;
-	dispatch: Dispatch<EntitiesSearch.StoreAction<E, K>>;
-}> {
+): Readonly<
+	[
+		EntitiesSearch.EntitiesState<E, K>,
+		Dispatch<EntitiesSearch.StoreAction<E, K>>
+	]
+> {
 	const [state, dispatch] = useReducer<_Reducer<E, K>>(
 		reducer,
 		makeInitialState<E, K>(initialState)
@@ -62,8 +64,5 @@ export function useEntitiesOptionsStorage<E, K>(
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return {
-		state,
-		dispatch,
-	};
+	return [state, dispatch] as const;
 }
