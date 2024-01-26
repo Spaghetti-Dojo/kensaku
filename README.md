@@ -8,12 +8,13 @@ more Post Types but also, to search for Terms belonging to one or more Taxonomie
 ## Table of Content
 
 1. Installation
-2. Api
-3. Components
-4. Hooks
-5. Logging
-6. Integration
-7. Storage
+2. Development
+3. Api
+4. Components
+5. Hooks
+6. Logging
+7. Integration
+8. Storage
 
 ## License
 
