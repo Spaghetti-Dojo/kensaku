@@ -1,7 +1,7 @@
 export class Set<T> {
 	readonly #data: ReadonlyArray<T>;
 
-	public constructor(data: Array<T> = []) {
+	public constructor(data: ReadonlyArray<T> = []) {
 		this.#data = data;
 	}
 

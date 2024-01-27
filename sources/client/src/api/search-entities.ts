@@ -33,7 +33,7 @@ export async function searchEntities<E>(
 	});
 
 	// TODO What happen in the case of an error?
-	const entities = await fetch<Array<E>>({
+	const entities = await fetch<ReadonlyArray<E>>({
 		path: `?rest_route=/wp/v2/search&${params.toString()}`,
 	});
 
