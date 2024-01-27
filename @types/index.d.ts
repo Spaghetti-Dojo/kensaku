@@ -106,6 +106,7 @@ declare namespace EntitiesSearch {
 			contextualEntitiesOptions: OptionSet;
 			currentEntitiesOptions: OptionSet;
 			selectedEntitiesOptions: OptionSet;
+			searchPhrase: string;
 		}> {}
 
 	type StoreAction<E, K> =
@@ -145,6 +146,10 @@ declare namespace EntitiesSearch {
 				type: 'UPDATE_ENTITIES_OPTIONS_FOR_NEW_KIND';
 				entitiesOptions: Set<EntitiesSearch.ControlOption<E>>;
 				kind: EntitiesState<E, K>['kind'];
+		  }
+		| {
+				type: 'UPDATE_SEARCH_PHRASE';
+				searchPhrase: string;
 		  };
 
 	/*

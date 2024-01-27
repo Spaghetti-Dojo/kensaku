@@ -28,7 +28,6 @@ describe('useSearch', () => {
 	});
 
 	it('Should update the search phrase', async () => {
-		const setSearchPhrase = jest.fn();
 		const searchEntities = jest.fn(() =>
 			Promise.resolve(new Set([{ label: 'Label', value: 1 }]))
 		) as jest.Mock<EntitiesSearch.SearchEntitiesFunction<any, any>>;
@@ -37,19 +36,20 @@ describe('useSearch', () => {
 		const dispatch = jest.fn();
 
 		const { result } = renderHook(() =>
-			useSearch(setSearchPhrase, searchEntities, kind, entities, dispatch)
+			useSearch(searchEntities, kind, entities, dispatch)
 		);
 
 		await act(() => {
 			result.current('phrase');
 		});
 
-		expect(setSearchPhrase).toHaveBeenCalledTimes(1);
-		expect(setSearchPhrase).toHaveBeenCalledWith('phrase');
+		expect(dispatch).toHaveBeenCalledWith({
+			type: 'UPDATE_SEARCH_PHRASE',
+			searchPhrase: 'phrase',
+		});
 	});
 
 	it('Should search the entities', () => {
-		const setSearchPhrase = jest.fn();
 		const searchEntities = jest.fn(() =>
 			Promise.resolve(new Set([{ label: 'Label', value: 1 }]))
 		) as jest.Mock<EntitiesSearch.SearchEntitiesFunction<any, any>>;
@@ -58,7 +58,7 @@ describe('useSearch', () => {
 		const dispatch = jest.fn();
 
 		const { result } = renderHook(() =>
-			useSearch(setSearchPhrase, searchEntities, kind, entities, dispatch)
+			useSearch(searchEntities, kind, entities, dispatch)
 		);
 
 		act(() => {
@@ -72,7 +72,6 @@ describe('useSearch', () => {
 	});
 
 	it('Should update the current entities options', async () => {
-		const setSearchPhrase = jest.fn();
 		const searchEntities = jest.fn(() =>
 			Promise.resolve(new Set([{ label: 'Label', value: 1 }]))
 		) as jest.Mock<EntitiesSearch.SearchEntitiesFunction<any, any>>;
@@ -81,7 +80,7 @@ describe('useSearch', () => {
 		const dispatch = jest.fn();
 
 		const { result } = renderHook(() =>
-			useSearch(setSearchPhrase, searchEntities, kind, entities, dispatch)
+			useSearch(searchEntities, kind, entities, dispatch)
 		);
 
 		searchEntities.mockResolvedValueOnce(
@@ -101,7 +100,6 @@ describe('useSearch', () => {
 			result.current('phrase');
 		});
 
-		expect(dispatch).toHaveBeenCalledTimes(1);
 		expect(dispatch).toHaveBeenCalledWith({
 			type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 			currentEntitiesOptions: new Set([
@@ -118,7 +116,6 @@ describe('useSearch', () => {
 	});
 
 	it('Should update the current entities options with an empty set when an error occurs', async () => {
-		const setSearchPhrase = jest.fn();
 		const searchEntities = jest.fn(() =>
 			Promise.resolve(new Set([{ label: 'Label', value: 1 }]))
 		) as jest.Mock<EntitiesSearch.SearchEntitiesFunction<any, any>>;
@@ -127,7 +124,7 @@ describe('useSearch', () => {
 		const dispatch = jest.fn();
 
 		const { result } = renderHook(() =>
-			useSearch(setSearchPhrase, searchEntities, kind, entities, dispatch)
+			useSearch(searchEntities, kind, entities, dispatch)
 		);
 
 		searchEntities.mockRejectedValueOnce(new Error('Error'));
