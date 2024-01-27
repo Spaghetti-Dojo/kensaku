@@ -1,5 +1,5 @@
 import type EntitiesSearch from '@types';
-import React, { JSX, useState } from 'react';
+import React, { JSX } from 'react';
 
 import { doAction } from '@wordpress/hooks';
 
