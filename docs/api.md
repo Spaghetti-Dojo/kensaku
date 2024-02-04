@@ -10,9 +10,9 @@ This function is a wrapper for the Search Endpoint of the WordPress API. It will
 
 The possible query arguments are specified by the `EntitiesSearch.QueryArguments` type, an interface you can expand to add more arguments.
 
-This function is not directly consumed by the components and it is not intended to be used internally. The idea is to follow the Tell don't Ask principle and let the consumer specify how to search the Entities.
+This function is not directly consumed by the components, and it is not intended to be used internally. The idea is to follow the Tell don't Ask principle and let the consumer specify how to search the Entities.
 
-Below a possible example of it's usage related to a component:
+Below a possible example of its usage related to a component:
 
 ```tsx
 // my-component.tsx
@@ -47,4 +47,22 @@ import {searchEntities} from 'wp-entities-search';
 root.render(<MyComponent search={searchEntities} />);
 ```
 
+### Parameters
+
+The function accept four parameters
+
+- `type` - The root type. We have two built-int supported types `post`, `term`.
+- `subtype` - The subtype of the entity. For example, if the `type` is `post`, the `subtype` can be `page`, `post`, etc. WordPress exclude automatically the `attachment` subtype.
+- `phrase` - The search phrase. This becomes the `s` parameter for the Search Endpoint.
+- `queryArguments` - All the supported and extra query arguments. The `EntitiesSearch.QueryArguments` type is an interface you can expand to add more arguments.
+
+### Return
+
+The function return an immutable `Set` of entities.
+
 NOTE: The function does not handle possible request exceptions.
+
+### Aborting Requests
+
+The `searchEntities` will automatically abort the requests with the same parameters if a new request is made before the previous one is completed.
+

@@ -32,7 +32,6 @@ export async function searchEntities<E>(
 		_fields: serializeFields(fields),
 	});
 
-	// TODO What happen in the case of an error?
 	const entities = await fetch<Array<E>>({
 		path: `?rest_route=/wp/v2/search&${params.toString()}`,
 	});
