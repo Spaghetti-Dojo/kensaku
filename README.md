@@ -7,14 +7,14 @@ more Post Types but also, to search for Terms belonging to one or more Taxonomie
 
 ## Table of Content
 
-1. Installation
-2. Development
-3. Api
-4. Components
-5. Hooks
-6. Logging
-7. Integration
-8. Storage
+1. [Installation](./docs/installation.md)
+2. [Development](./docs/development.md)
+3. [Api](./docs/api.md)
+4. [Components](./docs/components.md)
+5. [Hooks](./docs/hooks.md)
+6. [Logging](./docs/logging.md)
+7. [Integration](./docs/integration.md)
+8. [Storage](./docs/storage.md)
 
 ## License
 
