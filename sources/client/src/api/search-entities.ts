@@ -1,5 +1,9 @@
 import EntitiesSearch from '@types';
 
+import { doAction } from '@wordpress/hooks';
+
+import { abortControllers } from '../services/abort-controllers';
+import { ContextualAbortController } from '../services/contextual-abort-controller';
 import { Set } from '../vo/set';
 import { fetch } from './fetch';
 
@@ -30,11 +34,24 @@ export async function searchEntities<E>(
 		search: phrase,
 		subtype: subtype.toArray(),
 		_fields: serializeFields(fields),
-	});
+	}).toString();
 
-	// TODO What happen in the case of an error?
+	const controller = abortControllers.add(
+		new ContextualAbortController(
+			params,
+			`Request aborted with parameters: ${params}`
+		)
+	);
+
 	const entities = await fetch<ReadonlyArray<E>>({
-		path: `?rest_route=/wp/v2/search&${params.toString()}`,
+		path: `?rest_route=/wp/v2/search&${params}`,
+		signal: controller?.signal() ?? null,
+	}).catch((error) => {
+		if (error instanceof DOMException && error.name === 'AbortError') {
+			doAction('wp-entities-search.on-search.abort', error);
+		}
+
+		throw error;
 	});
 
 	return new Set(entities);
