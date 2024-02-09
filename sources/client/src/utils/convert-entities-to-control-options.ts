@@ -14,7 +14,7 @@ export function convertEntitiesToControlOptions<
 		const label = entity[labelKey];
 		const value = entity[valueKey];
 		labelKeyIsString(label);
-		return makeControlOption(label, String(value));
+		return makeControlOption(label, value);
 	});
 }
 

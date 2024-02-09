@@ -1,3 +1,5 @@
+import { isEqual } from 'lodash';
+
 export class Set<T> {
 	readonly #data: ReadonlyArray<T>;
 
@@ -18,11 +20,11 @@ export class Set<T> {
 			return this;
 		}
 
-		return new Set(this.#data.filter((item) => item !== value));
+		return new Set(this.#data.filter((item) => !this.isEqual(item, value)));
 	}
 
 	public has(value: T): boolean {
-		return this.#data.includes(value);
+		return this.#data.some((current) => this.isEqual(current, value));
 	}
 
 	public map<R = T>(fn: (value: T) => R): Set<R> {
@@ -83,5 +85,21 @@ export class Set<T> {
 		for (const value of this.#data) {
 			yield value;
 		}
+	}
+
+	private isEqual(a: unknown, b: unknown): boolean {
+		if (typeof a === typeof b) {
+			return isEqual(a, b);
+		}
+
+		if (typeof a === 'number' && typeof b === 'string') {
+			return a.toString() === b;
+		}
+
+		if (typeof a === 'string' && typeof b === 'number') {
+			return a === b.toString();
+		}
+
+		return false;
 	}
 }
