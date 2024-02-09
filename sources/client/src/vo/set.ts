@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash';
+import { isEqual as _isEqual } from 'lodash';
 
 export class Set<T> {
 	readonly #data: ReadonlyArray<T>;
@@ -51,6 +51,10 @@ export class Set<T> {
 		return new Set(this.#data.filter(fn));
 	}
 
+	public find(fn: (value: T) => boolean): T | undefined {
+		return this.#data.slice(0).find(fn);
+	}
+
 	public first(): T | undefined {
 		return this.#data.slice(0)[0];
 	}
@@ -88,18 +92,6 @@ export class Set<T> {
 	}
 
 	private isEqual(a: unknown, b: unknown): boolean {
-		if (typeof a === typeof b) {
-			return isEqual(a, b);
-		}
-
-		if (typeof a === 'number' && typeof b === 'string') {
-			return a.toString() === b;
-		}
-
-		if (typeof a === 'string' && typeof b === 'number') {
-			return a === b.toString();
-		}
-
-		return false;
+		return _isEqual(a, b);
 	}
 }

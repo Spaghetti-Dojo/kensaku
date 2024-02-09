@@ -53,9 +53,18 @@ describe('Set', () => {
 
 	it.each([
 		[[1, 2, 3, 4, 5], 3, true],
-		[[1, 2, 3, 4, 5], '4', true],
-		[['3', '4', '5'], 4, true],
+		[[1, 2, 3, 4, 5], '4', false],
+		[['3', '4', '5'], 4, false],
 		[[{ a: 1 }, { b: 2 }, { c: 3 }], { b: 2 }, true],
+		[
+			[
+				{ label: 'Label 1', value: 1 },
+				{ label: 'Label 2', value: 2 },
+				{ label: 'Label 3', value: 3 },
+			],
+			{ label: 'Label 2', value: 2 },
+			true,
+		],
 		[[{ a: 1 }, { b: 2 }, { c: 3 }], 'b', false],
 	])(
 		'Should return true if a given value is the same in shape of an existing one',

@@ -16,13 +16,21 @@ export function ToggleControl(
 
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { target } = event;
+		const valueOption = props.options.find(
+			(option) => String(option.value) === target.value
+		);
 
-		if (target.checked && !props.value.has(target.value)) {
-			props.onChange(props.value.add(target.value));
+		// TODO does make sense to trigger an error?
+		if (!valueOption) {
 			return;
 		}
 
-		props.onChange(props.value.delete(target.value));
+		if (target.checked) {
+			props.onChange(props.value.add(valueOption.value));
+			return;
+		}
+
+		props.onChange(props.value.delete(valueOption.value));
 	};
 
 	return (
