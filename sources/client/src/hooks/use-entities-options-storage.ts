@@ -13,7 +13,7 @@ type _Reducer<E, K> = Reducer<
 >;
 
 export function useEntitiesOptionsStorage<E, K>(
-	initialState: Partial<EntitiesSearch.EntitiesState<E, K>>,
+	initialState: Pick<EntitiesSearch.EntitiesState<E, K>, 'entities' | 'kind'>,
 	searchEntities: EntitiesSearch.SearchEntitiesFunction<E, K>
 ): Readonly<
 	[
