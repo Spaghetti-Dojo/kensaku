@@ -47,7 +47,7 @@ describe('EntitiesToggleControl', () => {
 			<ToggleControl
 				className="test-class"
 				options={options}
-				value={new Set()}
+				value={new Set([])}
 				onChange={onChange}
 			/>
 		);

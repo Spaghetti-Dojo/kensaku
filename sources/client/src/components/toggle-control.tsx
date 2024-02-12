@@ -6,7 +6,9 @@ import { slugifyOptionLabel } from '../utils/slugify-option-label';
 import { NoOptionsMessage } from './no-options-message';
 
 export function ToggleControl(
-	props: EntitiesSearch.BaseControl<string> & { className?: string }
+	props: EntitiesSearch.BaseControl<EntitiesSearch.Value> & {
+		className?: string;
+	}
 ): JSX.Element {
 	const className = classnames(props.className, 'wz-toggle-control');
 
@@ -20,7 +22,6 @@ export function ToggleControl(
 			(option) => String(option.value) === target.value
 		);
 
-		// TODO does make sense to trigger an error?
 		if (!valueOption) {
 			return;
 		}
@@ -36,15 +37,16 @@ export function ToggleControl(
 	return (
 		<div className={className}>
 			{props.options.map((option) => {
+				const value = String(option.value);
 				const id = idByControlOption(option);
 				return (
-					<div key={option.value} className="wz-toggle-control-item">
+					<div key={value} className="wz-toggle-control-item">
 						<label htmlFor={id}>
 							<input
 								type="checkbox"
 								id={id}
 								checked={props.value?.has(option.value)}
-								value={option.value}
+								value={value}
 								onChange={onChange}
 							/>
 							{option.label}

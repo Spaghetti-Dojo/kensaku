@@ -31,8 +31,8 @@ export class Set<T> {
 		return new Set(this.#data.map(fn));
 	}
 
-	public toArray(): Array<T> {
-		return [...this.#data];
+	public toArray(): ReadonlyArray<T> {
+		return Object.freeze([...this.#data]);
 	}
 
 	public forEach(fn: (value: T) => void): void {

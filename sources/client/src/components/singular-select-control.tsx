@@ -19,12 +19,21 @@ export function SingularSelectControl(
 		return <NoOptionsMessage />;
 	}
 
+	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const { target } = event;
+		const valueOption = props.options.find(
+			(option) => String(option.value) === target.value
+		);
+
+		if (!valueOption) {
+			return;
+		}
+
+		props.onChange(valueOption.value);
+	};
+
 	return (
-		<select
-			className={className}
-			value={props?.value}
-			onChange={(event) => props.onChange(event.target.value)}
-		>
+		<select className={className} value={props?.value} onChange={onChange}>
 			{props.options.map((option) => (
 				<option
 					key={option.value}
