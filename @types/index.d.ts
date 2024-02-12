@@ -15,6 +15,7 @@ declare namespace EntitiesSearch {
 	type Entities<V> = Set<V>;
 	type Kind<V> = Set<V>;
 	type Options<V> = Set<ControlOption<V>>;
+	type Value = string | number;
 
 	interface QueryArguments<V>
 		extends Partial<

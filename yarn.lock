@@ -3672,6 +3672,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4":
+  version: 4.14.202
+  resolution: "@types/lodash@npm:4.14.202"
+  checksum: 6064d43c8f454170841bd67c8266cc9069d9e570a72ca63f06bceb484cb4a3ee60c9c1f305c1b9e3a87826049fd41124b8ef265c4dd08b00f6766609c7fe9973
+  languageName: node
+  linkType: hard
+
 "@types/mime@npm:*":
   version: 3.0.1
   resolution: "@types/mime@npm:3.0.1"
@@ -16434,6 +16441,7 @@ __metadata:
     "@testing-library/user-event": "npm:^14.5.1"
     "@total-typescript/shoehorn": "npm:^0.1.0"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.0.0"
+    "@types/lodash": "npm:^4"
     "@wordpress/api-fetch": "npm:~6.21.0"
     "@wordpress/components": "npm:~23.1.0"
     "@wordpress/compose": "npm:^6.23.0"
@@ -16448,6 +16456,7 @@ __metadata:
     eslint-import-resolver-typescript: "npm:^3.5.5"
     jest: "npm:^29.4.3"
     jest-environment-jsdom: "npm:^29.5.0"
+    lodash: "npm:^4.17.21"
     prettier: "npm:^2.8.1"
     react: "npm:~18.2.0"
     ts-jest: "npm:^29.0.5"

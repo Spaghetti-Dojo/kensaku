@@ -1,3 +1,5 @@
+import { isEqual as _isEqual } from 'lodash';
+
 export class Set<T> {
 	readonly #data: ReadonlyArray<T>;
 
@@ -18,19 +20,19 @@ export class Set<T> {
 			return this;
 		}
 
-		return new Set(this.#data.filter((item) => item !== value));
+		return new Set(this.#data.filter((item) => !this.isEqual(item, value)));
 	}
 
 	public has(value: T): boolean {
-		return this.#data.includes(value);
+		return this.#data.some((current) => this.isEqual(current, value));
 	}
 
 	public map<R = T>(fn: (value: T) => R): Set<R> {
 		return new Set(this.#data.map(fn));
 	}
 
-	public toArray(): Array<T> {
-		return [...this.#data];
+	public toArray(): ReadonlyArray<T> {
+		return Object.freeze([...this.#data]);
 	}
 
 	public forEach(fn: (value: T) => void): void {
@@ -47,6 +49,10 @@ export class Set<T> {
 
 	public filter(fn: (value: T) => boolean): Set<T> {
 		return new Set(this.#data.filter(fn));
+	}
+
+	public find(fn: (value: T) => boolean): T | undefined {
+		return this.#data.slice(0).find(fn);
 	}
 
 	public first(): T | undefined {
@@ -83,5 +89,9 @@ export class Set<T> {
 		for (const value of this.#data) {
 			yield value;
 		}
+	}
+
+	private isEqual(a: unknown, b: unknown): boolean {
+		return _isEqual(a, b);
 	}
 }
