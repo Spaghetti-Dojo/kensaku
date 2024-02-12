@@ -9,6 +9,16 @@ import { Set } from '../vo/set';
 type SearchPhrase = Parameters<EntitiesSearch.SearchControl['onChange']>[0];
 type SearchFunc = (phrase: SearchPhrase) => void;
 
+/**
+ * Build a function to search the entities by a phrase
+ *
+ * @public
+ * @param setSearchPhrase A function to set the search phrase
+ * @param searchEntities  The function that will search the entities
+ * @param kind            The kind of entities to search
+ * @param entities        The entities to exclude from the search
+ * @param dispatch        The dispatch function to update the state
+ */
 export function useSearch<E, K>(
 	setSearchPhrase: (search: string) => void,
 	searchEntities: EntitiesSearch.SearchEntitiesFunction<E, K>,

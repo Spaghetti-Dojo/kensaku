@@ -67,5 +67,13 @@ used by other hooks to return a specific set of entities based on their configur
 
 ## `useQueryViewablePostTypes`
 
+This hook is a subset of the `useEntitiesRecords` hook. It is used to retrieve the list of the viewable post types.
 
+## `useQueryViewableTaxonomies`
+
+This hook is a subset of the `useEntitiesRecords` hook. It is used to retrieve the list of the viewable taxonomies.
+
+## `useSearch`
+
+This hook will return a throttled function to search for the entities.
 

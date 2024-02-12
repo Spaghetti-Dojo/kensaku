@@ -9,6 +9,12 @@ import { orderSelectedOptionsAtTheTop } from '../utils/order-selected-options-at
 import { uniqueControlOptions } from '../utils/unique-control-options';
 import { Set } from '../vo/set';
 
+/**
+ * A composite component that provides a way to search for entities by kind.
+ *
+ * @public
+ * @param props The component props.
+ */
 export function CompositeEntitiesByKind<E, K>(
 	props: EntitiesSearch.CompositeEntitiesKinds<E, K>
 ): JSX.Element {

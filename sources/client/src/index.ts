@@ -1,4 +1,3 @@
-export * from './api/fetch';
 export * from './api/search-entities';
 
 export * from './components/composite-entities-by-kind';
