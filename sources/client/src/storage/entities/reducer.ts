@@ -58,6 +58,12 @@ export function reducer<E, K>(
 				kind: action.kind,
 			};
 
+		case 'UPDATE_SEARCH_PHRASE':
+			return {
+				...state,
+				searchPhrase: action.searchPhrase,
+			};
+
 		default:
 			return state;
 	}

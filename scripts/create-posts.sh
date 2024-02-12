@@ -3,7 +3,7 @@
 # Default values
 N=10
 offset=1
-post_type='post'
+post_type='page'
 title='Page'
 
 # Parse command line arguments

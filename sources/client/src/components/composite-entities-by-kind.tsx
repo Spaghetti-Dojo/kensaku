@@ -1,5 +1,5 @@
 import type EntitiesSearch from '@types';
-import React, { JSX, useState } from 'react';
+import React, { JSX } from 'react';
 
 import { doAction } from '@wordpress/hooks';
 
@@ -25,9 +25,7 @@ export function CompositeEntitiesByKind<E, K>(
 		},
 		props.searchEntities
 	);
-	const [searchPhrase, setSearchPhrase] = useState('');
 	const search = useSearch<E, K>(
-		setSearchPhrase,
 		props.searchEntities,
 		state.kind,
 		state.entities,
@@ -46,7 +44,7 @@ export function CompositeEntitiesByKind<E, K>(
 		}
 
 		Promise.all([
-			props.searchEntities(searchPhrase, state.kind),
+			props.searchEntities(state.searchPhrase, state.kind),
 			props.searchEntities('', state.kind, {
 				include: entities,
 				per_page: '-1',
@@ -86,7 +84,7 @@ export function CompositeEntitiesByKind<E, K>(
 		}
 
 		props
-			.searchEntities(searchPhrase, _kind, {
+			.searchEntities(state.searchPhrase, _kind, {
 				exclude: state.entities,
 			})
 			.then((entitiesOptions) => {

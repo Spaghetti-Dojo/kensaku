@@ -6,7 +6,7 @@ import { Set } from '../vo/set';
 import { NoOptionsMessage } from './no-options-message';
 
 export function PluralSelectControl(
-	props: EntitiesSearch.BaseControl<string> & {
+	props: EntitiesSearch.BaseControl<EntitiesSearch.Value> & {
 		className?: string;
 	}
 ): JSX.Element {
@@ -17,6 +17,22 @@ export function PluralSelectControl(
 		'wz-select-control--plural'
 	);
 
+	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		if (event.target.selectedOptions.length <= 0) {
+			props.onChange(new Set());
+		}
+
+		const selectedOptions = Array.from(event.target.selectedOptions).map(
+			(option) => option.value
+		);
+		const selectedValues = props.options
+			.filter((option) => selectedOptions.includes(String(option.value)))
+			.map((option) => option.value);
+
+		setSelected(selectedValues);
+		props.onChange(selectedValues);
+	};
+
 	if (props.options.length() <= 0) {
 		return <NoOptionsMessage />;
 	}
@@ -25,19 +41,8 @@ export function PluralSelectControl(
 		<select
 			multiple
 			className={className}
-			value={selected.toArray()}
-			onChange={(event) => {
-				if (event.target.selectedOptions.length <= 0) {
-					props.onChange(new Set());
-				}
-
-				const selectedValues = Array.from(
-					event.target.selectedOptions
-				).map((option) => option.value);
-
-				setSelected(new Set(selectedValues));
-				props.onChange(new Set(selectedValues));
-			}}
+			value={selected.toArray() as Array<string>}
+			onChange={onChange}
 		>
 			{props.options.map((option) => (
 				<option

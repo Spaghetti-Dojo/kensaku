@@ -13,6 +13,7 @@ export function makeInitialState<E, K>(
 		contextualEntitiesOptions: new Set<Options<E>>(),
 		currentEntitiesOptions: new Set<Options<E>>(),
 		selectedEntitiesOptions: new Set<Options<E>>(),
+		searchPhrase: '',
 		...initialState,
 	};
 }

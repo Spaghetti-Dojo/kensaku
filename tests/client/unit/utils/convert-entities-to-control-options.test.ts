@@ -30,7 +30,7 @@ describe('Convert Entities To Control Options', () => {
 			'id'
 		).map((option) => option.value);
 		for (const entity of entities) {
-			expect(options.has(`${entity.id}`)).toEqual(true);
+			expect(options.has(entity.id)).toEqual(true);
 		}
 	});
 

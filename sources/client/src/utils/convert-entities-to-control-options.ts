@@ -4,17 +4,18 @@ import { Set } from '../vo/set';
 import { makeControlOption } from './make-control-option';
 
 export function convertEntitiesToControlOptions<
+	V,
 	EntitiesFields extends { [p: string]: any }
 >(
 	entities: Set<EntitiesFields>,
 	labelKey: string,
 	valueKey: string
-): Set<EntitiesSearch.ControlOption<string>> {
+): Set<EntitiesSearch.ControlOption<V>> {
 	return entities.map((entity) => {
 		const label = entity[labelKey];
 		const value = entity[valueKey];
 		labelKeyIsString(label);
-		return makeControlOption(label, String(value));
+		return makeControlOption(label, value);
 	});
 }
 

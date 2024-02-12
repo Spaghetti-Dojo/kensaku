@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	const {
 		Set,
 		searchEntities,
+		SingularSelectControl,
 		PluralSelectControl,
+		RadioControl,
 		ToggleControl,
 		SearchControl,
 		CompositeEntitiesByKind,

@@ -20,7 +20,6 @@ type SearchFunc = (phrase: SearchPhrase) => void;
  * @param dispatch        The dispatch function to update the state
  */
 export function useSearch<E, K>(
-	setSearchPhrase: (search: string) => void,
 	searchEntities: EntitiesSearch.SearchEntitiesFunction<E, K>,
 	kind: EntitiesSearch.Kind<K>,
 	entities: EntitiesSearch.Entities<E>,
@@ -29,8 +28,6 @@ export function useSearch<E, K>(
 	return useThrottle(
 		(phrase: SearchPhrase) => {
 			const _phrase = extractPhrase(phrase);
-
-			setSearchPhrase(_phrase);
 
 			searchEntities(_phrase, kind, {
 				exclude: entities,
@@ -49,7 +46,13 @@ export function useSearch<E, K>(
 						currentEntitiesOptions: emptySet,
 					});
 					return emptySet;
-				});
+				})
+				.finally(() =>
+					dispatch({
+						type: 'UPDATE_SEARCH_PHRASE',
+						searchPhrase: _phrase,
+					})
+				);
 		},
 		300,
 		{ leading: false, trailing: true }

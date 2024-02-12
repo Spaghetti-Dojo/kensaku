@@ -44,12 +44,35 @@ describe('Set', () => {
 		expect(set.add(obj).add(obj).length()).toBe(1);
 	});
 
-	it('Should add the same object again if it is a different reference', () => {
+	it('Should not add the same object again if it is a different reference', () => {
 		const obj = { a: 1 };
 		const obj2 = { a: 1 };
 		const set = new Set<any>();
-		expect(set.add(obj).add(obj2).length()).toBe(2);
+		expect(set.add(obj).add(obj2).length()).toBe(1);
 	});
+
+	it.each([
+		[[1, 2, 3, 4, 5], 3, true],
+		[[1, 2, 3, 4, 5], '4', false],
+		[['3', '4', '5'], 4, false],
+		[[{ a: 1 }, { b: 2 }, { c: 3 }], { b: 2 }, true],
+		[
+			[
+				{ label: 'Label 1', value: 1 },
+				{ label: 'Label 2', value: 2 },
+				{ label: 'Label 3', value: 3 },
+			],
+			{ label: 'Label 2', value: 2 },
+			true,
+		],
+		[[{ a: 1 }, { b: 2 }, { c: 3 }], 'b', false],
+	])(
+		'Should return true if a given value is the same in shape of an existing one',
+		(collection, given, expected) => {
+			const set = new Set<any>(collection);
+			expect(set.has(given)).toBe(expected);
+		}
+	);
 
 	it('Return the first element', () => {
 		const set = new Set<number>();
