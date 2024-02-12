@@ -151,7 +151,7 @@ export function MyComponent(props) {
         }}
         kind={{
             value: new Set(['page', 'landing-page']),
-            options: [],
+            options: Set([]),
             onChange={() => {}}
         }}
     >
@@ -170,4 +170,32 @@ export function MyComponent(props) {
 }
 ```
 
-Obviously depending on what you want to achieve you can use different _Base Components_ or create new ones, as mentioned above the package comes with a set of _Base Components_ that can be used out of the box.
+Obviously depending on what you want to achieve you can use different _Base Components_ or create new ones, as mentioned
+above the package comes with a set of _Base Components_ that can be used out of the box.
+
+## About Singular Base Components
+
+The _Composite Component_ always give a collection of Entities and Kind even though you are consuming a Single* _Base Component_.
+
+The Singular Components always get a single value, therefore you have to consider to extract the first element out of the `Set`.
+
+```jsx
+import { CompositeEntitiesByKind } from 'wp-entities-search';
+
+export function MyComponent(props) {
+    return <CompositeEntitiesByKind
+        /* ... */
+    >
+        {({ entities, kind, search }) => (
+            <>
+                <RadioControl
+                    value={kind.value.first()}
+                    options={Array.from(kind.options)}
+                    onChange={kind.onChange}
+                />
+                /* ... */
+            </>
+        )}
+    </CompositeEntitiesByKind>;
+}
+```
