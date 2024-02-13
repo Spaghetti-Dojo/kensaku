@@ -1,6 +1,6 @@
 /*
  * We have to write a set of tests to check the behavior of the search function returned by the useSearch hook.
- * Particularly we want to mock the  useThrottle hook to exectute the search function immediately without waiting for the throttle time.
+ * Particularly we want to mock the useThrottle hook to execute the search function immediately without waiting for the throttle time.
  * We also want to mock the searchEntities function to return a set of options or when necessary throw an error.
  * The dispatch function is also mocked to check if the state is updated correctly.
  */
