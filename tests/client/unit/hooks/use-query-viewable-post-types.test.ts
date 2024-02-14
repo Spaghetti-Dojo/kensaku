@@ -25,7 +25,7 @@ describe('Post Types Query', () => {
 			errored: () => false,
 			succeed: () => true,
 			records: () =>
-				new Set([
+				Set.new([
 					fromPartial<EntitiesSearch.PostType<'edit'>>({
 						slug: 'viewable-post-type',
 						viewable: true,
@@ -49,7 +49,7 @@ describe('Post Types Query', () => {
 			isResolving: () => true,
 			errored: () => false,
 			succeed: () => false,
-			records: () => new Set(),
+			records: () => Set.new(),
 		});
 
 		const viewablePostTypes = useQueryViewablePostTypes();

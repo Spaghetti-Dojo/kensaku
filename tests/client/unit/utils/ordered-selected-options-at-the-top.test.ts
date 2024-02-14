@@ -44,8 +44,8 @@ describe('Ordered Selected Options at the Top', () => {
 	it('should return the given options at the top', () => {
 		const rawCollection = generateRandomNumbersAsStringCollection();
 
-		const collection = new Set(rawCollection);
-		const options = new Set(generateOptions());
+		const collection = Set.new(rawCollection);
+		const options = Set.new(generateOptions());
 
 		const result = orderSelectedOptionsAtTheTop(options, collection).map(
 			(option) => option.value
@@ -62,19 +62,19 @@ describe('Ordered Selected Options at the Top', () => {
 	});
 
 	it('should return the given selected options when the collection is empty', () => {
-		const options = new Set<EntitiesSearch.ControlOption<string>>(
+		const options = Set.new<EntitiesSearch.ControlOption<string>>(
 			generateOptions()
 		);
 
-		const result = orderSelectedOptionsAtTheTop(options, new Set<string>());
+		const result = orderSelectedOptionsAtTheTop(options, Set.new<string>());
 
 		expect(result).toBe(options);
 	});
 
 	it('should return the given options when the options are empty', () => {
-		const options = new Set<EntitiesSearch.ControlOption<string>>();
+		const options = Set.new<EntitiesSearch.ControlOption<string>>();
 
-		const result = orderSelectedOptionsAtTheTop(options, new Set<string>());
+		const result = orderSelectedOptionsAtTheTop(options, Set.new<string>());
 
 		expect(result.length()).toEqual(0);
 	});

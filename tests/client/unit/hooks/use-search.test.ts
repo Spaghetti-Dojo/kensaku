@@ -29,10 +29,10 @@ describe('useSearch', () => {
 
 	it('Should update the search phrase', async () => {
 		const searchEntities = jest.fn(() =>
-			Promise.resolve(new Set([{ label: 'Label', value: 1 }]))
+			Promise.resolve(Set.new([{ label: 'Label', value: 1 }]))
 		) as jest.Mock<EntitiesSearch.SearchEntitiesFunction<any, any>>;
-		const kind = new Set(['post']);
-		const entities = new Set<number>();
+		const kind = Set.new(['post']);
+		const entities = Set.new<number>();
 		const dispatch = jest.fn();
 
 		const { result } = renderHook(() =>
@@ -51,10 +51,10 @@ describe('useSearch', () => {
 
 	it('Should search the entities', () => {
 		const searchEntities = jest.fn(() =>
-			Promise.resolve(new Set([{ label: 'Label', value: 1 }]))
+			Promise.resolve(Set.new([{ label: 'Label', value: 1 }]))
 		) as jest.Mock<EntitiesSearch.SearchEntitiesFunction<any, any>>;
-		const kind = new Set(['post']);
-		const entities = new Set<number>();
+		const kind = Set.new(['post']);
+		const entities = Set.new<number>();
 		const dispatch = jest.fn();
 
 		const { result } = renderHook(() =>
@@ -73,10 +73,10 @@ describe('useSearch', () => {
 
 	it('Should update the current entities options', async () => {
 		const searchEntities = jest.fn(() =>
-			Promise.resolve(new Set([{ label: 'Label', value: 1 }]))
+			Promise.resolve(Set.new([{ label: 'Label', value: 1 }]))
 		) as jest.Mock<EntitiesSearch.SearchEntitiesFunction<any, any>>;
-		const kind = new Set(['post']);
-		const entities = new Set<number>();
+		const kind = Set.new(['post']);
+		const entities = Set.new<number>();
 		const dispatch = jest.fn();
 
 		const { result } = renderHook(() =>
@@ -84,7 +84,7 @@ describe('useSearch', () => {
 		);
 
 		searchEntities.mockResolvedValueOnce(
-			new Set([
+			Set.new([
 				{
 					value: 1,
 					label: 'Post One',
@@ -102,7 +102,7 @@ describe('useSearch', () => {
 
 		expect(dispatch).toHaveBeenCalledWith({
 			type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
-			currentEntitiesOptions: new Set([
+			currentEntitiesOptions: Set.new([
 				{
 					value: 1,
 					label: 'Post One',
@@ -117,10 +117,10 @@ describe('useSearch', () => {
 
 	it('Should update the current entities options with an empty set when an error occurs', async () => {
 		const searchEntities = jest.fn(() =>
-			Promise.resolve(new Set([{ label: 'Label', value: 1 }]))
+			Promise.resolve(Set.new([{ label: 'Label', value: 1 }]))
 		) as jest.Mock<EntitiesSearch.SearchEntitiesFunction<any, any>>;
-		const kind = new Set(['post']);
-		const entities = new Set<number>();
+		const kind = Set.new(['post']);
+		const entities = Set.new<number>();
 		const dispatch = jest.fn();
 
 		const { result } = renderHook(() =>

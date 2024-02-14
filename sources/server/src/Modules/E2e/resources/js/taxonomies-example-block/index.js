@@ -57,12 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
 						);
 					},
 					entities: {
-						value: new Set(props.attributes.terms),
+						value: Set.new(props.attributes.terms),
 						onChange: (terms) =>
 							props.setAttributes({ terms: terms?.toArray() }),
 					},
 					kind: {
-						value: new Set(props.attributes.taxonomy),
+						value: Set.new(props.attributes.taxonomy),
 						options: convertEntitiesToControlOptions(
 							taxonomiesEntities.records(),
 							'name',

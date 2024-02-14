@@ -6,7 +6,7 @@ import { Set } from '../vo/set';
 export function uniqueControlOptions<V>(
 	set: Set<EntitiesSearch.ControlOption<V>>
 ): Set<EntitiesSearch.ControlOption<V>> {
-	let uniqueOptions = new Set<EntitiesSearch.ControlOption<V>>();
+	let uniqueOptions = Set.new<EntitiesSearch.ControlOption<V>>();
 	const temp: Array<EntitiesSearch.ControlOption<V>['value']> = [];
 
 	for (const option of set) {

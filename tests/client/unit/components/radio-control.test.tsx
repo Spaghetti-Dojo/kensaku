@@ -12,7 +12,7 @@ describe('KindRadioControl', () => {
 	it('renders the component', () => {
 		const props = {
 			className: 'test-class',
-			options: new Set([
+			options: Set.new([
 				{
 					label: 'Option 1',
 					value: 'option-one',
@@ -29,7 +29,7 @@ describe('KindRadioControl', () => {
 	it('renders the NoOptionsMessage when there are no options', () => {
 		const props = {
 			className: 'test-class',
-			options: new Set<EntitiesSearch.ControlOption<any>>(),
+			options: Set.new<EntitiesSearch.ControlOption<any>>(),
 			value: 'option-one',
 			onChange: jest.fn(),
 		};
@@ -41,7 +41,7 @@ describe('KindRadioControl', () => {
 	it('check the input based on the value given', () => {
 		const props = {
 			className: 'test-class',
-			options: new Set([
+			options: Set.new([
 				{
 					label: 'Option 1',
 					value: 'option-one',
@@ -61,7 +61,7 @@ describe('KindRadioControl', () => {
 
 	it('changes the value when an option is selected', () => {
 		const props = {
-			options: new Set([
+			options: Set.new([
 				{
 					label: 'Option 1',
 					value: 'option-one',
@@ -83,7 +83,7 @@ describe('KindRadioControl', () => {
 
 	it('does not change the value when an option is selected that does not exist', () => {
 		const props = {
-			options: new Set([
+			options: Set.new([
 				{
 					label: 'Option 1',
 					value: 'option-one',

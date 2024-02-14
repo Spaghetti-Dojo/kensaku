@@ -13,8 +13,8 @@ export function orderSelectedOptionsAtTheTop<V>(
 		return options;
 	}
 
-	let _collection = new Set<EntitiesSearch.ControlOption<V>>();
-	let _options = new Set<EntitiesSearch.ControlOption<V>>();
+	let _collection = Set.new<EntitiesSearch.ControlOption<V>>();
+	let _options = Set.new<EntitiesSearch.ControlOption<V>>();
 
 	options.forEach((option) => {
 		if (collection.has(option.value)) {
