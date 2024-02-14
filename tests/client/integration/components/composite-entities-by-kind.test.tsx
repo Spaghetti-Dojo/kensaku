@@ -23,18 +23,18 @@ jest.mock('@wordpress/compose', () => ({
 
 describe('CompositeEntitiesByKind', () => {
 	it('Allow to select a kind', async () => {
-		let expectedKinds = new Set();
+		let expectedKinds = Set.new();
 
 		const rendered = render(
 			<CompositeEntitiesByKind
-				searchEntities={() => Promise.resolve(new Set())}
+				searchEntities={() => Promise.resolve(Set.new())}
 				entities={{
-					value: new Set(),
+					value: Set.new(),
 					onChange: () => {},
 				}}
 				kind={{
-					value: new Set(['post']),
-					options: new Set([
+					value: Set.new(['post']),
+					options: Set.new([
 						{ label: 'Post', value: 'post' },
 						{ label: 'Page', value: 'page' },
 					]),
@@ -47,7 +47,7 @@ describe('CompositeEntitiesByKind', () => {
 							{...kind}
 							value={kind.value.first() ?? ''}
 							onChange={(value) =>
-								kind.onChange(new Set([value]))
+								kind.onChange(Set.new([value]))
 							}
 						/>
 					);
@@ -64,26 +64,26 @@ describe('CompositeEntitiesByKind', () => {
 	});
 
 	it('Allow to select an entity', async () => {
-		let expectedEntities = new Set();
+		let expectedEntities = Set.new();
 
 		const rendered = await act(async () =>
 			render(
 				<CompositeEntitiesByKind
 					searchEntities={() =>
 						Promise.resolve(
-							new Set([
+							Set.new([
 								{ label: 'Post 1', value: 'post-1' },
 								{ label: 'Post 2', value: 'post-2' },
 							])
 						)
 					}
 					entities={{
-						value: new Set<string>(),
+						value: Set.new<string>(),
 						onChange: (value) => (expectedEntities = value),
 					}}
 					kind={{
-						value: new Set(['post']),
-						options: new Set(),
+						value: Set.new(['post']),
+						options: Set.new(),
 						onChange: () => {},
 					}}
 				>
@@ -104,26 +104,26 @@ describe('CompositeEntitiesByKind', () => {
 	});
 
 	it('Reset the selected entities when the kind change', async () => {
-		let expectedEntities = new Set();
+		let expectedEntities = Set.new();
 
 		const rendered = await act(async () =>
 			render(
 				<CompositeEntitiesByKind
 					searchEntities={() =>
 						Promise.resolve(
-							new Set([
+							Set.new([
 								{ label: 'Post 1', value: 'post-1' },
 								{ label: 'Post 2', value: 'post-2' },
 							])
 						)
 					}
 					entities={{
-						value: new Set<string>(),
+						value: Set.new<string>(),
 						onChange: (value) => (expectedEntities = value),
 					}}
 					kind={{
-						value: new Set(['post']),
-						options: new Set([
+						value: Set.new(['post']),
+						options: Set.new([
 							{ label: 'Post', value: 'post' },
 							{ label: 'Page', value: 'page' },
 						]),
@@ -137,7 +137,7 @@ describe('CompositeEntitiesByKind', () => {
 									{...kind}
 									value={kind.value.first() ?? ''}
 									onChange={(value) =>
-										kind.onChange(new Set([value]))
+										kind.onChange(Set.new([value]))
 									}
 								/>
 								<PluralSelectControl {...entities} />
@@ -163,7 +163,7 @@ describe('CompositeEntitiesByKind', () => {
 	});
 
 	it('Pass to the children the updated entities options when the kind change', async () => {
-		let expectedEntities = new Set<EntitiesSearch.ControlOption<string>>();
+		let expectedEntities = Set.new<EntitiesSearch.ControlOption<string>>();
 
 		const rendered = await act(() =>
 			render(
@@ -171,7 +171,7 @@ describe('CompositeEntitiesByKind', () => {
 					searchEntities={(_phrase, _postType) => {
 						if (_postType.first() === 'page') {
 							return Promise.resolve(
-								new Set([
+								Set.new([
 									{ label: 'Page 1', value: 'page-1' },
 									{ label: 'Page 2', value: 'page-2' },
 								])
@@ -179,19 +179,19 @@ describe('CompositeEntitiesByKind', () => {
 						}
 
 						return Promise.resolve(
-							new Set([
+							Set.new([
 								{ label: 'Post 1', value: 'post-1' },
 								{ label: 'Post 2', value: 'post-2' },
 							])
 						);
 					}}
 					entities={{
-						value: new Set<string>(),
+						value: Set.new<string>(),
 						onChange: () => {},
 					}}
 					kind={{
-						value: new Set<string>(['post']),
-						options: new Set([
+						value: Set.new<string>(['post']),
+						options: Set.new([
 							{ label: 'Post', value: 'post' },
 							{ label: 'Page', value: 'page' },
 						]),
@@ -207,7 +207,7 @@ describe('CompositeEntitiesByKind', () => {
 									{...kind}
 									value={kind.value.first() ?? ''}
 									onChange={(value) =>
-										kind.onChange(new Set([value]))
+										kind.onChange(Set.new([value]))
 									}
 								/>
 								<PluralSelectControl {...entities} />
@@ -235,7 +235,7 @@ describe('CompositeEntitiesByKind', () => {
 	});
 
 	it('Set the entities options to an empty collection when there is an issue in retrieving them', async () => {
-		let expectedEntities = new Set();
+		let expectedEntities = Set.new();
 
 		const rendered = await act(() =>
 			render(
@@ -245,7 +245,7 @@ describe('CompositeEntitiesByKind', () => {
 						switch (kind.first()) {
 							case 'post':
 								return Promise.resolve(
-									new Set([
+									Set.new([
 										{ label: 'Post 1', value: 'post-1' },
 										{ label: 'Post 2', value: 'post-2' },
 									])
@@ -255,12 +255,12 @@ describe('CompositeEntitiesByKind', () => {
 						}
 					}}
 					entities={{
-						value: new Set<string>(),
+						value: Set.new<string>(),
 						onChange: () => {},
 					}}
 					kind={{
-						value: new Set(['post']),
-						options: new Set([
+						value: Set.new(['post']),
+						options: Set.new([
 							{ label: 'Post', value: 'post' },
 							{ label: 'Page', value: 'page' },
 						]),
@@ -275,7 +275,7 @@ describe('CompositeEntitiesByKind', () => {
 									{...kind}
 									value={kind.value.first() ?? ''}
 									onChange={(value) =>
-										kind.onChange(new Set([value]))
+										kind.onChange(Set.new([value]))
 									}
 								/>
 								<PluralSelectControl {...entities} />
@@ -300,10 +300,10 @@ describe('CompositeEntitiesByKind', () => {
 	});
 
 	it('Does not search for entities when changing the entities selection produce an empty collection', async () => {
-		let selectedEntities = new Set(['post-1', 'post-2']);
+		let selectedEntities = Set.new(['post-1', 'post-2']);
 		const searchEntities = jest.fn(() =>
 			Promise.resolve(
-				new Set([
+				Set.new([
 					{ label: 'Post 1', value: 'post-1' },
 					{ label: 'Post 2', value: 'post-2' },
 				])
@@ -321,8 +321,8 @@ describe('CompositeEntitiesByKind', () => {
 						},
 					}}
 					kind={{
-						value: new Set(['post']),
-						options: new Set(),
+						value: Set.new(['post']),
+						options: Set.new(),
 						onChange: () => {},
 					}}
 				>
@@ -346,7 +346,7 @@ describe('CompositeEntitiesByKind', () => {
 	});
 
 	it('Call searchEntities with the right parameters when mounting the component', async () => {
-		const selectedEntities = new Set(['1', '2']);
+		const selectedEntities = Set.new(['1', '2']);
 
 		const searchEntities = jest.fn() as jest.Mock<
 			EntitiesSearch.CompositeEntitiesKinds<
@@ -364,8 +364,8 @@ describe('CompositeEntitiesByKind', () => {
 						onChange: () => {},
 					}}
 					kind={{
-						value: new Set(['post']),
-						options: new Set(),
+						value: Set.new(['post']),
+						options: Set.new(),
 						onChange: () => {},
 					}}
 				>
@@ -379,7 +379,7 @@ describe('CompositeEntitiesByKind', () => {
 		expect(searchEntities).toHaveBeenNthCalledWith(
 			2,
 			'',
-			new Set(['post']),
+			Set.new(['post']),
 			{
 				include: selectedEntities,
 				per_page: '-1',
@@ -393,12 +393,12 @@ describe('CompositeEntitiesByKind', () => {
 				<CompositeEntitiesByKind
 					searchEntities={() => Promise.reject('Error')}
 					entities={{
-						value: new Set(),
+						value: Set.new(),
 						onChange: () => {},
 					}}
 					kind={{
-						value: new Set(['post']),
-						options: new Set(),
+						value: Set.new(['post']),
+						options: Set.new(),
 						onChange: () => {},
 					}}
 				>
@@ -426,19 +426,19 @@ describe('CompositeEntitiesByKind', () => {
 						}
 
 						return Promise.resolve(
-							new Set([
+							Set.new([
 								{ label: 'Post 1', value: 'post-1' },
 								{ label: 'Post 2', value: 'post-2' },
 							])
 						);
 					}}
 					entities={{
-						value: new Set<string>(),
+						value: Set.new<string>(),
 						onChange: () => {},
 					}}
 					kind={{
-						value: new Set(['post']),
-						options: new Set([
+						value: Set.new(['post']),
+						options: Set.new([
 							{ label: 'Post', value: 'post' },
 							{ label: 'Page', value: 'page' },
 						]),
@@ -465,18 +465,18 @@ describe('CompositeEntitiesByKind', () => {
 	});
 
 	it('Set to an empty collection the Kind when all kinds are unselected', async () => {
-		let expectedKinds = new Set<string>();
+		let expectedKinds = Set.new<string>();
 
 		const rendered = render(
 			<CompositeEntitiesByKind
-				searchEntities={() => Promise.resolve(new Set())}
+				searchEntities={() => Promise.resolve(Set.new())}
 				entities={{
-					value: new Set(),
+					value: Set.new(),
 					onChange: () => {},
 				}}
 				kind={{
-					value: new Set(['post']),
-					options: new Set([
+					value: Set.new(['post']),
+					options: Set.new([
 						{ label: 'Post', value: 'post' },
 						{ label: 'Page', value: 'page' },
 					]),

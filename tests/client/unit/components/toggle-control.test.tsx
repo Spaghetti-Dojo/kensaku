@@ -8,7 +8,7 @@ import userEvent from '@testing-library/user-event';
 import { ToggleControl } from '../../../../sources/client/src/components/toggle-control';
 import { Set } from '../../../../sources/client/src/vo/set';
 
-const options = new Set([
+const options = Set.new([
 	{ label: 'Option 1', value: '1' },
 	{ label: 'Option 2', value: '2' },
 	{ label: 'Option 3', value: '3' },
@@ -19,7 +19,7 @@ describe('EntitiesToggleControl', () => {
 		const { container } = render(
 			<ToggleControl
 				className="test-class"
-				value={new Set(['1'])}
+				value={Set.new(['1'])}
 				options={options}
 				onChange={() => {}}
 			/>
@@ -32,8 +32,8 @@ describe('EntitiesToggleControl', () => {
 		const { container } = render(
 			<ToggleControl
 				className="test-class"
-				value={new Set(['1'])}
-				options={new Set()}
+				value={Set.new(['1'])}
+				options={Set.new()}
 				onChange={() => {}}
 			/>
 		);
@@ -48,14 +48,14 @@ describe('EntitiesToggleControl', () => {
 			<ToggleControl
 				className="test-class"
 				options={options}
-				value={new Set([])}
+				value={Set.new([])}
 				onChange={onChange}
 			/>
 		);
 
 		fireEvent.click(screen.getByLabelText('Option 1'));
 
-		expect(onChange).toHaveBeenCalledWith(new Set(['1']));
+		expect(onChange).toHaveBeenCalledWith(Set.new(['1']));
 	});
 
 	it('updates the value when one or more option are unselected', () => {
@@ -65,19 +65,19 @@ describe('EntitiesToggleControl', () => {
 			<ToggleControl
 				className="test-class"
 				options={options}
-				value={new Set(['1', '2'])}
+				value={Set.new(['1', '2'])}
 				onChange={onChange}
 			/>
 		);
 
 		fireEvent.click(screen.getByLabelText('Option 1'));
 
-		expect(onChange).toHaveBeenCalledWith(new Set(['2']));
+		expect(onChange).toHaveBeenCalledWith(Set.new(['2']));
 	});
 
 	it('does not change the value when an option is selected that does not exist', async () => {
 		const props = {
-			options: new Set([
+			options: Set.new([
 				{
 					label: 'Option 1',
 					value: 'option-one',
@@ -87,7 +87,7 @@ describe('EntitiesToggleControl', () => {
 					value: 'option-two',
 				},
 			]),
-			value: new Set(['option-one']),
+			value: Set.new(['option-one']),
 			onChange: jest.fn(),
 		};
 		const rendered = render(<ToggleControl {...props} />);

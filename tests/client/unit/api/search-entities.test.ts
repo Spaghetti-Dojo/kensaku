@@ -26,9 +26,9 @@ describe('Search Posts', () => {
 			return Promise.resolve([]);
 		});
 
-		await searchEntities('post', new Set(['post']), 'foo', {
-			exclude: new Set<string>(['1', '3']),
-			include: new Set<string>(['2', '5']),
+		await searchEntities('post', Set.new(['post']), 'foo', {
+			exclude: Set.new<string>(['1', '3']),
+			include: Set.new<string>(['2', '5']),
 		});
 
 		expect(expectedPath).toBe(
@@ -47,11 +47,11 @@ describe('Search Posts', () => {
 
 		const entities = await searchEntities<EntitiesSearch.Post>(
 			'post',
-			new Set(['post']),
+			Set.new(['post']),
 			'foo',
 			{
-				exclude: new Set<string>(['1', '3']),
-				include: new Set<string>(['2', '5']),
+				exclude: Set.new<string>(['1', '3']),
+				include: Set.new<string>(['2', '5']),
 			}
 		);
 
@@ -72,9 +72,9 @@ describe('Search Posts', () => {
 		);
 
 		try {
-			await searchEntities('post', new Set(['post']), 'foo', {
-				exclude: new Set<string>(['1', '3']),
-				include: new Set<string>(['2', '5']),
+			await searchEntities('post', Set.new(['post']), 'foo', {
+				exclude: Set.new<string>(['1', '3']),
+				include: Set.new<string>(['2', '5']),
 			});
 		} catch (error: any) {
 			expectedError = error;
@@ -98,9 +98,9 @@ describe('Search Posts', () => {
 		);
 
 		try {
-			await searchEntities('post', new Set(['post']), 'foo', {
-				exclude: new Set<string>(['1', '3']),
-				include: new Set<string>(['2', '5']),
+			await searchEntities('post', Set.new(['post']), 'foo', {
+				exclude: Set.new<string>(['1', '3']),
+				include: Set.new<string>(['2', '5']),
 			});
 		} catch (error: any) {
 			expectedError = error;

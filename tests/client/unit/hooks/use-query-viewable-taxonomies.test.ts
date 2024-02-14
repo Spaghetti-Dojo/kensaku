@@ -20,7 +20,7 @@ describe('useQueryViewableTaxonomies', () => {
 			errored: () => false,
 			succeed: () => true,
 			records: () =>
-				new Set([
+				Set.new([
 					fromPartial<EntitiesSearch.Taxonomy<'edit'>>({
 						name: 'Category',
 						visibility: {
