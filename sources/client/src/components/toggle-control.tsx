@@ -40,11 +40,15 @@ export function ToggleControl(
 				const value = String(option.value);
 				const id = idByControlOption(option);
 				return (
-					<div key={value} className="wz-toggle-control-item">
+					<div
+						key={value}
+						className={`wz-toggle-control-item wz-toggle-control-item--${option.value}`}
+					>
 						<label htmlFor={id}>
 							<input
 								type="checkbox"
 								id={id}
+								className={`wz-toggle-control-item__input-${option.value}`}
 								checked={props.value?.has(option.value)}
 								value={value}
 								onChange={onChange}

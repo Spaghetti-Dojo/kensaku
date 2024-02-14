@@ -5,13 +5,14 @@ exports[`EntitiesToggleControl renders correctly 1`] = `
   class="test-class wz-toggle-control"
 >
   <div
-    class="wz-toggle-control-item"
+    class="wz-toggle-control-item wz-toggle-control-item--1"
   >
     <label
       for="wz-toggle-control-item__input-option-1-1"
     >
       <input
         checked=""
+        class="wz-toggle-control-item__input-1"
         id="wz-toggle-control-item__input-option-1-1"
         type="checkbox"
         value="1"
@@ -20,12 +21,13 @@ exports[`EntitiesToggleControl renders correctly 1`] = `
     </label>
   </div>
   <div
-    class="wz-toggle-control-item"
+    class="wz-toggle-control-item wz-toggle-control-item--2"
   >
     <label
       for="wz-toggle-control-item__input-option-2-2"
     >
       <input
+        class="wz-toggle-control-item__input-2"
         id="wz-toggle-control-item__input-option-2-2"
         type="checkbox"
         value="2"
@@ -34,12 +36,13 @@ exports[`EntitiesToggleControl renders correctly 1`] = `
     </label>
   </div>
   <div
-    class="wz-toggle-control-item"
+    class="wz-toggle-control-item wz-toggle-control-item--3"
   >
     <label
       for="wz-toggle-control-item__input-option-3-3"
     >
       <input
+        class="wz-toggle-control-item__input-3"
         id="wz-toggle-control-item__input-option-3-3"
         type="checkbox"
         value="3"

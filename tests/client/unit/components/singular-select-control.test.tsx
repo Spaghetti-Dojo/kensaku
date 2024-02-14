@@ -1,7 +1,7 @@
 import EntitiesSearch from '@types';
 import React from 'react';
 
-import { describe, it, expect } from '@jest/globals';
+import { describe, it, expect, jest } from '@jest/globals';
 
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -59,5 +59,36 @@ describe('Post Types Select', () => {
 				'.wp-entities-search-no-option-message'
 			)
 		).toBeInTheDocument();
+	});
+
+	it('does not change the value when an option is selected that does not exist', async () => {
+		const props = {
+			options: new Set([
+				{
+					label: 'Option 1',
+					value: 'option-one',
+				},
+				{
+					label: 'Option 2',
+					value: 'option-two',
+				},
+			]),
+			value: 'option-two',
+			onChange: jest.fn(),
+		};
+		const rendered = render(<SingularSelectControl {...props} />);
+
+		const select = rendered.container.querySelector(
+			'.wz-select-control'
+		) as HTMLSelectElement;
+
+		const option = select.querySelector(
+			'.wz-select-control-item--option-one'
+		) as HTMLOptionElement;
+		option.value = 'option-3';
+
+		await userEvent.selectOptions(select, option);
+
+		expect(props.onChange).not.toHaveBeenCalled();
 	});
 });

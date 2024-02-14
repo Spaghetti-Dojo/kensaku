@@ -97,4 +97,49 @@ describe('reducer', () => {
 
 		expect(newState).toEqual(state);
 	});
+
+	it('update search phrase', () => {
+		const searchPhrase = faker.lorem.word();
+		const newState = reducer(state, {
+			type: 'UPDATE_SEARCH_PHRASE',
+			searchPhrase,
+		});
+
+		expect(newState.searchPhrase).toEqual(searchPhrase);
+	});
+
+	it('clean entities options', () => {
+		const newState = reducer(state, {
+			type: 'CLEAN_ENTITIES_OPTIONS',
+		});
+
+		expect(newState.selectedEntitiesOptions).toEqual(new Set());
+		expect(newState.contextualEntitiesOptions).toEqual(new Set());
+		expect(newState.currentEntitiesOptions).toEqual(new Set());
+	});
+
+	it('update entities options for new kind', () => {
+		const kind = new Set(['post']);
+		const entitiesOptions = new Set([
+			{
+				value: faker.number.int(10),
+				label: 'Post One',
+			},
+			{
+				value: faker.number.int({ min: 11, max: 20 }),
+				label: 'Post Two',
+			},
+		]);
+		const newState = reducer(state, {
+			type: 'UPDATE_ENTITIES_OPTIONS_FOR_NEW_KIND',
+			kind,
+			entitiesOptions,
+		});
+
+		expect(newState.contextualEntitiesOptions).toEqual(entitiesOptions);
+		expect(newState.currentEntitiesOptions).toEqual(entitiesOptions);
+		expect(newState.selectedEntitiesOptions).toEqual(new Set());
+		expect(newState.entities).toEqual(new Set());
+		expect(newState.kind).toEqual(kind);
+	});
 });
