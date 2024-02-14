@@ -16,11 +16,11 @@ jest.mock('@wordpress/hooks', () => ({
 
 describe('Use Posts Options Storage', () => {
 	it('Ensure seachEntities is called with the right data on state hydratation.', async () => {
-		const kind = Set.new(['post']);
-		const entities = Set.new([1, 2, 3]);
+		const kind = new Set(['post']);
+		const entities = new Set([1, 2, 3]);
 		const searchEntities = jest.fn(() =>
 			Promise.resolve(
-				Set.new([
+				new Set([
 					{
 						label: 'post-title',
 						value: 1,
@@ -53,9 +53,9 @@ describe('Use Posts Options Storage', () => {
 	});
 
 	it('Update the state based on the given kind and entities', async () => {
-		const kind = Set.new(['post']);
-		const entities = Set.new([1, 2, 3]);
-		const selectedEntitiesOptions = Set.new([
+		const kind = new Set(['post']);
+		const entities = new Set([1, 2, 3]);
+		const selectedEntitiesOptions = new Set([
 			{
 				label: 'post-title-1',
 				value: 1,
@@ -69,7 +69,7 @@ describe('Use Posts Options Storage', () => {
 				value: 3,
 			},
 		]);
-		const currentEntitiesOptions = Set.new([
+		const currentEntitiesOptions = new Set([
 			{
 				label: 'post-title-4',
 				value: 4,
@@ -129,8 +129,8 @@ describe('Use Posts Options Storage', () => {
 	});
 
 	it('Sete the current and selected entities options to an empty set if searchEntities fails', async () => {
-		const kind = Set.new(['post']);
-		const entities = Set.new([1, 2, 3]);
+		const kind = new Set(['post']);
+		const entities = new Set([1, 2, 3]);
 		const searchEntities = jest.fn(() =>
 			Promise.resolve(null)
 		) as jest.Mock<() => Promise<null>>;
@@ -156,7 +156,7 @@ describe('Use Posts Options Storage', () => {
 
 		await act(() => render(<Component />));
 
-		const expectedSet = Set.new();
+		const expectedSet = new Set();
 
 		expect(dispatch).toHaveBeenCalledWith({
 			type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
@@ -173,11 +173,11 @@ describe('Use Posts Options Storage', () => {
 	});
 
 	it('Does not call searchEntities with includes if entities is empty', async () => {
-		const kind = Set.new(['post']);
-		const entities = Set.new();
+		const kind = new Set(['post']);
+		const entities = new Set();
 		const searchEntities = jest.fn(() =>
 			Promise.resolve(
-				Set.new([
+				new Set([
 					{
 						label: 'post-title',
 						value: 1,
@@ -212,8 +212,8 @@ describe('Use Posts Options Storage', () => {
 	});
 
 	it('Execute the action wp-entities-search.on-storage-initialization.error when there is an error on searchEntites', async () => {
-		const kind = Set.new(['post']);
-		const entities = Set.new([1, 2, 3]);
+		const kind = new Set(['post']);
+		const entities = new Set([1, 2, 3]);
 		const searchEntities = jest.fn(() =>
 			Promise.reject('Search Entities Failed.')
 		);

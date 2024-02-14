@@ -43,9 +43,9 @@ export function reducer<E, K>(
 		case 'CLEAN_ENTITIES_OPTIONS':
 			return {
 				...state,
-				selectedEntitiesOptions: Set.new(),
-				contextualEntitiesOptions: Set.new(),
-				currentEntitiesOptions: Set.new(),
+				selectedEntitiesOptions: new Set(),
+				contextualEntitiesOptions: new Set(),
+				currentEntitiesOptions: new Set(),
 			};
 
 		case 'UPDATE_ENTITIES_OPTIONS_FOR_NEW_KIND':
@@ -53,8 +53,8 @@ export function reducer<E, K>(
 				...state,
 				contextualEntitiesOptions: action.entitiesOptions,
 				currentEntitiesOptions: action.entitiesOptions,
-				selectedEntitiesOptions: Set.new(),
-				entities: Set.new(),
+				selectedEntitiesOptions: new Set(),
+				entities: new Set(),
 				kind: action.kind,
 			};
 

@@ -7,7 +7,7 @@ import { Set } from '../../../../sources/client/src/vo/set';
 
 describe('Unique Control Options', () => {
 	it('Do not allow same control options within the same set', () => {
-		const set = Set.new<EntitiesSearch.ControlOption<string>>([
+		const set = new Set<EntitiesSearch.ControlOption<string>>([
 			{ label: 'foo', value: 'foo' },
 			{ label: 'bar', value: 'bar' },
 			{ label: 'foo', value: 'foo' },

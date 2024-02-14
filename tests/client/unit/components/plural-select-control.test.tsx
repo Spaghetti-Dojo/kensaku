@@ -18,14 +18,14 @@ describe('Posts Select', () => {
 			label: faker.word.words(2),
 			value: faker.word.noun(),
 		};
-		const options = Set.new<EntitiesSearch.ControlOption<string>>([])
+		const options = new Set<EntitiesSearch.ControlOption<string>>([])
 			.add(option)
 			.concat(buildOptions());
 
 		const rendered = render(
 			<PluralSelectControl
 				options={options}
-				value={Set.new([option.value])}
+				value={new Set([option.value])}
 				onChange={() => {}}
 			/>
 		);
@@ -50,14 +50,14 @@ describe('Posts Select', () => {
 			label: faker.word.words(2),
 			value: faker.word.noun(),
 		};
-		const options = Set.new<EntitiesSearch.ControlOption<string>>([])
+		const options = new Set<EntitiesSearch.ControlOption<string>>([])
 			.add(option)
 			.concat(buildOptions());
 
 		const rendered = render(
 			<PluralSelectControl
 				options={options}
-				value={Set.new([option.value])}
+				value={new Set([option.value])}
 				onChange={() => {}}
 			/>
 		);
@@ -83,8 +83,8 @@ describe('Posts Select', () => {
 	it('Render the NoOptionsMessage component', () => {
 		const rendered = render(
 			<PluralSelectControl
-				options={Set.new()}
-				value={Set.new()}
+				options={new Set()}
+				value={new Set()}
 				onChange={() => {}}
 			/>
 		);

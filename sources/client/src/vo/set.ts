@@ -3,11 +3,7 @@ import { isEqual as _isEqual } from 'lodash';
 export class Set<T> {
 	readonly #data: ReadonlyArray<T>;
 
-	public static new<T>(data: ReadonlyArray<T> = []): Set<T> {
-		return new Set(data);
-	}
-
-	private constructor(data: ReadonlyArray<T> = []) {
+	public constructor(data: ReadonlyArray<T> = []) {
 		this.#data = data;
 	}
 
@@ -16,7 +12,7 @@ export class Set<T> {
 			return this;
 		}
 
-		return Set.new([...this.#data, value]);
+		return new Set([...this.#data, value]);
 	}
 
 	public delete(value: T): Set<T> {
@@ -24,7 +20,7 @@ export class Set<T> {
 			return this;
 		}
 
-		return Set.new(this.#data.filter((item) => !this.isEqual(item, value)));
+		return new Set(this.#data.filter((item) => !this.isEqual(item, value)));
 	}
 
 	public has(value: T): boolean {
@@ -32,7 +28,7 @@ export class Set<T> {
 	}
 
 	public map<R = T>(fn: (value: T) => R): Set<R> {
-		return Set.new(this.#data.map(fn));
+		return new Set(this.#data.map(fn));
 	}
 
 	public toArray(): ReadonlyArray<T> {
@@ -48,11 +44,11 @@ export class Set<T> {
 	}
 
 	public concat(set: Set<T>): Set<T> {
-		return Set.new([...this.#data, ...set.toArray()]);
+		return new Set([...this.#data, ...set.toArray()]);
 	}
 
 	public filter(fn: (value: T) => boolean): Set<T> {
-		return Set.new(this.#data.filter(fn));
+		return new Set(this.#data.filter(fn));
 	}
 
 	public find(fn: (value: T) => boolean): T | undefined {
@@ -68,7 +64,7 @@ export class Set<T> {
 	}
 
 	public copy(start: number, end: number): Set<T> {
-		return Set.new(this.#data.slice(start, end));
+		return new Set(this.#data.slice(start, end));
 	}
 
 	public equals(set: Set<T>): boolean {

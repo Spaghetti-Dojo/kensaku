@@ -30,7 +30,7 @@ export function useSearch<E, K>(
 				)
 				.catch((error) => {
 					doAction('wp-entities-search.on-search.error', error);
-					const emptySet = Set.new<EntitiesSearch.ControlOption<E>>();
+					const emptySet = new Set<EntitiesSearch.ControlOption<E>>();
 					dispatch({
 						type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 						currentEntitiesOptions: emptySet,

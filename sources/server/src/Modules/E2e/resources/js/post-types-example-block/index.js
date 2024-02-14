@@ -61,12 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
 						);
 					},
 					entities: {
-						value: Set.new(props.attributes.posts),
+						value: new Set(props.attributes.posts),
 						onChange: (posts) =>
 							props.setAttributes({ posts: posts.toArray() }),
 					},
 					kind: {
-						value: Set.new(props.attributes.postType),
+						value: new Set(props.attributes.postType),
 						options: convertEntitiesToControlOptions(
 							postTypesEntities
 								.records()

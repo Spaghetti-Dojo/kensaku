@@ -29,7 +29,7 @@ export function useEntityRecords<Entity>(
 	const status = entities.status as any as ResolveStatus;
 
 	return Object.freeze({
-		records: () => Set.new(entities.records ?? []),
+		records: () => new Set(entities.records ?? []),
 		isResolving: () =>
 			entities.isResolving &&
 			!entities.hasResolved &&
