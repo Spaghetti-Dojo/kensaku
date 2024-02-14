@@ -20,8 +20,9 @@ describe('Convert Entities To Control Options', () => {
 			);
 		}
 
-		const entities =
-			Set.new<EntitiesSearch.SearchEntityFields>(rawEntities);
+		const entities = new Set<EntitiesSearch.SearchEntityFields>(
+			rawEntities
+		);
 
 		const options = convertEntitiesToControlOptions(
 			entities,
@@ -44,8 +45,9 @@ describe('Convert Entities To Control Options', () => {
 			);
 		}
 
-		const entities =
-			Set.new<EntitiesSearch.SearchEntityFields>(rawEntities);
+		const entities = new Set<EntitiesSearch.SearchEntityFields>(
+			rawEntities
+		);
 
 		expect(() => {
 			// To make the test fail, we pass the id as the label key

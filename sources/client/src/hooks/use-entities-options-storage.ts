@@ -39,8 +39,8 @@ export function useEntitiesOptionsStorage<E, K>(
 				: undefined,
 		])
 			.then((result) => {
-				const currentEntitiesOptions = result[0] ?? Set.new();
-				const selectedEntitiesOptions = result[1] ?? Set.new();
+				const currentEntitiesOptions = result[0] ?? new Set();
+				const selectedEntitiesOptions = result[1] ?? new Set();
 
 				dispatch({
 					type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',

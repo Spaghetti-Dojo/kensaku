@@ -23,7 +23,7 @@ describe('Post Types Select', () => {
 			label: faker.word.words(2),
 			value: faker.word.noun(),
 		};
-		const options = Set.new<EntitiesSearch.ControlOption<string>>()
+		const options = new Set<EntitiesSearch.ControlOption<string>>()
 			.add(option)
 			.concat(buildOptions());
 
@@ -48,7 +48,7 @@ describe('Post Types Select', () => {
 	it('Render No Options Message', () => {
 		const rendered = render(
 			<SingularSelectControl
-				options={Set.new()}
+				options={new Set()}
 				value={''}
 				onChange={() => {}}
 			/>
@@ -63,7 +63,7 @@ describe('Post Types Select', () => {
 
 	it('does not change the value when an option is selected that does not exist', async () => {
 		const props = {
-			options: Set.new([
+			options: new Set([
 				{
 					label: 'Option 1',
 					value: 'option-one',

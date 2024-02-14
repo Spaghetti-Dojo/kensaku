@@ -19,7 +19,7 @@ export function PluralSelectControl(
 
 	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		if (event.target.selectedOptions.length <= 0) {
-			props.onChange(Set.new());
+			props.onChange(new Set());
 		}
 
 		const selectedOptions = Array.from(event.target.selectedOptions).map(

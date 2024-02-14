@@ -54,7 +54,7 @@ export async function searchEntities<E>(
 		throw error;
 	});
 
-	return Set.new(entities);
+	return new Set(entities);
 }
 
 function serializeFields(fields: EntitiesSearch.SearchQueryFields): string {

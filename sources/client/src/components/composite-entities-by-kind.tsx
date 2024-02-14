@@ -32,7 +32,7 @@ export function CompositeEntitiesByKind<E, K>(
 		if (entities.length() <= 0) {
 			dispatch({
 				type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
-				selectedEntitiesOptions: Set.new(),
+				selectedEntitiesOptions: new Set(),
 			});
 			return;
 		}
@@ -45,8 +45,8 @@ export function CompositeEntitiesByKind<E, K>(
 			}),
 		])
 			.then((result) => {
-				const currentEntitiesOptions = result[0] ?? Set.new();
-				const selectedEntitiesOptions = result[1] ?? Set.new();
+				const currentEntitiesOptions = result[0] ?? new Set();
+				const selectedEntitiesOptions = result[1] ?? new Set();
 
 				dispatch({
 					type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
@@ -63,8 +63,8 @@ export function CompositeEntitiesByKind<E, K>(
 	};
 
 	const onChangeKind = (kind: EntitiesSearch.Kind<K>) => {
-		const _kind = kind instanceof Set ? kind : Set.new([kind]);
-		const emptySet = Set.new<any>();
+		const _kind = kind instanceof Set ? kind : new Set([kind]);
+		const emptySet = new Set<any>();
 
 		props.kind.onChange(_kind);
 		props.entities.onChange(emptySet);

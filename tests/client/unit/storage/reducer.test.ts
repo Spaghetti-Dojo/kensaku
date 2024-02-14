@@ -11,7 +11,7 @@ let state: EntitiesSearch.EntitiesState<number, string>;
 
 describe('reducer', () => {
 	it('Update the Entities', () => {
-		const entities = Set.new<number>();
+		const entities = new Set<number>();
 		const newState = reducer(state, {
 			type: 'UPDATE_ENTITIES',
 			entities,
@@ -21,7 +21,7 @@ describe('reducer', () => {
 	});
 
 	it('Update the Kind', () => {
-		const kind = Set.new(['post']);
+		const kind = new Set(['post']);
 		const newState = reducer(state, {
 			type: 'UPDATE_KIND',
 			kind,
@@ -31,7 +31,7 @@ describe('reducer', () => {
 	});
 
 	it('Update the Contextual Posts Options', () => {
-		const contextualPostsOptions = Set.new([
+		const contextualPostsOptions = new Set([
 			{
 				value: faker.number.int(10),
 				label: 'Post One',
@@ -52,7 +52,7 @@ describe('reducer', () => {
 	});
 
 	it('Update the Posts Options', () => {
-		const postsOptions = Set.new([
+		const postsOptions = new Set([
 			{
 				value: faker.number.int(10),
 				label: 'Post Two',
@@ -71,7 +71,7 @@ describe('reducer', () => {
 	});
 
 	it('Update the Selected Posts Options with Control Options', () => {
-		const posts = Set.new([
+		const posts = new Set([
 			{
 				value: 55,
 				label: 'Post FiftyFive',
@@ -113,14 +113,14 @@ describe('reducer', () => {
 			type: 'CLEAN_ENTITIES_OPTIONS',
 		});
 
-		expect(newState.selectedEntitiesOptions).toEqual(Set.new());
-		expect(newState.contextualEntitiesOptions).toEqual(Set.new());
-		expect(newState.currentEntitiesOptions).toEqual(Set.new());
+		expect(newState.selectedEntitiesOptions).toEqual(new Set());
+		expect(newState.contextualEntitiesOptions).toEqual(new Set());
+		expect(newState.currentEntitiesOptions).toEqual(new Set());
 	});
 
 	it('update entities options for new kind', () => {
-		const kind = Set.new(['post']);
-		const entitiesOptions = Set.new([
+		const kind = new Set(['post']);
+		const entitiesOptions = new Set([
 			{
 				value: faker.number.int(10),
 				label: 'Post One',
@@ -138,8 +138,8 @@ describe('reducer', () => {
 
 		expect(newState.contextualEntitiesOptions).toEqual(entitiesOptions);
 		expect(newState.currentEntitiesOptions).toEqual(entitiesOptions);
-		expect(newState.selectedEntitiesOptions).toEqual(Set.new());
-		expect(newState.entities).toEqual(Set.new());
+		expect(newState.selectedEntitiesOptions).toEqual(new Set());
+		expect(newState.entities).toEqual(new Set());
 		expect(newState.kind).toEqual(kind);
 	});
 });
