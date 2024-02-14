@@ -16,6 +16,6 @@ export function convertEntitiesToControlOptions<
 		const label = entity[labelKey];
 		const value = entity[valueKey];
 		assert(typeof label === 'string', 'Label Key must be a string');
-		return ControlOption.new(label, value);
+		return new ControlOption(label, value);
 	});
 }
