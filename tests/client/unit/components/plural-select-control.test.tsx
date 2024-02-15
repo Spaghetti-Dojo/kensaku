@@ -32,7 +32,7 @@ describe('Posts Select', () => {
 
 		const valuesToSelect = [option.value, String(options.last()?.value)];
 		const select = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		/*
@@ -64,7 +64,7 @@ describe('Posts Select', () => {
 
 		const valuesToSelect = [option.value, String(options.last()?.value)];
 		const select = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		/*
