@@ -13,8 +13,7 @@ more Post Types but also, to search for Terms belonging to one or more Taxonomie
 4. [Components](./docs/components.md)
 5. [Hooks](./docs/hooks.md)
 6. [Logging](./docs/logging.md)
-7. [Integration](./docs/integration.md)
-8. [Storage](./docs/storage.md)
+7. [Storage](./docs/storage.md)
 
 ## License
 

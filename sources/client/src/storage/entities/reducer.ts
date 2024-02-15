@@ -2,6 +2,11 @@ import EntitiesSearch from '@types';
 
 import { Set } from '../../vo/set';
 
+/**
+ * @internal
+ * @param state  The state of the reducer
+ * @param action The action to be performed
+ */
 export function reducer<E, K>(
 	state: EntitiesSearch.EntitiesState<E, K>,
 	action: EntitiesSearch.StoreAction<E, K>

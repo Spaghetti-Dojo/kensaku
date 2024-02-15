@@ -4,6 +4,10 @@ import { Set } from '../../vo/set';
 
 type Options<V> = EntitiesSearch.ControlOption<V>;
 
+/**
+ * @internal
+ * @param initialState The initial state to merge with the default state
+ */
 export function makeInitialState<E, K>(
 	initialState: Partial<EntitiesSearch.EntitiesState<E, K>>
 ): EntitiesSearch.EntitiesState<E, K> {
