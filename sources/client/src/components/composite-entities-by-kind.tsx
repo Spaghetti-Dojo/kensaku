@@ -38,7 +38,9 @@ export function CompositeEntitiesByKind<E, K>(
 		}
 
 		Promise.all([
-			props.searchEntities(state.searchPhrase, state.kind),
+			props.searchEntities(state.searchPhrase, state.kind, {
+				exclude: entities,
+			}),
 			props.searchEntities('', state.kind, {
 				include: entities,
 				per_page: '-1',
