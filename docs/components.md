@@ -76,7 +76,7 @@ export function MyComponent(props) {
             }}
         }}
     >
-        {({ entities, kind, search }) => (
+        {(entities, kind, search) => (
             <>
                 <ToggleControl
                     value={kind.value}
@@ -155,7 +155,7 @@ export function MyComponent(props) {
             onChange={() => {}}
         }}
     >
-        {({ entities, _, search }) => (
+        {(entities, _, search) => (
             <>
                 <SearchControl
                     onChange={search.onChange}
@@ -186,7 +186,7 @@ export function MyComponent(props) {
     return <CompositeEntitiesByKind
         /* ... */
     >
-        {({ entities, kind, search }) => (
+        {(entities, kind, search) => (
             <>
                 <RadioControl
                     value={kind.value.first()}
