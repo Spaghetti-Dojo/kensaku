@@ -3,6 +3,7 @@ import React from 'react';
 import { describe, expect, it, jest } from '@jest/globals';
 
 import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { ToggleControl } from '../../../../sources/client/src/components/toggle-control';
 import { Set } from '../../../../sources/client/src/vo/set';
@@ -72,5 +73,32 @@ describe('EntitiesToggleControl', () => {
 		fireEvent.click(screen.getByLabelText('Option 1'));
 
 		expect(onChange).toHaveBeenCalledWith(new Set(['2']));
+	});
+
+	it('does not change the value when an option is selected that does not exist', async () => {
+		const props = {
+			options: new Set([
+				{
+					label: 'Option 1',
+					value: 'option-one',
+				},
+				{
+					label: 'Option 2',
+					value: 'option-two',
+				},
+			]),
+			value: new Set(['option-one']),
+			onChange: jest.fn(),
+		};
+		const rendered = render(<ToggleControl {...props} />);
+
+		const option = rendered.container.querySelector(
+			'.wes-toggle-control-item__input-option-one'
+		) as HTMLOptionElement;
+		option.value = 'option-3';
+
+		await userEvent.click(option);
+
+		expect(props.onChange).not.toHaveBeenCalled();
 	});
 });

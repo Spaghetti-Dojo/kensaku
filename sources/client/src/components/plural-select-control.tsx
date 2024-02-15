@@ -13,8 +13,8 @@ export function PluralSelectControl(
 	const [selected, setSelected] = React.useState(props.value);
 	const className = classnames(
 		props.className,
-		'wz-select-control',
-		'wz-select-control--plural'
+		'wes-select-control',
+		'wes-select-control--plural'
 	);
 
 	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -47,7 +47,7 @@ export function PluralSelectControl(
 			{props.options.map((option) => (
 				<option
 					key={option.value}
-					className={`wz-select-control-item wz-select-control-item--${option.value}`}
+					className={`wes-select-control-item wes-select-control-item--${option.value}`}
 					value={option.value}
 				>
 					{option.label}

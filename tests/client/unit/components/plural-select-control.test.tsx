@@ -32,7 +32,7 @@ describe('Posts Select', () => {
 
 		const valuesToSelect = [option.value, String(options.last()?.value)];
 		const select = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		/*
@@ -64,7 +64,7 @@ describe('Posts Select', () => {
 
 		const valuesToSelect = [option.value, String(options.last()?.value)];
 		const select = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		/*
@@ -78,5 +78,17 @@ describe('Posts Select', () => {
 
 		await userEvent.deselectOptions(select, valuesToSelect);
 		expect(select.selectedOptions.length).toBe(0);
+	});
+
+	it('Render the NoOptionsMessage component', () => {
+		const rendered = render(
+			<PluralSelectControl
+				options={new Set()}
+				value={new Set()}
+				onChange={() => {}}
+			/>
+		);
+
+		expect(rendered.asFragment()).toMatchSnapshot();
 	});
 });

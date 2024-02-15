@@ -7,7 +7,7 @@ export function RadioControl(
 		className?: string;
 	}
 ): JSX.Element {
-	const className = classnames(props.className, 'wz-radio-control');
+	const className = classnames(props.className, 'wes-radio-control');
 
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { target } = event;
@@ -27,14 +27,14 @@ export function RadioControl(
 			{props.options.map((option) => (
 				<div
 					key={option.value}
-					className={`wz-radio-control-item wz-radio-control-item--${option.value}`}
+					className={`wes-radio-control-item wes-radio-control-item--${option.value}`}
 				>
 					<label
-						htmlFor={`wz-radio-control-item__input-${option.value}`}
+						htmlFor={`wes-radio-control-item__input-${option.value}`}
 					>
 						<input
 							type="radio"
-							id={`wz-radio-control-item__input-${option.value}`}
+							id={`wes-radio-control-item__input-${option.value}`}
 							checked={props.value === option.value}
 							value={option.value}
 							onChange={onChange}

@@ -10,7 +10,7 @@ export function SearchControl(
 
 	const Container = useCallback(
 		(containerProps: PropsWithChildren) => (
-			<div className="wz-search-control">{containerProps.children}</div>
+			<div className="wes-search-control">{containerProps.children}</div>
 		),
 		[]
 	);
@@ -23,7 +23,7 @@ export function SearchControl(
 	const inputProps = {
 		type: 'search',
 		value: searchValue,
-		className: 'wz-search-control__input',
+		className: 'wes-search-control__input',
 		onChange,
 	};
 

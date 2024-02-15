@@ -80,4 +80,29 @@ describe('KindRadioControl', () => {
 
 		expect(props.onChange).toHaveBeenCalledWith('option-2');
 	});
+
+	it('does not change the value when an option is selected that does not exist', () => {
+		const props = {
+			options: new Set([
+				{
+					label: 'Option 1',
+					value: 'option-one',
+				},
+				{
+					label: 'Option 2',
+					value: 'option-two',
+				},
+			]),
+			value: 'option-two',
+			onChange: jest.fn(),
+		};
+		render(<RadioControl {...props} />);
+
+		const option = screen.getByLabelText<HTMLInputElement>('Option 1');
+		option.value = 'option-3';
+
+		fireEvent.click(option);
+
+		expect(props.onChange).not.toHaveBeenCalled();
+	});
 });
