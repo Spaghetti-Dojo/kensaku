@@ -11,8 +11,8 @@ export function SingularSelectControl(
 ): JSX.Element {
 	const className = classnames(
 		props.className,
-		'wz-select-control',
-		'wz-select-control--singular'
+		'wes-select-control',
+		'wes-select-control--singular'
 	);
 
 	if (props.options.length() <= 0) {
@@ -37,7 +37,7 @@ export function SingularSelectControl(
 			{props.options.map((option) => (
 				<option
 					key={option.value}
-					className={`wz-select-control-item wz-select-control-item--${option.value}`}
+					className={`wes-select-control-item wes-select-control-item--${option.value}`}
 					value={option.value}
 				>
 					{option.label}

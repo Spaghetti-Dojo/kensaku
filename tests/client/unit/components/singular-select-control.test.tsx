@@ -36,7 +36,7 @@ describe('Post Types Select', () => {
 		);
 
 		const select = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		userEvent.selectOptions(select, option.value).then(() => {
@@ -55,9 +55,7 @@ describe('Post Types Select', () => {
 		);
 
 		expect(
-			rendered.container.querySelector(
-				'.wp-entities-search-no-option-message'
-			)
+			rendered.container.querySelector('.wes-no-option-message')
 		).toBeInTheDocument();
 	});
 
@@ -79,11 +77,11 @@ describe('Post Types Select', () => {
 		const rendered = render(<SingularSelectControl {...props} />);
 
 		const select = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		const option = select.querySelector(
-			'.wz-select-control-item--option-one'
+			'.wes-select-control-item--option-one'
 		) as HTMLOptionElement;
 		option.value = 'option-3';
 

@@ -93,7 +93,7 @@ describe('EntitiesToggleControl', () => {
 		const rendered = render(<ToggleControl {...props} />);
 
 		const option = rendered.container.querySelector(
-			'.wz-toggle-control-item__input-option-one'
+			'.wes-toggle-control-item__input-option-one'
 		) as HTMLOptionElement;
 		option.value = 'option-3';
 

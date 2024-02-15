@@ -56,7 +56,7 @@ describe('CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions(kindSelect, 'page');
@@ -95,7 +95,7 @@ describe('CompositeEntitiesByKind', () => {
 		);
 
 		const entitiesSelect = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions(entitiesSelect, ['post-2']);
@@ -149,10 +149,10 @@ describe('CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wz-select-control--singular'
+			'.wes-select-control--singular'
 		) as HTMLSelectElement;
 		const entitiesSelect = rendered.container.querySelector(
-			'.wz-select-control--plural'
+			'.wes-select-control--plural'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions(entitiesSelect, ['post-2']);
@@ -219,7 +219,7 @@ describe('CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		expect(expectedEntities.length()).toBe(2);
@@ -287,7 +287,7 @@ describe('CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wz-select-control--singular'
+			'.wes-select-control--singular'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions(kindSelect, 'page');
@@ -334,7 +334,7 @@ describe('CompositeEntitiesByKind', () => {
 		);
 
 		const entitiesSelect = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		expect(selectedEntities.length()).toBe(2);
@@ -453,7 +453,7 @@ describe('CompositeEntitiesByKind', () => {
 		);
 
 		const entitiesSelect = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions(entitiesSelect, ['post-1']);
@@ -490,7 +490,7 @@ describe('CompositeEntitiesByKind', () => {
 		);
 
 		const postTypeSelect = rendered.container.querySelector(
-			'.wz-select-control'
+			'.wes-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.deselectOptions(postTypeSelect, ['post']);

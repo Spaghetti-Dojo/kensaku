@@ -10,7 +10,7 @@ export function ToggleControl(
 		className?: string;
 	}
 ): JSX.Element {
-	const className = classnames(props.className, 'wz-toggle-control');
+	const className = classnames(props.className, 'wes-toggle-control');
 
 	if (props.options.length() <= 0) {
 		return <NoOptionsMessage />;
@@ -42,13 +42,13 @@ export function ToggleControl(
 				return (
 					<div
 						key={value}
-						className={`wz-toggle-control-item wz-toggle-control-item--${option.value}`}
+						className={`wes-toggle-control-item wes-toggle-control-item--${option.value}`}
 					>
 						<label htmlFor={id}>
 							<input
 								type="checkbox"
 								id={id}
-								className={`wz-toggle-control-item__input-${option.value}`}
+								className={`wes-toggle-control-item__input-${option.value}`}
 								checked={props.value?.has(option.value)}
 								value={value}
 								onChange={onChange}
@@ -67,5 +67,5 @@ function idByControlOption<V>(
 ): string {
 	const { value } = controlOption;
 	const label = slugifyOptionLabel(controlOption);
-	return `wz-toggle-control-item__input-${label}-${value}`;
+	return `wes-toggle-control-item__input-${label}-${value}`;
 }
