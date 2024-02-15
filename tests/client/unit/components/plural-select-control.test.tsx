@@ -79,4 +79,16 @@ describe('Posts Select', () => {
 		await userEvent.deselectOptions(select, valuesToSelect);
 		expect(select.selectedOptions.length).toBe(0);
 	});
+
+	it('Render the NoOptionsMessage component', () => {
+		const rendered = render(
+			<PluralSelectControl
+				options={new Set()}
+				value={new Set()}
+				onChange={() => {}}
+			/>
+		);
+
+		expect(rendered.asFragment()).toMatchSnapshot();
+	});
 });

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Posts Select Render the NoOptionsMessage component 1`] = `
+<DocumentFragment>
+  <p
+    class="wp-entities-search-no-option-message"
+  >
+    No options
+  </p>
+</DocumentFragment>
+`;
