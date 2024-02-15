@@ -25,6 +25,10 @@ class Module implements Modularity\Module\ExecutableModule
 
     public function run(Container\ContainerInterface $container): bool
     {
+        if (!$container->get(Modularity\Package::PROPERTIES)->isDebug()) {
+            return false;
+        }
+
         \add_action('init', static function () use ($container) {
             /** @var Modularity\Properties\Properties $properties */
             $properties = $container->get(Modularity\Package::PROPERTIES);

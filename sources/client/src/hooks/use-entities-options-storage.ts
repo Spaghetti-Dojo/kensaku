@@ -12,8 +12,13 @@ type _Reducer<E, K> = Reducer<
 	EntitiesSearch.StoreAction<E, K>
 >;
 
+/**
+ * @public
+ * @param initialState   The initial state configuration
+ * @param searchEntities The function that will search the entities
+ */
 export function useEntitiesOptionsStorage<E, K>(
-	initialState: Partial<EntitiesSearch.EntitiesState<E, K>>,
+	initialState: Pick<EntitiesSearch.EntitiesState<E, K>, 'entities' | 'kind'>,
 	searchEntities: EntitiesSearch.SearchEntitiesFunction<E, K>
 ): Readonly<
 	[
