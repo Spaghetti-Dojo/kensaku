@@ -2,11 +2,15 @@ import EntitiesSearch from '@types';
 import classnames from 'classnames';
 import React, { JSX } from 'react';
 
+import { useId } from '../hooks/use-id';
+
 export function RadioControl(
 	props: EntitiesSearch.SingularControl<EntitiesSearch.Value> & {
 		className?: string;
+		id?: string;
 	}
 ): JSX.Element {
+	const id = useId(props.id);
 	const className = classnames(props.className, 'wes-radio-control');
 
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,12 +33,10 @@ export function RadioControl(
 					key={option.value}
 					className={`wes-radio-control-item wes-radio-control-item--${option.value}`}
 				>
-					<label
-						htmlFor={`wes-radio-control-item__input-${option.value}`}
-					>
+					<label htmlFor={id}>
 						<input
 							type="radio"
-							id={`wes-radio-control-item__input-${option.value}`}
+							id={id}
 							checked={props.value === option.value}
 							value={option.value}
 							onChange={onChange}
