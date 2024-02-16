@@ -1,7 +1,9 @@
-import { useId } from '../hooks/use-id';
 import EntitiesSearch from '@types';
-import { __ } from '@wordpress/i18n';
 import React, { JSX } from 'react';
+
+import { __ } from '@wordpress/i18n';
+
+import { useId } from '../hooks/use-id';
 
 export function SearchControl(
 	props: EntitiesSearch.SearchControl
