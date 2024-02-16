@@ -15,7 +15,6 @@ export * from './hooks/use-query-viewable-taxonomies';
 export * from './utils/convert-entities-to-control-options';
 export * from './utils/is-control-option';
 export * from './utils/order-selected-options-at-the-top';
-export * from './utils/slugify-option-label';
 export * from './utils/unique-control-options';
 
 export * from './vo/control-option';

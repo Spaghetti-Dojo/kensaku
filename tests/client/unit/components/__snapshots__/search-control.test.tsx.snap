@@ -3,6 +3,7 @@
 exports[`SearchControl renders the input outside the label if the id prop is not passed 1`] = `
 <input
   class="wes-search-control__input"
+  id=":r1:"
   type="search"
   value=""
 />

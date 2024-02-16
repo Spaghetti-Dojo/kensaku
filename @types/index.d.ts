@@ -159,6 +159,7 @@ declare namespace EntitiesSearch {
 	interface SearchControl
 		extends Readonly<{
 			id?: string;
+			label?: string;
 			onChange(phrase: string | React.ChangeEvent<HTMLInputElement>);
 		}> {}
 

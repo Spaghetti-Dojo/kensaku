@@ -9,7 +9,7 @@ exports[`KindRadioControl renders the NoOptionsMessage when there are no options
 exports[`KindRadioControl renders the component 1`] = `
 <input
   checked=""
-  id="wes-radio-control-item__input-option-one"
+  id=":r0:"
   type="radio"
   value="option-one"
 />
