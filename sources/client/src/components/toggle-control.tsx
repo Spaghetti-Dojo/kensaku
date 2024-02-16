@@ -66,7 +66,7 @@ function Option<V>(props: Option<V>): JSX.Element {
 				<input
 					type="checkbox"
 					id={id}
-					className={`wes-toggle-control-item__input-${props.value}`}
+					className={`wes-toggle-control-item__input-${value}`}
 					checked={props.selectedValues?.has(props.value)}
 					value={value}
 					onChange={props.onChange}
