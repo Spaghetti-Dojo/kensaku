@@ -6,9 +6,9 @@ export class ContextualAbortController {
 	#context: string;
 	#reason: string;
 
-	constructor(context: string, reason: string) {
-		if (context === '') {
-			throw new Error('Abort Controllers, context cannot be empty');
+	constructor( context: string, reason: string ) {
+		if ( context === '' ) {
+			throw new Error( 'Abort Controllers, context cannot be empty' );
 		}
 
 		this.#controller = new AbortController();
@@ -21,7 +21,7 @@ export class ContextualAbortController {
 	}
 
 	public abort(): ContextualAbortController {
-		this.#controller.abort(this.reason());
+		this.#controller.abort( this.reason() );
 		return this;
 	}
 
@@ -34,6 +34,6 @@ export class ContextualAbortController {
 	}
 
 	private reason(): DOMException {
-		return new DOMException(this.#reason, 'AbortError');
+		return new DOMException( this.#reason, 'AbortError' );
 	}
 }

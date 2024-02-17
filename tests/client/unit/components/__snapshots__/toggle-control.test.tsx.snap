@@ -2,17 +2,18 @@
 
 exports[`EntitiesToggleControl renders correctly 1`] = `
 <div
-  class="test-class wz-toggle-control"
+  class="test-class wes-toggle-control"
 >
   <div
-    class="wz-toggle-control-item"
+    class="wes-toggle-control-item wes-toggle-control-item--1"
   >
     <label
-      for="wz-toggle-control-item__input-option-1-1"
+      for=":r0:"
     >
       <input
         checked=""
-        id="wz-toggle-control-item__input-option-1-1"
+        class="wes-toggle-control-item__input-1"
+        id=":r0:"
         type="checkbox"
         value="1"
       />
@@ -20,13 +21,14 @@ exports[`EntitiesToggleControl renders correctly 1`] = `
     </label>
   </div>
   <div
-    class="wz-toggle-control-item"
+    class="wes-toggle-control-item wes-toggle-control-item--2"
   >
     <label
-      for="wz-toggle-control-item__input-option-2-2"
+      for=":r1:"
     >
       <input
-        id="wz-toggle-control-item__input-option-2-2"
+        class="wes-toggle-control-item__input-2"
+        id=":r1:"
         type="checkbox"
         value="2"
       />
@@ -34,13 +36,14 @@ exports[`EntitiesToggleControl renders correctly 1`] = `
     </label>
   </div>
   <div
-    class="wz-toggle-control-item"
+    class="wes-toggle-control-item wes-toggle-control-item--3"
   >
     <label
-      for="wz-toggle-control-item__input-option-3-3"
+      for=":r2:"
     >
       <input
-        id="wz-toggle-control-item__input-option-3-3"
+        class="wes-toggle-control-item__input-3"
+        id=":r2:"
         type="checkbox"
         value="3"
       />
@@ -52,7 +55,7 @@ exports[`EntitiesToggleControl renders correctly 1`] = `
 
 exports[`EntitiesToggleControl renders the NoOptionsMessage when there are no options 1`] = `
 <p
-  class="wp-entities-search-no-option-message"
+  class="wes-no-option-message"
 >
   No options
 </p>

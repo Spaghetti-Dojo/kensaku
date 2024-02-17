@@ -1,5 +1,11 @@
+/**
+ * External dependencies
+ */
 import EntitiesSearch from '@types';
 
+/**
+ * Internal dependencies
+ */
 import { Set } from '../vo/set';
 import { useEntityRecords } from './use-entity-records';
 
@@ -9,18 +15,16 @@ import { useEntityRecords } from './use-entity-records';
  *
  * @public
  */
-export function useQueryViewableTaxonomies(): EntitiesSearch.EntitiesRecords<EntitiesSearch.ViewableTaxonomy> {
-	const entitiesRecords = useEntityRecords<EntitiesSearch.Taxonomy<'edit'>>(
-		'root',
-		'taxonomy',
-		{ per_page: -1 }
-	);
+export function useQueryViewableTaxonomies(): EntitiesSearch.EntitiesRecords< EntitiesSearch.ViewableTaxonomy > {
+	const entitiesRecords = useEntityRecords<
+		EntitiesSearch.Taxonomy< 'edit' >
+	>( 'root', 'taxonomy', { per_page: -1 } );
 
 	const viewableTaxonomies = entitiesRecords
 		.records()
 		.filter(
-			(taxonomy) => taxonomy.visibility.publicly_queryable
-		) as Set<EntitiesSearch.ViewableTaxonomy>;
+			( taxonomy ) => taxonomy.visibility.publicly_queryable
+		) as Set< EntitiesSearch.ViewableTaxonomy >;
 
 	return {
 		...entitiesRecords,

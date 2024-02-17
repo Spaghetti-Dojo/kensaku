@@ -1,46 +1,44 @@
+/**
+ * External dependencies
+ */
 import EntitiesSearch from '@types';
-import React, { JSX, PropsWithChildren, useCallback } from 'react';
+import React, { JSX } from 'react';
 
+/**
+ * WordPress dependencies
+ */
 import { __ } from '@wordpress/i18n';
+
+/**
+ * Internal dependencies
+ */
+import { useId } from '../hooks/use-id';
 
 export function SearchControl(
 	props: EntitiesSearch.SearchControl
 ): JSX.Element {
-	const [searchValue, setSearchValue] = React.useState<string>('');
+	const id = useId( props.id );
+	const label = props.label || __( 'Search', 'wp-entities-search' );
+	const [ searchValue, setSearchValue ] = React.useState( '' );
 
-	const Container = useCallback(
-		(containerProps: PropsWithChildren) => (
-			<div className="wz-search-control">{containerProps.children}</div>
-		),
-		[]
-	);
-
-	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchValue(event.target.value);
-		props.onChange(event.target.value);
+	const onChange = ( event: React.ChangeEvent< HTMLInputElement > ) => {
+		setSearchValue( event.target.value );
+		props.onChange( event.target.value );
 	};
 
 	const inputProps = {
 		type: 'search',
 		value: searchValue,
-		className: 'wz-search-control__input',
+		className: 'wes-search-control__input',
 		onChange,
 	};
 
-	if (props.id) {
-		return (
-			<Container>
-				<label htmlFor={props.id}>
-					{__('Search', 'wp-entities-search')}
-					<input id={props.id} {...inputProps} />
-				</label>
-			</Container>
-		);
-	}
-
 	return (
-		<Container>
-			<input {...inputProps} />
-		</Container>
+		<div className="wes-search-control">
+			<label htmlFor={ id }>
+				<span className="wes-search-control__label">{ label }</span>
+				<input id={ id } { ...inputProps } />
+			</label>
+		</div>
 	);
 }

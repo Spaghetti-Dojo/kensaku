@@ -4,4 +4,11 @@
 /vendor/
 /node_modules/
 
-composer.lock
+/composer.lock
+/.pnp.*
+/.yarn/*
+!/.yarn/patches
+!/.yarn/plugins
+!/.yarn/releases
+!/.yarn/sdks
+!/.yarn/versions
