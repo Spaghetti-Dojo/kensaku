@@ -44,9 +44,9 @@ describe( 'KindRadioControl', () => {
 		expect( container.firstChild ).toMatchSnapshot();
 	} );
 
-	it.each([
+	it.each( [
 		[
-			new Set([
+			new Set( [
 				{
 					label: 'Option 1',
 					value: 'option-one',
@@ -55,11 +55,11 @@ describe( 'KindRadioControl', () => {
 					label: 'Option 2',
 					value: 'option-2',
 				},
-			]),
+			] ),
 			'option-one',
 		],
 		[
-			new Set([
+			new Set( [
 				{
 					label: 'Option 1',
 					value: 1,
@@ -68,10 +68,10 @@ describe( 'KindRadioControl', () => {
 					label: 'Option 2',
 					value: 2,
 				},
-			]),
+			] ),
 			1,
 		],
-	])('check the input based on the value given', (options, value) => {
+	] )( 'check the input based on the value given', ( options, value ) => {
 		const props = {
 			className: 'test-class',
 			options,
@@ -83,9 +83,9 @@ describe( 'KindRadioControl', () => {
 		expect( screen.getByLabelText( 'Option 1' ) ).toBeChecked();
 	} );
 
-	it.each([
+	it.each( [
 		[
-			new Set([
+			new Set( [
 				{
 					label: 'Option 1',
 					value: 'option-one',
@@ -94,12 +94,12 @@ describe( 'KindRadioControl', () => {
 					label: 'Option 2',
 					value: 'option-2',
 				},
-			]),
+			] ),
 			'option-one',
 			'option-2',
 		],
 		[
-			new Set([
+			new Set( [
 				{
 					label: 'Option 1',
 					value: 1,
@@ -108,23 +108,23 @@ describe( 'KindRadioControl', () => {
 					label: 'Option 2',
 					value: 2,
 				},
-			]),
+			] ),
 			1,
 			2,
 		],
-	])(
+	] )(
 		'changes the value when an option is selected',
-		(options, value, expected) => {
+		( options, value, expected ) => {
 			const props = {
 				options,
 				value,
 				onChange: jest.fn(),
 			};
-			render(<RadioControl {...props} />);
+			render( <RadioControl { ...props } /> );
 
-			fireEvent.click(screen.getByLabelText('Option 2'));
+			fireEvent.click( screen.getByLabelText( 'Option 2' ) );
 
-			expect(props.onChange).toHaveBeenCalledWith(expected);
+			expect( props.onChange ).toHaveBeenCalledWith( expected );
 		}
 	);
 
