@@ -44,10 +44,9 @@ describe( 'KindRadioControl', () => {
 		expect( container.firstChild ).toMatchSnapshot();
 	} );
 
-	it( 'check the input based on the value given', () => {
-		const props = {
-			className: 'test-class',
-			options: new Set( [
+	it.each([
+		[
+			new Set([
 				{
 					label: 'Option 1',
 					value: 'option-one',
@@ -56,8 +55,27 @@ describe( 'KindRadioControl', () => {
 					label: 'Option 2',
 					value: 'option-2',
 				},
-			] ),
-			value: 'option-one',
+			]),
+			'option-one',
+		],
+		[
+			new Set([
+				{
+					label: 'Option 1',
+					value: 1,
+				},
+				{
+					label: 'Option 2',
+					value: 2,
+				},
+			]),
+			1,
+		],
+	])('check the input based on the value given', (options, value) => {
+		const props = {
+			className: 'test-class',
+			options,
+			value,
 			onChange: jest.fn(),
 		};
 		render( <RadioControl { ...props } /> );
@@ -65,9 +83,9 @@ describe( 'KindRadioControl', () => {
 		expect( screen.getByLabelText( 'Option 1' ) ).toBeChecked();
 	} );
 
-	it( 'changes the value when an option is selected', () => {
-		const props = {
-			options: new Set( [
+	it.each([
+		[
+			new Set([
 				{
 					label: 'Option 1',
 					value: 'option-one',
@@ -76,16 +94,39 @@ describe( 'KindRadioControl', () => {
 					label: 'Option 2',
 					value: 'option-2',
 				},
-			] ),
-			value: 'option-one',
-			onChange: jest.fn(),
-		};
-		render( <RadioControl { ...props } /> );
+			]),
+			'option-one',
+			'option-2',
+		],
+		[
+			new Set([
+				{
+					label: 'Option 1',
+					value: 1,
+				},
+				{
+					label: 'Option 2',
+					value: 2,
+				},
+			]),
+			1,
+			2,
+		],
+	])(
+		'changes the value when an option is selected',
+		(options, value, expected) => {
+			const props = {
+				options,
+				value,
+				onChange: jest.fn(),
+			};
+			render(<RadioControl {...props} />);
 
-		fireEvent.click( screen.getByLabelText( 'Option 2' ) );
+			fireEvent.click(screen.getByLabelText('Option 2'));
 
-		expect( props.onChange ).toHaveBeenCalledWith( 'option-2' );
-	} );
+			expect(props.onChange).toHaveBeenCalledWith(expected);
+		}
+	);
 
 	it( 'does not change the value when an option is selected that does not exist', () => {
 		const props = {

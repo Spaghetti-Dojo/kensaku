@@ -5,11 +5,13 @@ import EntitiesSearch from '@types';
 import classnames from 'classnames';
 import React, { JSX } from 'react';
 
-/**
- * Internal dependencies
- */
-import { slugifyOptionLabel } from '../utils/slugify-option-label';
+import { useId } from '../hooks/use-id';
 import { NoOptionsMessage } from './no-options-message';
+
+interface Option<V> extends EntitiesSearch.ControlOption<V> {
+	readonly selectedValues: EntitiesSearch.BaseControl<V>['value'];
+	readonly onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 export function ToggleControl(
 	props: EntitiesSearch.BaseControl< EntitiesSearch.Value > & {
@@ -41,37 +43,39 @@ export function ToggleControl(
 	};
 
 	return (
-		<div className={ className }>
-			{ props.options.map( ( option ) => {
-				const value = String( option.value );
-				const id = idByControlOption( option );
-				return (
-					<div
-						key={ value }
-						className={ `wes-toggle-control-item wes-toggle-control-item--${ option.value }` }
-					>
-						<label htmlFor={ id }>
-							<input
-								type="checkbox"
-								id={ id }
-								className={ `wes-toggle-control-item__input-${ option.value }` }
-								checked={ props.value?.has( option.value ) }
-								value={ value }
-								onChange={ onChange }
-							/>
-							{ option.label }
-						</label>
-					</div>
-				);
-			} ) }
+		<div className={className}>
+			{props.options.map((option) => (
+				<Option<EntitiesSearch.Value>
+					key={option.value}
+					label={option.label}
+					value={option.value}
+					selectedValues={props.value}
+					onChange={onChange}
+				/>
+			))}
 		</div>
 	);
 }
 
-function idByControlOption< V >(
-	controlOption: EntitiesSearch.ControlOption< V >
-): string {
-	const { value } = controlOption;
-	const label = slugifyOptionLabel( controlOption );
-	return `wes-toggle-control-item__input-${ label }-${ value }`;
+function Option<V>(props: Option<V>): JSX.Element {
+	const id = useId();
+	const value = String(props.value);
+
+	return (
+		<div
+			className={`wes-toggle-control-item wes-toggle-control-item--${value}`}
+		>
+			<label htmlFor={id}>
+				<input
+					type="checkbox"
+					id={id}
+					className={`wes-toggle-control-item__input-${value}`}
+					checked={props.selectedValues?.has(props.value)}
+					value={value}
+					onChange={props.onChange}
+				/>
+				{props.label}
+			</label>
+		</div>
+	);
 }
