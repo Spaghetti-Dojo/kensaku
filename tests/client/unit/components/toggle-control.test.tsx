@@ -1,3 +1,6 @@
+/**
+ * External dependencies
+ */
 import React from 'react';
 
 import { describe, expect, it, jest } from '@jest/globals';
@@ -5,79 +8,82 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+/**
+ * Internal dependencies
+ */
 import { ToggleControl } from '../../../../sources/client/src/components/toggle-control';
 import { Set } from '../../../../sources/client/src/vo/set';
 
-const options = new Set([
+const options = new Set( [
 	{ label: 'Option 1', value: '1' },
 	{ label: 'Option 2', value: '2' },
 	{ label: 'Option 3', value: '3' },
-]);
+] );
 
-describe('EntitiesToggleControl', () => {
-	it('renders correctly', () => {
+describe( 'EntitiesToggleControl', () => {
+	it( 'renders correctly', () => {
 		const { container } = render(
 			<ToggleControl
 				className="test-class"
-				value={new Set(['1'])}
-				options={options}
-				onChange={() => {}}
+				value={ new Set( [ '1' ] ) }
+				options={ options }
+				onChange={ () => {} }
 			/>
 		);
 
-		expect(container.firstChild).toMatchSnapshot();
-	});
+		expect( container.firstChild ).toMatchSnapshot();
+	} );
 
-	it('renders the NoOptionsMessage when there are no options', () => {
+	it( 'renders the NoOptionsMessage when there are no options', () => {
 		const { container } = render(
 			<ToggleControl
 				className="test-class"
-				value={new Set(['1'])}
-				options={new Set()}
-				onChange={() => {}}
+				value={ new Set( [ '1' ] ) }
+				options={ new Set() }
+				onChange={ () => {} }
 			/>
 		);
 
-		expect(container.firstChild).toMatchSnapshot();
-	});
+		expect( container.firstChild ).toMatchSnapshot();
+	} );
 
-	it('updates the value when one or more option are selected', () => {
+	it( 'updates the value when one or more option are selected', () => {
 		const onChange = jest.fn();
 
 		render(
 			<ToggleControl
 				className="test-class"
-				options={options}
-				value={new Set([])}
-				onChange={onChange}
+				options={ options }
+				value={ new Set( [] ) }
+				onChange={ onChange }
 			/>
 		);
 
-		fireEvent.click(screen.getByLabelText('Option 1'));
+		fireEvent.click( screen.getByLabelText( 'Option 1' ) );
 
-		expect(onChange).toHaveBeenCalledWith(new Set(['1']));
-	});
+		expect( onChange ).toHaveBeenCalledWith( new Set( [ '1' ] ) );
+	} );
 
-	it('updates the value when one or more option are unselected', () => {
+	it( 'updates the value when one or more option are unselected', () => {
 		const onChange = jest.fn();
 
 		render(
 			<ToggleControl
 				className="test-class"
-				options={options}
-				value={new Set(['1', '2'])}
-				onChange={onChange}
+				options={ options }
+				value={ new Set( [ '1', '2' ] ) }
+				onChange={ onChange }
 			/>
 		);
 
-		fireEvent.click(screen.getByLabelText('Option 1'));
+		fireEvent.click( screen.getByLabelText( 'Option 1' ) );
 
-		expect(onChange).toHaveBeenCalledWith(new Set(['2']));
-	});
+		expect( onChange ).toHaveBeenCalledWith( new Set( [ '2' ] ) );
+	} );
 
-	it('does not change the value when an option is selected that does not exist', async () => {
+	it( 'does not change the value when an option is selected that does not exist', async () => {
 		const props = {
-			options: new Set([
+			options: new Set( [
 				{
 					label: 'Option 1',
 					value: 'option-one',
@@ -86,19 +92,19 @@ describe('EntitiesToggleControl', () => {
 					label: 'Option 2',
 					value: 'option-two',
 				},
-			]),
-			value: new Set(['option-one']),
+			] ),
+			value: new Set( [ 'option-one' ] ),
 			onChange: jest.fn(),
 		};
-		const rendered = render(<ToggleControl {...props} />);
+		const rendered = render( <ToggleControl { ...props } /> );
 
 		const option = rendered.container.querySelector(
 			'.wes-toggle-control-item__input-option-one'
 		) as HTMLOptionElement;
 		option.value = 'option-3';
 
-		await userEvent.click(option);
+		await userEvent.click( option );
 
-		expect(props.onChange).not.toHaveBeenCalled();
-	});
-});
+		expect( props.onChange ).not.toHaveBeenCalled();
+	} );
+} );

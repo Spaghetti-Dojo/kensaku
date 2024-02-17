@@ -1,9 +1,12 @@
+/**
+ * External dependencies
+ */
 import EntitiesSearch from '@types';
 
 export function isControlOption(
 	option: unknown
-): option is EntitiesSearch.ControlOption<any> {
-	if (option === null) {
+): option is EntitiesSearch.ControlOption< any > {
+	if ( option === null ) {
 		return false;
 	}
 

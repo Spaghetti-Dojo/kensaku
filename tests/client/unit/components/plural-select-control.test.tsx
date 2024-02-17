@@ -1,3 +1,6 @@
+/**
+ * External dependencies
+ */
 import EntitiesSearch from '@types';
 import React from 'react';
 
@@ -8,29 +11,35 @@ import userEvent from '@testing-library/user-event';
 
 import { faker } from '@faker-js/faker';
 
+/**
+ * Internal dependencies
+ */
 import { PluralSelectControl } from '../../../../sources/client/src/components/plural-select-control';
 import { Set } from '../../../../sources/client/src/vo/set';
 import { buildOptions } from '../utils';
 
-describe('Posts Select', () => {
-	it('Call the given onChange handler', async () => {
-		const option: EntitiesSearch.ControlOption<string> = {
-			label: faker.word.words(2),
+describe( 'Posts Select', () => {
+	it( 'Call the given onChange handler', async () => {
+		const option: EntitiesSearch.ControlOption< string > = {
+			label: faker.word.words( 2 ),
 			value: faker.word.noun(),
 		};
-		const options = new Set<EntitiesSearch.ControlOption<string>>([])
-			.add(option)
-			.concat(buildOptions());
+		const options = new Set< EntitiesSearch.ControlOption< string > >( [] )
+			.add( option )
+			.concat( buildOptions() );
 
 		const rendered = render(
 			<PluralSelectControl
-				options={options}
-				value={new Set([option.value])}
-				onChange={() => {}}
+				options={ options }
+				value={ new Set( [ option.value ] ) }
+				onChange={ () => {} }
 			/>
 		);
 
-		const valuesToSelect = [option.value, String(options.last()?.value)];
+		const valuesToSelect = [
+			option.value,
+			String( options.last()?.value ),
+		];
 		const select = rendered.container.querySelector(
 			'.wes-select-control'
 		) as HTMLSelectElement;
@@ -39,30 +48,37 @@ describe('Posts Select', () => {
 		 * We do not need to select two options since we are only testing the pure logic not the data but,
 		 * for logic correctness the `select` element is a multi select.
 		 */
-		await userEvent.selectOptions(select, valuesToSelect);
+		await userEvent.selectOptions( select, valuesToSelect );
 
-		expect(select.selectedOptions[0]?.value).toEqual(valuesToSelect[0]);
-		expect(select.selectedOptions[1]?.value).toEqual(valuesToSelect[1]);
-	});
+		expect( select.selectedOptions[ 0 ]?.value ).toEqual(
+			valuesToSelect[ 0 ]
+		);
+		expect( select.selectedOptions[ 1 ]?.value ).toEqual(
+			valuesToSelect[ 1 ]
+		);
+	} );
 
-	it('Deselect the options', async () => {
-		const option: EntitiesSearch.ControlOption<string> = {
-			label: faker.word.words(2),
+	it( 'Deselect the options', async () => {
+		const option: EntitiesSearch.ControlOption< string > = {
+			label: faker.word.words( 2 ),
 			value: faker.word.noun(),
 		};
-		const options = new Set<EntitiesSearch.ControlOption<string>>([])
-			.add(option)
-			.concat(buildOptions());
+		const options = new Set< EntitiesSearch.ControlOption< string > >( [] )
+			.add( option )
+			.concat( buildOptions() );
 
 		const rendered = render(
 			<PluralSelectControl
-				options={options}
-				value={new Set([option.value])}
-				onChange={() => {}}
+				options={ options }
+				value={ new Set( [ option.value ] ) }
+				onChange={ () => {} }
 			/>
 		);
 
-		const valuesToSelect = [option.value, String(options.last()?.value)];
+		const valuesToSelect = [
+			option.value,
+			String( options.last()?.value ),
+		];
 		const select = rendered.container.querySelector(
 			'.wes-select-control'
 		) as HTMLSelectElement;
@@ -71,24 +87,28 @@ describe('Posts Select', () => {
 		 * We do not need to select two options since we are only testing the pure logic not the data but,
 		 * for logic correctness the `select` element is a multi select.
 		 */
-		await userEvent.selectOptions(select, valuesToSelect);
+		await userEvent.selectOptions( select, valuesToSelect );
 
-		expect(select.selectedOptions[0]?.value).toEqual(valuesToSelect[0]);
-		expect(select.selectedOptions[1]?.value).toEqual(valuesToSelect[1]);
+		expect( select.selectedOptions[ 0 ]?.value ).toEqual(
+			valuesToSelect[ 0 ]
+		);
+		expect( select.selectedOptions[ 1 ]?.value ).toEqual(
+			valuesToSelect[ 1 ]
+		);
 
-		await userEvent.deselectOptions(select, valuesToSelect);
-		expect(select.selectedOptions.length).toBe(0);
-	});
+		await userEvent.deselectOptions( select, valuesToSelect );
+		expect( select.selectedOptions.length ).toBe( 0 );
+	} );
 
-	it('Render the NoOptionsMessage component', () => {
+	it( 'Render the NoOptionsMessage component', () => {
 		const rendered = render(
 			<PluralSelectControl
-				options={new Set()}
-				value={new Set()}
-				onChange={() => {}}
+				options={ new Set() }
+				value={ new Set() }
+				onChange={ () => {} }
 			/>
 		);
 
-		expect(rendered.asFragment()).toMatchSnapshot();
-	});
-});
+		expect( rendered.asFragment() ).toMatchSnapshot();
+	} );
+} );

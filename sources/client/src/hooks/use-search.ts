@@ -1,13 +1,24 @@
+/**
+ * External dependencies
+ */
 import EntitiesSearch from '@types';
 import React from 'react';
 
+/**
+ * WordPress dependencies
+ */
 import { useThrottle } from '@wordpress/compose';
 import { doAction } from '@wordpress/hooks';
 
+/**
+ * Internal dependencies
+ */
 import { Set } from '../vo/set';
 
-type SearchPhrase = Parameters<EntitiesSearch.SearchControl['onChange']>[0];
-type SearchFunc = (phrase: SearchPhrase) => void;
+type SearchPhrase = Parameters<
+	EntitiesSearch.SearchControl[ 'onChange' ]
+>[ 0 ];
+type SearchFunc = ( phrase: SearchPhrase ) => void;
 
 /**
  * Build a function to search the entities by a phrase
@@ -18,39 +29,41 @@ type SearchFunc = (phrase: SearchPhrase) => void;
  * @param entities       The entities to exclude from the search
  * @param dispatch       The dispatch function to update the state
  */
-export function useSearch<E, K>(
-	searchEntities: EntitiesSearch.SearchEntitiesFunction<E, K>,
-	kind: EntitiesSearch.Kind<K>,
-	entities: EntitiesSearch.Entities<E>,
-	dispatch: React.Dispatch<EntitiesSearch.StoreAction<E, K>>
+export function useSearch< E, K >(
+	searchEntities: EntitiesSearch.SearchEntitiesFunction< E, K >,
+	kind: EntitiesSearch.Kind< K >,
+	entities: EntitiesSearch.Entities< E >,
+	dispatch: React.Dispatch< EntitiesSearch.StoreAction< E, K > >
 ): SearchFunc {
 	return useThrottle(
-		(phrase: SearchPhrase) => {
-			const _phrase = extractPhrase(phrase);
+		( phrase: SearchPhrase ) => {
+			const _phrase = extractPhrase( phrase );
 
-			searchEntities(_phrase, kind, {
+			searchEntities( _phrase, kind, {
 				exclude: entities,
-			})
-				.then((result) =>
-					dispatch({
+			} )
+				.then( ( result ) =>
+					dispatch( {
 						type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 						currentEntitiesOptions: result,
-					})
+					} )
 				)
-				.catch((error) => {
-					doAction('wp-entities-search.on-search.error', error);
-					const emptySet = new Set<EntitiesSearch.ControlOption<E>>();
-					dispatch({
+				.catch( ( error ) => {
+					doAction( 'wp-entities-search.on-search.error', error );
+					const emptySet = new Set<
+						EntitiesSearch.ControlOption< E >
+					>();
+					dispatch( {
 						type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 						currentEntitiesOptions: emptySet,
-					});
+					} );
 					return emptySet;
-				})
-				.finally(() =>
-					dispatch({
+				} )
+				.finally( () =>
+					dispatch( {
 						type: 'UPDATE_SEARCH_PHRASE',
 						searchPhrase: _phrase,
-					})
+					} )
 				);
 		},
 		300,
@@ -58,7 +71,7 @@ export function useSearch<E, K>(
 	);
 }
 
-function extractPhrase(phraseOrEvent: SearchPhrase): string {
+function extractPhrase( phraseOrEvent: SearchPhrase ): string {
 	const phrase =
 		typeof phraseOrEvent === 'string'
 			? phraseOrEvent
