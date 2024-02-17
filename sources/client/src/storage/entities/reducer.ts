@@ -1,5 +1,11 @@
+/**
+ * External dependencies
+ */
 import EntitiesSearch from '@types';
 
+/**
+ * Internal dependencies
+ */
 import { Set } from '../../vo/set';
 
 /**
@@ -7,11 +13,11 @@ import { Set } from '../../vo/set';
  * @param state  The state of the reducer
  * @param action The action to be performed
  */
-export function reducer<E, K>(
-	state: EntitiesSearch.EntitiesState<E, K>,
-	action: EntitiesSearch.StoreAction<E, K>
-): EntitiesSearch.EntitiesState<E, K> {
-	switch (action.type) {
+export function reducer< E, K >(
+	state: EntitiesSearch.EntitiesState< E, K >,
+	action: EntitiesSearch.StoreAction< E, K >
+): EntitiesSearch.EntitiesState< E, K > {
+	switch ( action.type ) {
 		case 'UPDATE_ENTITIES':
 			return {
 				...state,
@@ -41,7 +47,8 @@ export function reducer<E, K>(
 				...state,
 				selectedEntitiesOptions: action.selectedEntitiesOptions,
 				entities: action.selectedEntitiesOptions.map(
-					(option: EntitiesSearch.ControlOption<E>) => option.value
+					( option: EntitiesSearch.ControlOption< E > ) =>
+						option.value
 				),
 			};
 
