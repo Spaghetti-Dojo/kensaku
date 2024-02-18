@@ -61,7 +61,7 @@ searchEntities: async (
 Then you can access the extra properties within your component since the `CompositeEntitiesByKind` will pass
 the `entities` of type `EntitiesSearch.BaseControl< E >` to the children.
 
-```typescript
+```jsx
 (entities: EntitiesSearch.BaseControl< E >) => {
     return <MyComponent {...entities} />;
 }
@@ -69,7 +69,7 @@ the `entities` of type `EntitiesSearch.BaseControl< E >` to the children.
 
 And internally of your `MyComponent` you can access the `extra` property of the `ControlOption`:
 
-```typescript
+```jsx
 function MyComponent(entities: Options<V>): JSX.Element {
     return (
         <div>
