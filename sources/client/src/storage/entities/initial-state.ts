@@ -6,7 +6,7 @@ import EntitiesSearch from '@types';
 /**
  * Internal dependencies
  */
-import { Set } from '../../vo/set';
+import { Set } from '../../models/set';
 
 type Options< V > = EntitiesSearch.ControlOption< V >;
 

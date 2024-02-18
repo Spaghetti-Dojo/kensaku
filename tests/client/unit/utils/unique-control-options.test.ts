@@ -9,7 +9,7 @@ import { describe, expect, it } from '@jest/globals';
  * Internal dependencies
  */
 import { uniqueControlOptions } from '../../../../sources/client/src/utils/unique-control-options';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 describe( 'Unique Control Options', () => {
 	it( 'Do not allow same control options within the same set', () => {

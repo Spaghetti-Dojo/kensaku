@@ -14,7 +14,7 @@ import { doAction } from '@wordpress/hooks';
  */
 import { makeInitialState } from '../storage/entities/initial-state';
 import { reducer } from '../storage/entities/reducer';
-import { Set } from '../vo/set';
+import { Set } from '../models/set';
 
 type _Reducer< E, K > = Reducer<
 	EntitiesSearch.EntitiesState< E, K >,

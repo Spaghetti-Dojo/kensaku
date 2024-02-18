@@ -11,7 +11,7 @@ import { describe, expect, it, jest } from '@jest/globals';
  */
 import { useEntityRecords } from '../../../../sources/client/src/hooks/use-entity-records';
 import { useQueryViewableTaxonomies } from '../../../../sources/client/src/hooks/use-query-viewable-taxonomies';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 jest.mock( '../../../../sources/client/src/hooks/use-entity-records', () => {
 	return {

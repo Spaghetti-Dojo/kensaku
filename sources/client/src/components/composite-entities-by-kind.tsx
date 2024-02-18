@@ -16,7 +16,7 @@ import { useEntitiesOptionsStorage } from '../hooks/use-entities-options-storage
 import { useSearch } from '../hooks/use-search';
 import { orderSelectedOptionsAtTheTop } from '../utils/order-selected-options-at-the-top';
 import { uniqueControlOptions } from '../utils/unique-control-options';
-import { Set } from '../vo/set';
+import { Set } from '../models/set';
 
 /**
  * A composite component that provides a way to search for entities by kind.

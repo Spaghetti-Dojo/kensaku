@@ -6,7 +6,7 @@ import { describe, expect, it } from '@jest/globals';
 /**
  * Internal dependencies
  */
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 describe( 'Set', () => {
 	it( 'Should be empty when created', () => {

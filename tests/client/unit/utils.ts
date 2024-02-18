@@ -8,7 +8,7 @@ import { faker } from '@faker-js/faker';
 /**
  * Internal dependencies
  */
-import { Set } from '../../../sources/client/src/vo/set';
+import { Set } from '../../../sources/client/src/models/set';
 
 export function buildOptions(): Set< EntitiesSearch.ControlOption< string > > {
 	let options = new Set< EntitiesSearch.ControlOption< string > >();

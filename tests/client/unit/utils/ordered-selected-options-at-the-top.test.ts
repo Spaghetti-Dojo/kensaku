@@ -11,7 +11,7 @@ import { faker } from '@faker-js/faker';
  * Internal dependencies
  */
 import { orderSelectedOptionsAtTheTop } from '../../../../sources/client/src/utils/order-selected-options-at-the-top';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 describe( 'Ordered Selected Options at the Top', () => {
 	/*
