@@ -1,4 +1,4 @@
-# WordPress Entities Search
+# Wp Entities Search
 
 This package is a library exposing reusable Components and Utilities to help you build Entities searching and storage.
 
