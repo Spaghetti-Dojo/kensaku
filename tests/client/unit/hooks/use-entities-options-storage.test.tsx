@@ -17,7 +17,7 @@ import { doAction } from '@wordpress/hooks';
  * Internal dependencies
  */
 import { useEntitiesOptionsStorage } from '../../../../sources/client/src/hooks/use-entities-options-storage';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 jest.mock( '@wordpress/hooks', () => ( {
 	doAction: jest.fn(),

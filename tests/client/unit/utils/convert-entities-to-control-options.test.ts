@@ -12,7 +12,7 @@ import { faker } from '@faker-js/faker';
  * Internal dependencies
  */
 import { convertEntitiesToControlOptions } from '../../../../sources/client/src/utils/convert-entities-to-control-options';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 describe( 'Convert Entities To Control Options', () => {
 	it( 'correctly convert entities to control options', () => {

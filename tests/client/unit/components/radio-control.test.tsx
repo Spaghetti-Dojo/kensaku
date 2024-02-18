@@ -12,7 +12,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
  * Internal dependencies
  */
 import { RadioControl } from '../../../../sources/client/src/components/radio-control';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 describe( 'KindRadioControl', () => {
 	it( 'renders the component', () => {

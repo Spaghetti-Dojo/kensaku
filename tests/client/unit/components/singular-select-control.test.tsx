@@ -15,7 +15,7 @@ import { faker } from '@faker-js/faker';
  * Internal dependencies
  */
 import { SingularSelectControl } from '../../../../sources/client/src/components/singular-select-control';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 import { buildOptions } from '../utils';
 
 describe( 'Post Types Select', () => {

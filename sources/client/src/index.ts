@@ -12,10 +12,12 @@ export * from './hooks/use-entity-records';
 export * from './hooks/use-query-viewable-post-types';
 export * from './hooks/use-query-viewable-taxonomies';
 
+export * from './models/set';
+export * from './models/immutable-record';
+
 export * from './utils/convert-entities-to-control-options';
 export * from './utils/is-control-option';
-export * from './utils/order-selected-options-at-the-top';
 export * from './utils/unique-control-options';
+export * from './utils/order-selected-options-at-the-top';
 
-export * from './vo/control-option';
-export * from './vo/set';
+export * from './value-objects/control-option';

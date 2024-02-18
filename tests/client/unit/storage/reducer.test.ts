@@ -11,7 +11,7 @@ import { faker } from '@faker-js/faker';
  * Internal dependencies
  */
 import { reducer } from '../../../../sources/client/src/storage/entities/reducer';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 let state: EntitiesSearch.EntitiesState< number, string >;
 

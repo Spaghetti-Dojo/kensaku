@@ -42,11 +42,6 @@ declare namespace EntitiesSearch {
 		queryArguments?: EntitiesSearch.QueryArguments<E>
 	) => Promise<Options<E>>;
 
-	type ControlOption<V extends any> = Readonly<{
-		value: V;
-		label: string;
-	}>;
-
 	type SingularControl<V> = {
 		[K in keyof BaseControl<V>]: K extends 'value'
 			? V
@@ -54,6 +49,20 @@ declare namespace EntitiesSearch {
 			? (value: V) => void
 			: BaseControl<V>[K];
 	};
+
+	interface Record<T> {
+		get<F>(key: string, fallback?: F): T | F | undefined;
+		set(key: string, value: T): Record<T>;
+	}
+
+	interface ControlOption<V extends any> extends Readonly<{
+		value: V;
+		label: string;
+	}> {}
+
+	interface EnrichedControlOption<V extends any> extends ControlOption<V>, Readonly<{
+		readonly extra: Record<string, unknown>;
+	}> {}
 
 	interface BaseControl<V>
 		extends Readonly<{

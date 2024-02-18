@@ -8,7 +8,7 @@ import React, { JSX } from 'react';
 /**
  * Internal dependencies
  */
-import { Set } from '../vo/set';
+import { Set } from '../models/set';
 import { NoOptionsMessage } from './no-options-message';
 
 export function PluralSelectControl(

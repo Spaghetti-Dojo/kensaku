@@ -6,7 +6,7 @@ import { describe, it, expect } from '@jest/globals';
 /**
  * Internal dependencies
  */
-import { ControlOption } from '../../../../sources/client/src/vo/control-option';
+import { ControlOption } from '../../../../sources/client/src/value-objects/control-option';
 
 describe( 'ControlOption', () => {
 	it( 'should create a new ControlOption', () => {
