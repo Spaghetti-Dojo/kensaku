@@ -11,9 +11,10 @@ more Post Types but also, to search for Terms belonging to one or more Taxonomie
 2. [Development](./docs/development.md)
 3. [Api](./docs/api.md)
 4. [Components](./docs/components.md)
-5. [Hooks](./docs/hooks.md)
-6. [Logging](./docs/logging.md)
-7. [Storage](./docs/storage.md)
+5. [Control Option](./docs/control-option.md)
+6. [Hooks](./docs/hooks.md)
+7. [Logging](./docs/logging.md)
+8. [Storage](./docs/storage.md)
 
 ## License
 
