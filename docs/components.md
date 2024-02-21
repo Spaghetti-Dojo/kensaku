@@ -50,31 +50,35 @@ An example of its usage is:
 import { CompositeEntitiesByKind } from 'wp-entities-search';
 
 export function MyComponent(props) {
-    return <CompositeEntitiesByKind
-        searchEntities={
-            async (phrase, kind, queryArguments) => convertEntitiesToControlOptions(
-                await searchEntities('post', kind, phrase, queryArguments),
-                'title',
-                'id'
-            )
+    const entities = {
+        value: new Set([13, 24, 55]),
+        onChange: (value) => {
+            // Do something with the selected entities
+            // Notice, here you'll receive the value as a string Set.
         }
-        entities={{
-            value: new Set([13, 24, 55]),
-            onChange: (value) => {
-                // Do something with the selected entities
-                // Notice, here you'll receive the value as a string Set.
-            }
+    };
+
+    const kind = {
+        value: new Set(['page']),
+        options: [
+            { label: 'Pages', value: 'page' },
+            { label: 'Posts', value: 'post' },
+        ],
+        onChange={(value) => {
+            // Do something with the selected kind
         }}
-        kind={{
-            value: new Set(['page']),
-            options: [
-                { label: 'Pages', value: 'page' },
-                { label: 'Posts', value: 'post' },
-            ],
-            onChange={(value) => {
-                // Do something with the selected kind
-            }}
-        }}
+    };
+
+    const searchEntities = async (phrase, kind, queryArguments) => convertEntitiesToControlOptions(
+        await searchEntities('post', kind, phrase, queryArguments),
+        'title',
+        'id'
+    );
+
+    return <CompositeEntitiesByKind
+        searchEntities={searchEntities}
+        entities={entities}
+        kind={kind}
     >
         {(entities, kind, search) => (
             <>
@@ -135,25 +139,29 @@ the user to switch between them.
 import { CompositeEntitiesByKind } from 'wp-entities-search';
 
 export function MyComponent(props) {
-    return <CompositeEntitiesByKind
-        searchEntities={
-            async (phrase, kind, queryArguments) => convertEntitiesToControlOptions(
-                await searchEntities('post', kind, phrase, queryArguments),
-                'title',
-                'id'
-            )
+    const entities = {
+        value: new Set([13, 24, 55]),
+        onChange: (value) => {
+            // Do something with the selected entities
         }
-        entities={{
-            value: new Set([13, 24, 55]),
-            onChange: (value) => {
-                // Do something with the selected entities
-            }
-        }}
-        kind={{
-            value: new Set(['page', 'landing-page']),
-            options: Set([]),
-            onChange={() => {}}
-        }}
+    };
+
+    const kind = {
+        value: new Set(['page', 'landing-page']),
+        options: Set([]),
+        onChange={() => {}}
+    };
+
+    const searchEntities = async (phrase, kind, queryArguments) => convertEntitiesToControlOptions(
+        await searchEntities('post', kind, phrase, queryArguments),
+        'title',
+        'id'
+    );
+
+    return <CompositeEntitiesByKind
+        searchEntities={searchEntities}
+        entities={entities}
+        kind={kind}
     >
         {(entities, _, search) => (
             <>
@@ -175,9 +183,11 @@ above the package comes with a set of _Base Components_ that can be used out of 
 
 ## About Singular Base Components
 
-The _Composite Component_ always give a collection of Entities and Kind even though you are consuming a Single* _Base Component_.
+The _Composite Component_ always give a collection of Entities and Kind even though you are consuming a Single* _Base
+Component_.
 
-The Singular Components always get a single value, therefore you have to consider to extract the first element out of the `Set`.
+The Singular Components always get a single value, therefore you have to consider to extract the first element out of
+the `Set`.
 
 ```jsx
 import { CompositeEntitiesByKind } from 'wp-entities-search';
