@@ -5,9 +5,16 @@ This package is a library exposing reusable Components and Utilities to help you
 At it's core it permits to build components and reuse the WordPress Rest API to search for Posts associated to one or
 more Post Types but also, to search for Terms belonging to one or more Taxonomies.
 
-## Documentation
+## Table of Content
 
-Go to [documentation](./docs) or visit the site [wp-entities-search](https://widoz.github.io/wp-entities-search/).
+1. [Installation](./installation.md)
+2. [Development](./development.md)
+3. [Api](./api.md)
+4. [Components](./components.md)
+5. [Control Option](./control-option.md)
+6. [Hooks](./hooks.md)
+7. [Logging](./logging.md)
+8. [Storage](./storage.md)
 
 ## License
 
