@@ -5,7 +5,7 @@
 	"main": "./build/index.js",
 	"license": "GPL-2.0-or-later",
 	"engines": {
-		"node": "16"
+		"node": "20"
 	},
 	"devDependencies": {
 		"@faker-js/faker": "^8",
