@@ -1,4 +1,7 @@
-# Logging
+---
+title: Logging
+layout: post
+---
 
 The project make use of some WordPress Actions in contexts where the logic flow might fail for some reason, for instance
 when there's a REST request that fails to be processed. In these cases, the project will fire an action.

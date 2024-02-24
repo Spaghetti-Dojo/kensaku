@@ -1,4 +1,8 @@
-# Wp Entities Search
+---
+layout: home
+title: Wp Entities Search
+permalink: /
+---
 
 This package is a library exposing reusable Components and Utilities to help you build Entities searching and storage.
 

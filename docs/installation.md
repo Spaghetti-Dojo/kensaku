@@ -1,4 +1,7 @@
-# Installation
+---
+title: Installation
+layout: post
+---
 
 This package is available as a composer library and as a npm package.
 

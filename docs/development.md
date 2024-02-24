@@ -1,4 +1,7 @@
-# Development
+---
+title: Development
+layout: post
+---
 
 The first thing to do is to clone the repository and install the dependencies:
 

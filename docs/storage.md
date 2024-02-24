@@ -1,4 +1,7 @@
-# Storage
+---
+title: Storage
+layout: post
+---
 
 You won't interact directly with the store but as mentioned in [hooks](./hooks.md), you can use the `useEntitiesOptionsStorage`.
 

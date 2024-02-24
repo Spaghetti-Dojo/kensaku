@@ -1,4 +1,7 @@
-# Components
+---
+title: Components
+layout: post
+---
 
 The Wp Entities Search provides a set of components you can use to build your search UI.
 

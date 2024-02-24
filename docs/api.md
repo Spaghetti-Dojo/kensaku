@@ -1,4 +1,7 @@
-# Api
+---
+title: Api
+layout: post
+---
 
 The `api` define a `fetch` function which is there to hide the WordPress Fetch API. The reason behind this decision lies on the fact that we might want to add middlewares to the request in the future or introducing some global data manipulation.
 

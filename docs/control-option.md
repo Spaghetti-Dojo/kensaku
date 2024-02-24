@@ -1,4 +1,7 @@
-# Control Option
+---
+title: Control Option
+layout: post
+---
 
 The `ControlOption` is the core Value Object of the project. It holds the information about the entities, and it
 is carried around the business logic and the presentational layer.
