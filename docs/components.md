@@ -1,7 +1,7 @@
 ---
 title: Components
 layout: post
-nav_order: 2
+nav_order: 4
 ---
 
 # Components
