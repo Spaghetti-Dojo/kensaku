@@ -1,7 +1,7 @@
 title: Wp Entities Search
 description: >-
   A WordPress package to search Entities including Rest API Endpoints and React Components
-baseurl: /wp-entities-search
+baseurl: /wp-entities-search/docs
 
 # Aux links for the upper right navigation
 aux_links:
