@@ -2,6 +2,7 @@
 layout: home
 title: Wp Entities Search
 permalink: /
+nav_order: 0
 ---
 
 This package is a library exposing reusable Components and Utilities to help you build Entities searching and storage.

@@ -4,6 +4,8 @@ layout: post
 nav_order: 8
 ---
 
+# Storage
+
 You won't interact directly with the store but as mentioned in [hooks](./hooks.md), you can use the `useEntitiesOptionsStorage`.
 
 The hook return the `state` and the `dispatch` but you have to configure it first.

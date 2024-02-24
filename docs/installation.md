@@ -4,6 +4,8 @@ layout: post
 nav_order: 6
 ---
 
+# Installation
+
 This package is available as a composer library and as a npm package.
 
 You're not forced to use both, you can use only one of them. The php implementation is using [Modularity](https://github.com/inpsyde/modularity) a modular [PSR-11](https://github.com/php-fig/container) implementation for WordPress Plugins, Themes and Libraries.
