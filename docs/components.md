@@ -176,6 +176,7 @@ export function MyComponent(props) {
                 />
                 <ToggleControl
                     value={entities.value}
+                    options={entities.options}
                     onChange={entities.onChange}
                 />
             </>
@@ -206,8 +207,8 @@ export function MyComponent(props) {
             <>
                 <RadioControl
                     value={kind.value.first()}
-                    options={Array.from(kind.options)}
-                    onChange={kind.onChange}
+                    options={kind.options}
+                    onChange={(value) => kind.onChange(new Set([value]))}
                 />
                 /* ... */
             </>

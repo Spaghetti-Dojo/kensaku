@@ -83,29 +83,28 @@ export function CompositeEntitiesByKind< E, K >(
 	};
 
 	const onChangeKind = ( kind: EntitiesSearch.Kind< K > ) => {
-		const _kind = kind instanceof Set ? kind : new Set( [ kind ] );
 		const emptySet = new Set< any >();
 
-		props.kind.onChange( _kind );
+		props.kind.onChange( kind );
 		props.entities.onChange( emptySet );
 
-		if ( _kind.length() <= 0 ) {
+		if ( kind.length() <= 0 ) {
 			dispatch( {
 				type: 'CLEAN_ENTITIES_OPTIONS',
 			} );
-			dispatch( { type: 'UPDATE_KIND', kind: _kind } );
+			dispatch( { type: 'UPDATE_KIND', kind } );
 			return;
 		}
 
 		props
-			.searchEntities( state.searchPhrase, _kind, {
+			.searchEntities( state.searchPhrase, kind, {
 				exclude: state.entities,
 			} )
 			.then( ( entitiesOptions ) => {
 				dispatch( {
 					type: 'UPDATE_ENTITIES_OPTIONS_FOR_NEW_KIND',
 					entitiesOptions,
-					kind: _kind,
+					kind,
 				} );
 			} )
 			.catch( ( error ) => {
