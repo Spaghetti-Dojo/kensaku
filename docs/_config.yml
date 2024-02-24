@@ -15,5 +15,3 @@ remote_theme: sighingnow/jekyll-gitbook
 
 plugins:
   - jekyll-remote-theme
-
-permalink: pretty
