@@ -1,3 +1,9 @@
+---
+title: Control Option
+layout: post
+nav_order: 3
+---
+
 # Control Option
 
 The `ControlOption` is the core Value Object of the project. It holds the information about the entities, and it

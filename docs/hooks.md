@@ -1,3 +1,9 @@
+---
+title: Hooks
+layout: post
+nav_order: 5
+---
+
 # Hooks
 
 The Wp Entities Search expose some hooks to help you to work with the search and the rest calls.

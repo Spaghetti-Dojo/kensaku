@@ -1,3 +1,9 @@
+---
+title: Installation
+layout: post
+nav_order: 6
+---
+
 # Installation
 
 This package is available as a composer library and as a npm package.
