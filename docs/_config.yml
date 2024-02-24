@@ -4,7 +4,7 @@ description: >-
 url: 'https://widoz.github.io/wp-entities-search'
 baseurl: '/wp-entities-search'
 
-remote_theme: riggraz/no-style-please
+remote_theme: just-the-docs/just-the-docs
 
 toc:
   enabled: true
