@@ -1,6 +1,7 @@
 ---
 title: Logging
 layout: post
+nav_order: 7
 ---
 
 The project make use of some WordPress Actions in contexts where the logic flow might fail for some reason, for instance

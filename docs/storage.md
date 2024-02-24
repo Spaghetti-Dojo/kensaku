@@ -1,6 +1,7 @@
 ---
 title: Storage
 layout: post
+nav_order: 8
 ---
 
 You won't interact directly with the store but as mentioned in [hooks](./hooks.md), you can use the `useEntitiesOptionsStorage`.

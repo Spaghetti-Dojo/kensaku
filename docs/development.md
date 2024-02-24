@@ -1,6 +1,7 @@
 ---
 title: Development
 layout: post
+nav_order: 4
 ---
 
 The first thing to do is to clone the repository and install the dependencies:
