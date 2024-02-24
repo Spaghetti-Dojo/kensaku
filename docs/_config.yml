@@ -1,0 +1,19 @@
+title: Wp Entities Search
+description: >-
+  A WordPress package to search Entities including Rest API Endpoints and React Components
+baseurl: /wp-entities-search
+
+# Aux links for the upper right navigation
+aux_links:
+  "Wp Entities Search":
+    - https://github.com/widoz/wp-entities-search
+
+gh_edit_branch: documentation/github-pages-jekyll-config
+gh_edit_source: docs
+
+remote_theme: sighingnow/jekyll-gitbook
+
+plugins:
+  - jekyll-remote-theme
+
+permalink: pretty
