@@ -9,7 +9,7 @@ toc:
   h_min: 1
   h_max: 3
 
-remote_theme: sighingnow/jekyll-gitbook
+remote_theme: otes2020/jekyll-theme-chirpy
 
 plugins:
   - jekyll-remote-theme
