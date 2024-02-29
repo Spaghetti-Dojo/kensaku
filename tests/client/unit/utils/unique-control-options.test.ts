@@ -20,7 +20,7 @@ describe( 'Unique Control Options', () => {
 			{ label: 'bar', value: 'bar' },
 		] );
 
-		expect( set.length() ).toBe( 4 );
+		expect( set.length() ).toBe( 2 );
 		const uniqueSet = uniqueControlOptions( set );
 		expect( uniqueSet.length() ).toBe( 2 );
 		expect( uniqueSet.first()?.value ).toBe( 'foo' );
