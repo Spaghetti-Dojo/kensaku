@@ -7,7 +7,7 @@ export class Set< T > {
 	readonly #data: ReadonlyArray< T >;
 
 	public constructor( data: ReadonlyArray< T > = [] ) {
-		this.#data = this.ensureUnique( data );
+		this.#data = this.ensureUniqueness( data );
 	}
 
 	public add( value: T ): Set< T > {
@@ -104,7 +104,7 @@ export class Set< T > {
 		return data.some( ( current ) => this.isEqual( current, value ) );
 	}
 
-	private ensureUnique( data: ReadonlyArray< T > ): ReadonlyArray< T > {
+	private ensureUniqueness( data: ReadonlyArray< T > ): ReadonlyArray< T > {
 		const accumulator: Array< T > = [];
 		return data.reduce( ( acc, value ) => {
 			if ( ! this._has( value, acc ) ) {
