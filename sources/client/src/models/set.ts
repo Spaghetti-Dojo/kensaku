@@ -7,7 +7,7 @@ export class Set< T > {
 	readonly #data: ReadonlyArray< T >;
 
 	public constructor( data: ReadonlyArray< T > = [] ) {
-		this.#data = data;
+		this.#data = this.ensureUnique( data );
 	}
 
 	public add( value: T ): Set< T > {
@@ -29,7 +29,7 @@ export class Set< T > {
 	}
 
 	public has( value: T ): boolean {
-		return this.#data.some( ( current ) => this.isEqual( current, value ) );
+		return this._has( value, this.#data );
 	}
 
 	public map< R = T >( fn: ( value: T ) => R ): Set< R > {
@@ -98,5 +98,20 @@ export class Set< T > {
 
 	private isEqual( a: unknown, b: unknown ): boolean {
 		return _isEqual( a, b );
+	}
+
+	private _has( value: T, data: ReadonlyArray< T > ): boolean {
+		return data.some( ( current ) => this.isEqual( current, value ) );
+	}
+
+	private ensureUnique( data: ReadonlyArray< T > ): ReadonlyArray< T > {
+		const accumulator: Array< T > = [];
+		return data.reduce( ( acc, value ) => {
+			if ( ! this._has( value, acc ) ) {
+				acc.push( value );
+			}
+
+			return acc;
+		}, accumulator );
 	}
 }
