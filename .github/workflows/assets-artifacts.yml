@@ -3,6 +3,10 @@ name: Assets Artifacts
 on:
   workflow_dispatch:
 
+  push:
+    branches:
+      - 'feature/16/github-actions-artifacts'
+
   create:
     types: [tag]
 
