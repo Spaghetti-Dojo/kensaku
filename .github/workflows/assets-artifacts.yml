@@ -13,6 +13,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: "!github.event.commits[0].message.match(/--skip-assets-artifacts/)"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,5 +29,3 @@ jobs:
 
       - name: Build Assets
         uses: ./.github/actions/assets-artifacts
-        with:
-          build-command: 'yarn build'
