@@ -17,7 +17,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version: '20'
+
+      - name: Install
+        run: yarn install
+
       - name: Build Assets
-        uses: ./github/actions/assets-artifacts
+        uses: ./.github/actions/assets-artifacts
         with:
           build-command: 'yarn build'
