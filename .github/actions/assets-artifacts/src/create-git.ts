@@ -1,4 +1,4 @@
-import * as core from '@actions/core'
+//import * as core from '@actions/core'
 import gitFactory, {SimpleGit} from 'simple-git'
 
 let git: SimpleGit | null = null
@@ -15,15 +15,13 @@ export function createGit (): SimpleGit {
 	// TODO How to add this to the environment?
 	const token = process.env.GITHUB_TOKEN
 
-	const userName = core.getInput('user-name')
-	const userEmail = core.getInput('user-email')
+	// const userName = core.getInput('user-name')
+	// const userEmail = core.getInput('user-email')
 
 	try {
 		git = gitFactory({baseDir: workingDirectory})
 
 		git
-		  ?.addConfig('user.name', userName)
-		  ?.addConfig('user.email', userEmail)
 		  ?.addConfig('advice.addIgnoredFile', 'false')
 		  ?.addConfig('http.https://github.com/.extraheader', `AUTHORIZATION: bearer ${token}`)
 	} catch (e: any) {
