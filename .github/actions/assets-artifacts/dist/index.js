@@ -31868,7 +31868,7 @@ const create_git_1 = __nccwpck_require__(6704);
 async function pushAssets() {
     const git = (0, create_git_1.createGit)();
     return git
-        .add("./build")
+        .add(["-f", "./build"])
         .then(() => git.commit("🚀 Build Artifacts"))
         .then(() => git.push())
         .then(() => { });
