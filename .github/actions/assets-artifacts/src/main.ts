@@ -1,12 +1,13 @@
-import * as core from "@actions/core";
-import * as exec from "@actions/exec";
+import * as core from '@actions/core'
+import {createArtifacts} from './tasks/create-artifacts'
+import {moveTags} from './tasks/move-tags'
 
 async function main(): Promise<void> {
-	core.info("Starting Assets Compilation...");
+	Promise.resolve()
+	  .then(createArtifacts)
+	  .then(moveTags)
 
-	exec.exec('yarn build')
-		.then(() => core.info("Compilation done."))
-		.catch((error) => core.setFailed(`Failed to compile assets: ${error}`));
+	  .catch(error => core.setFailed(`Failed to create and push artifacts: ${error}`))
 }
 
 export default main;

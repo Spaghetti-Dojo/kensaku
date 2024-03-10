@@ -27,3 +27,5 @@ jobs:
 
       - name: Build Assets
         uses: ./.github/actions/assets-artifacts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
