@@ -1,6 +1,8 @@
 name: Assets Artifacts
 
 on:
+  workflow_dispatch:
+
   create:
     types: [tag]
 
@@ -8,8 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Run custom action
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build Assets
         uses: ./github/actions/assets-artifacts
         with:
           build-command: 'yarn build'
