@@ -1,4 +1,3 @@
-//import * as core from '@actions/core'
 import gitFactory, {SimpleGit} from 'simple-git'
 
 let git: SimpleGit | null = null
@@ -11,17 +10,21 @@ export function createGit (): SimpleGit {
 	}
 
 	const workingDirectory = process.cwd()
-	// @ts-ignore
-	// TODO How to add this to the environment?
-	const token = process.env.GITHUB_TOKEN
 
-	// const userName = core.getInput('user-name')
-	// const userEmail = core.getInput('user-email')
+	// TODO How to add this to the environment?
+	// @ts-ignore
+	const token = process.env.GITHUB_TOKEN
+	// @ts-ignore
+	const userName = `${process.env.GIT_USER}`
+	// @ts-ignore
+	const userEmail = `${process.env.GIT_EMAIL}`
 
 	try {
 		git = gitFactory({baseDir: workingDirectory})
 
 		git
+		  ?.addConfig('user.name', userName)
+		  ?.addConfig('user.email', userEmail)
 		  ?.addConfig('advice.addIgnoredFile', 'false')
 		  ?.addConfig('http.https://github.com/.extraheader', `AUTHORIZATION: bearer ${token}`)
 	} catch (e: any) {
