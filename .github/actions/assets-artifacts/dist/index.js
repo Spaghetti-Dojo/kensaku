@@ -31686,9 +31686,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const create_artifacts_1 = __nccwpck_require__(1692);
 const move_tags_1 = __nccwpck_require__(9351);
+const push_assets_1 = __nccwpck_require__(6545);
 async function main() {
     Promise.resolve()
         .then(create_artifacts_1.createArtifacts)
+        .then(push_assets_1.pushAssets)
         .then(move_tags_1.moveTags)
         .catch(error => core.setFailed(`Failed to create and push artifacts: ${error}`));
 }
@@ -31851,6 +31853,27 @@ async function removeTemporaryBranch(data) {
         .then(() => git.push(["--delete", "origin", branchName]))
         .then(() => { });
 }
+
+
+/***/ }),
+
+/***/ 6545:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.pushAssets = void 0;
+const create_git_1 = __nccwpck_require__(6704);
+async function pushAssets() {
+    const git = (0, create_git_1.createGit)();
+    return git
+        .add("./build")
+        .then(() => git.commit("🚀 Build Artifacts"))
+        .then(() => git.push())
+        .then(() => { });
+}
+exports.pushAssets = pushAssets;
 
 
 /***/ }),
