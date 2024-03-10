@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Save the current working directory
+original_dir=$(pwd)
+
+# Define color codes
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+# Find all directories under 'actions' in the current directory and loop through them
+find ./actions -mindepth 1 -maxdepth 1 -type d | while read dir; do
+  cd "$dir" || exit
+  echo -e "${GREEN}Building $dir...${NC}"
+  yarn prettify
+  yarn build
+  git add dist
+  cd "$original_dir" || exit
+done
