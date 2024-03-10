@@ -9,7 +9,7 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 # Find all directories under 'actions' in the current directory and loop through them
-find ./actions -mindepth 1 -maxdepth 1 -type d | while read dir; do
+find ./.github/actions -mindepth 1 -maxdepth 1 -type d | while read dir; do
   cd "$dir" || exit
   echo -e "${GREEN}Building $dir...${NC}"
   yarn prettify
