@@ -1,8 +1,6 @@
 name: Assets Artifacts
 
 on:
-  workflow_dispatch:
-
   push:
     branches:
       - 'feature/16/github-actions-artifacts'
@@ -13,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: "!github.event.commits[0].message.match(/--skip-assets-artifacts/)"
+    if: ${{ !contains(github.event.head_commit.message, '--skip-assets-artifacts') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
