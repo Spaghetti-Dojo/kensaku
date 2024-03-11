@@ -5,7 +5,7 @@ export async function createArtifacts(): Promise<void> {
 	return exec
 		.exec("yarn build")
 		.then((result) => {
-			core.info("Artifacts created successfully.");
+			core.info("📦 Artifacts created successfully.");
 			return result;
 		})
 		.then((result) => {
