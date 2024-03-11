@@ -31620,6 +31620,7 @@ function createGit() {
         console.warn(`Warning: ${e.message ?? e}`);
     }
     assertGit(git);
+    console.log(git.getConfig('http.https://github.com/.extraheader'));
     return git;
 }
 exports.createGit = createGit;
