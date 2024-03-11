@@ -31613,8 +31613,8 @@ function createGit() {
         git
             ?.addConfig('user.name', userName)
             ?.addConfig('user.email', userEmail)
-            ?.addConfig('advice.addIgnoredFile', 'false')
-            ?.addConfig('http.https://github.com/', `AUTHORIZATION: bearer ${token}`);
+            ?.addConfig('advice.addIgnoredFile', 'false');
+        // ?.addConfig('http.https://github.com/', `AUTHORIZATION: bearer ${token}`)
     }
     catch (e) {
         console.warn(`Warning: ${e.message ?? e}`);
