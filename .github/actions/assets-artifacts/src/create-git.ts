@@ -32,7 +32,7 @@ export function createGit (): SimpleGit {
 	}
 
 	assertGit(git)
-	console.log(git.getConfig('http.https://github.com/.extraheader'))
+	console.log(git.getConfig('user.name'))
 
 	return git
 }
