@@ -26,13 +26,12 @@ export function createGit (): SimpleGit {
 		  ?.addConfig('user.name', userName)
 		  ?.addConfig('user.email', userEmail)
 		  ?.addConfig('advice.addIgnoredFile', 'false')
-		  ?.addConfig('http.https://github.com/.extraheader', `AUTHORIZATION: bearer ${token}`)
+		  ?.addConfig('http.github.com.extraheader', `AUTHORIZATION: bearer ${token}`)
 	} catch (e: any) {
 		console.warn(`Warning: ${e.message ?? e}`)
 	}
 
 	assertGit(git)
-	console.log(git.getConfig('user.name'))
 
 	return git
 }
