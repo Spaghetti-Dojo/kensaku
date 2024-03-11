@@ -28,7 +28,6 @@ jobs:
       - name: Build Assets
         uses: ./.github/actions/assets-artifacts
         env:
-          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
           GIT_USER: ${{ secrets.GIT_USER }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
           HUSKY: 0

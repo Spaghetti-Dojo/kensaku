@@ -31603,8 +31603,6 @@ function createGit() {
     const workingDirectory = process.cwd();
     // TODO How to add this to the environment?
     // @ts-ignore
-    const token = `${process.env.GIT_TOKEN}`;
-    // @ts-ignore
     const userName = `${process.env.GIT_USER}`;
     // @ts-ignore
     const userEmail = `${process.env.GIT_EMAIL}`;
@@ -31614,7 +31612,6 @@ function createGit() {
             ?.addConfig('user.name', userName)
             ?.addConfig('user.email', userEmail)
             ?.addConfig('advice.addIgnoredFile', 'false');
-        // ?.addConfig('http.https://github.com/', `AUTHORIZATION: bearer ${token}`)
     }
     catch (e) {
         console.warn(`Warning: ${e.message ?? e}`);

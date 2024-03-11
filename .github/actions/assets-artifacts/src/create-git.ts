@@ -13,8 +13,6 @@ export function createGit (): SimpleGit {
 
 	// TODO How to add this to the environment?
 	// @ts-ignore
-	const token = `${process.env.GIT_TOKEN}`
-	// @ts-ignore
 	const userName = `${process.env.GIT_USER}`
 	// @ts-ignore
 	const userEmail = `${process.env.GIT_EMAIL}`
@@ -26,7 +24,6 @@ export function createGit (): SimpleGit {
 		  ?.addConfig('user.name', userName)
 		  ?.addConfig('user.email', userEmail)
 		  ?.addConfig('advice.addIgnoredFile', 'false')
-		  // ?.addConfig('http.https://github.com/', `AUTHORIZATION: bearer ${token}`)
 	} catch (e: any) {
 		console.warn(`Warning: ${e.message ?? e}`)
 	}
