@@ -31610,7 +31610,6 @@ function createGit() {
     const userEmail = `${process.env.GIT_EMAIL}`;
     try {
         git = (0, simple_git_1.default)({ baseDir: workingDirectory });
-        console.log(git);
         git
             ?.addConfig('user.name', userName)
             ?.addConfig('user.email', userEmail)
@@ -31621,6 +31620,7 @@ function createGit() {
         console.warn(`Warning: ${e.message ?? e}`);
     }
     assertGit(git);
+    console.log(git);
     return git;
 }
 exports.createGit = createGit;

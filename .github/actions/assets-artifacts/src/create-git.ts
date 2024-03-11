@@ -22,8 +22,6 @@ export function createGit (): SimpleGit {
 	try {
 		git = gitFactory({baseDir: workingDirectory})
 
-		console.log(git);
-
 		git
 		  ?.addConfig('user.name', userName)
 		  ?.addConfig('user.email', userEmail)
@@ -34,6 +32,8 @@ export function createGit (): SimpleGit {
 	}
 
 	assertGit(git)
+
+	console.log(git);
 
 	return git
 }
