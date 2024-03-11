@@ -31610,11 +31610,12 @@ function createGit() {
     const userEmail = `${process.env.GIT_EMAIL}`;
     try {
         git = (0, simple_git_1.default)({ baseDir: workingDirectory });
+        console.log(git);
         git
             ?.addConfig('user.name', userName)
             ?.addConfig('user.email', userEmail)
             ?.addConfig('advice.addIgnoredFile', 'false')
-            ?.addConfig('http.github.com.extraheader', `AUTHORIZATION: bearer ${token}`);
+            ?.addConfig('http.https://github.com/.extraheader', `AUTHORIZATION: bearer ${token}`);
     }
     catch (e) {
         console.warn(`Warning: ${e.message ?? e}`);

@@ -22,11 +22,13 @@ export function createGit (): SimpleGit {
 	try {
 		git = gitFactory({baseDir: workingDirectory})
 
+		console.log(git);
+
 		git
 		  ?.addConfig('user.name', userName)
 		  ?.addConfig('user.email', userEmail)
 		  ?.addConfig('advice.addIgnoredFile', 'false')
-		  ?.addConfig('http.github.com.extraheader', `AUTHORIZATION: bearer ${token}`)
+		  ?.addConfig('http.https://github.com/.extraheader', `AUTHORIZATION: bearer ${token}`)
 	} catch (e: any) {
 		console.warn(`Warning: ${e.message ?? e}`)
 	}
