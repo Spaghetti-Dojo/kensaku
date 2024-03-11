@@ -26,7 +26,7 @@ export function createGit (): SimpleGit {
 		  ?.addConfig('user.name', userName)
 		  ?.addConfig('user.email', userEmail)
 		  ?.addConfig('advice.addIgnoredFile', 'false')
-		  ?.addConfig('http.extraheader', `AUTHORIZATION: bearer ${token}`)
+		  ?.addConfig('http.https://github.com/', `AUTHORIZATION: bearer ${token}`)
 	} catch (e: any) {
 		console.warn(`Warning: ${e.message ?? e}`)
 	}
