@@ -21,7 +21,7 @@ export function createGit (): SimpleGit {
 
 	try {
 		git = gitFactory({baseDir: workingDirectory})
-console.log(token, userName, userEmail)
+
 		git
 		  ?.addConfig('user.name', userName)
 		  ?.addConfig('user.email', userEmail)

@@ -31610,7 +31610,6 @@ function createGit() {
     const userEmail = `${process.env.GIT_EMAIL}`;
     try {
         git = (0, simple_git_1.default)({ baseDir: workingDirectory });
-        console.log(token, userName, userEmail);
         git
             ?.addConfig('user.name', userName)
             ?.addConfig('user.email', userEmail)
