@@ -13,7 +13,7 @@ export function createGit (): SimpleGit {
 
 	// TODO How to add this to the environment?
 	// @ts-ignore
-	const token = process.env.GITHUB_TOKEN
+	const token = `${process.env.GIT_TOKEN}`
 	// @ts-ignore
 	const userName = `${process.env.GIT_USER}`
 	// @ts-ignore
