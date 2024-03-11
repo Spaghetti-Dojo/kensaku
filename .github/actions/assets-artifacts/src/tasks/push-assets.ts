@@ -1,3 +1,5 @@
+import * as core from "@actions/core";
+
 import { createGit } from "../create-git";
 
 export async function pushAssets(): Promise<void> {
@@ -7,5 +9,7 @@ export async function pushAssets(): Promise<void> {
 		.add(["-f", "./build"])
 		.then(() => git.commit("🚀 Build Artifacts"))
 		.then(() => git.push())
-		.then(() => {});
+		.then(() => {
+			core.info("🚀 Artifacts pushed successfully.");
+		});
 }
