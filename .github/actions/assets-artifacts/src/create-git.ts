@@ -31,8 +31,6 @@ export function createGit (): SimpleGit {
 		console.warn(`Warning: ${e.message ?? e}`)
 	}
 
-	console.log(git?.getConfig('user'));
-
 	assertGit(git)
 
 	return git

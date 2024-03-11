@@ -31619,7 +31619,6 @@ function createGit() {
     catch (e) {
         console.warn(`Warning: ${e.message ?? e}`);
     }
-    console.log(git?.getConfig('user'));
     assertGit(git);
     return git;
 }
