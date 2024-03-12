@@ -31713,16 +31713,15 @@ exports.createArtifacts = void 0;
 const exec = __importStar(__nccwpck_require__(1514));
 const core = __importStar(__nccwpck_require__(2186));
 async function createArtifacts() {
-    return exec
-        .exec("yarn build")
-        .then((result) => {
-        core.info("📦 Artifacts created successfully.");
-        return result;
-    })
-        .then((result) => {
+    return Promise.resolve()
+        .then(() => core.startGroup("📦 Creating artifacts..."))
+        .then(() => exec.exec("yarn build"))
+        .catch((result) => {
         if (result !== 0)
             throw new Error("Failed to build artifacts.");
-    });
+        return result;
+    })
+        .finally(() => core.endGroup());
 }
 exports.createArtifacts = createArtifacts;
 
@@ -31762,8 +31761,12 @@ exports.maybeMoveTags = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const create_git_1 = __nccwpck_require__(6704);
 async function maybeMoveTags() {
-    const data = new Map();
-    return retrieveTags(data)
+    return Promise.resolve(new Map())
+        .then((data) => {
+        core.startGroup("🗄️ Start handling tags.");
+        return data;
+    })
+        .then(retrieveTags)
         .then(assertTags)
         .then(createTemporaryBranch)
         .then(toggleTags)
@@ -31775,7 +31778,8 @@ async function maybeMoveTags() {
         }
         // Re-throw for external catching.
         throw error;
-    });
+    })
+        .finally(() => core.endGroup());
 }
 exports.maybeMoveTags = maybeMoveTags;
 async function retrieveTags(data) {
@@ -31883,13 +31887,12 @@ const core = __importStar(__nccwpck_require__(2186));
 const create_git_1 = __nccwpck_require__(6704);
 async function pushAssets() {
     const git = (0, create_git_1.createGit)();
-    return git
-        .add(["-f", "./build"])
+    return Promise.resolve()
+        .then(() => core.startGroup("🚀 Pushing Artifacts"))
+        .then(() => git.add(["-f", "./build"]))
         .then(() => git.commit("🚀 Build Artifacts"))
-        .then(() => git.push())
-        .then(() => {
-        core.info("🚀 Artifacts pushed successfully.");
-    });
+        .then(() => !!git.push() && void 0)
+        .finally(() => core.endGroup());
 }
 exports.pushAssets = pushAssets;
 

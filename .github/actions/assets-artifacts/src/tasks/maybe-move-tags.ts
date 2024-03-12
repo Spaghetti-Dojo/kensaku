@@ -4,9 +4,12 @@ import { createGit } from "../create-git";
 type Data = Map<string, any>;
 
 export async function maybeMoveTags(): Promise<void> {
-	const data = new Map();
-
-	return retrieveTags(data)
+	return Promise.resolve(new Map())
+		.then((data) => {
+			core.startGroup("🗄️ Start handling tags.");
+			return data;
+		})
+		.then(retrieveTags)
 		.then(assertTags)
 		.then(createTemporaryBranch)
 		.then(toggleTags)
@@ -19,7 +22,8 @@ export async function maybeMoveTags(): Promise<void> {
 
 			// Re-throw for external catching.
 			throw error;
-		});
+		})
+		.finally(() => core.endGroup());
 }
 
 async function retrieveTags(data: Map<string, any>): Promise<Data> {

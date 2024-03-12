@@ -5,11 +5,10 @@ import { createGit } from "../create-git";
 export async function pushAssets(): Promise<void> {
 	const git = createGit();
 
-	return git
-		.add(["-f", "./build"])
+	return Promise.resolve()
+		.then(() => core.startGroup("🚀 Pushing Artifacts"))
+		.then(() => git.add(["-f", "./build"]))
 		.then(() => git.commit("🚀 Build Artifacts"))
-		.then(() => git.push())
-		.then(() => {
-			core.info("🚀 Artifacts pushed successfully.");
-		});
+		.then(() => !!git.push() && void 0)
+		.finally(() => core.endGroup());
 }
