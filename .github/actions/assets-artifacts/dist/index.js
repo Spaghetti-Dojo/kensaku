@@ -31714,7 +31714,7 @@ const exec = __importStar(__nccwpck_require__(1514));
 const core = __importStar(__nccwpck_require__(2186));
 async function createArtifacts() {
     return Promise.resolve()
-        .then(() => core.startGroup("📦 Creating artifacts..."))
+        .then(() => core.startGroup("📦 Creating artifacts"))
         .then(() => exec.exec("yarn build"))
         .catch((result) => {
         if (result !== 0)
@@ -31891,7 +31891,11 @@ async function pushAssets() {
         .then(() => core.startGroup("🚀 Pushing Artifacts"))
         .then(() => git.add(["-f", "./build"]))
         .then(() => git.commit("🚀 Build Artifacts"))
-        .then(() => !!git.push() && void 0)
+        .then(() => git.push())
+        .then((result) => {
+        const messages = result.remoteMessages.all.join("\n");
+        core.info(`Pushed artifacts with status: ${messages}`);
+    })
         .finally(() => core.endGroup());
 }
 exports.pushAssets = pushAssets;
