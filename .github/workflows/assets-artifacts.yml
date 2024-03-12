@@ -26,7 +26,7 @@ jobs:
         run: yarn install
 
       - name: Build Assets
-        uses: ./.github/actions/assets-artifacts
+        uses: widoz/assets-artifacts-action@feature/16/github-actions-artifacts
         env:
           GIT_USER: ${{ secrets.GIT_USER }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
