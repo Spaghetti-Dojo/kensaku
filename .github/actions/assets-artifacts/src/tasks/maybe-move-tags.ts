@@ -3,10 +3,23 @@ import { createGit } from "../create-git";
 
 type Data = Map<string, any>;
 
-export async function moveTags(): Promise<void> {
+export async function maybeMoveTags(): Promise<void> {
 	const data = new Map();
 
-	return retrieveTags(data).then(createTemporaryBranch).then(toggleTags).then(removeTemporaryBranch);
+	return retrieveTags(data)
+		.then(assertTags)
+		.then(createTemporaryBranch)
+		.then(toggleTags)
+		.then(removeTemporaryBranch)
+		.catch((error: Error) => {
+			if (error.cause === "no-tags") {
+				core.info(" No tags found. Skipping tags handling.");
+				return;
+			}
+
+			// Re-throw for external catching.
+			throw error;
+		});
 }
 
 async function retrieveTags(data: Map<string, any>): Promise<Data> {
@@ -18,14 +31,13 @@ async function retrieveTags(data: Map<string, any>): Promise<Data> {
 		.then((tags) => {
 			core.info(`Retrieved tags: ${tags.join("\n")}`);
 			return data.set("tags", tags);
-		})
-		.then(assertTags);
+		});
 }
 
 async function assertTags(data: Data): Promise<Data> {
 	const tags = data.get("tags");
 	if (!tags || tags.length === 0) {
-		throw new Error("No tags found. Skipping tags handling.");
+		throw new Error("No tags found. Skipping tags handling.", { cause: "no-tags" });
 	}
 	return Promise.resolve(data);
 }

@@ -31592,21 +31592,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.createGit = void 0;
+exports.bailIfFalsy = exports.createGit = void 0;
 const simple_git_1 = __importDefault(__nccwpck_require__(9103));
 let git = null;
-// TODO Maybe inject the values.
 function createGit() {
     if (git) {
         return git;
     }
     const workingDirectory = process.cwd();
-    // TODO How to add this to the environment?
     // @ts-ignore
     const userName = `${process.env.GIT_USER}`;
     // @ts-ignore
     const userEmail = `${process.env.GIT_EMAIL}`;
     try {
+        bailIfFalsy(userName, 'Git user name is empty.');
+        bailIfFalsy(userEmail, 'Git user email is empty.');
         git = (0, simple_git_1.default)({ baseDir: workingDirectory });
         git
             ?.addConfig('user.name', userName)
@@ -31625,6 +31625,12 @@ function assertGit(git) {
         throw new Error('Git is not initialized.');
     }
 }
+function bailIfFalsy(value, message) {
+    if ((Array.isArray(value) && value.length <= 0) || !value) {
+        throw new Error(message || 'Unknown error');
+    }
+}
+exports.bailIfFalsy = bailIfFalsy;
 
 
 /***/ }),
@@ -31660,13 +31666,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const create_artifacts_1 = __nccwpck_require__(1692);
-const move_tags_1 = __nccwpck_require__(9351);
+const maybe_move_tags_1 = __nccwpck_require__(1885);
 const push_assets_1 = __nccwpck_require__(6545);
 async function main() {
     Promise.resolve()
         .then(create_artifacts_1.createArtifacts)
         .then(push_assets_1.pushAssets)
-        .then(move_tags_1.moveTags)
+        .then(maybe_move_tags_1.maybeMoveTags)
         .catch(error => core.setFailed(`Failed to create and push artifacts: ${error}`));
 }
 exports["default"] = main;
@@ -31723,7 +31729,7 @@ exports.createArtifacts = createArtifacts;
 
 /***/ }),
 
-/***/ 9351:
+/***/ 1885:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -31752,14 +31758,26 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.moveTags = void 0;
+exports.maybeMoveTags = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const create_git_1 = __nccwpck_require__(6704);
-async function moveTags() {
+async function maybeMoveTags() {
     const data = new Map();
-    return retrieveTags(data).then(createTemporaryBranch).then(toggleTags).then(removeTemporaryBranch);
+    return retrieveTags(data)
+        .then(assertTags)
+        .then(createTemporaryBranch)
+        .then(toggleTags)
+        .then(removeTemporaryBranch)
+        .catch((error) => {
+        if (error.cause === "no-tags") {
+            core.info(" No tags found. Skipping tags handling.");
+            return;
+        }
+        // Re-throw for external catching.
+        throw error;
+    });
 }
-exports.moveTags = moveTags;
+exports.maybeMoveTags = maybeMoveTags;
 async function retrieveTags(data) {
     const git = (0, create_git_1.createGit)();
     return git
@@ -31768,13 +31786,12 @@ async function retrieveTags(data) {
         .then((tags) => {
         core.info(`Retrieved tags: ${tags.join("\n")}`);
         return data.set("tags", tags);
-    })
-        .then(assertTags);
+    });
 }
 async function assertTags(data) {
     const tags = data.get("tags");
     if (!tags || tags.length === 0) {
-        throw new Error("No tags found. Skipping tags handling.");
+        throw new Error("No tags found. Skipping tags handling.", { cause: "no-tags" });
     }
     return Promise.resolve(data);
 }
