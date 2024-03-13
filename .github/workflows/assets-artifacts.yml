@@ -1,8 +1,9 @@
 name: Assets Artifacts
 
 on:
-  create:
-    types: [tag]
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
