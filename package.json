@@ -47,7 +47,6 @@
 		"lint:js": "wp-scripts lint-js ./sources/client",
 		"lint:js:fix": "wp-scripts lint-js --fix ./sources/client",
 		"test": "jest",
-		"test:update-snapshots": "yarn test -u",
-		"prepare": "husky"
+		"test:update-snapshots": "yarn test -u"
 	}
 }
