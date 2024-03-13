@@ -1,10 +1,6 @@
 name: Assets Artifacts
 
 on:
-  push:
-    branches:
-      - 'feature/16/github-actions-artifacts'
-
   create:
     types: [tag]
 
@@ -22,7 +18,7 @@ jobs:
           cache: 'yarn'
           node-version: '20'
 
-      - name: Install
+      - name: Install Dependencies
         run: yarn install
 
       - name: Build Assets
