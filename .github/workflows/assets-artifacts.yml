@@ -30,4 +30,3 @@ jobs:
         env:
           GIT_USER: ${{ secrets.GIT_USER }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-          HUSKY: 0
