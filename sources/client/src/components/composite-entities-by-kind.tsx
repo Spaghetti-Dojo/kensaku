@@ -137,5 +137,3 @@ export function CompositeEntitiesByKind< E, K >(
 
 	return <>{ props.children( entities, kind, search ) }</>;
 }
-
-// A Comment
