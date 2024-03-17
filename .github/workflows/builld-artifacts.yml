@@ -1,0 +1,30 @@
+name: Build Artifacts
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, '--skip-assets-artifacts') }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build Artifacts
+        uses: widoz/github-artifacts-action@v1
+        env:
+          GIT_USER: ${{ secrets.GIT_USER }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+          HUSKY: 0
