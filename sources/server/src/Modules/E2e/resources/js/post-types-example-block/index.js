@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		SingularSelectControl,
 		PluralSelectControl,
 		RadioControl,
+		PresetPostTypes,
 		ToggleControl,
 		SearchControl,
 		CompositeEntitiesByKind,
@@ -40,10 +41,32 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const PostPostTypesControllerElement = createElement(
-				CompositeEntitiesByKind,
+			  	PresetPostTypes,
 				{
+					entities: new Set(props.attributes.posts),
+					onChangeEntities: (posts) =>
+					  props.setAttributes({ posts: posts.toArray() }),
+					entitiesComponent: ToggleControl,
+
+					kind: new Set(props.attributes.postType),
+					kindOptions: convertEntitiesToControlOptions(
+					  postTypesEntities
+						.records()
+						.filter(
+						  (record) =>
+							!UNSUPPORTED_CPTS.includes(record.slug)
+						),
+					  'name',
+					  'slug'
+					),
+					onChangeKind: (postType) =>
+					  props.setAttributes({
+						  postType: postType.toArray(),
+					  }),
+					kindComponent: ToggleControl,
+
 					// TODO Wrap around a throttle or debounce function
-					searchEntities: async (
+					search: async (
 						phrase,
 						postType,
 						queryArguments
@@ -60,44 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
 							'id'
 						);
 					},
-					entities: {
-						value: new Set(props.attributes.posts),
-						onChange: (posts) =>
-							props.setAttributes({ posts: posts.toArray() }),
-					},
-					kind: {
-						value: new Set(props.attributes.postType),
-						options: convertEntitiesToControlOptions(
-							postTypesEntities
-								.records()
-								.filter(
-									(record) =>
-										!UNSUPPORTED_CPTS.includes(record.slug)
-								),
-							'name',
-							'slug'
-						),
-						onChange: (postType) =>
-							props.setAttributes({
-								postType: postType.toArray(),
-							}),
-					},
-				},
-				(posts, type, search) => {
-					return [
-						createElement(ToggleControl, {
-							...type,
-							key: 'post-type-radio',
-						}),
-						createElement(SearchControl, {
-							onChange: search,
-							key: 'search',
-						}),
-						createElement(ToggleControl, {
-							...posts,
-							key: 'posts-toggle',
-						}),
-					];
 				}
 			);
 
