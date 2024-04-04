@@ -38,7 +38,7 @@ const MyComponent (props: Props) => {
                 new Set(['page']),
                 {
                     per_page: 10,
-                    _fields: ['slug', 'title']
+                    fields: ['slug', 'title']
                 }
             )
             .then(setEntities);
