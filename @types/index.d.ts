@@ -17,11 +17,11 @@ declare namespace EntitiesSearch {
 	type Options<V> = Set<ControlOption<V>>;
 	type Value = string | number;
 
-	interface QueryArguments<V>
+	interface QueryArguments
 		extends Partial<
 			Readonly<{
-				exclude: Set<V>;
-				include: Set<V>;
+				exclude: Set<string | number>;
+				include: Set<string | number>;
 				fields: EntitiesSearch.SearchQueryFields;
 				[p: string]: unknown;
 			}>
@@ -99,6 +99,7 @@ declare namespace EntitiesSearch {
 	/*
 	 * Api
 	 */
+	// TODO Better to convert the SearchQueryFields to an Array.
 	type SearchQueryFields = ReadonlyArray<
 		keyof EntitiesSearch.SearchEntityFields
 	>;

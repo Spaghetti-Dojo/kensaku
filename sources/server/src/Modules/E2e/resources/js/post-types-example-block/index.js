@@ -65,24 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
 					  }),
 					kindComponent: ToggleControl,
 
-					// TODO Wrap around a throttle or debounce function
-					search: async (
-						phrase,
-						postType,
-						queryArguments
-					) => {
-						const postsEntities = await searchEntities(
-							'post',
-							postType,
-							phrase,
-							queryArguments
-						);
-						return convertEntitiesToControlOptions(
-							postsEntities,
-							'title',
-							'id'
-						);
-					},
+					entitiesFields: [
+					  'title',
+					  'id',
+					  'post_content'
+					]
 				}
 			);
 

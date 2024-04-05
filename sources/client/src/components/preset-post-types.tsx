@@ -10,53 +10,120 @@ import React, { JSX } from 'react';
 import { CompositeEntitiesByKind } from './composite-entities-by-kind';
 import { SearchControl } from './search-control';
 import { Set } from '../models/set';
+import { searchPosts } from '../api/search-posts';
+
+/**
+ * WordPress dependencies
+ */
+import { createHigherOrderComponent } from '@wordpress/compose';
 
 type EntitiesValue = EntitiesSearch.Value;
 type Entities = EntitiesSearch.Entities< EntitiesValue >;
 type KindValue = EntitiesSearch.Kind< string > | string;
+type PostFinder = typeof searchPosts;
 
-type Props = {
+type EntitiesComponent = React.ComponentType<
+	EntitiesSearch.BaseControl< EntitiesValue >
+>;
+type KindComponent = React.ComponentType<
+	EntitiesSearch.BaseControl< KindValue >
+>;
+
+type PublicComponentProps = {
 	entities: Entities;
 	onChangeEntities: ( values: Entities ) => void;
-	entitiesComponent: React.ComponentType<
-		EntitiesSearch.BaseControl< EntitiesValue >
-	>;
+	entitiesComponent: EntitiesComponent;
 	kind: KindValue;
 	kindOptions: EntitiesSearch.Options< string >;
 	onChangeKind: ( values: KindValue ) => void;
-	kindComponent: React.ComponentType<
-		EntitiesSearch.BaseControl< KindValue >
-	>;
-	search: EntitiesSearch.SearchEntitiesFunction< EntitiesValue, KindValue >;
+	kindComponent: KindComponent;
+	entitiesFields?: EntitiesSearch.QueryArguments[ 'fields' ];
 };
 
-export function PresetPostTypes( props: Props ): JSX.Element {
-	const kindValue = ensureKindValue( props.kind );
+interface InternalComponent
+	extends Pick<
+		EntitiesSearch.CompositeEntitiesKinds< EntitiesValue, string >,
+		'kind' | 'entities'
+	> {
+	searchPosts: PostFinder;
+	kindComponent: KindComponent;
+	entitiesComponent: EntitiesComponent;
+}
 
+function InternalComponent( props: InternalComponent ): JSX.Element {
 	return (
-		<CompositeEntitiesByKind< EntitiesSearch.Value, string >
-			entities={ {
-				value: props.entities,
-				onChange: props.onChangeEntities,
-			} }
-			kind={ {
-				value: kindValue,
-				options: props.kindOptions,
-				onChange: props.onChangeKind,
-			} }
-			searchEntities={ props.search }
+		<CompositeEntitiesByKind
+			entities={ props.entities }
+			kind={ props.kind }
+			searchEntities={ props.searchPosts }
 		>
-			{ ( entities, kind, search ) => (
+			{ ( _entities, _kind, search ) => (
 				<>
-					<props.kindComponent { ...kind } />
+					<props.kindComponent { ..._kind } />
 					<SearchControl onChange={ search } />
-					<props.entitiesComponent { ...entities } />
+					<props.entitiesComponent { ..._entities } />
 				</>
 			) }
 		</CompositeEntitiesByKind>
 	);
 }
 
-function ensureKindValue( value: KindValue ): EntitiesSearch.Kind< string > {
+const withDataBound = createHigherOrderComponent<
+	React.ComponentType< InternalComponent >,
+	React.ComponentType< PublicComponentProps >
+>(
+	( Component ) => ( props ) => {
+		const kindValue = narrowKindValue( props.kind );
+
+		const entities = {
+			value: props.entities,
+			onChange: props.onChangeEntities,
+		};
+
+		const kind = {
+			value: kindValue,
+			options: props.kindOptions,
+			onChange: props.onChangeKind,
+		};
+
+		const _searchPosts = postFinderWithExtraFields(
+			searchPosts,
+			props.entitiesFields
+		);
+
+		return (
+			<Component
+				entities={ entities }
+				kind={ kind }
+				searchPosts={ _searchPosts }
+				kindComponent={ props.kindComponent }
+				entitiesComponent={ props.entitiesComponent }
+			/>
+		);
+	},
+	'withDataBound'
+);
+
+function postFinderWithExtraFields(
+	postFinder: PostFinder,
+	entitiesFields?: EntitiesSearch.QueryArguments[ 'fields' ]
+): PostFinder {
+	return (
+		phrase: string,
+		postTypes: EntitiesSearch.Kind< string >,
+		queryArguments?: EntitiesSearch.QueryArguments
+	) =>
+		postFinder( phrase, postTypes, {
+			...queryArguments,
+			fields: [
+				...( queryArguments?.fields ?? [ 'title', 'id' ] ),
+				...( entitiesFields ?? [] ),
+			],
+		} );
+}
+
+function narrowKindValue( value: KindValue ): EntitiesSearch.Kind< string > {
 	return typeof value === 'string' ? new Set( [ value ] ) : value;
 }
+
+export const PresetPostTypes = withDataBound( InternalComponent );

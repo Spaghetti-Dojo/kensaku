@@ -1,4 +1,5 @@
 export * from './api/search-entities';
+export * from './api/search-posts';
 
 export * from './components/composite-entities-by-kind';
 export * from './components/plural-select-control';
