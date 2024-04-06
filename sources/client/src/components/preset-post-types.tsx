@@ -5,17 +5,17 @@ import EntitiesSearch from '@types';
 import React, { JSX } from 'react';
 
 /**
+ * WordPress dependencies
+ */
+import { createHigherOrderComponent } from '@wordpress/compose';
+
+/**
  * Internal dependencies
  */
 import { CompositeEntitiesByKind } from './composite-entities-by-kind';
 import { SearchControl } from './search-control';
 import { Set } from '../models/set';
 import { searchPosts } from '../api/search-posts';
-
-/**
- * WordPress dependencies
- */
-import { createHigherOrderComponent } from '@wordpress/compose';
 
 type EntitiesValue = EntitiesSearch.Value;
 type Entities = EntitiesSearch.Entities< EntitiesValue >;
