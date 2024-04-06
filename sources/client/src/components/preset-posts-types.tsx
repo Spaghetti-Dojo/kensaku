@@ -40,7 +40,7 @@ type PublicComponentProps = {
 	entitiesFields?: EntitiesSearch.QueryArguments[ 'fields' ];
 };
 
-interface InternalComponent
+interface PrivateComponentProps
 	extends Pick<
 		EntitiesSearch.CompositeEntitiesKinds< EntitiesValue, string >,
 		'kind' | 'entities'
@@ -50,7 +50,7 @@ interface InternalComponent
 	entitiesComponent: EntitiesComponent;
 }
 
-function InternalComponent( props: InternalComponent ): JSX.Element {
+function PrivateComponent( props: PrivateComponentProps ): JSX.Element {
 	return (
 		<CompositeEntitiesByKind
 			entities={ props.entities }
@@ -69,7 +69,7 @@ function InternalComponent( props: InternalComponent ): JSX.Element {
 }
 
 const withDataBound = createHigherOrderComponent<
-	React.ComponentType< InternalComponent >,
+	React.ComponentType< PrivateComponentProps >,
 	React.ComponentType< PublicComponentProps >
 >(
 	( Component ) => ( props ) => {
@@ -126,4 +126,4 @@ function narrowKindValue( value: KindValue ): EntitiesSearch.Kind< string > {
 	return typeof value === 'string' ? new Set( [ value ] ) : value;
 }
 
-export const PresetPostTypes = withDataBound( InternalComponent );
+export const PresetPostsTypes = withDataBound( PrivateComponent );

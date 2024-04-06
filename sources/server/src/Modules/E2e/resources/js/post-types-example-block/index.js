@@ -1,3 +1,5 @@
+import {PresetPostsTypes} from '../../../../../../../client/src/components/preset-posts-types'
+
 document.addEventListener('DOMContentLoaded', () => {
 	const UNSUPPORTED_CPTS = ['attachment'];
 
@@ -14,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		SingularSelectControl,
 		PluralSelectControl,
 		RadioControl,
-		PresetPostTypes,
+		PresetPostsTypes,
 		ToggleControl,
 		SearchControl,
 		CompositeEntitiesByKind,
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const PostPostTypesControllerElement = createElement(
-			  	PresetPostTypes,
+			  PresetPostsTypes,
 				{
 					entities: new Set(props.attributes.posts),
 					onChangeEntities: (posts) =>
