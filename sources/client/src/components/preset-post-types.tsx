@@ -20,7 +20,7 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 type EntitiesValue = EntitiesSearch.Value;
 type Entities = EntitiesSearch.Entities< EntitiesValue >;
 type KindValue = EntitiesSearch.Kind< string > | string;
-type PostFinder = typeof searchPosts;
+type PostsFinder = typeof searchPosts;
 
 type EntitiesComponent = React.ComponentType<
 	EntitiesSearch.BaseControl< EntitiesValue >
@@ -45,7 +45,7 @@ interface InternalComponent
 		EntitiesSearch.CompositeEntitiesKinds< EntitiesValue, string >,
 		'kind' | 'entities'
 	> {
-	searchPosts: PostFinder;
+	searchPosts: PostsFinder;
 	kindComponent: KindComponent;
 	entitiesComponent: EntitiesComponent;
 }
@@ -86,7 +86,7 @@ const withDataBound = createHigherOrderComponent<
 			onChange: props.onChangeKind,
 		};
 
-		const _searchPosts = postFinderWithExtraFields(
+		const _searchPosts = postsFinderWithExtraFields(
 			searchPosts,
 			props.entitiesFields
 		);
@@ -104,16 +104,16 @@ const withDataBound = createHigherOrderComponent<
 	'withDataBound'
 );
 
-function postFinderWithExtraFields(
-	postFinder: PostFinder,
+function postsFinderWithExtraFields(
+	postsFinder: PostsFinder,
 	entitiesFields?: EntitiesSearch.QueryArguments[ 'fields' ]
-): PostFinder {
+): PostsFinder {
 	return (
 		phrase: string,
 		postTypes: EntitiesSearch.Kind< string >,
 		queryArguments?: EntitiesSearch.QueryArguments
 	) =>
-		postFinder( phrase, postTypes, {
+		postsFinder( phrase, postTypes, {
 			...queryArguments,
 			fields: [
 				...( queryArguments?.fields ?? [ 'title', 'id' ] ),
