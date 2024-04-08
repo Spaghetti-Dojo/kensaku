@@ -52,19 +52,21 @@ interface PrivateComponentProps
 
 function PrivateComponent( props: PrivateComponentProps ): JSX.Element {
 	return (
-		<CompositeEntitiesByKind
-			entities={ props.entities }
-			kind={ props.kind }
-			searchEntities={ props.searchPosts }
-		>
-			{ ( _entities, _kind, search ) => (
-				<>
-					<props.kindComponent { ..._kind } />
-					<SearchControl onChange={ search } />
-					<props.entitiesComponent { ..._entities } />
-				</>
-			) }
-		</CompositeEntitiesByKind>
+		<div className="wes-preset-posts-types">
+			<CompositeEntitiesByKind
+				entities={ props.entities }
+				kind={ props.kind }
+				searchEntities={ props.searchPosts }
+			>
+				{ ( _entities, _kind, search ) => (
+					<>
+						<props.kindComponent { ..._kind } />
+						<SearchControl onChange={ search } />
+						<props.entitiesComponent { ..._entities } />
+					</>
+				) }
+			</CompositeEntitiesByKind>
+		</div>
 	);
 }
 

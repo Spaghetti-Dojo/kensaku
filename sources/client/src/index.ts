@@ -3,7 +3,7 @@ export * from './api/search-posts';
 
 export * from './components/composite-entities-by-kind';
 export * from './components/plural-select-control';
-export * from './components/preset-post-types';
+export * from './components/preset-posts-types';
 export * from './components/radio-control';
 export * from './components/search-control';
 export * from './components/singular-select-control';
