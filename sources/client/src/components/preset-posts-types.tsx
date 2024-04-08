@@ -3,6 +3,7 @@
  */
 import EntitiesSearch from '@types';
 import React, { JSX } from 'react';
+import classnames from 'classnames';
 
 /**
  * WordPress dependencies
@@ -30,6 +31,7 @@ type KindComponent = React.ComponentType<
 >;
 
 type PublicComponentProps = {
+	className?: string;
 	entities: Entities;
 	onChangeEntities: ( values: Entities ) => void;
 	entitiesComponent: EntitiesComponent;
@@ -45,14 +47,20 @@ interface PrivateComponentProps
 		EntitiesSearch.CompositeEntitiesKinds< EntitiesValue, string >,
 		'kind' | 'entities'
 	> {
+	className?: string;
 	searchPosts: PostsFinder;
 	kindComponent: KindComponent;
 	entitiesComponent: EntitiesComponent;
 }
 
 function PrivateComponent( props: PrivateComponentProps ): JSX.Element {
+	const className = classnames( 'wes-preset-posts-types', {
+		// @ts-ignore
+		[ props.className ]: !! props.className,
+	} );
+
 	return (
-		<div className="wes-preset-posts-types">
+		<div className={ className }>
 			<CompositeEntitiesByKind
 				entities={ props.entities }
 				kind={ props.kind }
@@ -75,31 +83,44 @@ const withDataBound = createHigherOrderComponent<
 	React.ComponentType< PublicComponentProps >
 >(
 	( Component ) => ( props ) => {
+		const {
+			kind,
+			entities,
+			onChangeEntities,
+			kindOptions,
+			onChangeKind,
+			entitiesFields,
+			kindComponent,
+			entitiesComponent,
+			..._props
+		} = props;
+
 		const kindValue = narrowKindValue( props.kind );
 
-		const entities = {
-			value: props.entities,
-			onChange: props.onChangeEntities,
+		const _entities = {
+			value: entities,
+			onChange: onChangeEntities,
 		};
 
-		const kind = {
+		const _kind = {
 			value: kindValue,
-			options: props.kindOptions,
-			onChange: props.onChangeKind,
+			options: kindOptions,
+			onChange: onChangeKind,
 		};
 
 		const _searchPosts = postsFinderWithExtraFields(
 			searchPosts,
-			props.entitiesFields
+			entitiesFields
 		);
 
 		return (
 			<Component
-				entities={ entities }
-				kind={ kind }
+				entities={ _entities }
+				kind={ _kind }
 				searchPosts={ _searchPosts }
-				kindComponent={ props.kindComponent }
-				entitiesComponent={ props.entitiesComponent }
+				kindComponent={ kindComponent }
+				entitiesComponent={ entitiesComponent }
+				{ ..._props }
 			/>
 		);
 	},

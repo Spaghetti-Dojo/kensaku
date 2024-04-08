@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Preset Posts Types Should render the CompositeEntitiesByKind component with the appropriate configuration 1`] = `
 <DocumentFragment>
   <div
-    class="wes-preset-posts-types"
+    class="wes-preset-posts-types extra-class-name"
   >
     <div>
       KindComponent

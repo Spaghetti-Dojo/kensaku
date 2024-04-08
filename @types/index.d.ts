@@ -34,6 +34,8 @@ declare namespace EntitiesSearch {
 			url: string;
 			type: string;
 			subtype: string;
+			post_content: string;
+			post_excerpt: string;
 		}> {}
 
 	type SearchEntitiesFunction<E, K> = (
@@ -99,7 +101,7 @@ declare namespace EntitiesSearch {
 	/*
 	 * Api
 	 */
-	// TODO Better to convert the SearchQueryFields to an Array.
+	// TODO Better to convert the SearchQueryFields to a Set.
 	type SearchQueryFields = ReadonlyArray<
 		keyof EntitiesSearch.SearchEntityFields
 	>;
