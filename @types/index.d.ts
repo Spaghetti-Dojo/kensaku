@@ -17,6 +17,7 @@ declare namespace EntitiesSearch {
 	type Options<V> = Set<ControlOption<V>>;
 	type Value = string | number;
 
+	// TODO Can we convert QueryArguments to an Immutable Map?
 	interface QueryArguments
 		extends Partial<
 			Readonly<{
