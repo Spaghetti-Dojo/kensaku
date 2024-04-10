@@ -16,12 +16,16 @@ import { createHigherOrderComponent } from '@wordpress/compose';
 import { CompositeEntitiesByKind } from './composite-entities-by-kind';
 import { SearchControl } from './search-control';
 import { Set } from '../models/set';
-import { searchPosts } from '../api/search-posts';
 
 type EntitiesValue = EntitiesSearch.Value;
 type Entities = EntitiesSearch.Entities< EntitiesValue >;
 type KindValue = EntitiesSearch.Kind< string > | string;
-type PostsFinder = typeof searchPosts;
+
+type EntitiesFinder = (
+	phrase: string,
+	kind: EntitiesSearch.Kind< string >,
+	queryArguments?: EntitiesSearch.QueryArguments
+) => Promise< Set< EntitiesSearch.ControlOption< EntitiesValue > > >;
 
 type EntitiesComponent = React.ComponentType<
 	EntitiesSearch.BaseControl< EntitiesValue >
@@ -31,6 +35,7 @@ type KindComponent = React.ComponentType<
 >;
 
 type PublicComponentProps = {
+	entitiesFinder: EntitiesFinder;
 	className?: string;
 	entities: Entities;
 	onChangeEntities: ( values: Entities ) => void;
@@ -48,13 +53,13 @@ interface PrivateComponentProps
 		'kind' | 'entities'
 	> {
 	className?: string;
-	searchPosts: PostsFinder;
+	entitiesFinder: EntitiesFinder;
 	kindComponent: KindComponent;
 	entitiesComponent: EntitiesComponent;
 }
 
 function PrivateComponent( props: PrivateComponentProps ): JSX.Element {
-	const className = classnames( 'wes-preset-posts-types', {
+	const className = classnames( 'wes-preset-entities-by-kind', {
 		// @ts-ignore
 		[ props.className ]: !! props.className,
 	} );
@@ -64,7 +69,7 @@ function PrivateComponent( props: PrivateComponentProps ): JSX.Element {
 			<CompositeEntitiesByKind
 				entities={ props.entities }
 				kind={ props.kind }
-				searchEntities={ props.searchPosts }
+				searchEntities={ props.entitiesFinder }
 			>
 				{ ( _entities, _kind, search ) => (
 					<>
@@ -92,6 +97,7 @@ const withDataBound = createHigherOrderComponent<
 			entitiesFields,
 			kindComponent,
 			entitiesComponent,
+			entitiesFinder,
 			..._props
 		} = props;
 
@@ -108,8 +114,8 @@ const withDataBound = createHigherOrderComponent<
 			onChange: onChangeKind,
 		};
 
-		const _searchPosts = postsFinderWithExtraFields(
-			searchPosts,
+		const _entitiesFinder = entitiesFinderWithExtraFields(
+			entitiesFinder,
 			entitiesFields
 		);
 
@@ -117,7 +123,7 @@ const withDataBound = createHigherOrderComponent<
 			<Component
 				entities={ _entities }
 				kind={ _kind }
-				searchPosts={ _searchPosts }
+				entitiesFinder={ _entitiesFinder }
 				kindComponent={ kindComponent }
 				entitiesComponent={ entitiesComponent }
 				{ ..._props }
@@ -127,16 +133,16 @@ const withDataBound = createHigherOrderComponent<
 	'withDataBound'
 );
 
-function postsFinderWithExtraFields(
-	postsFinder: PostsFinder,
+function entitiesFinderWithExtraFields(
+	entitiesFinder: EntitiesFinder,
 	entitiesFields?: EntitiesSearch.QueryArguments[ 'fields' ]
-): PostsFinder {
+): EntitiesFinder {
 	return (
 		phrase: string,
-		postTypes: EntitiesSearch.Kind< string >,
+		kind: EntitiesSearch.Kind< string >,
 		queryArguments?: EntitiesSearch.QueryArguments
 	) =>
-		postsFinder( phrase, postTypes, {
+		entitiesFinder( phrase, kind, {
 			...queryArguments,
 			fields: [
 				...( queryArguments?.fields ?? [ 'title', 'id' ] ),
@@ -149,4 +155,4 @@ function narrowKindValue( value: KindValue ): EntitiesSearch.Kind< string > {
 	return typeof value === 'string' ? new Set( [ value ] ) : value;
 }
 
-export const PresetPostsTypes = withDataBound( PrivateComponent );
+export const PresetEntitiesByKind = withDataBound( PrivateComponent );

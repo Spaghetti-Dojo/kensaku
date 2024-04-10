@@ -9,19 +9,23 @@ import { describe, it, expect, jest } from '@jest/globals';
  * Internal dependencies
  */
 import { Set } from '../../../../sources/client/src/models/set';
-import { searchPosts } from '../../../../sources/client/src/api/search-posts';
 import { searchEntities } from '../../../../sources/client/src/api/search-entities';
+import { searchEntitiesOptions } from '../../../../sources/client/src/api/search-entities-options';
 import { convertEntitiesToControlOptions } from '../../../../sources/client/src/utils/convert-entities-to-control-options';
 
 jest.mock( '../../../../sources/client/src/api/search-entities', () => ( {
 	searchEntities: jest.fn(),
 } ) );
 
-describe( 'Search Posts', () => {
+describe( 'Search Entities Options', () => {
 	it( 'Should return a Set of Control Option with the title and id.', async () => {
 		const stubs = stubEntities();
 		jest.mocked( searchEntities ).mockResolvedValue( stubs );
-		const posts = await searchPosts( 'Phrase', new Set( [ 'post' ] ) );
+		const posts = await searchEntitiesOptions(
+			'post',
+			'Phrase',
+			new Set( [ 'post' ] )
+		);
 
 		expect( posts.toArray() ).toEqual(
 			convertEntitiesToControlOptions( stubs, 'title', 'id' ).toArray()
@@ -31,10 +35,21 @@ describe( 'Search Posts', () => {
 	it( 'Should return a Set of Control Option with the title and id and extra fields.', async () => {
 		const stubs = stubEntities();
 		jest.mocked( searchEntities ).mockResolvedValue( stubs );
-		const posts = await searchPosts( 'Phrase', new Set( [ 'post' ] ), {
-			// @ts-ignore
-			fields: [ 'title', 'id', 'slug', 'post_content', 'post_excerpt' ],
-		} );
+		const posts = await searchEntitiesOptions(
+			'post',
+			'Phrase',
+			new Set( [ 'post' ] ),
+			{
+				fields: [
+					'title',
+					'id',
+					// @ts-ignore
+					'slug',
+					'post_content',
+					'post_excerpt',
+				],
+			}
+		);
 
 		expect( posts.toArray() ).toEqual(
 			convertEntitiesToControlOptions(
@@ -58,10 +73,15 @@ describe( 'Search Posts', () => {
 
 		jest.mocked( searchEntities ).mockResolvedValue( stubs );
 
-		const posts = await searchPosts( 'Phrase', new Set( [ 'post' ] ), {
-			// @ts-ignore
-			fields: [ 'post_excerpt', 'slug' ],
-		} );
+		const posts = await searchEntitiesOptions(
+			'post',
+			'Phrase',
+			new Set( [ 'post' ] ),
+			{
+				// @ts-ignore
+				fields: [ 'post_excerpt', 'slug' ],
+			}
+		);
 
 		expect( posts.toArray() ).toEqual(
 			convertEntitiesToControlOptions(
@@ -82,7 +102,12 @@ describe( 'Search Posts', () => {
 
 		jest.mocked( searchEntities ).mockResolvedValue( stubEntities() );
 
-		await searchPosts( phrase, postTypes, queryArguments );
+		await searchEntitiesOptions(
+			'post',
+			phrase,
+			postTypes,
+			queryArguments
+		);
 
 		expect( searchEntities ).toHaveBeenCalledWith(
 			'post',

@@ -1,9 +1,10 @@
 export * from './api/search-entities';
-export * from './api/search-posts';
+export * from './api/search-entities-options';
+export * from './api/create-search-entities-options';
 
 export * from './components/composite-entities-by-kind';
 export * from './components/plural-select-control';
-export * from './components/preset-posts-types';
+export * from './components/preset-entities-by-kind';
 export * from './components/radio-control';
 export * from './components/search-control';
 export * from './components/singular-select-control';

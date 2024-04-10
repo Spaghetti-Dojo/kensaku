@@ -9,15 +9,11 @@ import { render } from '@testing-library/react';
 /**
  * Internal dependencies
  */
-import { PresetPostsTypes } from '../../../../sources/client/src/components/preset-posts-types';
-import { ControlOption } from '../../../../sources/client/src/value-objects/control-option';
 import { Set } from '../../../../sources/client/src/models/set';
-import { searchPosts } from '../../../../sources/client/src/api/search-posts';
+import { createSearchEntitiesOptions } from '../../../../sources/client/src';
+import { ControlOption } from '../../../../sources/client/src/value-objects/control-option';
+import { PresetEntitiesByKind } from '../../../../sources/client/src/components/preset-entities-by-kind';
 import { CompositeEntitiesByKind } from '../../../../sources/client/src/components/composite-entities-by-kind';
-
-jest.mock( '../../../../sources/client/src/api/search-posts', () => ( {
-	searchPosts: jest.fn(),
-} ) );
 
 jest.mock(
 	'../../../../sources/client/src/components/composite-entities-by-kind',
@@ -28,13 +24,20 @@ jest.mock(
 	} )
 );
 
-describe( 'Preset Post Types', () => {
-	it( 'Pass the entities fields to the given searchPosts function', ( done ) => {
+describe( 'Preset Entities by Kind', () => {
+	it( 'Pass the entities fields to the given entitiesFinder function', ( done ) => {
+		const entitiesFinder =
+			jest.fn<
+				ReturnType< typeof createSearchEntitiesOptions< string > >
+			>();
+
 		const entitiesFields: EntitiesSearch.SearchQueryFields = [
 			'post_content',
 			'post_excerpt',
 		];
+
 		const props = {
+			entitiesFinder,
 			entities: new Set( [ 1, 2, 3 ] ),
 			onChangeEntities: jest.fn(),
 			entitiesComponent: () => (
@@ -49,11 +52,11 @@ describe( 'Preset Post Types', () => {
 			entitiesFields,
 		};
 
-		jest.mocked( searchPosts ).mockImplementation(
+		jest.mocked( entitiesFinder ).mockImplementation(
 			// @ts-ignore
 			(
 				_phrase: string,
-				_postTypes: EntitiesSearch.Kind< string >,
+				_kind: EntitiesSearch.Kind< string >,
 				queryArguments?: EntitiesSearch.QueryArguments
 			) => {
 				expect( queryArguments?.fields ).toEqual( [
@@ -74,7 +77,7 @@ describe( 'Preset Post Types', () => {
 			}
 		);
 
-		render( <PresetPostsTypes { ...props } /> );
+		render( <PresetEntitiesByKind { ...props } /> );
 	} );
 } );
 

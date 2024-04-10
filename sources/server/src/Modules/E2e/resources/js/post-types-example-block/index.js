@@ -1,5 +1,3 @@
-import {PresetPostsTypes} from '../../../../../../../client/src/components/preset-posts-types'
-
 document.addEventListener('DOMContentLoaded', () => {
 	const UNSUPPORTED_CPTS = ['attachment'];
 
@@ -16,12 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		SingularSelectControl,
 		PluralSelectControl,
 		RadioControl,
-		PresetPostsTypes,
+		PresetEntitiesByKind,
 		ToggleControl,
 		SearchControl,
 		CompositeEntitiesByKind,
 		useQueryViewablePostTypes,
 		convertEntitiesToControlOptions,
+		createSearchEntitiesOptions,
 	} = wpEntitiesSearch;
 
 	// TODO Check why the object form does not work.
@@ -42,9 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
 				return createElement(Spinner);
 			}
 
+			const searchPosts = createSearchEntitiesOptions( 'post' );
+
 			const PostPostTypesControllerElement = createElement(
-			  PresetPostsTypes,
+			  PresetEntitiesByKind,
 				{
+					entitiesFinder: searchPosts,
 					entities: new Set(props.attributes.posts),
 					onChangeEntities: (posts) =>
 					  props.setAttributes({ posts: posts.toArray() }),
@@ -70,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
 					entitiesFields: [
 					  'title',
 					  'id',
-					  'post_content'
 					]
 				}
 			);
