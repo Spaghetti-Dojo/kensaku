@@ -17,11 +17,12 @@ declare namespace EntitiesSearch {
 	type Options<V> = Set<ControlOption<V>>;
 	type Value = string | number;
 
-	interface QueryArguments<V>
+	// TODO Can we convert QueryArguments to an Immutable Map?
+	interface QueryArguments
 		extends Partial<
 			Readonly<{
-				exclude: Set<V>;
-				include: Set<V>;
+				exclude: Set<string | number>;
+				include: Set<string | number>;
 				fields: EntitiesSearch.SearchQueryFields;
 				[p: string]: unknown;
 			}>
@@ -34,6 +35,8 @@ declare namespace EntitiesSearch {
 			url: string;
 			type: string;
 			subtype: string;
+			post_content: string;
+			post_excerpt: string;
 		}> {}
 
 	type SearchEntitiesFunction<E, K> = (
@@ -99,6 +102,7 @@ declare namespace EntitiesSearch {
 	/*
 	 * Api
 	 */
+	// TODO Better to convert the SearchQueryFields to a Set.
 	type SearchQueryFields = ReadonlyArray<
 		keyof EntitiesSearch.SearchEntityFields
 	>;

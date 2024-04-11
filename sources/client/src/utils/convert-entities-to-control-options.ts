@@ -18,7 +18,7 @@ export function convertEntitiesToControlOptions<
 	entities: Set< EntitiesFields >,
 	labelKey: string,
 	valueKey: string,
-	...extraKeys: Array< string >
+	...extraKeys: ReadonlyArray< string >
 ): Set< EntitiesSearch.ControlOption< V > > {
 	return entities.map( ( entity ) => {
 		const label = entity[ labelKey ];

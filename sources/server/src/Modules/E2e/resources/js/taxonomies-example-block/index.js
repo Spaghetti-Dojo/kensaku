@@ -10,11 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		Set,
 		searchEntities,
 		SingularSelectControl,
+		PluralSelectControl,
+		RadioControl,
+		PresetEntitiesByKind,
 		ToggleControl,
 		SearchControl,
 		CompositeEntitiesByKind,
+		useQueryViewablePostTypes,
 		useQueryViewableTaxonomies,
 		convertEntitiesToControlOptions,
+		createSearchEntitiesOptions,
 	} = wpEntitiesSearch;
 
 	// TODO Check why the object form does not work.
@@ -35,68 +40,40 @@ document.addEventListener('DOMContentLoaded', () => {
 				return createElement(Spinner);
 			}
 
+			const entitiesFinder = createSearchEntitiesOptions( 'term' );
+
 			const TermTaxonomiesControllerElement = createElement(
-				CompositeEntitiesByKind,
-				{
-					// TODO Wrap around a throttle or debounce function
-					searchEntities: async (
-						phrase,
-						taxonomyName,
-						queryArguments
-					) => {
-						const terms = await searchEntities(
-							'term',
-							taxonomyName,
-							phrase,
-							queryArguments
-						);
-						return convertEntitiesToControlOptions(
-							terms,
-							'title',
-							'id'
-						);
-					},
-					entities: {
-						value: new Set(props.attributes.terms),
-						onChange: (terms) =>
-							props.setAttributes({ terms: terms?.toArray() }),
-					},
-					kind: {
-						value: new Set(props.attributes.taxonomy),
-						options: convertEntitiesToControlOptions(
-							taxonomiesEntities.records(),
-							'name',
-							'slug'
-						),
-						onChange: (taxonomy) =>
-							props.setAttributes({
-								taxonomy: taxonomy.toArray(),
-							}),
-					},
-				},
-				(terms, taxonomy, search) => {
-					return [
-						createElement(SingularSelectControl, {
-							...taxonomy,
-							value: taxonomy.value.first(),
-							key: 'taxonomy-radio',
-						}),
-						createElement(SearchControl, {
-							onChange: search,
-							key: 'search',
-						}),
-						createElement(ToggleControl, {
-							...terms,
-							key: 'terms-toggle',
-						}),
-					];
-				}
+			  PresetEntitiesByKind,
+			  {
+				  entitiesFinder: entitiesFinder,
+				  entities: new Set(props.attributes.terms),
+				  onChangeEntities: (entities) =>
+					props.setAttributes({ terms: entities.toArray() }),
+				  entitiesComponent: ToggleControl,
+
+				  kind: new Set(props.attributes.taxonomy),
+				  kindOptions: convertEntitiesToControlOptions(
+					taxonomiesEntities.records(),
+					'name',
+					'slug'
+				  ),
+				  onChangeKind: (kind) =>
+					props.setAttributes({
+						taxonomy: kind.toArray(),
+					}),
+				  kindComponent: ToggleControl,
+
+				  entitiesFields: [
+					  'title',
+					  'id',
+				  ]
+			  }
 			);
 
 			return createElement(
-				'div',
-				blockProps,
-				TermTaxonomiesControllerElement
+			  'div',
+			  blockProps,
+			  TermTaxonomiesControllerElement
 			);
 		},
 		save: () => null,

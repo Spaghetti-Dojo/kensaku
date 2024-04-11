@@ -20,7 +20,7 @@ export async function searchEntities< E >(
 	type: string,
 	subtype: Set< string >,
 	phrase: string,
-	queryArguments?: EntitiesSearch.QueryArguments< string >
+	queryArguments?: EntitiesSearch.QueryArguments
 ): Promise< Set< E > > {
 	const {
 		exclude,
