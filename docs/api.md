@@ -72,3 +72,17 @@ NOTE: The function does not handle possible request exceptions.
 
 The `searchEntities` will automatically abort the requests with the same parameters if a new request is made before the previous one is completed.
 
+
+
+## `searchEntitiesOptions`
+
+This function is a wrapper for the `searchEntites` which perform a small additional task you might want to do quite ofter after retrieving the entities that is
+to convert the entities to `EntitiesSearch.ControlOptions`. The argument taken are the same of the `searchEntities`.
+
+### `createSearchEntitiesOptions`
+
+This is a factory function, it returns a `searchEntitiesOptions` function preconfigured to search for a specific *root* kind.
+
+For instance, if we call this function with `post` like `createSearchEntitiesOptions('post')` the returned function will be of type `searchEntitiesOptions` where you don't always have to pass the *root* type.
+
+Most probably this will be the function you'll deal with most as it make easy to build a function you can consume with other components.
