@@ -200,7 +200,7 @@ It gets passed the `entitiesFinder` which is the function performing the request
 
 Below you can see how easy is to create a new control set compared to use the low level api `CompositeEntitiesByKind`.
 
-```typescript jsx
+```jsx
 const entitiesFinder = createSearchEntitiesOptions( 'post' );
 const postTypesEntities = convertEntitiesToControlOptions(useQueryViewablePostTypes().records(), 'name', 'slug');
 
