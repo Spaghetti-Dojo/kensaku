@@ -117,7 +117,6 @@ declare namespace EntitiesSearch {
 	> extends Readonly<{
 			entities: Entities<E>;
 			kind: Kind<K>;
-			contextualEntitiesOptions: OptionSet;
 			currentEntitiesOptions: OptionSet;
 			selectedEntitiesOptions: OptionSet;
 			searchPhrase: string;
@@ -138,13 +137,6 @@ declare namespace EntitiesSearch {
 					E,
 					K
 				>['currentEntitiesOptions'];
-		  }
-		| {
-				type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS';
-				contextualEntitiesOptions: EntitiesState<
-					E,
-					K
-				>['contextualEntitiesOptions'];
 		  }
 		| {
 				type: 'UPDATE_SELECTED_ENTITIES_OPTIONS';
