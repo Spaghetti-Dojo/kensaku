@@ -20,7 +20,6 @@ export function makeInitialState< E, K >(
 	return {
 		entities: new Set< E >( [] ),
 		kind: new Set< K >( [] ),
-		contextualEntitiesOptions: new Set< Options< E > >(),
 		currentEntitiesOptions: new Set< Options< E > >(),
 		selectedEntitiesOptions: new Set< Options< E > >(),
 		searchPhrase: '',

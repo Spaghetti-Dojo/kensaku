@@ -64,10 +64,6 @@ export function useEntitiesOptionsStorage< E, K >(
 					selectedEntitiesOptions,
 				} );
 				dispatch( {
-					type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS',
-					contextualEntitiesOptions: currentEntitiesOptions,
-				} );
-				dispatch( {
 					type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 					currentEntitiesOptions,
 				} );

@@ -36,27 +36,6 @@ describe( 'reducer', () => {
 		expect( newState.kind ).toEqual( kind );
 	} );
 
-	it( 'Update the Contextual Posts Options', () => {
-		const contextualPostsOptions = new Set( [
-			{
-				value: faker.number.int( 10 ),
-				label: 'Post One',
-			},
-			{
-				value: faker.number.int( { min: 11, max: 20 } ),
-				label: 'Post Two',
-			},
-		] );
-		const newState = reducer( state, {
-			type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS',
-			contextualEntitiesOptions: contextualPostsOptions,
-		} );
-
-		expect( newState.contextualEntitiesOptions ).toEqual(
-			contextualPostsOptions
-		);
-	} );
-
 	it( 'Update the Posts Options', () => {
 		const postsOptions = new Set( [
 			{
@@ -120,7 +99,6 @@ describe( 'reducer', () => {
 		} );
 
 		expect( newState.selectedEntitiesOptions ).toEqual( new Set() );
-		expect( newState.contextualEntitiesOptions ).toEqual( new Set() );
 		expect( newState.currentEntitiesOptions ).toEqual( new Set() );
 	} );
 
@@ -142,7 +120,6 @@ describe( 'reducer', () => {
 			entitiesOptions,
 		} );
 
-		expect( newState.contextualEntitiesOptions ).toEqual( entitiesOptions );
 		expect( newState.currentEntitiesOptions ).toEqual( entitiesOptions );
 		expect( newState.selectedEntitiesOptions ).toEqual( new Set() );
 		expect( newState.entities ).toEqual( new Set() );

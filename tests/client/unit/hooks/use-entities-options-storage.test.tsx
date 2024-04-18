@@ -132,10 +132,6 @@ describe( 'Use Posts Options Storage', () => {
 			selectedEntitiesOptions,
 		} );
 		expect( dispatch ).toHaveBeenCalledWith( {
-			type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS',
-			contextualEntitiesOptions: currentEntitiesOptions,
-		} );
-		expect( dispatch ).toHaveBeenCalledWith( {
 			type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 			currentEntitiesOptions,
 		} );
@@ -174,10 +170,6 @@ describe( 'Use Posts Options Storage', () => {
 		expect( dispatch ).toHaveBeenCalledWith( {
 			type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
 			selectedEntitiesOptions: expectedSet,
-		} );
-		expect( dispatch ).toHaveBeenCalledWith( {
-			type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS',
-			contextualEntitiesOptions: expectedSet,
 		} );
 		expect( dispatch ).toHaveBeenCalledWith( {
 			type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
