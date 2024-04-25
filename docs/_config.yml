@@ -6,6 +6,19 @@ baseurl: '/wp-entities-search'
 
 remote_theme: just-the-docs/just-the-docs
 
+aux_links:
+  "Wp Entities Search on Github":
+    - "https://github.com/widoz/wp-entities-search"
+
+aux_links_new_tab: true
+
+nav_external_links:
+  - title: Go to the Repository
+    url: https://github.com/widoz/wp-entities-search
+
+back_to_top: true
+back_to_top_text: "Back to top"
+
 toc:
   enabled: true
   h_min: 1
