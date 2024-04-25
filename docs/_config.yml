@@ -1,8 +1,8 @@
 title: Wp Entities Search
 description: >-
   A WordPress package to search Entities including Rest API Endpoints and React Components
-url: 'https://widoz.github.io/wp-entities-search'
-baseurl: '/wp-entities-search'
+url: "https://widoz.github.io/wp-entities-search"
+baseurl: "/wp-entities-search"
 
 remote_theme: just-the-docs/just-the-docs
 
@@ -15,6 +15,7 @@ aux_links_new_tab: true
 nav_external_links:
   - title: Go to the Repository
     url: https://github.com/widoz/wp-entities-search
+    opens_in_new_tab: true
 
 back_to_top: true
 back_to_top_text: "Back to top"
