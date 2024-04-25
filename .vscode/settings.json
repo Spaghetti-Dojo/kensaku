@@ -6,7 +6,6 @@
 	"phpCodeSniffer.standardCustom": "./phpcs.xml",
 	"phpCodeSniffer.standard": "Custom",
 	"phpCodeSniffer.autoExecutable": true,
-	"prettier.configPath": ".prettierrc.js",
 	"files.readonlyInclude": {
 		"**/node_modules/**": true,
 		"**/vendor/**": true
