@@ -24,7 +24,7 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "Node10",
+    "moduleResolution": "nodenext",
     "paths": {
       "@types": [
         "./@types/index.d.ts"
