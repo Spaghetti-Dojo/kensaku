@@ -26,7 +26,7 @@ class Module implements Modularity\Module\ExecutableModule
     public function run(Container\ContainerInterface $container): bool
     {
         \add_action('init', static function () use ($container) {
-          /** @var Modularity\Properties\Properties $properties */
+            /** @var Modularity\Properties\Properties $properties */
             $properties = $container->get(Modularity\Package::PROPERTIES);
 
             $baseDir = \untrailingslashit($properties->basePath());
