@@ -21,7 +21,8 @@
   "require-dev": {
     "inpsyde/modularity": "^1.5",
     "inpsyde/php-coding-standards": "^1.0",
-    "roots/wordpress-no-content": "^6.3"
+    "roots/wordpress-no-content": "^6.3",
+    "vimeo/psalm": "^5.24"
   },
   "config": {
     "platform": {
@@ -33,6 +34,7 @@
   },
   "scripts": {
     "cs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
-    "cs:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
+    "cs:fix": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf",
+    "psalm": "@php ./vendor/bin/psalm"
   }
 }
