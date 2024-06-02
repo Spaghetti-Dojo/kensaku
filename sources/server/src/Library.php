@@ -8,7 +8,7 @@ use Inpsyde\Modularity;
 
 class Library
 {
-    public static function new(string $baseUrl = null): Library
+    public static function new(string $baseUrl): Library
     {
         return new self($baseUrl);
     }

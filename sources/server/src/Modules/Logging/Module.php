@@ -30,18 +30,23 @@ class Module implements Modularity\Module\ExecutableModule
         }
 
         \add_action('init', static function () use ($container) {
-            /** @var Modularity\Properties\Properties $properties */
             $properties = $container->get(Modularity\Package::PROPERTIES);
 
             $baseDir = \untrailingslashit($properties->basePath());
             $baseUrl = \untrailingslashit($properties->baseUrl());
-            $asset = include "{$baseDir}/build/logging.asset.php";
-            $version = $properties->isDebug() ? $asset['version'] : $properties->version();
+
+            /**
+             * @var array{dependencies?: array<string>, version?: string} $asset
+             * @psalm-suppress UnresolvableInclude
+             */
+            $asset = (array)include "{$baseDir}/build/logging.asset.php";
+            $dependencies = (array)($asset['dependencies'] ?? null);
+            $version = (string)($asset['version'] ?? null) ?: false;
 
             \wp_register_script(
                 'wp-entities-search-logging',
                 "{$baseUrl}/build/logging.js",
-                $asset['dependencies'],
+                $dependencies,
                 $version,
                 true
             );
