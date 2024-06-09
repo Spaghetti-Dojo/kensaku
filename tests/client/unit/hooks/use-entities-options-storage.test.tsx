@@ -24,7 +24,7 @@ jest.mock( '@wordpress/hooks', () => ( {
 } ) );
 
 describe( 'Use Posts Options Storage', () => {
-	it( 'Ensure seachEntities is called with the right data on state hydratation.', async () => {
+	it( 'Ensure searchEntities is called with the right data on state hydratation.', async () => {
 		const kind = new Set( [ 'post' ] );
 		const entities = new Set( [ 1, 2, 3 ] );
 		const searchEntities = jest.fn( () =>
@@ -218,7 +218,7 @@ describe( 'Use Posts Options Storage', () => {
 		} );
 	} );
 
-	it( 'Execute the action wp-entities-search.on-storage-initialization.error when there is an error on searchEntites', async () => {
+	it( 'Execute the action wp-entities-search.on-storage-initialization.error when there is an error on searchEntities', async () => {
 		const kind = new Set( [ 'post' ] );
 		const entities = new Set( [ 1, 2, 3 ] );
 		const searchEntities = jest.fn( () =>
