@@ -21,7 +21,7 @@ import { CompositeEntitiesByKind } from '../../../../sources/client/src/componen
 import { PluralSelectControl } from '../../../../sources/client/src/components/plural-select-control';
 import { SearchControl } from '../../../../sources/client/src/components/search-control';
 import { SingularSelectControl } from '../../../../sources/client/src/components/singular-select-control';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 jest.mock( '@wordpress/hooks', () => ( {
 	doAction: jest.fn(),
@@ -36,7 +36,11 @@ describe( 'CompositeEntitiesByKind', () => {
 
 		const rendered = render(
 			<CompositeEntitiesByKind
-				searchEntities={ () => Promise.resolve( new Set() ) }
+				searchEntities={ () =>
+					Promise.resolve(
+						new Set< EntitiesSearch.ControlOption< any > >()
+					)
+				}
 				entities={ {
 					value: new Set(),
 					onChange: () => {},
@@ -92,7 +96,9 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set(),
+						options: new Set<
+							EntitiesSearch.ControlOption< any >
+						>(),
 						onChange: () => {},
 					} }
 				>
@@ -335,7 +341,9 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set(),
+						options: new Set<
+							EntitiesSearch.ControlOption< any >
+						>(),
 						onChange: () => {},
 					} }
 				>
@@ -381,7 +389,9 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set(),
+						options: new Set<
+							EntitiesSearch.ControlOption< any >
+						>(),
 						onChange: () => {},
 					} }
 				>
@@ -414,7 +424,9 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set(),
+						options: new Set<
+							EntitiesSearch.ControlOption< any >
+						>(),
 						onChange: () => {},
 					} }
 				>
@@ -485,7 +497,11 @@ describe( 'CompositeEntitiesByKind', () => {
 
 		const rendered = render(
 			<CompositeEntitiesByKind
-				searchEntities={ () => Promise.resolve( new Set() ) }
+				searchEntities={ () =>
+					Promise.resolve(
+						new Set< EntitiesSearch.ControlOption< any > >()
+					)
+				}
 				entities={ {
 					value: new Set(),
 					onChange: () => {},

@@ -6,7 +6,7 @@ import EntitiesSearch from '@types';
 /**
  * Internal dependencies
  */
-import { Set } from '../vo/set';
+import { Set } from '../models/set';
 
 // TODO Is this necessary due the new Set implementation?
 export function uniqueControlOptions< V >(

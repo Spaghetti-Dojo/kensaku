@@ -13,7 +13,7 @@ import { doAction } from '@wordpress/hooks';
 /**
  * Internal dependencies
  */
-import { Set } from '../vo/set';
+import { Set } from '../models/set';
 
 type SearchPhrase = Parameters<
 	EntitiesSearch.SearchControl[ 'onChange' ]

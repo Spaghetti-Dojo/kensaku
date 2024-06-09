@@ -14,7 +14,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '--skip ci') && !github.event.pull_request.draft"
     strategy:
       matrix:
-        php-versions: [ '8.0' ]
+        php-versions: [ '8.1', '8.2', '8.3' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -28,7 +28,7 @@ jobs:
         run: find ./src/ ./tests/ -type f -name '*.php' -print0 | xargs -0 -L 1 -P 4 -- php -l
 
       - name: Install dependencies
-        uses: "ramsey/composer-install@v1"
+        uses: ramsey/composer-install@v3
 
       - name: Check code styles
         run: composer cs

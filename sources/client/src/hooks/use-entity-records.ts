@@ -11,7 +11,7 @@ import { useEntityRecords as useCoreEntityRecords } from '@wordpress/core-data';
 /**
  * Internal dependencies
  */
-import { Set } from '../vo/set';
+import { Set } from '../models/set';
 
 enum ResolveStatus {
 	ERROR = 'ERROR',

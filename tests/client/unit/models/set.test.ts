@@ -6,7 +6,7 @@ import { describe, expect, it } from '@jest/globals';
 /**
  * Internal dependencies
  */
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 describe( 'Set', () => {
 	it( 'Should be empty when created', () => {
@@ -37,7 +37,7 @@ describe( 'Set', () => {
 		const set1 = set.add( 1 ).add( 2 ).add( 3 );
 		const set2 = set.add( 2 ).add( 3 ).add( 4 );
 		const concat = set1.concat( set2 );
-		expect( concat.length() ).toBe( 6 );
+		expect( concat.length() ).toBe( 4 );
 		expect( concat.has( 1 ) ).toBe( true );
 		expect( concat.has( 2 ) ).toBe( true );
 		expect( concat.has( 3 ) ).toBe( true );
@@ -201,5 +201,12 @@ describe( 'Set', () => {
 			.add( 4 )
 			.add( 6 );
 		expect( set.equals( set2 ) ).toBe( false );
+	} );
+
+	it( 'Should ensure concatenating two sets keep uniqueness', () => {
+		const set1 = new Set< any >().add( { a: { a1: 1 } } ).add( { b: 2 } );
+		const set2 = new Set< any >().add( { a: { a1: 1 } } ).add( { b: 2 } );
+		const concat = set1.concat( set2 );
+		expect( concat.length() ).toBe( 2 );
 	} );
 } );

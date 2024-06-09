@@ -6,7 +6,8 @@ import { describe, it, expect } from '@jest/globals';
 /**
  * Internal dependencies
  */
-import { ControlOption } from '../../../../sources/client/src/vo/control-option';
+import { ControlOption } from '../../../../sources/client/src/value-objects/control-option';
+import { ImmutableRecord } from '../../../../sources/client/src/models/immutable-record';
 
 describe( 'ControlOption', () => {
 	it( 'should create a new ControlOption', () => {
@@ -25,5 +26,16 @@ describe( 'ControlOption', () => {
 		expect( () => new ControlOption( 'label', '' ) ).toThrow(
 			'ControlOption: Value must be a non empty string.'
 		);
+	} );
+
+	it( 'should create a new ControlOption with extra data', () => {
+		const controlOption = new ControlOption(
+			'label',
+			'value',
+			new ImmutableRecord( {
+				key: 'value',
+			} )
+		);
+		expect( controlOption.extra.get( 'key' ) ).toBe( 'value' );
 	} );
 } );

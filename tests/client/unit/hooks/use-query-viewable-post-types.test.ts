@@ -11,7 +11,7 @@ import { describe, it, jest, expect } from '@jest/globals';
  */
 import { useEntityRecords } from '../../../../sources/client/src/hooks/use-entity-records';
 import { useQueryViewablePostTypes } from '../../../../sources/client/src/hooks/use-query-viewable-post-types';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 jest.mock( '@wordpress/data', () => {
 	return {

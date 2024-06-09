@@ -11,7 +11,6 @@ import { makeInitialState } from '../../../../sources/client/src/storage/entitie
 describe( 'Initial state', () => {
 	it( 'ensure all options are empty', () => {
 		const initialState = makeInitialState( {} );
-		expect( initialState.contextualEntitiesOptions.length() ).toBe( 0 );
 		expect( initialState.currentEntitiesOptions.length() ).toBe( 0 );
 		expect( initialState.selectedEntitiesOptions.length() ).toBe( 0 );
 	} );

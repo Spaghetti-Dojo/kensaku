@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Preset Entities By Kind Should render the CompositeEntitiesByKind component with the appropriate configuration 1`] = `
+<DocumentFragment>
+  <div
+    class="wes-preset-entities-by-kind extra-class-name"
+  >
+    <div>
+      KindComponent
+    </div>
+    <div
+      class="wes-search-control"
+    >
+      <label
+        for=":r0:"
+      >
+        <span
+          class="wes-search-control__label"
+        >
+          Search
+        </span>
+        <input
+          class="wes-search-control__input"
+          id=":r0:"
+          type="search"
+          value=""
+        />
+      </label>
+    </div>
+    <div>
+      EntitiesComponent
+    </div>
+  </div>
+</DocumentFragment>
+`;

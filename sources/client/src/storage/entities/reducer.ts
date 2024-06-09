@@ -6,7 +6,7 @@ import EntitiesSearch from '@types';
 /**
  * Internal dependencies
  */
-import { Set } from '../../vo/set';
+import { Set } from '../../models/set';
 
 /**
  * @internal
@@ -30,12 +30,6 @@ export function reducer< E, K >(
 				kind: action.kind,
 			};
 
-		case 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS':
-			return {
-				...state,
-				contextualEntitiesOptions: action.contextualEntitiesOptions,
-			};
-
 		case 'UPDATE_CURRENT_ENTITIES_OPTIONS':
 			return {
 				...state,
@@ -56,14 +50,12 @@ export function reducer< E, K >(
 			return {
 				...state,
 				selectedEntitiesOptions: new Set(),
-				contextualEntitiesOptions: new Set(),
 				currentEntitiesOptions: new Set(),
 			};
 
 		case 'UPDATE_ENTITIES_OPTIONS_FOR_NEW_KIND':
 			return {
 				...state,
-				contextualEntitiesOptions: action.entitiesOptions,
 				currentEntitiesOptions: action.entitiesOptions,
 				selectedEntitiesOptions: new Set(),
 				entities: new Set(),

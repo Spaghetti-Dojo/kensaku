@@ -1,3 +1,9 @@
+---
+title: Components
+layout: post
+nav_order: 4
+---
+
 # Components
 
 The Wp Entities Search provides a set of components you can use to build your search UI.
@@ -29,6 +35,10 @@ data down to the _Base Components_.
 - `CompositeEntitiesByKind` - A composite component that displays a list of entities by kind. In this context _kind_
   is `post` or `term` and _entity_ is the entity type of the content e.g. a `page` or a `category` term.
 
+## Preset Components
+
+- `PresetEntitiesByKind` - A top level component simplifying the DX with a preconfigured path of how to manage the data based on the context given.
+
 ## Composite Entities by Kind
 
 The `CompositeEntitiesByKind` is a _generic_ component that can be used to display a list of entities by kind. It acts
@@ -50,31 +60,35 @@ An example of its usage is:
 import { CompositeEntitiesByKind } from 'wp-entities-search';
 
 export function MyComponent(props) {
-    return <CompositeEntitiesByKind
-        searchEntities={
-            async (phrase, kind, queryArguments) => convertEntitiesToControlOptions(
-                await searchEntities('post', kind, phrase, queryArguments),
-                'title',
-                'id'
-            )
+    const entities = {
+        value: new Set([13, 24, 55]),
+        onChange: (value) => {
+            // Do something with the selected entities
+            // Notice, here you'll receive the value as a string Set.
         }
-        entities={{
-            value: new Set([13, 24, 55]),
-            onChange: (value) => {
-                // Do something with the selected entities
-                // Notice, here you'll receive the value as a string Set.
-            }
+    };
+
+    const kind = {
+        value: new Set(['page']),
+        options: [
+            { label: 'Pages', value: 'page' },
+            { label: 'Posts', value: 'post' },
+        ],
+        onChange={(value) => {
+            // Do something with the selected kind
         }}
-        kind={{
-            value: new Set(['page']),
-            options: [
-                { label: 'Pages', value: 'page' },
-                { label: 'Posts', value: 'post' },
-            ],
-            onChange={(value) => {
-                // Do something with the selected kind
-            }}
-        }}
+    };
+
+    const searchEntities = async (phrase, kind, queryArguments) => convertEntitiesToControlOptions(
+        await searchEntities('post', kind, phrase, queryArguments),
+        'title',
+        'id'
+    );
+
+    return <CompositeEntitiesByKind
+        searchEntities={searchEntities}
+        entities={entities}
+        kind={kind}
     >
         {(entities, kind, search) => (
             <>
@@ -135,25 +149,29 @@ the user to switch between them.
 import { CompositeEntitiesByKind } from 'wp-entities-search';
 
 export function MyComponent(props) {
-    return <CompositeEntitiesByKind
-        searchEntities={
-            async (phrase, kind, queryArguments) => convertEntitiesToControlOptions(
-                await searchEntities('post', kind, phrase, queryArguments),
-                'title',
-                'id'
-            )
+    const entities = {
+        value: new Set([13, 24, 55]),
+        onChange: (value) => {
+            // Do something with the selected entities
         }
-        entities={{
-            value: new Set([13, 24, 55]),
-            onChange: (value) => {
-                // Do something with the selected entities
-            }
-        }}
-        kind={{
-            value: new Set(['page', 'landing-page']),
-            options: Set([]),
-            onChange={() => {}}
-        }}
+    };
+
+    const kind = {
+        value: new Set(['page', 'landing-page']),
+        options: Set([]),
+        onChange={() => {}}
+    };
+
+    const searchEntities = async (phrase, kind, queryArguments) => convertEntitiesToControlOptions(
+        await searchEntities('post', kind, phrase, queryArguments),
+        'title',
+        'id'
+    );
+
+    return <CompositeEntitiesByKind
+        searchEntities={searchEntities}
+        entities={entities}
+        kind={kind}
     >
         {(entities, _, search) => (
             <>
@@ -162,6 +180,7 @@ export function MyComponent(props) {
                 />
                 <ToggleControl
                     value={entities.value}
+                    options={entities.options}
                     onChange={entities.onChange}
                 />
             </>
@@ -173,11 +192,58 @@ export function MyComponent(props) {
 Obviously depending on what you want to achieve you can use different _Base Components_ or create new ones, as mentioned
 above the package comes with a set of _Base Components_ that can be used out of the box.
 
+## Preset Entities By Kind
+
+This component can be used for different scenarios since it allows you to pass all the necessary information to render the Selectors.
+
+It gets passed the `entitiesFinder` which is the function performing the request to retrieve the Entities, but also it gives you the freedom to decide which components to render as Controls UI.
+
+Below you can see how easy is to create a new control set compared to use the low level api `CompositeEntitiesByKind`.
+
+```jsx
+const entitiesFinder = createSearchEntitiesOptions( 'post' );
+const postTypesEntities = convertEntitiesToControlOptions(useQueryViewablePostTypes().records(), 'name', 'slug');
+
+const props = {
+    entitiesFinder,
+    entities: new Set( [ 1, 2, 3 ] ),
+    onChangeEntities: (entities) => {
+        // Do something with the new set of entities
+    },
+    entitiesComponent: ToggleControl,
+    kind: new Set(['post']),
+    kindOptions: stubControlOptionsSet(),
+    onChangeKind: (kinds) => {
+        // Do something with the new set of kinds
+    },
+    kindComponent: ToggleControl
+};
+
+return (<PresetEntitiesByKind { ...props } />);
+```
+
+Therefore, the preset simplify and take care of some parts that you would have to configure otherwise. In the chapter below you can read the available properties.
+
+### Properties
+
+- `entitiesFinder` - The function which perform the search of the contextual entities. You can use the `createSearchEntitiesOptions` function by passing the `root` value such as `term` or `post`.
+- `className` - For better customization you can pass your own custom classes.
+- `entities` - A `EntitiesSearch.Entities` set of selected entities. For when you want some entities already selected.
+- `onChangeEntities` - A task to perform when the selection change due to a user interaction.
+- `entitiesComponent` - The component to use to render the control ui for the entities.
+- `kind` - The predefined set of kind (e.g. post-types or taxonomies) you want to have already selected.
+- `kindOptions` - A collection of `EntitiesSearch.ControlOption` among which the user can choose to retrieve the entities from.
+- `onChangeKind` - A task to perform when the selection change due to a user interaction.
+- `kindComponent` - The component to use to render the control ui for the kinds.
+- `entitiesFields` - Additional fields you want to retrieve and have available within your `entitiesComponent` and `kindComponent`. For more info read the [Control Option](./control-option.md) documentation.
+
 ## About Singular Base Components
 
-The _Composite Component_ always give a collection of Entities and Kind even though you are consuming a Single* _Base Component_.
+The _Composite Component_ always give a collection of Entities and Kind even though you are consuming a Single* _Base
+Component_.
 
-The Singular Components always get a single value, therefore you have to consider to extract the first element out of the `Set`.
+The Singular Components always get a single value, therefore you have to consider to extract the first element out of
+the `Set`.
 
 ```jsx
 import { CompositeEntitiesByKind } from 'wp-entities-search';
@@ -190,8 +256,8 @@ export function MyComponent(props) {
             <>
                 <RadioControl
                     value={kind.value.first()}
-                    options={Array.from(kind.options)}
-                    onChange={kind.onChange}
+                    options={kind.options}
+                    onChange={(value) => kind.onChange(new Set([value]))}
                 />
                 /* ... */
             </>

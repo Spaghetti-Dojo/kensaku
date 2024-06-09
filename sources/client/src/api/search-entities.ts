@@ -13,14 +13,14 @@ import { doAction } from '@wordpress/hooks';
  */
 import { abortControllers } from '../services/abort-controllers';
 import { ContextualAbortController } from '../services/contextual-abort-controller';
-import { Set } from '../vo/set';
+import { Set } from '../models/set';
 import { fetch } from './fetch';
 
 export async function searchEntities< E >(
 	type: string,
 	subtype: Set< string >,
 	phrase: string,
-	queryArguments?: EntitiesSearch.QueryArguments< string >
+	queryArguments?: EntitiesSearch.QueryArguments
 ): Promise< Set< E > > {
 	const {
 		exclude,

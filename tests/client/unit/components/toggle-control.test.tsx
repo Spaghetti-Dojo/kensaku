@@ -12,7 +12,7 @@ import userEvent from '@testing-library/user-event';
  * Internal dependencies
  */
 import { ToggleControl } from '../../../../sources/client/src/components/toggle-control';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 const options = new Set( [
 	{ label: 'Option 1', value: '1' },

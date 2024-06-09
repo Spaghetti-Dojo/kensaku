@@ -15,7 +15,7 @@ import { doAction } from '@wordpress/hooks';
  */
 import { fetch } from '../../../../sources/client/src/api/fetch';
 import { searchEntities } from '../../../../sources/client/src/api/search-entities';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 jest.mock( '@wordpress/hooks', () => ( {
 	doAction: jest.fn(),

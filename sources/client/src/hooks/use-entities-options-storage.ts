@@ -14,7 +14,7 @@ import { doAction } from '@wordpress/hooks';
  */
 import { makeInitialState } from '../storage/entities/initial-state';
 import { reducer } from '../storage/entities/reducer';
-import { Set } from '../vo/set';
+import { Set } from '../models/set';
 
 type _Reducer< E, K > = Reducer<
 	EntitiesSearch.EntitiesState< E, K >,
@@ -62,10 +62,6 @@ export function useEntitiesOptionsStorage< E, K >(
 				dispatch( {
 					type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
 					selectedEntitiesOptions,
-				} );
-				dispatch( {
-					type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS',
-					contextualEntitiesOptions: currentEntitiesOptions,
 				} );
 				dispatch( {
 					type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',

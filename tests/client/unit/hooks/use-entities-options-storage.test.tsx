@@ -17,7 +17,7 @@ import { doAction } from '@wordpress/hooks';
  * Internal dependencies
  */
 import { useEntitiesOptionsStorage } from '../../../../sources/client/src/hooks/use-entities-options-storage';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 jest.mock( '@wordpress/hooks', () => ( {
 	doAction: jest.fn(),
@@ -132,10 +132,6 @@ describe( 'Use Posts Options Storage', () => {
 			selectedEntitiesOptions,
 		} );
 		expect( dispatch ).toHaveBeenCalledWith( {
-			type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS',
-			contextualEntitiesOptions: currentEntitiesOptions,
-		} );
-		expect( dispatch ).toHaveBeenCalledWith( {
 			type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 			currentEntitiesOptions,
 		} );
@@ -174,10 +170,6 @@ describe( 'Use Posts Options Storage', () => {
 		expect( dispatch ).toHaveBeenCalledWith( {
 			type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
 			selectedEntitiesOptions: expectedSet,
-		} );
-		expect( dispatch ).toHaveBeenCalledWith( {
-			type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS',
-			contextualEntitiesOptions: expectedSet,
 		} );
 		expect( dispatch ).toHaveBeenCalledWith( {
 			type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',

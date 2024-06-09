@@ -17,11 +17,12 @@ declare namespace EntitiesSearch {
 	type Options<V> = Set<ControlOption<V>>;
 	type Value = string | number;
 
-	interface QueryArguments<V>
+	// TODO Can we convert QueryArguments to an Immutable Map?
+	interface QueryArguments
 		extends Partial<
 			Readonly<{
-				exclude: Set<V>;
-				include: Set<V>;
+				exclude: Set<string | number>;
+				include: Set<string | number>;
 				fields: EntitiesSearch.SearchQueryFields;
 				[p: string]: unknown;
 			}>
@@ -34,6 +35,8 @@ declare namespace EntitiesSearch {
 			url: string;
 			type: string;
 			subtype: string;
+			post_content: string;
+			post_excerpt: string;
 		}> {}
 
 	type SearchEntitiesFunction<E, K> = (
@@ -42,11 +45,6 @@ declare namespace EntitiesSearch {
 		queryArguments?: EntitiesSearch.QueryArguments<E>
 	) => Promise<Options<E>>;
 
-	type ControlOption<V extends any> = Readonly<{
-		value: V;
-		label: string;
-	}>;
-
 	type SingularControl<V> = {
 		[K in keyof BaseControl<V>]: K extends 'value'
 			? V
@@ -54,6 +52,20 @@ declare namespace EntitiesSearch {
 			? (value: V) => void
 			: BaseControl<V>[K];
 	};
+
+	interface Record<T> {
+		get<F>(key: string, fallback?: F): T | F | undefined;
+		set(key: string, value: T): Record<T>;
+	}
+
+	interface ControlOption<V extends any> extends Readonly<{
+		value: V;
+		label: string;
+	}> {}
+
+	interface EnrichedControlOption<V extends any> extends ControlOption<V>, Readonly<{
+		readonly extra: Record<string, unknown>;
+	}> {}
 
 	interface BaseControl<V>
 		extends Readonly<{
@@ -90,6 +102,7 @@ declare namespace EntitiesSearch {
 	/*
 	 * Api
 	 */
+	// TODO Better to convert the SearchQueryFields to a Set.
 	type SearchQueryFields = ReadonlyArray<
 		keyof EntitiesSearch.SearchEntityFields
 	>;
@@ -104,7 +117,6 @@ declare namespace EntitiesSearch {
 	> extends Readonly<{
 			entities: Entities<E>;
 			kind: Kind<K>;
-			contextualEntitiesOptions: OptionSet;
 			currentEntitiesOptions: OptionSet;
 			selectedEntitiesOptions: OptionSet;
 			searchPhrase: string;
@@ -125,13 +137,6 @@ declare namespace EntitiesSearch {
 					E,
 					K
 				>['currentEntitiesOptions'];
-		  }
-		| {
-				type: 'UPDATE_CONTEXTUAL_ENTITIES_OPTIONS';
-				contextualEntitiesOptions: EntitiesState<
-					E,
-					K
-				>['contextualEntitiesOptions'];
 		  }
 		| {
 				type: 'UPDATE_SELECTED_ENTITIES_OPTIONS';

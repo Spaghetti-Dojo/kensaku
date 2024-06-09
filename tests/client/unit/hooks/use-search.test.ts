@@ -22,7 +22,7 @@ import { doAction } from '@wordpress/hooks';
  * Internal dependencies
  */
 import { useSearch } from '../../../../sources/client/src/hooks/use-search';
-import { Set } from '../../../../sources/client/src/vo/set';
+import { Set } from '../../../../sources/client/src/models/set';
 
 jest.mock( '@wordpress/compose', () => ( {
 	useThrottle: ( callback: ( phrase: string ) => void ) => callback,
