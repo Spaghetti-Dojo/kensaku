@@ -26,16 +26,19 @@ class Module implements Modularity\Module\ExecutableModule
     public function run(Container\ContainerInterface $container): bool
     {
         \add_action('init', static function () use ($container) {
-            /** @var Modularity\Properties\Properties $properties */
             $properties = $container->get(Modularity\Package::PROPERTIES);
 
             $baseDir = \untrailingslashit($properties->basePath());
             $baseUrl = \untrailingslashit($properties->baseUrl());
 
-            $asset = include "{$baseDir}/build/main.asset.php";
-            $version = $properties->isDebug() ? $asset['version'] : $properties->version();
-            $dependencies = $asset['dependencies'];
+            /**
+             * @var array{dependencies?: array<string>, version?: string} $asset
+             * @psalm-suppress UnresolvableInclude
+             */
+            $asset = (array)include "{$baseDir}/build/main.asset.php";
+            $dependencies = (array)($asset['dependencies'] ?? null);
             self::isInDebugMode() and $dependencies[] = 'wp-entities-search-logging';
+            $version = (string)($asset['version'] ?? null) ?: false;
 
             \wp_register_script(
                 'wp-entities-search',

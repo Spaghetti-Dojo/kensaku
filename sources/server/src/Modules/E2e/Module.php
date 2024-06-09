@@ -8,7 +8,7 @@ use Inpsyde\Modularity;
 use Psr\Container;
 
 /**
- * @internal
+ * @internal \Widoz\Wp\EntitiesSearch
  */
 class Module implements Modularity\Module\ExecutableModule
 {
@@ -52,7 +52,6 @@ class Module implements Modularity\Module\ExecutableModule
         // TODO Add WpContext to avoid run if not the right context.
 
         \add_action('init', static function () use ($container) {
-            /** @var Modularity\Properties\Properties $properties */
             $properties = $container->get(Modularity\Package::PROPERTIES);
             self::postTypesExample($properties);
         });

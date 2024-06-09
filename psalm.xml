@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    findUnusedBaselineEntry="true"
+    findUnusedCode="true"
+    cacheDirectory="./.psalm"
+>
+    <projectFiles>
+        <file name="plugin.php" />
+        <directory name="sources/server" />
+        <ignoreFiles>
+            <directory name="vendor" />
+            <directory name="tests" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <!-- https://github.com/vimeo/psalm/issues/5791 -->
+    <!-- Do not stub noop.php -->
+    <stubs>
+        <file name="vendor/roots/wordpress-no-content/wp-includes/l10n.php"/>
+        <file name="vendor/roots/wordpress-no-content/wp-includes/theme.php"/>
+        <file name="vendor/roots/wordpress-no-content/wp-includes/formatting.php"/>
+        <file name="vendor/roots/wordpress-no-content/wp-includes/kses.php"/>
+        <file name="vendor/roots/wordpress-no-content/wp-includes/plugin.php"/>
+        <file name="vendor/roots/wordpress-no-content/wp-includes/blocks.php"/>
+        <file name="vendor/roots/wordpress-no-content/wp-includes/post.php"/>
+        <file name="vendor/roots/wordpress-no-content/wp-includes/functions.wp-scripts.php"/>
+        <file name="vendor/roots/wordpress-no-content/wp-includes/functions.wp-styles.php"/>
+    </stubs>
+
+    <extraFiles>
+        <directory name="vendor/roots/wordpress-no-content"/>
+    </extraFiles>
+</psalm>

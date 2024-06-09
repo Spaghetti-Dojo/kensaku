@@ -9,12 +9,15 @@
 
 declare(strict_types=1);
 
+namespace Widoz\Wp\EntitiesSearch;
+
 use Inpsyde\Modularity;
 use Widoz\Wp\EntitiesSearch;
 
 function package(): Modularity\Package
 {
-    static $package;
+    /** @var Modularity\Package|null $package */
+    static $package = null;
 
     $projectRoot = __DIR__;
 
@@ -24,6 +27,7 @@ function package(): Modularity\Package
         if (!\is_readable($autoloadFile)) {
             return;
         }
+        /** @psalm-suppress UnresolvableInclude */
         require_once $autoloadFile;
     }
 
