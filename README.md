@@ -2,8 +2,8 @@
 
 > A WordPress package to search Entities including Rest API Endpoints and React Components
 
-[![JS Quality Assurance](https://github.com/widoz/wp-entities-search/actions/workflows/js-qa.yml/badge.svg)](https://github.com/widoz/wp-entities-search/actions/workflows/js-qa.yml)
-[![PHP Quality Assurance](https://github.com/widoz/wp-entities-search/actions/workflows/php-qa.yml/badge.svg)](https://github.com/widoz/wp-entities-search/actions/workflows/php-qa.yml)
+[![JS Quality Assurance](https://github.com/spaghetti-dojo/wp-entities-search/actions/workflows/js-qa.yml/badge.svg)](https://github.com/spaghetti-dojo/wp-entities-search/actions/workflows/js-qa.yml)
+[![PHP Quality Assurance](https://github.com/spaghetti-dojo/wp-entities-search/actions/workflows/php-qa.yml/badge.svg)](https://github.com/spaghetti-dojo/wp-entities-search/actions/workflows/php-qa.yml)
 
 This package is a library exposing reusable Components and Utilities to help you build Entities searching and storage.
 
@@ -12,7 +12,7 @@ more Post Types but also, to search for Terms belonging to one or more Taxonomie
 
 ## Documentation
 
-Go to [documentation](./docs) or visit the site [wp-entities-search](https://widoz.github.io/wp-entities-search/).
+Go to [documentation](./docs) or visit the site [wp-entities-search](https://spaghetti-dojo.github.io/wp-entities-search/).
 
 ## License
 

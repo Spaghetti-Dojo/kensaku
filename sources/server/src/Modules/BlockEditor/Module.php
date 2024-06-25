@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Widoz\Wp\EntitiesSearch\Modules\BlockEditor;
+namespace SpaghettiDojo\Wp\EntitiesSearch\Modules\BlockEditor;
 
 use Inpsyde\Modularity;
 use Psr\Container;

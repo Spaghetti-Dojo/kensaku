@@ -9,10 +9,10 @@
 
 declare(strict_types=1);
 
-namespace Widoz\Wp\EntitiesSearch;
+namespace SpaghettiDojo\Wp\EntitiesSearch;
 
 use Inpsyde\Modularity;
-use Widoz\Wp\EntitiesSearch;
+use SpaghettiDojo\Wp\EntitiesSearch;
 
 function package(): Modularity\Package
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Widoz\Wp\EntitiesSearch\Modules\E2e;
+namespace SpaghettiDojo\Wp\EntitiesSearch\Modules\E2e;
 
 use Inpsyde\Modularity;
 use Psr\Container;
 
 /**
- * @internal \Widoz\Wp\EntitiesSearch
+ * @internal \SpaghettiDojo\Wp\EntitiesSearch
  */
 class Module implements Modularity\Module\ExecutableModule
 {
