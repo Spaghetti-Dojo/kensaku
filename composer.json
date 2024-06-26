@@ -1,11 +1,11 @@
 {
-  "name": "widoz/wp-entities-search",
+  "name": "spaghetti-dojo/wp-entities-search",
   "description": "A WordPress package to search Entities including Rest API Endpoints and React Components",
   "type": "library",
   "license": "GPL-2.0-or-later",
   "autoload": {
     "psr-4": {
-      "Widoz\\Wp\\EntitiesSearch\\": "sources/server/src/"
+      "SpaghettiDojo\\Wp\\EntitiesSearch\\": "sources/server/src/"
     }
   },
   "authors": [
