@@ -67,7 +67,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions( kindSelect, 'page' );
@@ -106,7 +106,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const entitiesSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions( entitiesSelect, [ 'post-2' ] );
@@ -160,10 +160,10 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wes-select-control--singular'
+			'.kensaku-select-control--singular'
 		) as HTMLSelectElement;
 		const entitiesSelect = rendered.container.querySelector(
-			'.wes-select-control--plural'
+			'.kensaku-select-control--plural'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions( entitiesSelect, [ 'post-2' ] );
@@ -230,7 +230,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		expect( expectedEntities.length() ).toBe( 2 );
@@ -298,7 +298,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wes-select-control--singular'
+			'.kensaku-select-control--singular'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions( kindSelect, 'page' );
@@ -345,7 +345,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const entitiesSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		expect( selectedEntities.length() ).toBe( 2 );
@@ -464,7 +464,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const entitiesSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions( entitiesSelect, [ 'post-1' ] );
@@ -503,7 +503,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const postTypeSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.deselectOptions( postTypeSelect, [ 'post' ] );

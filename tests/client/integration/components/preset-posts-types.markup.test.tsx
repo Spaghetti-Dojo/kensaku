@@ -66,7 +66,7 @@ describe( 'Preset Entities By Kind', () => {
 
 		const kindComponent = screen.getByTestId( 'kind-component' );
 		const firstComponent = rendered.container.querySelector(
-			'.wes-preset-entities-by-kind'
+			'.kensaku-preset-entities-by-kind'
 		);
 
 		expect( kindComponent === firstComponent?.firstElementChild ).toEqual(
@@ -101,7 +101,7 @@ describe( 'Preset Entities By Kind', () => {
 
 		const kindComponent = screen.getByTestId( 'entities-component' );
 		const firstComponent = rendered.container.querySelector(
-			'.wes-preset-entities-by-kind'
+			'.kensaku-preset-entities-by-kind'
 		);
 
 		expect( kindComponent === firstComponent?.lastElementChild ).toEqual(
@@ -137,7 +137,7 @@ describe( 'Preset Entities By Kind', () => {
 
 		expect(
 			rendered.container
-				.querySelector( '.wes-preset-entities-by-kind' )
+				.querySelector( '.kensaku-preset-entities-by-kind' )
 				?.classList.contains( 'extra-class' )
 		).toEqual( true );
 	} );

@@ -2,17 +2,17 @@
 
 exports[`EntitiesToggleControl renders correctly 1`] = `
 <div
-  class="test-class wes-toggle-control"
+  class="test-class kensaku-toggle-control"
 >
   <div
-    class="wes-toggle-control-item wes-toggle-control-item--1"
+    class="kensaku-toggle-control-item kensaku-toggle-control-item--1"
   >
     <label
       for=":r0:"
     >
       <input
         checked=""
-        class="wes-toggle-control-item__input-1"
+        class="kensaku-toggle-control-item__input-1"
         id=":r0:"
         type="checkbox"
         value="1"
@@ -21,13 +21,13 @@ exports[`EntitiesToggleControl renders correctly 1`] = `
     </label>
   </div>
   <div
-    class="wes-toggle-control-item wes-toggle-control-item--2"
+    class="kensaku-toggle-control-item kensaku-toggle-control-item--2"
   >
     <label
       for=":r1:"
     >
       <input
-        class="wes-toggle-control-item__input-2"
+        class="kensaku-toggle-control-item__input-2"
         id=":r1:"
         type="checkbox"
         value="2"
@@ -36,13 +36,13 @@ exports[`EntitiesToggleControl renders correctly 1`] = `
     </label>
   </div>
   <div
-    class="wes-toggle-control-item wes-toggle-control-item--3"
+    class="kensaku-toggle-control-item kensaku-toggle-control-item--3"
   >
     <label
       for=":r2:"
     >
       <input
-        class="wes-toggle-control-item__input-3"
+        class="kensaku-toggle-control-item__input-3"
         id=":r2:"
         type="checkbox"
         value="3"
@@ -55,7 +55,7 @@ exports[`EntitiesToggleControl renders correctly 1`] = `
 
 exports[`EntitiesToggleControl renders the NoOptionsMessage when there are no options 1`] = `
 <p
-  class="wes-no-option-message"
+  class="kensaku-no-option-message"
 >
   No options
 </p>

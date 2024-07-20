@@ -3,24 +3,24 @@
 exports[`Preset Entities By Kind Should render the CompositeEntitiesByKind component with the appropriate configuration 1`] = `
 <DocumentFragment>
   <div
-    class="wes-preset-entities-by-kind extra-class-name"
+    class="kensaku-preset-entities-by-kind extra-class-name"
   >
     <div>
       KindComponent
     </div>
     <div
-      class="wes-search-control"
+      class="kensaku-search-control"
     >
       <label
         for=":r0:"
       >
         <span
-          class="wes-search-control__label"
+          class="kensaku-search-control__label"
         >
           Search
         </span>
         <input
-          class="wes-search-control__input"
+          class="kensaku-search-control__input"
           id=":r0:"
           type="search"
           value=""

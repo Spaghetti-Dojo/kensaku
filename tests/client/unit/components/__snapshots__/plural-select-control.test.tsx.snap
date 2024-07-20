@@ -3,7 +3,7 @@
 exports[`Posts Select Render the NoOptionsMessage component 1`] = `
 <DocumentFragment>
   <p
-    class="wes-no-option-message"
+    class="kensaku-no-option-message"
   >
     No options
   </p>

@@ -41,7 +41,7 @@ describe( 'Posts Select', () => {
 			String( options.last()?.value ),
 		];
 		const select = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		/*
@@ -80,7 +80,7 @@ describe( 'Posts Select', () => {
 			String( options.last()?.value ),
 		];
 		const select = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		/*
