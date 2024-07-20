@@ -15,9 +15,7 @@ import { doAction } from '@wordpress/hooks';
  */
 import { Set } from '../models/set';
 
-type SearchPhrase = Parameters<
-	Kensaku.SearchControl[ 'onChange' ]
->[ 0 ];
+type SearchPhrase = Parameters< Kensaku.SearchControl[ 'onChange' ] >[ 0 ];
 type SearchFunc = ( phrase: SearchPhrase ) => void;
 
 /**
@@ -50,9 +48,7 @@ export function useSearch< E, K >(
 				)
 				.catch( ( error ) => {
 					doAction( 'kensaku.on-search.error', error );
-					const emptySet = new Set<
-						Kensaku.ControlOption< E >
-					>();
+					const emptySet = new Set< Kensaku.ControlOption< E > >();
 					dispatch( {
 						type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 						currentEntitiesOptions: emptySet,

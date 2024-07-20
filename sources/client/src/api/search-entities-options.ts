@@ -16,13 +16,12 @@ export async function searchEntitiesOptions< E >(
 	postTypes: Kensaku.Kind< string >,
 	queryArguments?: Kensaku.QueryArguments
 ): Promise< Set< Kensaku.ControlOption< E > > > {
-	const postsEntities =
-		await searchEntities< Kensaku.SearchEntityFields >(
-			type,
-			postTypes,
-			phrase,
-			queryArguments
-		);
+	const postsEntities = await searchEntities< Kensaku.SearchEntityFields >(
+		type,
+		postTypes,
+		phrase,
+		queryArguments
+	);
 
 	const { fields = [] } = queryArguments ?? {};
 	const [ label = 'title', value = 'id', ...extraFields ] = fields;

@@ -14,9 +14,7 @@ import { __ } from '@wordpress/i18n';
  */
 import { useId } from '../hooks/use-id';
 
-export function SearchControl(
-	props: Kensaku.SearchControl
-): JSX.Element {
+export function SearchControl( props: Kensaku.SearchControl ): JSX.Element {
 	const id = useId( props.id );
 	const label = props.label || __( 'Search', 'kensaku' );
 	const [ searchValue, setSearchValue ] = React.useState( '' );

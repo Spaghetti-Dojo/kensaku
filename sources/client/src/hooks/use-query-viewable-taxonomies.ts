@@ -16,9 +16,11 @@ import { useEntityRecords } from './use-entity-records';
  * @public
  */
 export function useQueryViewableTaxonomies(): Kensaku.EntitiesRecords< Kensaku.ViewableTaxonomy > {
-	const entitiesRecords = useEntityRecords<
-		Kensaku.Taxonomy< 'edit' >
-	>( 'root', 'taxonomy', { per_page: -1 } );
+	const entitiesRecords = useEntityRecords< Kensaku.Taxonomy< 'edit' > >(
+		'root',
+		'taxonomy',
+		{ per_page: -1 }
+	);
 
 	const viewableTaxonomies = entitiesRecords
 		.records()

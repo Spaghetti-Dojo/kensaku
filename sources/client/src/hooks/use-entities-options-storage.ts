@@ -27,16 +27,10 @@ type _Reducer< E, K > = Reducer<
  * @param searchEntities The function that will search the entities
  */
 export function useEntitiesOptionsStorage< E, K >(
-	initialState: Pick<
-		Kensaku.EntitiesState< E, K >,
-		'entities' | 'kind'
-	>,
+	initialState: Pick< Kensaku.EntitiesState< E, K >, 'entities' | 'kind' >,
 	searchEntities: Kensaku.SearchEntitiesFunction< E, K >
 ): Readonly<
-	[
-		Kensaku.EntitiesState< E, K >,
-		Dispatch< Kensaku.StoreAction< E, K > >,
-	]
+	[ Kensaku.EntitiesState< E, K >, Dispatch< Kensaku.StoreAction< E, K > > ]
 > {
 	const [ state, dispatch ] = useReducer< _Reducer< E, K > >(
 		reducer,
@@ -69,10 +63,7 @@ export function useEntitiesOptionsStorage< E, K >(
 				} );
 			} )
 			.catch( ( error ) => {
-				doAction(
-					'kensaku.on-storage-initialization.error',
-					error
-				);
+				doAction( 'kensaku.on-storage-initialization.error', error );
 			} );
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [] );

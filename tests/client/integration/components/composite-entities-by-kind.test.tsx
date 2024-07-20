@@ -37,9 +37,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		const rendered = render(
 			<CompositeEntitiesByKind
 				searchEntities={ () =>
-					Promise.resolve(
-						new Set< Kensaku.ControlOption< any > >()
-					)
+					Promise.resolve( new Set< Kensaku.ControlOption< any > >() )
 				}
 				entities={ {
 					value: new Set(),
@@ -96,9 +94,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set<
-							Kensaku.ControlOption< any >
-						>(),
+						options: new Set< Kensaku.ControlOption< any > >(),
 						onChange: () => {},
 					} }
 				>
@@ -178,9 +174,7 @@ describe( 'CompositeEntitiesByKind', () => {
 	} );
 
 	it( 'Pass to the children the updated entities options when the kind change', async () => {
-		let expectedEntities = new Set<
-			Kensaku.ControlOption< string >
-		>();
+		let expectedEntities = new Set< Kensaku.ControlOption< string > >();
 
 		const rendered = await act( () =>
 			render(
@@ -325,9 +319,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					{ label: 'Post 2', value: 'post-2' },
 				] )
 			)
-		) as jest.Mock<
-			Kensaku.SearchEntitiesFunction< string, string >
-		>;
+		) as jest.Mock< Kensaku.SearchEntitiesFunction< string, string > >;
 
 		const rendered = await act( () =>
 			render(
@@ -341,9 +333,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set<
-							Kensaku.ControlOption< any >
-						>(),
+						options: new Set< Kensaku.ControlOption< any > >(),
 						onChange: () => {},
 					} }
 				>
@@ -373,10 +363,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		const selectedEntities = new Set( [ '1', '2' ] );
 
 		const searchEntities = jest.fn() as jest.Mock<
-			Kensaku.CompositeEntitiesKinds<
-				string,
-				string
-			>[ 'searchEntities' ]
+			Kensaku.CompositeEntitiesKinds< string, string >[ 'searchEntities' ]
 		>;
 
 		await act( () =>
@@ -389,9 +376,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set<
-							Kensaku.ControlOption< any >
-						>(),
+						options: new Set< Kensaku.ControlOption< any > >(),
 						onChange: () => {},
 					} }
 				>
@@ -424,9 +409,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set<
-							Kensaku.ControlOption< any >
-						>(),
+						options: new Set< Kensaku.ControlOption< any > >(),
 						onChange: () => {},
 					} }
 				>
@@ -498,9 +481,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		const rendered = render(
 			<CompositeEntitiesByKind
 				searchEntities={ () =>
-					Promise.resolve(
-						new Set< Kensaku.ControlOption< any > >()
-					)
+					Promise.resolve( new Set< Kensaku.ControlOption< any > >() )
 				}
 				entities={ {
 					value: new Set(),

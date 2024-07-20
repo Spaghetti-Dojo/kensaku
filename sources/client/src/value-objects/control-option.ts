@@ -9,9 +9,7 @@ import Kensaku from '@types';
 import { assert } from '../utils/assert';
 import { ImmutableRecord } from '../models/immutable-record';
 
-export class ControlOption< V >
-	implements Kensaku.EnrichedControlOption< V >
-{
+export class ControlOption< V > implements Kensaku.EnrichedControlOption< V > {
 	public readonly label: string;
 	public readonly value: V;
 	public readonly extra: Kensaku.Record< unknown >;

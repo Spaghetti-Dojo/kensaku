@@ -17,9 +17,7 @@ describe( 'Ordered Selected Options at the Top', () => {
 	/*
 	 * Given options are always re-ordered to includes the given collection values at the top
 	 */
-	function generateOptions(): Array<
-		Kensaku.ControlOption< string >
-	> {
+	function generateOptions(): Array< Kensaku.ControlOption< string > > {
 		const options: Array< Kensaku.ControlOption< string > > = [];
 
 		for ( let i = 1; i <= 10; i++ ) {

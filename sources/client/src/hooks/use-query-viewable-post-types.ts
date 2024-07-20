@@ -16,9 +16,11 @@ import { useEntityRecords } from './use-entity-records';
  * @public
  */
 export function useQueryViewablePostTypes(): Kensaku.EntitiesRecords< Kensaku.ViewablePostType > {
-	const entitiesRecords = useEntityRecords<
-		Kensaku.PostType< 'edit' >
-	>( 'root', 'postType', { per_page: -1 } );
+	const entitiesRecords = useEntityRecords< Kensaku.PostType< 'edit' > >(
+		'root',
+		'postType',
+		{ per_page: -1 }
+	);
 
 	const viewablePostTypes = entitiesRecords
 		.records()

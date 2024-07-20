@@ -24,8 +24,7 @@ describe( 'Post Types Select', () => {
 	 * in the React Select component, so we mock it.
 	 */
 	it( 'call the given onChange handler', ( done ) => {
-		let expectedValue: Kensaku.SingularControl< string >[ 'value' ] =
-			'';
+		let expectedValue: Kensaku.SingularControl< string >[ 'value' ] = '';
 		const option: Kensaku.ControlOption< string > = {
 			label: faker.word.words( 2 ),
 			value: faker.word.noun(),

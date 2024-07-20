@@ -36,9 +36,7 @@ describe( 'Use Posts Options Storage', () => {
 					},
 				] )
 			)
-		) as jest.Mock<
-			Kensaku.SearchEntitiesFunction< number, string >
-		>;
+		) as jest.Mock< Kensaku.SearchEntitiesFunction< number, string > >;
 
 		const Component = () => {
 			useEntitiesOptionsStorage< number, string >(
@@ -103,9 +101,7 @@ describe( 'Use Posts Options Storage', () => {
 			return options?.include
 				? Promise.resolve( selectedEntitiesOptions )
 				: Promise.resolve( currentEntitiesOptions );
-		} ) as jest.Mock<
-			Kensaku.SearchEntitiesFunction< number, string >
-		>;
+		} ) as jest.Mock< Kensaku.SearchEntitiesFunction< number, string > >;
 
 		const dispatch = jest.fn();
 		jest.spyOn( React, 'useReducer' ).mockImplementation( ( _, state ) => [
@@ -189,9 +185,7 @@ describe( 'Use Posts Options Storage', () => {
 					},
 				] )
 			)
-		) as jest.Mock<
-			Kensaku.SearchEntitiesFunction< number, string >
-		>;
+		) as jest.Mock< Kensaku.SearchEntitiesFunction< number, string > >;
 
 		const Component = () => {
 			useEntitiesOptionsStorage< number, string >(

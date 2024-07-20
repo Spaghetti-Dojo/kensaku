@@ -41,8 +41,7 @@ export function reducer< E, K >(
 				...state,
 				selectedEntitiesOptions: action.selectedEntitiesOptions,
 				entities: action.selectedEntitiesOptions.map(
-					( option: Kensaku.ControlOption< E > ) =>
-						option.value
+					( option: Kensaku.ControlOption< E > ) => option.value
 				),
 			};
 

@@ -75,10 +75,7 @@ export function CompositeEntitiesByKind< E, K >(
 				} );
 			} )
 			.catch( ( error ) => {
-				doAction(
-					'kensaku.on-change-entities.error',
-					error
-				);
+				doAction( 'kensaku.on-change-entities.error', error );
 			} );
 	};
 

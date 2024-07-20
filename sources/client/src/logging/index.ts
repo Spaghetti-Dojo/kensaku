@@ -39,14 +39,10 @@ addAction(
 	}
 );
 
-addAction(
-	'kensaku.on-search.error',
-	'kensaku/on-search.error',
-	( error ) => {
-		console.error(
-			`Composite Entities by Kind - on Search Entities: ${
-				error.message ?? error
-			}`
-		);
-	}
-);
+addAction( 'kensaku.on-search.error', 'kensaku/on-search.error', ( error ) => {
+	console.error(
+		`Composite Entities by Kind - on Search Entities: ${
+			error.message ?? error
+		}`
+	);
+} );

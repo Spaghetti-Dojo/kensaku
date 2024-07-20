@@ -30,9 +30,7 @@ type EntitiesFinder = (
 type EntitiesComponent = React.ComponentType<
 	Kensaku.BaseControl< EntitiesValue >
 >;
-type KindComponent = React.ComponentType<
-	Kensaku.BaseControl< KindValue >
->;
+type KindComponent = React.ComponentType< Kensaku.BaseControl< KindValue > >;
 
 type PublicComponentProps = {
 	entitiesFinder: EntitiesFinder;
