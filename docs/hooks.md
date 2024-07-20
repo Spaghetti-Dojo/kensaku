@@ -94,5 +94,5 @@ It requires a function `searchEntities` to perform the search to the server, the
 query for the new entities values. In the future there'll be the possibility to reuse the storage directly from within
 the hook reducing the amount of parameters, and for last the `dispatch`, necessary to update the shared state.
 
-When the state update fail for any reason an action `kensaku.on-search.error` is fired. You can hook into it
+When the state update fails for any reason, an action `kensaku.on-search.error` is fired. You can hook into it
 and consume the given `error` instance. More on this in the [logging](./logging.md) documentation.
