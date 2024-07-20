@@ -1,18 +1,18 @@
 <?php
 
 /**
- * Plugin Name: Wp Entities Search
+ * Plugin Name: Kensaku
  * Author: Guido Scialfa
- * Description: The WordPress plugin to develop the Wp Search Entities library.
+ * Description: The WordPress plugin to develop the Kensaku entities search library.
  * Author URI: https://guidoscialfa.com/
  */
 
 declare(strict_types=1);
 
-namespace SpaghettiDojo\Wp\EntitiesSearch;
+namespace SpaghettiDojo\Kensaku;
 
 use Inpsyde\Modularity;
-use SpaghettiDojo\Wp\EntitiesSearch;
+use SpaghettiDojo\Kensaku;
 
 function package(): Modularity\Package
 {
@@ -33,7 +33,7 @@ function package(): Modularity\Package
 
     if (!$package) {
         autoload($projectRoot);
-        $package = EntitiesSearch\Library::new(\plugin_dir_url(__FILE__))->package();
+        $package = Kensaku\Library::new(\plugin_dir_url(__FILE__))->package();
     }
 
     return $package;
@@ -42,6 +42,6 @@ function package(): Modularity\Package
 \add_action(
     'plugins_loaded',
     fn() => package()
-        ->addModule(EntitiesSearch\Modules\E2e\Module::new())
+        ->addModule(Kensaku\Modules\E2e\Module::new())
         ->boot()
 );

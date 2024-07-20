@@ -1,10 +1,10 @@
 {
 	"apiVersion": 3,
 	"title": "Post Types Example Block",
-	"name": "wp-entities-search/post-types-example-block",
+	"name": "kensaku/post-types-example-block",
 	"category": "uncategorized",
 	"icon": "wordpress",
-	"editorScript": "wp-entities-search-e2e-post-types-example-block",
+	"editorScript": "kensaku-e2e-post-types-example-block",
 	"attributes": {
 		"postType": {
 			"type": "array",

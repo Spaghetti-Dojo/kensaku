@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Wp Entities Search
+title: Kensaku
 permalink: /
 nav_order: 0
 ---

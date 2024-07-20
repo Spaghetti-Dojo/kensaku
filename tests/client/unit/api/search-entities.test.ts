@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 import { describe, expect, it, jest } from '@jest/globals';
 
@@ -54,7 +54,7 @@ describe( 'Search Posts', () => {
 		// @ts-ignore
 		jest.mocked( fetch ).mockResolvedValue( expected );
 
-		const entities = await searchEntities< EntitiesSearch.Post >(
+		const entities = await searchEntities< Kensaku.Post >(
 			'post',
 			new Set( [ 'post' ] ),
 			'foo',
@@ -94,7 +94,7 @@ describe( 'Search Posts', () => {
 		// @ts-ignore
 		expect( expectedError.name ).toBe( 'AbortError' );
 		expect( doAction ).toHaveBeenCalledWith(
-			'wp-entities-search.on-search.abort',
+			'kensaku.on-search.abort',
 			// @ts-ignore
 			expectedError
 		);

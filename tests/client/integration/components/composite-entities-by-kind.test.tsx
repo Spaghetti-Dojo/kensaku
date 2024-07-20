@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import React from 'react';
 
 import { describe, it, expect, jest } from '@jest/globals';
@@ -38,7 +38,7 @@ describe( 'CompositeEntitiesByKind', () => {
 			<CompositeEntitiesByKind
 				searchEntities={ () =>
 					Promise.resolve(
-						new Set< EntitiesSearch.ControlOption< any > >()
+						new Set< Kensaku.ControlOption< any > >()
 					)
 				}
 				entities={ {
@@ -97,7 +97,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					kind={ {
 						value: new Set( [ 'post' ] ),
 						options: new Set<
-							EntitiesSearch.ControlOption< any >
+							Kensaku.ControlOption< any >
 						>(),
 						onChange: () => {},
 					} }
@@ -179,7 +179,7 @@ describe( 'CompositeEntitiesByKind', () => {
 
 	it( 'Pass to the children the updated entities options when the kind change', async () => {
 		let expectedEntities = new Set<
-			EntitiesSearch.ControlOption< string >
+			Kensaku.ControlOption< string >
 		>();
 
 		const rendered = await act( () =>
@@ -311,7 +311,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		expect( expectedEntities.length() ).toBe( 0 );
 
 		expect( jest.mocked( doAction ) ).toHaveBeenCalledWith(
-			'wp-entities-search.on-change-kind.error',
+			'kensaku.on-change-kind.error',
 			'Error'
 		);
 	} );
@@ -326,7 +326,7 @@ describe( 'CompositeEntitiesByKind', () => {
 				] )
 			)
 		) as jest.Mock<
-			EntitiesSearch.SearchEntitiesFunction< string, string >
+			Kensaku.SearchEntitiesFunction< string, string >
 		>;
 
 		const rendered = await act( () =>
@@ -342,7 +342,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					kind={ {
 						value: new Set( [ 'post' ] ),
 						options: new Set<
-							EntitiesSearch.ControlOption< any >
+							Kensaku.ControlOption< any >
 						>(),
 						onChange: () => {},
 					} }
@@ -373,7 +373,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		const selectedEntities = new Set( [ '1', '2' ] );
 
 		const searchEntities = jest.fn() as jest.Mock<
-			EntitiesSearch.CompositeEntitiesKinds<
+			Kensaku.CompositeEntitiesKinds<
 				string,
 				string
 			>[ 'searchEntities' ]
@@ -390,7 +390,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					kind={ {
 						value: new Set( [ 'post' ] ),
 						options: new Set<
-							EntitiesSearch.ControlOption< any >
+							Kensaku.ControlOption< any >
 						>(),
 						onChange: () => {},
 					} }
@@ -425,7 +425,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					kind={ {
 						value: new Set( [ 'post' ] ),
 						options: new Set<
-							EntitiesSearch.ControlOption< any >
+							Kensaku.ControlOption< any >
 						>(),
 						onChange: () => {},
 					} }
@@ -438,7 +438,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		} );
 
 		expect( doAction ).toHaveBeenCalledWith(
-			'wp-entities-search.on-storage-initialization.error',
+			'kensaku.on-storage-initialization.error',
 			'Error'
 		);
 	} );
@@ -487,7 +487,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		await userEvent.selectOptions( entitiesSelect, [ 'post-1' ] );
 
 		expect( jest.mocked( doAction ) ).toHaveBeenCalledWith(
-			'wp-entities-search.on-change-entities.error',
+			'kensaku.on-change-entities.error',
 			'Error'
 		);
 	} );
@@ -499,7 +499,7 @@ describe( 'CompositeEntitiesByKind', () => {
 			<CompositeEntitiesByKind
 				searchEntities={ () =>
 					Promise.resolve(
-						new Set< EntitiesSearch.ControlOption< any > >()
+						new Set< Kensaku.ControlOption< any > >()
 					)
 				}
 				entities={ {

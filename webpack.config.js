@@ -34,7 +34,7 @@ module.exports = {
 		...baseConfiguration.output,
 		filename: '[name].js',
 		library: {
-			name: 'wpEntitiesSearch',
+			name: 'kensaku',
 			type: 'window',
 		},
 	},

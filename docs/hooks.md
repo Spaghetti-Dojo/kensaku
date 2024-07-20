@@ -6,7 +6,7 @@ nav_order: 6
 
 # Hooks
 
-The Wp Entities Search expose some hooks to help you to work with the search and the rest calls.
+Kensaku expose some hooks to help you to work with the search and the rest calls.
 
 - `useEntitiesOptionsStorage`
 - `useEntitiesRecords`
@@ -64,7 +64,7 @@ endpoint.
 The following example is retrieving the list of the `postType`s from the server.
 
 ```ts
-const entitiesRecords = useEntityRecords<EntitiesSearch.PostType<'edit'>>(
+const entitiesRecords = useEntityRecords<Kensaku.PostType<'edit'>>(
     'root',
     'postType',
     { per_page: -1 }
@@ -94,5 +94,5 @@ It requires a function `searchEntities` to perform the search to the server, the
 query for the new entities values. In the future there'll be the possibility to reuse the storage directly from within
 the hook reducing the amount of parameters, and for last the `dispatch`, necessary to update the shared state.
 
-When the state update fail for any reason an action `wp-entities-search.on-search.error` is fired. You can hook into it
+When the state update fail for any reason an action `kensaku.on-search.error` is fired. You can hook into it
 and consume the given `error` instance. More on this in the [logging](./logging.md) documentation.

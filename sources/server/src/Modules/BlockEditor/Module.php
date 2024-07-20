@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SpaghettiDojo\Wp\EntitiesSearch\Modules\BlockEditor;
+namespace SpaghettiDojo\Kensaku\Modules\BlockEditor;
 
 use Inpsyde\Modularity;
 use Psr\Container;
@@ -37,11 +37,11 @@ class Module implements Modularity\Module\ExecutableModule
              */
             $asset = (array)include "{$baseDir}/build/main.asset.php";
             $dependencies = (array)($asset['dependencies'] ?? null);
-            self::isInDebugMode() and $dependencies[] = 'wp-entities-search-logging';
+            self::isInDebugMode() and $dependencies[] = 'kensaku-logging';
             $version = (string)($asset['version'] ?? null) ?: false;
 
             \wp_register_script(
-                'wp-entities-search',
+                'kensaku',
                 "{$baseUrl}/build/main.js",
                 $dependencies,
                 $version,

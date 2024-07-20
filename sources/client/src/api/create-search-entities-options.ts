@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 /**
  * Internal dependencies
@@ -12,8 +12,8 @@ import { searchEntitiesOptions } from './search-entities-options';
 export function createSearchEntitiesOptions< E >( type: string ) {
 	return async (
 		phrase: string,
-		postTypes: EntitiesSearch.Kind< string >,
-		queryArguments?: EntitiesSearch.QueryArguments
-	): Promise< Set< EntitiesSearch.ControlOption< E > > > =>
+		postTypes: Kensaku.Kind< string >,
+		queryArguments?: Kensaku.QueryArguments
+	): Promise< Set< Kensaku.ControlOption< E > > > =>
 		searchEntitiesOptions( type, phrase, postTypes, queryArguments );
 }

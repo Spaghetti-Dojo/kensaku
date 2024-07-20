@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 import { describe, expect, it } from '@jest/globals';
 
@@ -18,9 +18,9 @@ describe( 'Ordered Selected Options at the Top', () => {
 	 * Given options are always re-ordered to includes the given collection values at the top
 	 */
 	function generateOptions(): Array<
-		EntitiesSearch.ControlOption< string >
+		Kensaku.ControlOption< string >
 	> {
-		const options: Array< EntitiesSearch.ControlOption< string > > = [];
+		const options: Array< Kensaku.ControlOption< string > > = [];
 
 		for ( let i = 1; i <= 10; i++ ) {
 			options.push( {
@@ -70,7 +70,7 @@ describe( 'Ordered Selected Options at the Top', () => {
 	} );
 
 	it( 'should return the given selected options when the collection is empty', () => {
-		const options = new Set< EntitiesSearch.ControlOption< string > >(
+		const options = new Set< Kensaku.ControlOption< string > >(
 			generateOptions()
 		);
 
@@ -83,7 +83,7 @@ describe( 'Ordered Selected Options at the Top', () => {
 	} );
 
 	it( 'should return the given options when the options are empty', () => {
-		const options = new Set< EntitiesSearch.ControlOption< string > >();
+		const options = new Set< Kensaku.ControlOption< string > >();
 
 		const result = orderSelectedOptionsAtTheTop(
 			options,

@@ -9,8 +9,8 @@ nav_order: 2
 The first thing to do is to clone the repository and install the dependencies:
 
 ```bash
-$ git clone git@github.com:spaghetti-dojo/wp-entities-search.git
-$ cd wp-entities-search
+$ git clone git@github.com:spaghetti-dojo/kensaku.git
+$ cd kensaku
 $ composer install
 $ yarn install
 ```

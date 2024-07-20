@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace SpaghettiDojo\Wp\EntitiesSearch\Modules\E2e;
+namespace SpaghettiDojo\Kensaku\Modules\E2e;
 
 use Inpsyde\Modularity;
 use Psr\Container;
 
 /**
- * @internal \SpaghettiDojo\Wp\EntitiesSearch
+ * @internal \SpaghettiDojo\Kensaku
  */
 class Module implements Modularity\Module\ExecutableModule
 {
@@ -79,17 +79,17 @@ class Module implements Modularity\Module\ExecutableModule
         $baseUrl = \untrailingslashit($properties->baseUrl());
 
         \wp_register_script(
-            'wp-entities-search-e2e-post-types-example-block',
+            'kensaku-e2e-post-types-example-block',
             "{$baseUrl}/sources/server/src/Modules/E2e/resources/js/post-types-example-block/index.js",
-            ['wp-entities-search'],
+            ['kensaku'],
             '0.0.0',
             true,
         );
 
         \wp_register_script(
-            'wp-entities-search-e2e-taxonomies-example-block',
+            'kensaku-e2e-taxonomies-example-block',
             "{$baseUrl}/sources/server/src/Modules/E2e/resources/js/taxonomies-example-block/index.js",
-            ['wp-entities-search'],
+            ['kensaku'],
             '0.0.0',
             true,
         );

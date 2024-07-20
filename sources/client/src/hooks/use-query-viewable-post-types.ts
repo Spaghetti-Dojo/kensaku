@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 /**
  * Internal dependencies
@@ -15,16 +15,16 @@ import { useEntityRecords } from './use-entity-records';
  *
  * @public
  */
-export function useQueryViewablePostTypes(): EntitiesSearch.EntitiesRecords< EntitiesSearch.ViewablePostType > {
+export function useQueryViewablePostTypes(): Kensaku.EntitiesRecords< Kensaku.ViewablePostType > {
 	const entitiesRecords = useEntityRecords<
-		EntitiesSearch.PostType< 'edit' >
+		Kensaku.PostType< 'edit' >
 	>( 'root', 'postType', { per_page: -1 } );
 
 	const viewablePostTypes = entitiesRecords
 		.records()
 		.filter(
 			( postType ) => postType.viewable
-		) as Set< EntitiesSearch.ViewablePostType >;
+		) as Set< Kensaku.ViewablePostType >;
 
 	return {
 		...entitiesRecords,

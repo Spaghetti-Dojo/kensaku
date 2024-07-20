@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 /**
  * Internal dependencies
@@ -14,9 +14,9 @@ import { Set } from '../../models/set';
  * @param action The action to be performed
  */
 export function reducer< E, K >(
-	state: EntitiesSearch.EntitiesState< E, K >,
-	action: EntitiesSearch.StoreAction< E, K >
-): EntitiesSearch.EntitiesState< E, K > {
+	state: Kensaku.EntitiesState< E, K >,
+	action: Kensaku.StoreAction< E, K >
+): Kensaku.EntitiesState< E, K > {
 	switch ( action.type ) {
 		case 'UPDATE_ENTITIES':
 			return {
@@ -41,7 +41,7 @@ export function reducer< E, K >(
 				...state,
 				selectedEntitiesOptions: action.selectedEntitiesOptions,
 				entities: action.selectedEntitiesOptions.map(
-					( option: EntitiesSearch.ControlOption< E > ) =>
+					( option: Kensaku.ControlOption< E > ) =>
 						option.value
 				),
 			};

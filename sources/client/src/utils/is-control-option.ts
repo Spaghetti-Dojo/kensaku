@@ -1,11 +1,11 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 export function isControlOption(
 	option: unknown
-): option is EntitiesSearch.ControlOption< any > {
+): option is Kensaku.ControlOption< any > {
 	if ( option === null ) {
 		return false;
 	}

@@ -6,7 +6,7 @@ module.exports = {
 		'@wordpress/i18n-text-domain': [
 			'error',
 			{
-				allowedTextDomain: 'wp-entities-search',
+				allowedTextDomain: 'kensaku',
 			},
 		],
 		'@typescript-eslint/array-type': [ 'error', { default: 'generic' } ],

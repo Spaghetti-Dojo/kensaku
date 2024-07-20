@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import React from 'react';
 
 import { describe, it, expect, jest } from '@jest/globals';
@@ -24,13 +24,13 @@ describe( 'Post Types Select', () => {
 	 * in the React Select component, so we mock it.
 	 */
 	it( 'call the given onChange handler', ( done ) => {
-		let expectedValue: EntitiesSearch.SingularControl< string >[ 'value' ] =
+		let expectedValue: Kensaku.SingularControl< string >[ 'value' ] =
 			'';
-		const option: EntitiesSearch.ControlOption< string > = {
+		const option: Kensaku.ControlOption< string > = {
 			label: faker.word.words( 2 ),
 			value: faker.word.noun(),
 		};
-		const options = new Set< EntitiesSearch.ControlOption< string > >()
+		const options = new Set< Kensaku.ControlOption< string > >()
 			.add( option )
 			.concat( buildOptions() );
 

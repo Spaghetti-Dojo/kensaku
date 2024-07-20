@@ -6,7 +6,7 @@ nav_order: 4
 
 # Components
 
-The Wp Entities Search provides a set of components you can use to build your search UI.
+Kensaku provides a set of components you can use to build your search UI.
 
 We have to distinguish between two types of components:
 
@@ -57,7 +57,7 @@ possible to use a search function in conjunction with a `search` field.
 An example of its usage is:
 
 ```jsx
-import { CompositeEntitiesByKind } from 'wp-entities-search';
+import { CompositeEntitiesByKind } from 'kensaku';
 
 export function MyComponent(props) {
     const entities = {
@@ -146,7 +146,7 @@ In the example below we only allow to select the entities belonging to the `page
 the user to switch between them.
 
 ```jsx
-import { CompositeEntitiesByKind } from 'wp-entities-search';
+import { CompositeEntitiesByKind } from 'kensaku';
 
 export function MyComponent(props) {
     const entities = {
@@ -228,11 +228,11 @@ Therefore, the preset simplify and take care of some parts that you would have t
 
 - `entitiesFinder` - The function which perform the search of the contextual entities. You can use the `createSearchEntitiesOptions` function by passing the `root` value such as `term` or `post`.
 - `className` - For better customization you can pass your own custom classes.
-- `entities` - A `EntitiesSearch.Entities` set of selected entities. For when you want some entities already selected.
+- `entities` - A `Kensaku.Entities` set of selected entities. For when you want some entities already selected.
 - `onChangeEntities` - A task to perform when the selection change due to a user interaction.
 - `entitiesComponent` - The component to use to render the control ui for the entities.
 - `kind` - The predefined set of kind (e.g. post-types or taxonomies) you want to have already selected.
-- `kindOptions` - A collection of `EntitiesSearch.ControlOption` among which the user can choose to retrieve the entities from.
+- `kindOptions` - A collection of `Kensaku.ControlOption` among which the user can choose to retrieve the entities from.
 - `onChangeKind` - A task to perform when the selection change due to a user interaction.
 - `kindComponent` - The component to use to render the control ui for the kinds.
 - `entitiesFields` - Additional fields you want to retrieve and have available within your `entitiesComponent` and `kindComponent`. For more info read the [Control Option](./control-option.md) documentation.
@@ -246,7 +246,7 @@ The Singular Components always get a single value, therefore you have to conside
 the `Set`.
 
 ```jsx
-import { CompositeEntitiesByKind } from 'wp-entities-search';
+import { CompositeEntitiesByKind } from 'kensaku';
 
 export function MyComponent(props) {
     return <CompositeEntitiesByKind

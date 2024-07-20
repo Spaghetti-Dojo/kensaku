@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SpaghettiDojo\Wp\EntitiesSearch\Modules\Logging;
+namespace SpaghettiDojo\Kensaku\Modules\Logging;
 
 use Inpsyde\Modularity;
 use Psr\Container;
@@ -44,7 +44,7 @@ class Module implements Modularity\Module\ExecutableModule
             $version = (string)($asset['version'] ?? null) ?: false;
 
             \wp_register_script(
-                'wp-entities-search-logging',
+                'kensaku-logging',
                 "{$baseUrl}/build/logging.js",
                 $dependencies,
                 $version,

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-	const { wp, wpEntitiesSearch, Immutable } = window;
+	const { wp, kensaku, Immutable } = window;
 
 	const { createElement } = wp.element;
 	const { registerBlockType } = wp.blocks;
@@ -20,18 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		useQueryViewableTaxonomies,
 		convertEntitiesToControlOptions,
 		createSearchEntitiesOptions,
-	} = wpEntitiesSearch;
+	} = kensaku;
 
 	// TODO Check why the object form does not work.
-	registerBlockType('wp-entities-search/taxonomies-example-block', {
+	registerBlockType('kensaku/taxonomies-example-block', {
 		apiVersion: 2,
 		title: 'Taxonomies Example Block',
 		category: 'uncategorized',
 		icon: 'wordpress',
-		editorScript: 'wp-entities-search-e2e-taxonomies-example-block',
+		editorScript: 'kensaku-e2e-taxonomies-example-block',
 		edit: function Edit(props) {
 			const blockProps = useBlockProps({
-				className: 'wp-entities-search-e2e-taxonomies-example-block',
+				className: 'kensaku-e2e-taxonomies-example-block',
 			});
 
 			const taxonomiesEntities = useQueryViewableTaxonomies();

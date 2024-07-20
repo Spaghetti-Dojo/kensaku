@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 /**
  * WordPress dependencies
@@ -33,7 +33,7 @@ export function useEntityRecords< Entity >(
 	kind: string,
 	name: string,
 	queryArgs: Record< string, unknown > = {}
-): EntitiesSearch.EntitiesRecords< Entity > {
+): Kensaku.EntitiesRecords< Entity > {
 	const entities = useCoreEntityRecords< Entity >( kind, name, queryArgs );
 	const status = entities.status as any as ResolveStatus;
 

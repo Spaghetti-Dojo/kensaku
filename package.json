@@ -1,5 +1,5 @@
 {
-	"name": "wp-entities-search",
+	"name": "kensaku",
 	"description": "A WordPress package to search Entities including Rest API Endpoints and React Components",
 	"author": "guido scialfa <dev@guidoscialfa.com>",
 	"main": "./build/index.js",

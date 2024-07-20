@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import React from 'react';
 
 import { expect, jest, describe, it } from '@jest/globals';
@@ -35,7 +35,7 @@ describe( 'KindRadioControl', () => {
 	it( 'renders the NoOptionsMessage when there are no options', () => {
 		const props = {
 			className: 'test-class',
-			options: new Set< EntitiesSearch.ControlOption< any > >(),
+			options: new Set< Kensaku.ControlOption< any > >(),
 			value: 'option-one',
 			onChange: jest.fn(),
 		};

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import React from 'react';
 
 /**
@@ -16,7 +16,7 @@ import { doAction } from '@wordpress/hooks';
 import { Set } from '../models/set';
 
 type SearchPhrase = Parameters<
-	EntitiesSearch.SearchControl[ 'onChange' ]
+	Kensaku.SearchControl[ 'onChange' ]
 >[ 0 ];
 type SearchFunc = ( phrase: SearchPhrase ) => void;
 
@@ -30,10 +30,10 @@ type SearchFunc = ( phrase: SearchPhrase ) => void;
  * @param dispatch       The dispatch function to update the state
  */
 export function useSearch< E, K >(
-	searchEntities: EntitiesSearch.SearchEntitiesFunction< E, K >,
-	kind: EntitiesSearch.Kind< K >,
-	entities: EntitiesSearch.Entities< E >,
-	dispatch: React.Dispatch< EntitiesSearch.StoreAction< E, K > >
+	searchEntities: Kensaku.SearchEntitiesFunction< E, K >,
+	kind: Kensaku.Kind< K >,
+	entities: Kensaku.Entities< E >,
+	dispatch: React.Dispatch< Kensaku.StoreAction< E, K > >
 ): SearchFunc {
 	return useThrottle(
 		( phrase: SearchPhrase ) => {
@@ -49,9 +49,9 @@ export function useSearch< E, K >(
 					} )
 				)
 				.catch( ( error ) => {
-					doAction( 'wp-entities-search.on-search.error', error );
+					doAction( 'kensaku.on-search.error', error );
 					const emptySet = new Set<
-						EntitiesSearch.ControlOption< E >
+						Kensaku.ControlOption< E >
 					>();
 					dispatch( {
 						type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',

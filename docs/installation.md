@@ -16,7 +16,7 @@ The JavaScript implementation is composed of a set of utilities and React compon
 To install the package as part of the composer dependencies of your project, run the following command:
 
 ```bash
-composer require spaghetti-dojo/wp-entities-search
+composer require spaghetti-dojo/kensaku
 ```
 
 ## NPM

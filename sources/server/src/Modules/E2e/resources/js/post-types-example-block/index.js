@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const UNSUPPORTED_CPTS = ['attachment'];
 
-	const { wp, wpEntitiesSearch } = window;
+	const { wp, kensaku } = window;
 
 	const { createElement } = wp.element;
 	const { registerBlockType } = wp.blocks;
@@ -21,18 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		useQueryViewablePostTypes,
 		convertEntitiesToControlOptions,
 		createSearchEntitiesOptions,
-	} = wpEntitiesSearch;
+	} = kensaku;
 
 	// TODO Check why the object form does not work.
-	registerBlockType('wp-entities-search/post-types-example-block', {
+	registerBlockType('kensaku/post-types-example-block', {
 		apiVersion: 2,
 		title: 'Post Types Example Block',
 		category: 'uncategorized',
 		icon: 'wordpress',
-		editorScript: 'wp-entities-search-e2e-post-types-example-block',
+		editorScript: 'kensaku-e2e-post-types-example-block',
 		edit: function Edit(props) {
 			const blockProps = useBlockProps({
-				className: 'wp-entities-search-e2e-post-types-example-block',
+				className: 'kensaku-e2e-post-types-example-block',
 			});
 
 			const postTypesEntities = useQueryViewablePostTypes();

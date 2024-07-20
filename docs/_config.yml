@@ -1,20 +1,20 @@
-title: Wp Entities Search
+title: Kensaku
 description: >-
   A WordPress package to search Entities including Rest API Endpoints and React Components
-url: "https://spaghetti-dojo.github.io/wp-entities-search"
-baseurl: "/wp-entities-search"
+url: "https://spaghetti-dojo.github.io/kensaku"
+baseurl: "/kensaku"
 
 remote_theme: just-the-docs/just-the-docs
 
 aux_links:
-  "Wp Entities Search on Github":
-    - "https://github.com/spaghetti-dojo/wp-entities-search"
+  "Kensaku on Github":
+    - "https://github.com/spaghetti-dojo/kensaku"
 
 aux_links_new_tab: true
 
 nav_external_links:
   - title: Go to the Repository
-    url: https://github.com/spaghetti-dojo/wp-entities-search
+    url: https://github.com/spaghetti-dojo/kensaku
     opens_in_new_tab: true
 
 back_to_top: true

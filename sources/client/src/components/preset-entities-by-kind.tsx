@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import React, { JSX } from 'react';
 import classnames from 'classnames';
 
@@ -17,21 +17,21 @@ import { CompositeEntitiesByKind } from './composite-entities-by-kind';
 import { SearchControl } from './search-control';
 import { Set } from '../models/set';
 
-type EntitiesValue = EntitiesSearch.Value;
-type Entities = EntitiesSearch.Entities< EntitiesValue >;
-type KindValue = EntitiesSearch.Kind< string > | string;
+type EntitiesValue = Kensaku.Value;
+type Entities = Kensaku.Entities< EntitiesValue >;
+type KindValue = Kensaku.Kind< string > | string;
 
 type EntitiesFinder = (
 	phrase: string,
-	kind: EntitiesSearch.Kind< string >,
-	queryArguments?: EntitiesSearch.QueryArguments
-) => Promise< Set< EntitiesSearch.ControlOption< EntitiesValue > > >;
+	kind: Kensaku.Kind< string >,
+	queryArguments?: Kensaku.QueryArguments
+) => Promise< Set< Kensaku.ControlOption< EntitiesValue > > >;
 
 type EntitiesComponent = React.ComponentType<
-	EntitiesSearch.BaseControl< EntitiesValue >
+	Kensaku.BaseControl< EntitiesValue >
 >;
 type KindComponent = React.ComponentType<
-	EntitiesSearch.BaseControl< KindValue >
+	Kensaku.BaseControl< KindValue >
 >;
 
 type PublicComponentProps = {
@@ -41,15 +41,15 @@ type PublicComponentProps = {
 	onChangeEntities: ( values: Entities ) => void;
 	entitiesComponent: EntitiesComponent;
 	kind: KindValue;
-	kindOptions: EntitiesSearch.Options< string >;
+	kindOptions: Kensaku.Options< string >;
 	onChangeKind: ( values: KindValue ) => void;
 	kindComponent: KindComponent;
-	entitiesFields?: EntitiesSearch.QueryArguments[ 'fields' ];
+	entitiesFields?: Kensaku.QueryArguments[ 'fields' ];
 };
 
 interface PrivateComponentProps
 	extends Pick<
-		EntitiesSearch.CompositeEntitiesKinds< EntitiesValue, string >,
+		Kensaku.CompositeEntitiesKinds< EntitiesValue, string >,
 		'kind' | 'entities'
 	> {
 	className?: string;
@@ -59,7 +59,7 @@ interface PrivateComponentProps
 }
 
 function PrivateComponent( props: PrivateComponentProps ): JSX.Element {
-	const className = classnames( 'wes-preset-entities-by-kind', {
+	const className = classnames( 'kensaku-preset-entities-by-kind', {
 		// @ts-ignore
 		[ props.className ]: !! props.className,
 	} );
@@ -135,12 +135,12 @@ const withDataBound = createHigherOrderComponent<
 
 function entitiesFinderWithExtraFields(
 	entitiesFinder: EntitiesFinder,
-	entitiesFields?: EntitiesSearch.QueryArguments[ 'fields' ]
+	entitiesFields?: Kensaku.QueryArguments[ 'fields' ]
 ): EntitiesFinder {
 	return (
 		phrase: string,
-		kind: EntitiesSearch.Kind< string >,
-		queryArguments?: EntitiesSearch.QueryArguments
+		kind: Kensaku.Kind< string >,
+		queryArguments?: Kensaku.QueryArguments
 	) =>
 		entitiesFinder( phrase, kind, {
 			...queryArguments,
@@ -151,7 +151,7 @@ function entitiesFinderWithExtraFields(
 		} );
 }
 
-function narrowKindValue( value: KindValue ): EntitiesSearch.Kind< string > {
+function narrowKindValue( value: KindValue ): Kensaku.Kind< string > {
 	return typeof value === 'string' ? new Set( [ value ] ) : value;
 }
 

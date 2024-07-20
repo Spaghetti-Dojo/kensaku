@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { fromPartial } from '@total-typescript/shoehorn';
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 import { describe, expect, it, jest } from '@jest/globals';
 
@@ -27,19 +27,19 @@ describe( 'useQueryViewableTaxonomies', () => {
 			succeed: () => true,
 			records: () =>
 				new Set( [
-					fromPartial< EntitiesSearch.Taxonomy< 'edit' > >( {
+					fromPartial< Kensaku.Taxonomy< 'edit' > >( {
 						name: 'Category',
 						visibility: {
 							publicly_queryable: true,
 						},
 					} ),
-					fromPartial< EntitiesSearch.Taxonomy< 'edit' > >( {
+					fromPartial< Kensaku.Taxonomy< 'edit' > >( {
 						name: 'Tag',
 						visibility: {
 							publicly_queryable: true,
 						},
 					} ),
-					fromPartial< EntitiesSearch.Taxonomy< 'edit' > >( {
+					fromPartial< Kensaku.Taxonomy< 'edit' > >( {
 						name: 'Author',
 						visibility: {
 							publicly_queryable: false,

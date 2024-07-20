@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 /**
  * Internal dependencies
@@ -13,11 +13,11 @@ import { convertEntitiesToControlOptions } from '../utils/convert-entities-to-co
 export async function searchEntitiesOptions< E >(
 	type: string,
 	phrase: string,
-	postTypes: EntitiesSearch.Kind< string >,
-	queryArguments?: EntitiesSearch.QueryArguments
-): Promise< Set< EntitiesSearch.ControlOption< E > > > {
+	postTypes: Kensaku.Kind< string >,
+	queryArguments?: Kensaku.QueryArguments
+): Promise< Set< Kensaku.ControlOption< E > > > {
 	const postsEntities =
-		await searchEntities< EntitiesSearch.SearchEntityFields >(
+		await searchEntities< Kensaku.SearchEntityFields >(
 			type,
 			postTypes,
 			phrase,

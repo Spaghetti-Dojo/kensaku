@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 /**
  * WordPress dependencies
@@ -20,7 +20,7 @@ export async function searchEntities< E >(
 	type: string,
 	subtype: Set< string >,
 	phrase: string,
-	queryArguments?: EntitiesSearch.QueryArguments
+	queryArguments?: Kensaku.QueryArguments
 ): Promise< Set< E > > {
 	const {
 		exclude,
@@ -57,7 +57,7 @@ export async function searchEntities< E >(
 		signal: controller?.signal() ?? null,
 	} ).catch( ( error ) => {
 		if ( error instanceof DOMException && error.name === 'AbortError' ) {
-			doAction( 'wp-entities-search.on-search.abort', error );
+			doAction( 'kensaku.on-search.abort', error );
 		}
 
 		throw error;
@@ -66,6 +66,6 @@ export async function searchEntities< E >(
 	return new Set( entities );
 }
 
-function serializeFields( fields: EntitiesSearch.SearchQueryFields ): string {
+function serializeFields( fields: Kensaku.SearchQueryFields ): string {
 	return fields.join( ',' );
 }
