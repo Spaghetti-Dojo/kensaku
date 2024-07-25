@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 /**
  * Internal dependencies
@@ -19,7 +19,7 @@ export function convertEntitiesToControlOptions<
 	labelKey: string,
 	valueKey: string,
 	...extraKeys: ReadonlyArray< string >
-): Set< EntitiesSearch.ControlOption< V > > {
+): Set< Kensaku.ControlOption< V > > {
 	return entities.map( ( entity ) => {
 		const label = entity[ labelKey ];
 		const value = entity[ valueKey ];

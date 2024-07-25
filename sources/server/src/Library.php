@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SpaghettiDojo\Wp\EntitiesSearch;
+namespace SpaghettiDojo\Kensaku;
 
 use Inpsyde\Modularity;
 

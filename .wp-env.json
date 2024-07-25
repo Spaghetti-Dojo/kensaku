@@ -5,7 +5,7 @@
     "development": {
       "phpVersion": "8.1",
       "mappings": {
-        "wp-content/plugins/wp-entities-search": "."
+        "wp-content/plugins/kensaku": "."
       }
     }
   },

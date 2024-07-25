@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import React from 'react';
 
 import { describe, it, expect, jest } from '@jest/globals';
@@ -37,9 +37,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		const rendered = render(
 			<CompositeEntitiesByKind
 				searchEntities={ () =>
-					Promise.resolve(
-						new Set< EntitiesSearch.ControlOption< any > >()
-					)
+					Promise.resolve( new Set< Kensaku.ControlOption< any > >() )
 				}
 				entities={ {
 					value: new Set(),
@@ -69,7 +67,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions( kindSelect, 'page' );
@@ -96,9 +94,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set<
-							EntitiesSearch.ControlOption< any >
-						>(),
+						options: new Set< Kensaku.ControlOption< any > >(),
 						onChange: () => {},
 					} }
 				>
@@ -110,7 +106,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const entitiesSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions( entitiesSelect, [ 'post-2' ] );
@@ -164,10 +160,10 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wes-select-control--singular'
+			'.kensaku-select-control--singular'
 		) as HTMLSelectElement;
 		const entitiesSelect = rendered.container.querySelector(
-			'.wes-select-control--plural'
+			'.kensaku-select-control--plural'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions( entitiesSelect, [ 'post-2' ] );
@@ -178,9 +174,7 @@ describe( 'CompositeEntitiesByKind', () => {
 	} );
 
 	it( 'Pass to the children the updated entities options when the kind change', async () => {
-		let expectedEntities = new Set<
-			EntitiesSearch.ControlOption< string >
-		>();
+		let expectedEntities = new Set< Kensaku.ControlOption< string > >();
 
 		const rendered = await act( () =>
 			render(
@@ -236,7 +230,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		expect( expectedEntities.length() ).toBe( 2 );
@@ -304,14 +298,14 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const kindSelect = rendered.container.querySelector(
-			'.wes-select-control--singular'
+			'.kensaku-select-control--singular'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions( kindSelect, 'page' );
 		expect( expectedEntities.length() ).toBe( 0 );
 
 		expect( jest.mocked( doAction ) ).toHaveBeenCalledWith(
-			'wp-entities-search.on-change-kind.error',
+			'kensaku.on-change-kind.error',
 			'Error'
 		);
 	} );
@@ -325,9 +319,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					{ label: 'Post 2', value: 'post-2' },
 				] )
 			)
-		) as jest.Mock<
-			EntitiesSearch.SearchEntitiesFunction< string, string >
-		>;
+		) as jest.Mock< Kensaku.SearchEntitiesFunction< string, string > >;
 
 		const rendered = await act( () =>
 			render(
@@ -341,9 +333,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set<
-							EntitiesSearch.ControlOption< any >
-						>(),
+						options: new Set< Kensaku.ControlOption< any > >(),
 						onChange: () => {},
 					} }
 				>
@@ -355,7 +345,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const entitiesSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		expect( selectedEntities.length() ).toBe( 2 );
@@ -373,10 +363,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		const selectedEntities = new Set( [ '1', '2' ] );
 
 		const searchEntities = jest.fn() as jest.Mock<
-			EntitiesSearch.CompositeEntitiesKinds<
-				string,
-				string
-			>[ 'searchEntities' ]
+			Kensaku.CompositeEntitiesKinds< string, string >[ 'searchEntities' ]
 		>;
 
 		await act( () =>
@@ -389,9 +376,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set<
-							EntitiesSearch.ControlOption< any >
-						>(),
+						options: new Set< Kensaku.ControlOption< any > >(),
 						onChange: () => {},
 					} }
 				>
@@ -424,9 +409,7 @@ describe( 'CompositeEntitiesByKind', () => {
 					} }
 					kind={ {
 						value: new Set( [ 'post' ] ),
-						options: new Set<
-							EntitiesSearch.ControlOption< any >
-						>(),
+						options: new Set< Kensaku.ControlOption< any > >(),
 						onChange: () => {},
 					} }
 				>
@@ -438,7 +421,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		} );
 
 		expect( doAction ).toHaveBeenCalledWith(
-			'wp-entities-search.on-storage-initialization.error',
+			'kensaku.on-storage-initialization.error',
 			'Error'
 		);
 	} );
@@ -481,13 +464,13 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const entitiesSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.selectOptions( entitiesSelect, [ 'post-1' ] );
 
 		expect( jest.mocked( doAction ) ).toHaveBeenCalledWith(
-			'wp-entities-search.on-change-entities.error',
+			'kensaku.on-change-entities.error',
 			'Error'
 		);
 	} );
@@ -498,9 +481,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		const rendered = render(
 			<CompositeEntitiesByKind
 				searchEntities={ () =>
-					Promise.resolve(
-						new Set< EntitiesSearch.ControlOption< any > >()
-					)
+					Promise.resolve( new Set< Kensaku.ControlOption< any > >() )
 				}
 				entities={ {
 					value: new Set(),
@@ -522,7 +503,7 @@ describe( 'CompositeEntitiesByKind', () => {
 		);
 
 		const postTypeSelect = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		await userEvent.deselectOptions( postTypeSelect, [ 'post' ] );

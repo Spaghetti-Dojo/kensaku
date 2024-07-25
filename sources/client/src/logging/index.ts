@@ -6,8 +6,8 @@ import { addAction } from '@wordpress/hooks';
 /* eslint-disable no-console */
 
 addAction(
-	'wp-entities-search.on-change-entities.error',
-	'wp-entities-search/wp-on-change-entities.error',
+	'kensaku.on-change-entities.error',
+	'kensaku/wp-on-change-entities.error',
 	( error ) => {
 		console.error(
 			`Composite Entities by Kind - on Change Entities: ${
@@ -18,8 +18,8 @@ addAction(
 );
 
 addAction(
-	'wp-entities-search.on-change-kind.error',
-	'wp-entities-search/wp-on-change-entities.error',
+	'kensaku.on-change-kind.error',
+	'kensaku/wp-on-change-entities.error',
 	( error ) => {
 		console.error(
 			`Composite Entities by Kind - on Change Kind: ${
@@ -30,8 +30,8 @@ addAction(
 );
 
 addAction(
-	'wp-entities-search.on-storage-initialization.error',
-	'wp-entities-search/on-storage-initialization.error',
+	'kensaku.on-storage-initialization.error',
+	'kensaku/on-storage-initialization.error',
 	( error ) => {
 		console.error(
 			`Composite Entities by Kind: ${ error.message ?? error }`
@@ -39,14 +39,10 @@ addAction(
 	}
 );
 
-addAction(
-	'wp-entities-search.on-search.error',
-	'wp-entities-search/on-search.error',
-	( error ) => {
-		console.error(
-			`Composite Entities by Kind - on Search Entities: ${
-				error.message ?? error
-			}`
-		);
-	}
-);
+addAction( 'kensaku.on-search.error', 'kensaku/on-search.error', ( error ) => {
+	console.error(
+		`Composite Entities by Kind - on Search Entities: ${
+			error.message ?? error
+		}`
+	);
+} );

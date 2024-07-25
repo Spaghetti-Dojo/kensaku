@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import { Reducer, Dispatch, useReducer, useEffect } from 'react';
 
 /**
@@ -17,8 +17,8 @@ import { reducer } from '../storage/entities/reducer';
 import { Set } from '../models/set';
 
 type _Reducer< E, K > = Reducer<
-	EntitiesSearch.EntitiesState< E, K >,
-	EntitiesSearch.StoreAction< E, K >
+	Kensaku.EntitiesState< E, K >,
+	Kensaku.StoreAction< E, K >
 >;
 
 /**
@@ -27,16 +27,10 @@ type _Reducer< E, K > = Reducer<
  * @param searchEntities The function that will search the entities
  */
 export function useEntitiesOptionsStorage< E, K >(
-	initialState: Pick<
-		EntitiesSearch.EntitiesState< E, K >,
-		'entities' | 'kind'
-	>,
-	searchEntities: EntitiesSearch.SearchEntitiesFunction< E, K >
+	initialState: Pick< Kensaku.EntitiesState< E, K >, 'entities' | 'kind' >,
+	searchEntities: Kensaku.SearchEntitiesFunction< E, K >
 ): Readonly<
-	[
-		EntitiesSearch.EntitiesState< E, K >,
-		Dispatch< EntitiesSearch.StoreAction< E, K > >,
-	]
+	[ Kensaku.EntitiesState< E, K >, Dispatch< Kensaku.StoreAction< E, K > > ]
 > {
 	const [ state, dispatch ] = useReducer< _Reducer< E, K > >(
 		reducer,
@@ -69,10 +63,7 @@ export function useEntitiesOptionsStorage< E, K >(
 				} );
 			} )
 			.catch( ( error ) => {
-				doAction(
-					'wp-entities-search.on-storage-initialization.error',
-					error
-				);
+				doAction( 'kensaku.on-storage-initialization.error', error );
 			} );
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [] );

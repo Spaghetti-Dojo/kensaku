@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { fromPartial } from '@total-typescript/shoehorn';
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 import { describe, expect, it } from '@jest/globals';
 
@@ -14,7 +14,7 @@ import { faker } from '@faker-js/faker';
 import { convertEntitiesToControlOptions } from '../../../../sources/client/src/utils/convert-entities-to-control-options';
 import { Set } from '../../../../sources/client/src/models/set';
 
-type ExtendedSearchEntityFields = EntitiesSearch.SearchEntityFields & {
+type ExtendedSearchEntityFields = Kensaku.SearchEntityFields & {
 	type: string;
 	excerpt: string;
 };

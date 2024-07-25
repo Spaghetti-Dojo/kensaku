@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import classnames from 'classnames';
 import React, { JSX } from 'react';
 
@@ -10,18 +10,18 @@ import React, { JSX } from 'react';
  */
 import { useId } from '../hooks/use-id';
 
-interface Option< V > extends EntitiesSearch.ControlOption< V > {
-	readonly selectedValue: EntitiesSearch.SingularControl< V >[ 'value' ];
+interface Option< V > extends Kensaku.ControlOption< V > {
+	readonly selectedValue: Kensaku.SingularControl< V >[ 'value' ];
 	readonly onChange: ( event: React.ChangeEvent< HTMLInputElement > ) => void;
 }
 
 export function RadioControl(
-	props: EntitiesSearch.SingularControl< EntitiesSearch.Value > & {
+	props: Kensaku.SingularControl< Kensaku.Value > & {
 		className?: string;
 		id?: string;
 	}
 ): JSX.Element {
-	const className = classnames( props.className, 'wes-radio-control' );
+	const className = classnames( props.className, 'kensaku-radio-control' );
 
 	const onChange = ( event: React.ChangeEvent< HTMLInputElement > ) => {
 		const { target } = event;
@@ -57,7 +57,7 @@ function Option< V >( props: Option< V > ): JSX.Element {
 
 	return (
 		<div
-			className={ `wes-radio-control-item wes-radio-control-item--${ value }` }
+			className={ `kensaku-radio-control-item kensaku-radio-control-item--${ value }` }
 		>
 			<label htmlFor={ id }>
 				<input

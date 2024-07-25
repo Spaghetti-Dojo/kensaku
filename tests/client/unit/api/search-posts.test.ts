@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import { faker } from '@faker-js/faker';
 import { describe, it, expect, jest } from '@jest/globals';
 
@@ -95,7 +95,7 @@ describe( 'Search Entities Options', () => {
 	it( 'Expect to call searchEntities with the given parameters', async () => {
 		const postTypes = new Set( [ 'post' ] );
 		const phrase = 'Phrase';
-		const fields: EntitiesSearch.SearchQueryFields = [ 'title', 'id' ];
+		const fields: Kensaku.SearchQueryFields = [ 'title', 'id' ];
 		const queryArguments = {
 			fields,
 		};

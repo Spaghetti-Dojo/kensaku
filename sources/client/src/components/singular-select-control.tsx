@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import classnames from 'classnames';
 import React, { JSX } from 'react';
 
@@ -11,14 +11,14 @@ import React, { JSX } from 'react';
 import { NoOptionsMessage } from './no-options-message';
 
 export function SingularSelectControl(
-	props: EntitiesSearch.SingularControl< string > & {
+	props: Kensaku.SingularControl< string > & {
 		className?: string;
 	}
 ): JSX.Element {
 	const className = classnames(
 		props.className,
-		'wes-select-control',
-		'wes-select-control--singular'
+		'kensaku-select-control',
+		'kensaku-select-control--singular'
 	);
 
 	if ( props.options.length() <= 0 ) {
@@ -47,7 +47,7 @@ export function SingularSelectControl(
 			{ props.options.map( ( option ) => (
 				<option
 					key={ option.value }
-					className={ `wes-select-control-item wes-select-control-item--${ option.value }` }
+					className={ `kensaku-select-control-item kensaku-select-control-item--${ option.value }` }
 					value={ option.value }
 				>
 					{ option.label }

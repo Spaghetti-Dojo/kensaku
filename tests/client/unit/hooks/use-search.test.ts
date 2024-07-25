@@ -7,7 +7,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 import { expect, it, describe, beforeEach, jest } from '@jest/globals';
 
@@ -39,7 +39,7 @@ describe( 'useSearch', () => {
 	it( 'Should update the search phrase', async () => {
 		const searchEntities = jest.fn( () =>
 			Promise.resolve( new Set( [ { label: 'Label', value: 1 } ] ) )
-		) as jest.Mock< EntitiesSearch.SearchEntitiesFunction< any, any > >;
+		) as jest.Mock< Kensaku.SearchEntitiesFunction< any, any > >;
 		const kind = new Set( [ 'post' ] );
 		const entities = new Set< number >();
 		const dispatch = jest.fn();
@@ -61,7 +61,7 @@ describe( 'useSearch', () => {
 	it( 'Should search the entities', () => {
 		const searchEntities = jest.fn( () =>
 			Promise.resolve( new Set( [ { label: 'Label', value: 1 } ] ) )
-		) as jest.Mock< EntitiesSearch.SearchEntitiesFunction< any, any > >;
+		) as jest.Mock< Kensaku.SearchEntitiesFunction< any, any > >;
 		const kind = new Set( [ 'post' ] );
 		const entities = new Set< number >();
 		const dispatch = jest.fn();
@@ -83,7 +83,7 @@ describe( 'useSearch', () => {
 	it( 'Should update the current entities options', async () => {
 		const searchEntities = jest.fn( () =>
 			Promise.resolve( new Set( [ { label: 'Label', value: 1 } ] ) )
-		) as jest.Mock< EntitiesSearch.SearchEntitiesFunction< any, any > >;
+		) as jest.Mock< Kensaku.SearchEntitiesFunction< any, any > >;
 		const kind = new Set( [ 'post' ] );
 		const entities = new Set< number >();
 		const dispatch = jest.fn();
@@ -127,7 +127,7 @@ describe( 'useSearch', () => {
 	it( 'Should update the current entities options with an empty set when an error occurs', async () => {
 		const searchEntities = jest.fn( () =>
 			Promise.resolve( new Set( [ { label: 'Label', value: 1 } ] ) )
-		) as jest.Mock< EntitiesSearch.SearchEntitiesFunction< any, any > >;
+		) as jest.Mock< Kensaku.SearchEntitiesFunction< any, any > >;
 		const kind = new Set( [ 'post' ] );
 		const entities = new Set< number >();
 		const dispatch = jest.fn();
@@ -144,7 +144,7 @@ describe( 'useSearch', () => {
 
 		expect( jest.mocked( doAction ) ).toHaveBeenCalledTimes( 1 );
 		expect( jest.mocked( doAction ) ).toHaveBeenCalledWith(
-			'wp-entities-search.on-search.error',
+			'kensaku.on-search.error',
 			new Error( 'Error' )
 		);
 	} );

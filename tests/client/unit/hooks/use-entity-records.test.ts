@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { fromPartial } from '@total-typescript/shoehorn';
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 import { describe, it, jest, expect } from '@jest/globals';
 
@@ -27,10 +27,10 @@ describe( 'useEntityRecords', () => {
 	 */
 	it( 'return set of records and succeed', () => {
 		const records = [
-			fromPartial< EntitiesSearch.PostType< 'edit' > >( {
+			fromPartial< Kensaku.PostType< 'edit' > >( {
 				name: 'foo',
 			} ),
-			fromPartial< EntitiesSearch.PostType< 'edit' > >( {
+			fromPartial< Kensaku.PostType< 'edit' > >( {
 				name: 'foo-3',
 			} ),
 		];
@@ -43,7 +43,7 @@ describe( 'useEntityRecords', () => {
 			status: 'SUCCESS',
 		} );
 
-		const result = useEntityRecords< EntitiesSearch.PostType< 'edit' > >(
+		const result = useEntityRecords< Kensaku.PostType< 'edit' > >(
 			'root',
 			'postType'
 		);
@@ -70,7 +70,7 @@ describe( 'useEntityRecords', () => {
 			status: 'RESOLVING',
 		} );
 
-		const result = useEntityRecords< EntitiesSearch.PostType< 'edit' > >(
+		const result = useEntityRecords< Kensaku.PostType< 'edit' > >(
 			'root',
 			'postType'
 		);
@@ -93,7 +93,7 @@ describe( 'useEntityRecords', () => {
 			status: 'ERROR',
 		} );
 
-		const result = useEntityRecords< EntitiesSearch.PostType< 'edit' > >(
+		const result = useEntityRecords< Kensaku.PostType< 'edit' > >(
 			'root',
 			'postType'
 		);
@@ -115,7 +115,7 @@ describe( 'useEntityRecords', () => {
 			status: 'RESOLVING',
 		} );
 
-		const result = useEntityRecords< EntitiesSearch.PostType< 'edit' > >(
+		const result = useEntityRecords< Kensaku.PostType< 'edit' > >(
 			'root',
 			'postType'
 		);

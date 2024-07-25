@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import React from 'react';
 
 import { describe, it, expect, jest } from '@jest/globals';
@@ -24,13 +24,12 @@ describe( 'Post Types Select', () => {
 	 * in the React Select component, so we mock it.
 	 */
 	it( 'call the given onChange handler', ( done ) => {
-		let expectedValue: EntitiesSearch.SingularControl< string >[ 'value' ] =
-			'';
-		const option: EntitiesSearch.ControlOption< string > = {
+		let expectedValue: Kensaku.SingularControl< string >[ 'value' ] = '';
+		const option: Kensaku.ControlOption< string > = {
 			label: faker.word.words( 2 ),
 			value: faker.word.noun(),
 		};
-		const options = new Set< EntitiesSearch.ControlOption< string > >()
+		const options = new Set< Kensaku.ControlOption< string > >()
 			.add( option )
 			.concat( buildOptions() );
 
@@ -43,7 +42,7 @@ describe( 'Post Types Select', () => {
 		);
 
 		const select = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		userEvent.selectOptions( select, option.value ).then( () => {
@@ -62,7 +61,7 @@ describe( 'Post Types Select', () => {
 		);
 
 		expect(
-			rendered.container.querySelector( '.wes-no-option-message' )
+			rendered.container.querySelector( '.kensaku-no-option-message' )
 		).toBeInTheDocument();
 	} );
 
@@ -84,11 +83,11 @@ describe( 'Post Types Select', () => {
 		const rendered = render( <SingularSelectControl { ...props } /> );
 
 		const select = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		const option = select.querySelector(
-			'.wes-select-control-item--option-one'
+			'.kensaku-select-control-item--option-one'
 		) as HTMLOptionElement;
 		option.value = 'option-3';
 

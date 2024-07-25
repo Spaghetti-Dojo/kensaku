@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import React from 'react';
 
 import { describe, it, expect } from '@jest/globals';
@@ -20,11 +20,11 @@ import { buildOptions } from '../utils';
 
 describe( 'Posts Select', () => {
 	it( 'Call the given onChange handler', async () => {
-		const option: EntitiesSearch.ControlOption< string > = {
+		const option: Kensaku.ControlOption< string > = {
 			label: faker.word.words( 2 ),
 			value: faker.word.noun(),
 		};
-		const options = new Set< EntitiesSearch.ControlOption< string > >( [] )
+		const options = new Set< Kensaku.ControlOption< string > >( [] )
 			.add( option )
 			.concat( buildOptions() );
 
@@ -41,7 +41,7 @@ describe( 'Posts Select', () => {
 			String( options.last()?.value ),
 		];
 		const select = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		/*
@@ -59,11 +59,11 @@ describe( 'Posts Select', () => {
 	} );
 
 	it( 'Deselect the options', async () => {
-		const option: EntitiesSearch.ControlOption< string > = {
+		const option: Kensaku.ControlOption< string > = {
 			label: faker.word.words( 2 ),
 			value: faker.word.noun(),
 		};
-		const options = new Set< EntitiesSearch.ControlOption< string > >( [] )
+		const options = new Set< Kensaku.ControlOption< string > >( [] )
 			.add( option )
 			.concat( buildOptions() );
 
@@ -80,7 +80,7 @@ describe( 'Posts Select', () => {
 			String( options.last()?.value ),
 		];
 		const select = rendered.container.querySelector(
-			'.wes-select-control'
+			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
 		/*

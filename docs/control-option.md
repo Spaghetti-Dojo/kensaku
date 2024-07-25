@@ -18,7 +18,7 @@ An additional data structure is part of the `EnrichedControlOption` interface im
 not consumed within any of the _Base_ or _Composite_ components of the project, it is there to permit the third parties
 to customize the UI.
 
-The `extra` property is of type `EntitiesSearch.Record`; it can hold a heterogeneous set of properties, we do not check
+The `extra` property is of type `Kensaku.Record`; it can hold a heterogeneous set of properties, we do not check
 against values or types, this is up to the consumer.
 
 ## About the Value
@@ -27,7 +27,7 @@ The `value` is a generic type to give the possibility to customize the shape of 
 implement they own components, and therefore we do not want to pose any restriction.
 
 Nonetheless, the possible types the `value` can assume within the project Components is `string | number`;
-see `EntitiesSearch.Value` type for more info.
+see `Kensaku.Value` type for more info.
 
 ## How to use the Extra Property
 
@@ -65,10 +65,10 @@ searchEntities: async (
 ```
 
 Then you can access the extra properties within your component since the `CompositeEntitiesByKind` will pass
-the `entities` of type `EntitiesSearch.BaseControl< E >` to the children.
+the `entities` of type `Kensaku.BaseControl< E >` to the children.
 
 ```jsx
-(entities: EntitiesSearch.BaseControl< E >) => {
+(entities: Kensaku.BaseControl< E >) => {
     return <MyComponent {...entities} />;
 }
 ```

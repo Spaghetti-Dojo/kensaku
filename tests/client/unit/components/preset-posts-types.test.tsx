@@ -2,7 +2,7 @@
  * External dependencies
  */
 import React from 'react';
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import { describe, expect, it, jest } from '@jest/globals';
 import { render } from '@testing-library/react';
 
@@ -31,7 +31,7 @@ describe( 'Preset Entities by Kind', () => {
 				ReturnType< typeof createSearchEntitiesOptions< string > >
 			>();
 
-		const entitiesFields: EntitiesSearch.SearchQueryFields = [
+		const entitiesFields: Kensaku.SearchQueryFields = [
 			'post_content',
 			'post_excerpt',
 		];
@@ -56,8 +56,8 @@ describe( 'Preset Entities by Kind', () => {
 			// @ts-ignore
 			(
 				_phrase: string,
-				_kind: EntitiesSearch.Kind< string >,
-				queryArguments?: EntitiesSearch.QueryArguments
+				_kind: Kensaku.Kind< string >,
+				queryArguments?: Kensaku.QueryArguments
 			) => {
 				expect( queryArguments?.fields ).toEqual( [
 					'title',

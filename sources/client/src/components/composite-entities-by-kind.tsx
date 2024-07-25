@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import type EntitiesSearch from '@types';
+import type Kensaku from '@types';
 import React, { JSX } from 'react';
 
 /**
@@ -25,7 +25,7 @@ import { Set } from '../models/set';
  * @param props The component props.
  */
 export function CompositeEntitiesByKind< E, K >(
-	props: EntitiesSearch.CompositeEntitiesKinds< E, K >
+	props: Kensaku.CompositeEntitiesKinds< E, K >
 ): JSX.Element {
 	const [ state, dispatch ] = useEntitiesOptionsStorage< E, K >(
 		{
@@ -41,7 +41,7 @@ export function CompositeEntitiesByKind< E, K >(
 		dispatch
 	);
 
-	const onChangeEntities = ( entities: EntitiesSearch.Entities< E > ) => {
+	const onChangeEntities = ( entities: Kensaku.Entities< E > ) => {
 		props.entities.onChange( entities );
 
 		if ( entities.length() <= 0 ) {
@@ -75,14 +75,11 @@ export function CompositeEntitiesByKind< E, K >(
 				} );
 			} )
 			.catch( ( error ) => {
-				doAction(
-					'wp-entities-search.on-change-entities.error',
-					error
-				);
+				doAction( 'kensaku.on-change-entities.error', error );
 			} );
 	};
 
-	const onChangeKind = ( kind: EntitiesSearch.Kind< K > ) => {
+	const onChangeKind = ( kind: Kensaku.Kind< K > ) => {
 		const emptySet = new Set< any >();
 
 		props.kind.onChange( kind );
@@ -111,11 +108,11 @@ export function CompositeEntitiesByKind< E, K >(
 				dispatch( {
 					type: 'CLEAN_ENTITIES_OPTIONS',
 				} );
-				doAction( 'wp-entities-search.on-change-kind.error', error );
+				doAction( 'kensaku.on-change-kind.error', error );
 			} );
 	};
 
-	const entities: EntitiesSearch.BaseControl< E > = {
+	const entities: Kensaku.BaseControl< E > = {
 		...props.entities,
 		value: state.entities,
 		options: orderSelectedOptionsAtTheTop< E >(
@@ -129,7 +126,7 @@ export function CompositeEntitiesByKind< E, K >(
 		onChange: onChangeEntities,
 	};
 
-	const kind: EntitiesSearch.BaseControl< K > = {
+	const kind: Kensaku.BaseControl< K > = {
 		...props.kind,
 		value: state.kind,
 		onChange: onChangeKind,

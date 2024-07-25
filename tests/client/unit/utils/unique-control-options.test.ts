@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 import { describe, expect, it } from '@jest/globals';
 
@@ -13,7 +13,7 @@ import { Set } from '../../../../sources/client/src/models/set';
 
 describe( 'Unique Control Options', () => {
 	it( 'Do not allow same control options within the same set', () => {
-		const set = new Set< EntitiesSearch.ControlOption< string > >( [
+		const set = new Set< Kensaku.ControlOption< string > >( [
 			{ label: 'foo', value: 'foo' },
 			{ label: 'bar', value: 'bar' },
 			{ label: 'foo', value: 'foo' },

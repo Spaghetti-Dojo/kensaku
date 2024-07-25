@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import React from 'react';
 
 import { describe, expect, it, jest } from '@jest/globals';
@@ -36,9 +36,7 @@ describe( 'Use Posts Options Storage', () => {
 					},
 				] )
 			)
-		) as jest.Mock<
-			EntitiesSearch.SearchEntitiesFunction< number, string >
-		>;
+		) as jest.Mock< Kensaku.SearchEntitiesFunction< number, string > >;
 
 		const Component = () => {
 			useEntitiesOptionsStorage< number, string >(
@@ -103,9 +101,7 @@ describe( 'Use Posts Options Storage', () => {
 			return options?.include
 				? Promise.resolve( selectedEntitiesOptions )
 				: Promise.resolve( currentEntitiesOptions );
-		} ) as jest.Mock<
-			EntitiesSearch.SearchEntitiesFunction< number, string >
-		>;
+		} ) as jest.Mock< Kensaku.SearchEntitiesFunction< number, string > >;
 
 		const dispatch = jest.fn();
 		jest.spyOn( React, 'useReducer' ).mockImplementation( ( _, state ) => [
@@ -189,9 +185,7 @@ describe( 'Use Posts Options Storage', () => {
 					},
 				] )
 			)
-		) as jest.Mock<
-			EntitiesSearch.SearchEntitiesFunction< number, string >
-		>;
+		) as jest.Mock< Kensaku.SearchEntitiesFunction< number, string > >;
 
 		const Component = () => {
 			useEntitiesOptionsStorage< number, string >(
@@ -218,7 +212,7 @@ describe( 'Use Posts Options Storage', () => {
 		} );
 	} );
 
-	it( 'Execute the action wp-entities-search.on-storage-initialization.error when there is an error on searchEntities', async () => {
+	it( 'Execute the action kensaku.on-storage-initialization.error when there is an error on searchEntities', async () => {
 		const kind = new Set( [ 'post' ] );
 		const entities = new Set( [ 1, 2, 3 ] );
 		const searchEntities = jest.fn( () =>
@@ -241,7 +235,7 @@ describe( 'Use Posts Options Storage', () => {
 		await act( () => render( <Component /> ) );
 
 		expect( doAction ).toHaveBeenCalledWith(
-			'wp-entities-search.on-storage-initialization.error',
+			'kensaku.on-storage-initialization.error',
 			'Search Entities Failed.'
 		);
 	} );

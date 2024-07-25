@@ -1,10 +1,10 @@
 {
 	"apiVersion": 3,
 	"title": "Taxonomies Example Block",
-	"name": "wp-entities-search/taxonomies-example-block",
+	"name": "kensaku/taxonomies-example-block",
 	"category": "uncategorized",
 	"icon": "wordpress",
-	"editorScript": "wp-entities-search-e2e-taxonomies-example-block",
+	"editorScript": "kensaku-e2e-taxonomies-example-block",
 	"attributes": {
 		"taxonomy": {
 			"type": "array",

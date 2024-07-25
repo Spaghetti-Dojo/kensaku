@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
-export class ImmutableRecord< T > implements EntitiesSearch.Record< T > {
+export class ImmutableRecord< T > implements Kensaku.Record< T > {
 	readonly #map: Record< string, T > = {};
 
 	public constructor( map: Record< string, T > = {} ) {

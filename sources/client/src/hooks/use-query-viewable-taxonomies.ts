@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 /**
  * Internal dependencies
@@ -15,16 +15,18 @@ import { useEntityRecords } from './use-entity-records';
  *
  * @public
  */
-export function useQueryViewableTaxonomies(): EntitiesSearch.EntitiesRecords< EntitiesSearch.ViewableTaxonomy > {
-	const entitiesRecords = useEntityRecords<
-		EntitiesSearch.Taxonomy< 'edit' >
-	>( 'root', 'taxonomy', { per_page: -1 } );
+export function useQueryViewableTaxonomies(): Kensaku.EntitiesRecords< Kensaku.ViewableTaxonomy > {
+	const entitiesRecords = useEntityRecords< Kensaku.Taxonomy< 'edit' > >(
+		'root',
+		'taxonomy',
+		{ per_page: -1 }
+	);
 
 	const viewableTaxonomies = entitiesRecords
 		.records()
 		.filter(
 			( taxonomy ) => taxonomy.visibility.publicly_queryable
-		) as Set< EntitiesSearch.ViewableTaxonomy >;
+		) as Set< Kensaku.ViewableTaxonomy >;
 
 	return {
 		...entitiesRecords,

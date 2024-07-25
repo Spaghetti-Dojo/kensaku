@@ -18,8 +18,8 @@ For instance, below you can see an example of one of the actions error logging.
 
 ```ts
 addAction(
-	'wp-entities-search.on-change-entities.error',
-	'wp-entities-search/wp-on-change-entities.error',
+	'kensaku.on-change-entities.error',
+	'kensaku/wp-on-change-entities.error',
 	(error) => {
 		console.error(
 			`Composite Entities by Kind - on Change Entities: ${

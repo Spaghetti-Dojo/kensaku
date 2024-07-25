@@ -4,10 +4,10 @@ import { BaseEntityRecords, Context } from '@wordpress/core-data';
 
 import type { Set } from '../sources/client/src';
 
-export default EntitiesSearch;
+export default Kensaku;
 
 // TODO Try to convert it to a module.
-declare namespace EntitiesSearch {
+declare namespace Kensaku {
 	type Post<C extends Context = 'view'> = BaseEntityRecords.Post<C>;
 	type PostType<C extends Context = 'view'> = BaseEntityRecords.Type<C>;
 	type Taxonomy<C extends Context = 'view'> = BaseEntityRecords.Taxonomy<C>;
@@ -23,7 +23,7 @@ declare namespace EntitiesSearch {
 			Readonly<{
 				exclude: Set<string | number>;
 				include: Set<string | number>;
-				fields: EntitiesSearch.SearchQueryFields;
+				fields: Kensaku.SearchQueryFields;
 				[p: string]: unknown;
 			}>
 		> {}
@@ -42,7 +42,7 @@ declare namespace EntitiesSearch {
 	type SearchEntitiesFunction<E, K> = (
 		phrase: string,
 		kind: Kind<K>,
-		queryArguments?: EntitiesSearch.QueryArguments<E>
+		queryArguments?: Kensaku.QueryArguments<E>
 	) => Promise<Options<E>>;
 
 	type SingularControl<V> = {
@@ -104,7 +104,7 @@ declare namespace EntitiesSearch {
 	 */
 	// TODO Better to convert the SearchQueryFields to a Set.
 	type SearchQueryFields = ReadonlyArray<
-		keyof EntitiesSearch.SearchEntityFields
+		keyof Kensaku.SearchEntityFields
 	>;
 
 	/*
@@ -113,7 +113,7 @@ declare namespace EntitiesSearch {
 	interface EntitiesState<
 		E,
 		K,
-		OptionSet = Set<EntitiesSearch.ControlOption<E>>
+		OptionSet = Set<Kensaku.ControlOption<E>>
 	> extends Readonly<{
 			entities: Entities<E>;
 			kind: Kind<K>;
@@ -150,7 +150,7 @@ declare namespace EntitiesSearch {
 		  }
 		| {
 				type: 'UPDATE_ENTITIES_OPTIONS_FOR_NEW_KIND';
-				entitiesOptions: Set<EntitiesSearch.ControlOption<E>>;
+				entitiesOptions: Set<Kensaku.ControlOption<E>>;
 				kind: EntitiesState<E, K>['kind'];
 		  }
 		| {

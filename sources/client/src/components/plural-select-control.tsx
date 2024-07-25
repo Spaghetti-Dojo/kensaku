@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import classnames from 'classnames';
 import React, { JSX } from 'react';
 
@@ -12,15 +12,15 @@ import { Set } from '../models/set';
 import { NoOptionsMessage } from './no-options-message';
 
 export function PluralSelectControl(
-	props: EntitiesSearch.BaseControl< EntitiesSearch.Value > & {
+	props: Kensaku.BaseControl< Kensaku.Value > & {
 		className?: string;
 	}
 ): JSX.Element {
 	const [ selected, setSelected ] = React.useState( props.value );
 	const className = classnames(
 		props.className,
-		'wes-select-control',
-		'wes-select-control--plural'
+		'kensaku-select-control',
+		'kensaku-select-control--plural'
 	);
 
 	const onChange = ( event: React.ChangeEvent< HTMLSelectElement > ) => {
@@ -55,7 +55,7 @@ export function PluralSelectControl(
 			{ props.options.map( ( option ) => (
 				<option
 					key={ option.value }
-					className={ `wes-select-control-item wes-select-control-item--${ option.value }` }
+					className={ `kensaku-select-control-item kensaku-select-control-item--${ option.value }` }
 					value={ option.value }
 				>
 					{ option.label }

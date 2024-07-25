@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { fromPartial } from '@total-typescript/shoehorn';
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 import { describe, it, jest, expect } from '@jest/globals';
 
@@ -32,11 +32,11 @@ describe( 'Post Types Query', () => {
 			succeed: () => true,
 			records: () =>
 				new Set( [
-					fromPartial< EntitiesSearch.PostType< 'edit' > >( {
+					fromPartial< Kensaku.PostType< 'edit' > >( {
 						slug: 'viewable-post-type',
 						viewable: true,
 					} ),
-					fromPartial< EntitiesSearch.PostType< 'edit' > >( {
+					fromPartial< Kensaku.PostType< 'edit' > >( {
 						slug: 'not-viewable-post-type',
 						viewable: false,
 					} ),

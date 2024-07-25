@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 
 /**
  * Internal dependencies
@@ -9,9 +9,9 @@ import EntitiesSearch from '@types';
 import { Set } from '../models/set';
 
 export function orderSelectedOptionsAtTheTop< V >(
-	options: Set< EntitiesSearch.ControlOption< V > >,
+	options: Set< Kensaku.ControlOption< V > >,
 	collection: Set< V > | undefined
-): Set< EntitiesSearch.ControlOption< V > > {
+): Set< Kensaku.ControlOption< V > > {
 	if ( options.length() <= 0 ) {
 		return options;
 	}
@@ -19,8 +19,8 @@ export function orderSelectedOptionsAtTheTop< V >(
 		return options;
 	}
 
-	let _collection = new Set< EntitiesSearch.ControlOption< V > >();
-	let _options = new Set< EntitiesSearch.ControlOption< V > >();
+	let _collection = new Set< Kensaku.ControlOption< V > >();
+	let _options = new Set< Kensaku.ControlOption< V > >();
 
 	options.forEach( ( option ) => {
 		if ( collection.has( option.value ) ) {

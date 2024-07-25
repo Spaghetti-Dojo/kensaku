@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import EntitiesSearch from '@types';
+import Kensaku from '@types';
 import classnames from 'classnames';
 import React, { JSX } from 'react';
 
@@ -11,17 +11,17 @@ import React, { JSX } from 'react';
 import { useId } from '../hooks/use-id';
 import { NoOptionsMessage } from './no-options-message';
 
-interface Option< V > extends EntitiesSearch.ControlOption< V > {
-	readonly selectedValues: EntitiesSearch.BaseControl< V >[ 'value' ];
+interface Option< V > extends Kensaku.ControlOption< V > {
+	readonly selectedValues: Kensaku.BaseControl< V >[ 'value' ];
 	readonly onChange: ( event: React.ChangeEvent< HTMLInputElement > ) => void;
 }
 
 export function ToggleControl(
-	props: EntitiesSearch.BaseControl< EntitiesSearch.Value > & {
+	props: Kensaku.BaseControl< Kensaku.Value > & {
 		className?: string;
 	}
 ): JSX.Element {
-	const className = classnames( props.className, 'wes-toggle-control' );
+	const className = classnames( props.className, 'kensaku-toggle-control' );
 
 	if ( props.options.length() <= 0 ) {
 		return <NoOptionsMessage />;
@@ -48,7 +48,7 @@ export function ToggleControl(
 	return (
 		<div className={ className }>
 			{ props.options.map( ( option ) => (
-				<Option< EntitiesSearch.Value >
+				<Option< Kensaku.Value >
 					key={ option.value }
 					label={ option.label }
 					value={ option.value }
@@ -66,13 +66,13 @@ function Option< V >( props: Option< V > ): JSX.Element {
 
 	return (
 		<div
-			className={ `wes-toggle-control-item wes-toggle-control-item--${ value }` }
+			className={ `kensaku-toggle-control-item kensaku-toggle-control-item--${ value }` }
 		>
 			<label htmlFor={ id }>
 				<input
 					type="checkbox"
 					id={ id }
-					className={ `wes-toggle-control-item__input-${ value }` }
+					className={ `kensaku-toggle-control-item__input-${ value }` }
 					checked={ props.selectedValues?.has( props.value ) }
 					value={ value }
 					onChange={ props.onChange }
