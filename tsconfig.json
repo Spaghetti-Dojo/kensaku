@@ -26,6 +26,7 @@
     "module": "ESNext",
     "moduleResolution": "nodenext",
     "paths": {
+      "react": [ "./node_modules/@types/react" ],
       "@types": [
         "./@types/index.d.ts"
       ]
