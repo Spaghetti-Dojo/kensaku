@@ -2,7 +2,7 @@
  * External dependencies
  */
 import Kensaku from '@types';
-import React, { JSX } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 
 /**

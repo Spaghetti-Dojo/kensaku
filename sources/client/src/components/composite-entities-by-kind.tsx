@@ -2,7 +2,7 @@
  * External dependencies
  */
 import type Kensaku from '@types';
-import React, { JSX } from 'react';
+import React from 'react';
 
 /**
  * WordPress dependencies
