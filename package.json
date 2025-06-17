@@ -8,6 +8,10 @@
 		"node": "20"
 	},
 	"devDependencies": {
+		"@types/lodash": "^4",
+		"@types/node": "^20.0.0",
+		"@types/react": "~18.2.0",
+		"@types/react-dom": "~18.2.0",
 		"@faker-js/faker": "^8",
 		"@jest/globals": "^29.4.3",
 		"@testing-library/dom": "^10.0.0",
@@ -15,7 +19,6 @@
 		"@testing-library/react": "^16.0.0",
 		"@testing-library/user-event": "^14.5.1",
 		"@total-typescript/shoehorn": "^0.1.0",
-		"@types/node": "^20.0.0",
 		"@wordpress/dependency-extraction-webpack-plugin": "^4.8.0",
 		"@wordpress/env": "^5.9.0",
 		"@wordpress/eslint-plugin": "^19.0.0",
@@ -31,11 +34,9 @@
 		"ts-node": "^10.9.1",
 		"typescript": "~5.1.0",
 		"webpack": "^5.0.0",
-		"webpack-cli": "^5.1.4",
-		"yarn": "^1.22.19"
+		"webpack-cli": "^5.1.4"
 	},
 	"dependencies": {
-		"@types/lodash": "^4",
 		"@wordpress/api-fetch": "~6.21.0",
 		"@wordpress/components": "~23.1.0",
 		"@wordpress/compose": "^6.23.0",
@@ -46,6 +47,12 @@
 		"lodash": "^4.17.21",
 		"react": "~18.2.0"
 	},
+	"pnpm": {
+		"overrides": {
+			"react": "18.2.0",
+			"react-dom": "18.2.0"
+		}
+	},
 	"scripts": {
 		"wp-env": "wp-env",
 		"build": "wp-scripts build --webpack-src-dir=./sources/client/src",
@@ -54,6 +61,7 @@
 		"lint:js": "wp-scripts lint-js ./sources/client",
 		"lint:js:fix": "wp-scripts lint-js --fix ./sources/client",
 		"test": "jest",
-		"test:update-snapshots": "yarn test -u"
+		"test:update-snapshots": "pnpm run test -u",
+		"qa": "tsc --noEmit && pnpm run lint:js && pnpm run test"
 	}
 }

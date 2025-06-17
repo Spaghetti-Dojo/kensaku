@@ -20,19 +20,17 @@ jobs:
     if: "!github.event.pull_request.draft"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          cache: 'yarn'
+          cache: 'pnpm'
           node-version: '20'
-
-      - name: Install
-        run: yarn install
+      - run: pnpm install
 
       - name: Linting JavaScript
-        run: yarn lint:js
+        run: pnpm run lint:js
 
       - name: Unit Tests
-        run: yarn test
+        run: pnpm run test

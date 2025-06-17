@@ -27,5 +27,5 @@ while (("$#")); do
 done
 
 for ((i=1; i<=N; i++)); do
-   yarn wp-env run cli "wp term create $taxonomy '$term_name $i'"
+   pnpm run wp-env run cli "wp term create $taxonomy '$term_name $i'"
 done

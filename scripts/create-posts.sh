@@ -35,5 +35,5 @@ done
 lorem_ipsum="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus."
 
 for ((i=offset; i<offset+N; i++)); do
-   yarn wp-env run cli "wp post create --post_type='$post_type' --post_status=publish --post_title='$title $i' --post_content='$lorem_ipsum'"
+   pnpm run wp-env run cli "wp post create --post_type='$post_type' --post_status=publish --post_title='$title $i' --post_content='$lorem_ipsum'"
 done
