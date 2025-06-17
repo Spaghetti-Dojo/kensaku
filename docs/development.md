@@ -12,19 +12,19 @@ The first thing to do is to clone the repository and install the dependencies:
 $ git clone git@github.com:spaghetti-dojo/kensaku.git
 $ cd kensaku
 $ composer install
-$ yarn install
+$ pnpm install
 ```
 
 After we have installed the dependencies we need to build the assets:
 
 ```bash
-$ yarn build
+$ pnpm run build
 ```
 
 or alternatively we can run the dev script to compile the assets with source maps:
 
 ```bash
-$ yarn build:dev
+$ pnpm run build:dev
 ```
 
 ## The Environment
@@ -34,7 +34,7 @@ The project is making use of `@wordress/env` as a local environment to develop t
 To start the environment we need to run the following command:
 
 ```bash
-$ yarn wp-env start
+$ pnpm run wp-env start
 ```
 
 This will install WordPress and will set the current project as a plugin. The package contain a E2E module used by the plugin to help with the development. The module register two blocks; one for the Custom Post Type and one for the Custom Taxonomy.
