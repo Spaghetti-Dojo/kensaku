@@ -56,12 +56,12 @@
 	"scripts": {
 		"wp-env": "wp-env",
 		"build": "wp-scripts build --webpack-src-dir=./sources/client/src",
-		"build:dev": "wp-scripts start --webpack--devtool=inline-source-map --webpack-src-dir=./sources/client/src",
+		"build:dev": "wp-scripts start --webpack-devtool=inline-source-map --webpack-src-dir=./sources/client/src",
 		"cs:fix": "wp-scripts format ./sources/client",
 		"lint:js": "wp-scripts lint-js ./sources/client",
 		"lint:js:fix": "wp-scripts lint-js --fix ./sources/client",
 		"test": "jest",
-		"test:update-snapshots": "pnpm run test -u",
-		"qa": "tsc --noEmit && pnpm run lint:js && pnpm run test"
+		"test:update-snapshots": "pnpm test -u",
+		"qa": "tsc --noEmit && pnpm lint:js && pnpm test"
 	}
 }
