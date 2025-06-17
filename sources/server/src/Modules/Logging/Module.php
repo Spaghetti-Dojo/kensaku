@@ -33,7 +33,7 @@ class Module implements Modularity\Module\ExecutableModule
             $properties = $container->get(Modularity\Package::PROPERTIES);
 
             $baseDir = \untrailingslashit($properties->basePath());
-            $baseUrl = \untrailingslashit($properties->baseUrl());
+            $baseUrl = \untrailingslashit((string)$properties->baseUrl());
 
             /**
              * @var array{dependencies?: array<string>, version?: string} $asset

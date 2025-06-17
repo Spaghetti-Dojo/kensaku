@@ -5,11 +5,11 @@
 	"main": "./build/index.js",
 	"license": "GPL-2.0-or-later",
 	"engines": {
-		"node": "20"
+		"node": "22"
 	},
 	"devDependencies": {
 		"@types/lodash": "^4",
-		"@types/node": "^20.0.0",
+		"@types/node": "^22.0.0",
 		"@types/react": "~18.2.0",
 		"@types/react-dom": "~18.2.0",
 		"@faker-js/faker": "^8",

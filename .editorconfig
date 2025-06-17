@@ -702,7 +702,7 @@ ij_php_while_brace_force = never
 ij_php_while_on_new_line = false
 
 [{*.har,*.jsb2,*.jsb3,*.json,.babelrc,.eslintrc,.prettierrc,.stylelintrc,bowerrc,composer.lock,jest.config}]
-indent_size = 2
+indent_style = tab
 ij_visual_guides = none
 ij_json_array_wrapping = split_into_lines
 ij_json_keep_blank_lines_in_code = 0

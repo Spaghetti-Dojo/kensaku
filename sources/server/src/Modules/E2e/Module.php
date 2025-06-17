@@ -76,7 +76,7 @@ class Module implements Modularity\Module\ExecutableModule
 
     private static function postTypesExample(Modularity\Properties\Properties $properties): void
     {
-        $baseUrl = \untrailingslashit($properties->baseUrl());
+        $baseUrl = \untrailingslashit((string)$properties->baseUrl());
 
         \wp_register_script(
             'kensaku-e2e-post-types-example-block',
