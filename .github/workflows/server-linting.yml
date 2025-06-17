@@ -1,15 +1,19 @@
-name: PHP Quality Assurance
+name: Server Linting
 on:
+  workflow_dispatch: { }
+
   pull_request:
+
   push:
     branches:
       - main
 
     paths:
+      - '**/workflows/server-linting.yml'
       - '**.php'
 
 jobs:
-  build:
+  server-linting:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '--skip ci') && !github.event.pull_request.draft"
     strategy:

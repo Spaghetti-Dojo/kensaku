@@ -1,13 +1,16 @@
-name: JS Quality Assurance
+name: Client Linting
 
 on:
+  workflow_dispatch: { }
+
   pull_request:
+
   push:
     branches:
       - main
 
     paths:
-      - '**/workflows/*js*'
+      - '**/workflows/client-linting.yml'
       - '**.js'
       - '**.jsx'
       - '**.ts'
