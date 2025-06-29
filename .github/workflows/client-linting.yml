@@ -18,7 +18,7 @@ on:
       - '**.json'
 
 jobs:
-  build:
+  client-linting:
     runs-on: ubuntu-latest
     if: "!github.event.pull_request.draft"
     steps:
