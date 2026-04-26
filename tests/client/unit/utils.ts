@@ -10,14 +10,14 @@ import { faker } from '@faker-js/faker';
  */
 import { Set } from '../../../sources/client/src/models/set';
 
-export function buildOptions(): Set< Kensaku.ControlOption< string > > {
-	let options = new Set< Kensaku.ControlOption< string > >();
+export function buildOptions(): Set<Kensaku.ControlOption<string>> {
+	let options = new Set<Kensaku.ControlOption<string>>();
 
-	for ( let count = 0; count < 9; ++count ) {
-		options = options.add( {
-			label: faker.word.words( 2 ),
+	for (let count = 0; count < 9; ++count) {
+		options = options.add({
+			label: faker.word.words(2),
 			value: faker.word.noun(),
-		} );
+		});
 	}
 
 	return options;

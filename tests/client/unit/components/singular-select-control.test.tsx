@@ -18,26 +18,26 @@ import { SingularSelectControl } from '../../../../sources/client/src/components
 import { Set } from '../../../../sources/client/src/models/set';
 import { buildOptions } from '../utils';
 
-describe( 'Post Types Select', () => {
+describe('Post Types Select', () => {
 	/*
 	 * We want to ensure the internal logic of the component works as expected, we're not interested
 	 * in the React Select component, so we mock it.
 	 */
-	it( 'call the given onChange handler', ( done ) => {
-		let expectedValue: Kensaku.SingularControl< string >[ 'value' ] = '';
-		const option: Kensaku.ControlOption< string > = {
-			label: faker.word.words( 2 ),
+	it('call the given onChange handler', (done) => {
+		let expectedValue: Kensaku.SingularControl<string>['value'] = '';
+		const option: Kensaku.ControlOption<string> = {
+			label: faker.word.words(2),
 			value: faker.word.noun(),
 		};
-		const options = new Set< Kensaku.ControlOption< string > >()
-			.add( option )
-			.concat( buildOptions() );
+		const options = new Set<Kensaku.ControlOption<string>>()
+			.add(option)
+			.concat(buildOptions());
 
 		const rendered = render(
 			<SingularSelectControl
-				options={ options }
-				value={ option.value }
-				onChange={ ( value ) => ( expectedValue = value ) }
+				options={options}
+				value={option.value}
+				onChange={(value) => (expectedValue = value)}
 			/>
 		);
 
@@ -45,29 +45,29 @@ describe( 'Post Types Select', () => {
 			'.kensaku-select-control'
 		) as HTMLSelectElement;
 
-		userEvent.selectOptions( select, option.value ).then( () => {
-			expect( expectedValue ).toBe( option.value );
+		userEvent.selectOptions(select, option.value).then(() => {
+			expect(expectedValue).toBe(option.value);
 			done();
-		} );
-	} );
+		});
+	});
 
-	it( 'Render No Options Message', () => {
+	it('Render No Options Message', () => {
 		const rendered = render(
 			<SingularSelectControl
-				options={ new Set() }
-				value={ '' }
-				onChange={ () => {} }
+				options={new Set()}
+				value={''}
+				onChange={() => {}}
 			/>
 		);
 
 		expect(
-			rendered.container.querySelector( '.kensaku-no-option-message' )
+			rendered.container.querySelector('.kensaku-no-option-message')
 		).toBeInTheDocument();
-	} );
+	});
 
-	it( 'does not change the value when an option is selected that does not exist', async () => {
+	it('does not change the value when an option is selected that does not exist', async () => {
 		const props = {
-			options: new Set( [
+			options: new Set([
 				{
 					label: 'Option 1',
 					value: 'option-one',
@@ -76,11 +76,11 @@ describe( 'Post Types Select', () => {
 					label: 'Option 2',
 					value: 'option-two',
 				},
-			] ),
+			]),
 			value: 'option-two',
 			onChange: jest.fn(),
 		};
-		const rendered = render( <SingularSelectControl { ...props } /> );
+		const rendered = render(<SingularSelectControl {...props} />);
 
 		const select = rendered.container.querySelector(
 			'.kensaku-select-control'
@@ -91,8 +91,8 @@ describe( 'Post Types Select', () => {
 		) as HTMLOptionElement;
 		option.value = 'option-3';
 
-		await userEvent.selectOptions( select, option );
+		await userEvent.selectOptions(select, option);
 
-		expect( props.onChange ).not.toHaveBeenCalled();
-	} );
-} );
+		expect(props.onChange).not.toHaveBeenCalled();
+	});
+});

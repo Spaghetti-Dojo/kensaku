@@ -19,58 +19,58 @@ type ExtendedSearchEntityFields = Kensaku.SearchEntityFields & {
 	excerpt: string;
 };
 
-describe( 'Convert Entities To Control Options', () => {
-	it( 'correctly convert entities to control options', () => {
+describe('Convert Entities To Control Options', () => {
+	it('correctly convert entities to control options', () => {
 		const rawEntities = [];
-		for ( let count = 0; count < 10; ++count ) {
+		for (let count = 0; count < 10; ++count) {
 			rawEntities.push(
-				fromPartial< ExtendedSearchEntityFields >( {
+				fromPartial<ExtendedSearchEntityFields>({
 					title: faker.word.noun(),
 					id: faker.number.int(),
-				} )
+				})
 			);
 		}
 
-		const entities = new Set< ExtendedSearchEntityFields >( rawEntities );
+		const entities = new Set<ExtendedSearchEntityFields>(rawEntities);
 
 		const options = convertEntitiesToControlOptions(
 			entities,
 			'title',
 			'id'
-		).map( ( option ) => option.value );
-		for ( const entity of entities ) {
-			expect( options.has( entity.id ) ).toEqual( true );
+		).map((option) => option.value);
+		for (const entity of entities) {
+			expect(options.has(entity.id)).toEqual(true);
 		}
-	} );
+	});
 
-	it( 'throws an error if the option label is not a string', () => {
+	it('throws an error if the option label is not a string', () => {
 		const rawEntities = [];
-		for ( let count = 0; count < 10; ++count ) {
+		for (let count = 0; count < 10; ++count) {
 			rawEntities.push(
-				fromPartial< ExtendedSearchEntityFields >( {
+				fromPartial<ExtendedSearchEntityFields>({
 					title: faker.word.noun(),
 					id: faker.number.int(),
-				} )
+				})
 			);
 		}
 
-		const entities = new Set< ExtendedSearchEntityFields >( rawEntities );
+		const entities = new Set<ExtendedSearchEntityFields>(rawEntities);
 
-		expect( () => {
+		expect(() => {
 			// To make the test fail, we pass the id as the label key
-			convertEntitiesToControlOptions( entities, 'id', 'id' );
-		} ).toThrow();
-	} );
+			convertEntitiesToControlOptions(entities, 'id', 'id');
+		}).toThrow();
+	});
 
-	it( 'add extra data to the control options', () => {
-		const rawEntity = fromPartial< ExtendedSearchEntityFields >( {
+	it('add extra data to the control options', () => {
+		const rawEntity = fromPartial<ExtendedSearchEntityFields>({
 			title: faker.word.noun(),
 			id: faker.number.int(),
-			type: faker.helpers.arrayElement( [ 'post', 'page', 'product' ] ),
+			type: faker.helpers.arrayElement(['post', 'page', 'product']),
 			excerpt: faker.lorem.sentence(),
-		} );
+		});
 
-		const entities = new Set< ExtendedSearchEntityFields >( [ rawEntity ] );
+		const entities = new Set<ExtendedSearchEntityFields>([rawEntity]);
 		const options = convertEntitiesToControlOptions(
 			entities,
 			'title',
@@ -81,8 +81,8 @@ describe( 'Convert Entities To Control Options', () => {
 
 		const option = options.first();
 		// @ts-ignore
-		expect( option?.extra.get( 'type' ) ).toEqual( rawEntity.type );
+		expect(option?.extra.get('type')).toEqual(rawEntity.type);
 		// @ts-ignore
-		expect( option?.extra.get( 'excerpt' ) ).toEqual( rawEntity.excerpt );
-	} );
-} );
+		expect(option?.extra.get('excerpt')).toEqual(rawEntity.excerpt);
+	});
+});

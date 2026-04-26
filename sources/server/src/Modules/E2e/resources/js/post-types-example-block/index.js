@@ -41,38 +41,35 @@ document.addEventListener('DOMContentLoaded', () => {
 				return createElement(Spinner);
 			}
 
-			const searchPosts = createSearchEntitiesOptions( 'post' );
+			const searchPosts = createSearchEntitiesOptions('post');
 
 			const PostPostTypesControllerElement = createElement(
-			  PresetEntitiesByKind,
+				PresetEntitiesByKind,
 				{
 					entitiesFinder: searchPosts,
 					entities: new Set(props.attributes.posts),
 					onChangeEntities: (posts) =>
-					  props.setAttributes({ posts: posts.toArray() }),
+						props.setAttributes({ posts: posts.toArray() }),
 					entitiesComponent: ToggleControl,
 
 					kind: new Set(props.attributes.postType),
 					kindOptions: convertEntitiesToControlOptions(
-					  postTypesEntities
-						.records()
-						.filter(
-						  (record) =>
-							!UNSUPPORTED_CPTS.includes(record.slug)
-						),
-					  'name',
-					  'slug'
+						postTypesEntities
+							.records()
+							.filter(
+								(record) =>
+									!UNSUPPORTED_CPTS.includes(record.slug)
+							),
+						'name',
+						'slug'
 					),
 					onChangeKind: (postType) =>
-					  props.setAttributes({
-						  postType: postType.toArray(),
-					  }),
+						props.setAttributes({
+							postType: postType.toArray(),
+						}),
 					kindComponent: ToggleControl,
 
-					entitiesFields: [
-					  'title',
-					  'id',
-					]
+					entitiesFields: ['title', 'id'],
 				}
 			);
 

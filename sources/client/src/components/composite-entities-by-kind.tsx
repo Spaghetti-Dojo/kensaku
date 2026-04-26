@@ -24,98 +24,98 @@ import { Set } from '../models/set';
  * @public
  * @param props The component props.
  */
-export function CompositeEntitiesByKind< E, K >(
-	props: Kensaku.CompositeEntitiesKinds< E, K >
+export function CompositeEntitiesByKind<E, K>(
+	props: Kensaku.CompositeEntitiesKinds<E, K>
 ): JSX.Element {
-	const [ state, dispatch ] = useEntitiesOptionsStorage< E, K >(
+	const [state, dispatch] = useEntitiesOptionsStorage<E, K>(
 		{
 			entities: props.entities.value,
 			kind: props.kind.value,
 		},
 		props.searchEntities
 	);
-	const search = useSearch< E, K >(
+	const search = useSearch<E, K>(
 		props.searchEntities,
 		state.kind,
 		state.entities,
 		dispatch
 	);
 
-	const onChangeEntities = ( entities: Kensaku.Entities< E > ) => {
-		props.entities.onChange( entities );
+	const onChangeEntities = (entities: Kensaku.Entities<E>) => {
+		props.entities.onChange(entities);
 
-		if ( entities.length() <= 0 ) {
-			dispatch( {
+		if (entities.length() <= 0) {
+			dispatch({
 				type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
 				selectedEntitiesOptions: new Set(),
-			} );
+			});
 			return;
 		}
 
-		Promise.all( [
-			props.searchEntities( state.searchPhrase, state.kind, {
+		Promise.all([
+			props.searchEntities(state.searchPhrase, state.kind, {
 				exclude: entities,
-			} ),
-			props.searchEntities( '', state.kind, {
+			}),
+			props.searchEntities('', state.kind, {
 				include: entities,
 				per_page: '-1',
-			} ),
-		] )
-			.then( ( result ) => {
-				const currentEntitiesOptions = result[ 0 ] ?? new Set();
-				const selectedEntitiesOptions = result[ 1 ] ?? new Set();
+			}),
+		])
+			.then((result) => {
+				const currentEntitiesOptions = result[0] ?? new Set();
+				const selectedEntitiesOptions = result[1] ?? new Set();
 
-				dispatch( {
+				dispatch({
 					type: 'UPDATE_SELECTED_ENTITIES_OPTIONS',
 					selectedEntitiesOptions,
-				} );
-				dispatch( {
+				});
+				dispatch({
 					type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 					currentEntitiesOptions,
-				} );
-			} )
-			.catch( ( error ) => {
-				doAction( 'kensaku.on-change-entities.error', error );
-			} );
+				});
+			})
+			.catch((error) => {
+				doAction('kensaku.on-change-entities.error', error);
+			});
 	};
 
-	const onChangeKind = ( kind: Kensaku.Kind< K > ) => {
-		const emptySet = new Set< any >();
+	const onChangeKind = (kind: Kensaku.Kind<K>) => {
+		const emptySet = new Set<any>();
 
-		props.kind.onChange( kind );
-		props.entities.onChange( emptySet );
+		props.kind.onChange(kind);
+		props.entities.onChange(emptySet);
 
-		if ( kind.length() <= 0 ) {
-			dispatch( {
+		if (kind.length() <= 0) {
+			dispatch({
 				type: 'CLEAN_ENTITIES_OPTIONS',
-			} );
-			dispatch( { type: 'UPDATE_KIND', kind } );
+			});
+			dispatch({ type: 'UPDATE_KIND', kind });
 			return;
 		}
 
 		props
-			.searchEntities( state.searchPhrase, kind, {
+			.searchEntities(state.searchPhrase, kind, {
 				exclude: state.entities,
-			} )
-			.then( ( entitiesOptions ) => {
-				dispatch( {
+			})
+			.then((entitiesOptions) => {
+				dispatch({
 					type: 'UPDATE_ENTITIES_OPTIONS_FOR_NEW_KIND',
 					entitiesOptions,
 					kind,
-				} );
-			} )
-			.catch( ( error ) => {
-				dispatch( {
+				});
+			})
+			.catch((error) => {
+				dispatch({
 					type: 'CLEAN_ENTITIES_OPTIONS',
-				} );
-				doAction( 'kensaku.on-change-kind.error', error );
-			} );
+				});
+				doAction('kensaku.on-change-kind.error', error);
+			});
 	};
 
-	const entities: Kensaku.BaseControl< E > = {
+	const entities: Kensaku.BaseControl<E> = {
 		...props.entities,
 		value: state.entities,
-		options: orderSelectedOptionsAtTheTop< E >(
+		options: orderSelectedOptionsAtTheTop<E>(
 			uniqueControlOptions(
 				state.selectedEntitiesOptions.concat(
 					state.currentEntitiesOptions
@@ -126,11 +126,11 @@ export function CompositeEntitiesByKind< E, K >(
 		onChange: onChangeEntities,
 	};
 
-	const kind: Kensaku.BaseControl< K > = {
+	const kind: Kensaku.BaseControl<K> = {
 		...props.kind,
 		value: state.kind,
 		onChange: onChangeKind,
 	};
 
-	return <>{ props.children( entities, kind, search ) }</>;
+	return <>{props.children(entities, kind, search)}</>;
 }

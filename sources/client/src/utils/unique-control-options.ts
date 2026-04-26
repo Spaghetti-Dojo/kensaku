@@ -9,18 +9,18 @@ import Kensaku from '@types';
 import { Set } from '../models/set';
 
 // TODO Is this necessary due the new Set implementation?
-export function uniqueControlOptions< V >(
-	set: Set< Kensaku.ControlOption< V > >
-): Set< Kensaku.ControlOption< V > > {
-	let uniqueOptions = new Set< Kensaku.ControlOption< V > >();
-	const temp: Array< Kensaku.ControlOption< V >[ 'value' ] > = [];
+export function uniqueControlOptions<V>(
+	set: Set<Kensaku.ControlOption<V>>
+): Set<Kensaku.ControlOption<V>> {
+	let uniqueOptions = new Set<Kensaku.ControlOption<V>>();
+	const temp: Array<Kensaku.ControlOption<V>['value']> = [];
 
-	for ( const option of set ) {
-		if ( ! temp.includes( option.value ) ) {
-			uniqueOptions = uniqueOptions.add( option );
+	for (const option of set) {
+		if (!temp.includes(option.value)) {
+			uniqueOptions = uniqueOptions.add(option);
 		}
 
-		temp.push( option.value );
+		temp.push(option.value);
 	}
 
 	return uniqueOptions;

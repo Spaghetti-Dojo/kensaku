@@ -1,7 +1,5 @@
 ---
-title: Control Option
-layout: post
-nav_order: 5
+sidebar_position: 5
 ---
 
 # Control Option

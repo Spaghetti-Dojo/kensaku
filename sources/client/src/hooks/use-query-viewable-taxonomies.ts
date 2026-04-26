@@ -15,8 +15,8 @@ import { useEntityRecords } from './use-entity-records';
  *
  * @public
  */
-export function useQueryViewableTaxonomies(): Kensaku.EntitiesRecords< Kensaku.ViewableTaxonomy > {
-	const entitiesRecords = useEntityRecords< Kensaku.Taxonomy< 'edit' > >(
+export function useQueryViewableTaxonomies(): Kensaku.EntitiesRecords<Kensaku.ViewableTaxonomy> {
+	const entitiesRecords = useEntityRecords<Kensaku.Taxonomy<'edit'>>(
 		'root',
 		'taxonomy',
 		{ per_page: -1 }
@@ -25,8 +25,8 @@ export function useQueryViewableTaxonomies(): Kensaku.EntitiesRecords< Kensaku.V
 	const viewableTaxonomies = entitiesRecords
 		.records()
 		.filter(
-			( taxonomy ) => taxonomy.visibility.publicly_queryable
-		) as Set< Kensaku.ViewableTaxonomy >;
+			(taxonomy) => taxonomy.visibility.publicly_queryable
+		) as Set<Kensaku.ViewableTaxonomy>;
 
 	return {
 		...entitiesRecords,

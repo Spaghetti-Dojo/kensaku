@@ -1,9 +1,8 @@
 ---
-layout: home
-title: Kensaku
-permalink: /
-nav_order: 0
+slug: /
 ---
+
+# Kensaku
 
 This package is a library exposing reusable Components and Utilities to help you build Entities searching and storage.
 
@@ -23,4 +22,4 @@ more Post Types but also, to search for Terms belonging to one or more Taxonomie
 
 ## License
 
-This software is released under the ["GNU General Public License v2.0 or later"](./LICENSE) license.
+This software is released under the ["GNU General Public License v2.0 or later"](https://github.com/spaghetti-dojo/kensaku/blob/main/LICENSE) license.

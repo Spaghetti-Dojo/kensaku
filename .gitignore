@@ -4,7 +4,7 @@
 /build/
 /coverage
 /vendor/
-/node_modules/
+node_modules/
 
 /composer.lock
 /.pnp.*
@@ -14,3 +14,8 @@
 !/.yarn/releases
 !/.yarn/sdks
 !/.yarn/versions
+
+# Docusaurus
+/website/.docusaurus/
+/website/build/
+/website/node_modules/

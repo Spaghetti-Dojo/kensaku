@@ -4,6 +4,7 @@
 
 [![JS Quality Assurance](https://github.com/spaghetti-dojo/kensaku/actions/workflows/client-linting.yml/badge.svg)](https://github.com/spaghetti-dojo/kensaku/actions/workflows/client-linting.yml)
 [![PHP Quality Assurance](https://github.com/spaghetti-dojo/kensaku/actions/workflows/server-linting.yml/badge.svg)](https://github.com/spaghetti-dojo/kensaku/actions/workflows/server-linting.yml)
+[![Deploy Docs](https://github.com/Spaghetti-Dojo/kensaku/actions/workflows/docs.yml/badge.svg)](https://github.com/Spaghetti-Dojo/kensaku/actions/workflows/docs.yml)
 
 This package is a library exposing reusable Components and Utilities to help you build Entities searching and storage.
 

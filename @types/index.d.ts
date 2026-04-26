@@ -18,26 +18,24 @@ declare namespace Kensaku {
 	type Value = string | number;
 
 	// TODO Can we convert QueryArguments to an Immutable Map?
-	interface QueryArguments
-		extends Partial<
-			Readonly<{
-				exclude: Set<string | number>;
-				include: Set<string | number>;
-				fields: Kensaku.SearchQueryFields;
-				[p: string]: unknown;
-			}>
-		> {}
+	interface QueryArguments extends Partial<
+		Readonly<{
+			exclude: Set<string | number>;
+			include: Set<string | number>;
+			fields: Kensaku.SearchQueryFields;
+			[p: string]: unknown;
+		}>
+	> {}
 
-	interface SearchEntityFields
-		extends Readonly<{
-			id: number;
-			title: string;
-			url: string;
-			type: string;
-			subtype: string;
-			post_content: string;
-			post_excerpt: string;
-		}> {}
+	interface SearchEntityFields extends Readonly<{
+		id: number;
+		title: string;
+		url: string;
+		type: string;
+		subtype: string;
+		post_content: string;
+		post_excerpt: string;
+	}> {}
 
 	type SearchEntitiesFunction<E, K> = (
 		phrase: string,
@@ -49,8 +47,8 @@ declare namespace Kensaku {
 		[K in keyof BaseControl<V>]: K extends 'value'
 			? V
 			: K extends 'onChange'
-			? (value: V) => void
-			: BaseControl<V>[K];
+				? (value: V) => void
+				: BaseControl<V>[K];
 	};
 
 	interface Record<T> {
@@ -63,16 +61,18 @@ declare namespace Kensaku {
 		label: string;
 	}> {}
 
-	interface EnrichedControlOption<V extends any> extends ControlOption<V>, Readonly<{
-		readonly extra: Record<string, unknown>;
-	}> {}
+	interface EnrichedControlOption<V extends any>
+		extends
+			ControlOption<V>,
+			Readonly<{
+				readonly extra: Record<string, unknown>;
+			}> {}
 
-	interface BaseControl<V>
-		extends Readonly<{
-			value: Set<V>;
-			options: Options<V>;
-			onChange(values: BaseControl<V>['value']): void;
-		}> {}
+	interface BaseControl<V> extends Readonly<{
+		value: Set<V>;
+		options: Options<V>;
+		onChange(values: BaseControl<V>['value']): void;
+	}> {}
 
 	/*
 	 * Hooks
@@ -88,7 +88,7 @@ declare namespace Kensaku {
 		[K in keyof Taxonomy<'edit'>]: K extends 'visibility'
 			? BaseEntityRecords.TaxonomyVisibility & {
 					publicly_queryable: true;
-			  }
+				}
 			: Taxonomy<'edit'>[K];
 	}>;
 
@@ -103,9 +103,7 @@ declare namespace Kensaku {
 	 * Api
 	 */
 	// TODO Better to convert the SearchQueryFields to a Set.
-	type SearchQueryFields = ReadonlyArray<
-		keyof Kensaku.SearchEntityFields
-	>;
+	type SearchQueryFields = ReadonlyArray<keyof Kensaku.SearchEntityFields>;
 
 	/*
 	 * Storage
@@ -113,14 +111,14 @@ declare namespace Kensaku {
 	interface EntitiesState<
 		E,
 		K,
-		OptionSet = Set<Kensaku.ControlOption<E>>
+		OptionSet = Set<Kensaku.ControlOption<E>>,
 	> extends Readonly<{
-			entities: Entities<E>;
-			kind: Kind<K>;
-			currentEntitiesOptions: OptionSet;
-			selectedEntitiesOptions: OptionSet;
-			searchPhrase: string;
-		}> {}
+		entities: Entities<E>;
+		kind: Kind<K>;
+		currentEntitiesOptions: OptionSet;
+		selectedEntitiesOptions: OptionSet;
+		searchPhrase: string;
+	}> {}
 
 	type StoreAction<E, K> =
 		| {
@@ -161,26 +159,24 @@ declare namespace Kensaku {
 	/*
 	 * Components
 	 */
-	interface SearchControl
-		extends Readonly<{
-			id?: string;
-			label?: string;
-			onChange(phrase: string | React.ChangeEvent<HTMLInputElement>);
-		}> {}
+	interface SearchControl extends Readonly<{
+		id?: string;
+		label?: string;
+		onChange(phrase: string | React.ChangeEvent<HTMLInputElement>);
+	}> {}
 
-	interface CompositeEntitiesKinds<E, K>
-		extends Readonly<{
-			kind: BaseControl<K>;
-			entities: Omit<BaseControl<E>, 'options'>;
-			searchEntities: SearchEntitiesFunction<E, K>;
-			children(
-				entities: CompositeEntitiesKinds<E, K>['entities'] & {
-					options: BaseControl<E>['options'];
-				},
-				kind: CompositeEntitiesKinds<E, K>['kind'],
-				search: (
-					phrase: Parameters<SearchEntitiesFunction<E, K>>[0]
-				) => ReturnType<SearchControl<E, K>['search']>
-			): React.ReactNode;
-		}> {}
+	interface CompositeEntitiesKinds<E, K> extends Readonly<{
+		kind: BaseControl<K>;
+		entities: Omit<BaseControl<E>, 'options'>;
+		searchEntities: SearchEntitiesFunction<E, K>;
+		children(
+			entities: CompositeEntitiesKinds<E, K>['entities'] & {
+				options: BaseControl<E>['options'];
+			},
+			kind: CompositeEntitiesKinds<E, K>['kind'],
+			search: (
+				phrase: Parameters<SearchEntitiesFunction<E, K>>[0]
+			) => ReturnType<SearchControl<E, K>['search']>
+		): React.ReactNode;
+	}> {}
 }

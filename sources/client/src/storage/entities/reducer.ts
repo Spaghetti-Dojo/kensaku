@@ -13,11 +13,11 @@ import { Set } from '../../models/set';
  * @param state  The state of the reducer
  * @param action The action to be performed
  */
-export function reducer< E, K >(
-	state: Kensaku.EntitiesState< E, K >,
-	action: Kensaku.StoreAction< E, K >
-): Kensaku.EntitiesState< E, K > {
-	switch ( action.type ) {
+export function reducer<E, K>(
+	state: Kensaku.EntitiesState<E, K>,
+	action: Kensaku.StoreAction<E, K>
+): Kensaku.EntitiesState<E, K> {
+	switch (action.type) {
 		case 'UPDATE_ENTITIES':
 			return {
 				...state,
@@ -41,7 +41,7 @@ export function reducer< E, K >(
 				...state,
 				selectedEntitiesOptions: action.selectedEntitiesOptions,
 				entities: action.selectedEntitiesOptions.map(
-					( option: Kensaku.ControlOption< E > ) => option.value
+					(option: Kensaku.ControlOption<E>) => option.value
 				),
 			};
 

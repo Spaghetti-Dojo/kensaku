@@ -8,27 +8,27 @@ import Kensaku from '@types';
  */
 import { Set } from '../models/set';
 
-export function orderSelectedOptionsAtTheTop< V >(
-	options: Set< Kensaku.ControlOption< V > >,
-	collection: Set< V > | undefined
-): Set< Kensaku.ControlOption< V > > {
-	if ( options.length() <= 0 ) {
+export function orderSelectedOptionsAtTheTop<V>(
+	options: Set<Kensaku.ControlOption<V>>,
+	collection: Set<V> | undefined
+): Set<Kensaku.ControlOption<V>> {
+	if (options.length() <= 0) {
 		return options;
 	}
-	if ( collection === undefined || collection.length() <= 0 ) {
+	if (collection === undefined || collection.length() <= 0) {
 		return options;
 	}
 
-	let _collection = new Set< Kensaku.ControlOption< V > >();
-	let _options = new Set< Kensaku.ControlOption< V > >();
+	let _collection = new Set<Kensaku.ControlOption<V>>();
+	let _options = new Set<Kensaku.ControlOption<V>>();
 
-	options.forEach( ( option ) => {
-		if ( collection.has( option.value ) ) {
-			_collection = _collection.add( option );
+	options.forEach((option) => {
+		if (collection.has(option.value)) {
+			_collection = _collection.add(option);
 		} else {
-			_options = _options.add( option );
+			_options = _options.add(option);
 		}
-	} );
+	});
 
-	return _collection.concat( _options );
+	return _collection.concat(_options);
 }

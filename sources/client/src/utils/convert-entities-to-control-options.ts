@@ -13,23 +13,23 @@ import { ImmutableRecord } from '../models/immutable-record';
 
 export function convertEntitiesToControlOptions<
 	V,
-	EntitiesFields extends { [ p: string ]: any },
+	EntitiesFields extends { [p: string]: any },
 >(
-	entities: Set< EntitiesFields >,
+	entities: Set<EntitiesFields>,
 	labelKey: string,
 	valueKey: string,
-	...extraKeys: ReadonlyArray< string >
-): Set< Kensaku.ControlOption< V > > {
-	return entities.map( ( entity ) => {
-		const label = entity[ labelKey ];
-		const value = entity[ valueKey ];
-		assert( typeof label === 'string', 'Label key must be a string' );
+	...extraKeys: ReadonlyArray<string>
+): Set<Kensaku.ControlOption<V>> {
+	return entities.map((entity) => {
+		const label = entity[labelKey];
+		const value = entity[valueKey];
+		assert(typeof label === 'string', 'Label key must be a string');
 
 		const extra = extraKeys.reduce(
-			( record, key ) => ( { ...record, [ key ]: entity[ key ] } ),
+			(record, key) => ({ ...record, [key]: entity[key] }),
 			{}
 		);
 
-		return new ControlOption( label, value, new ImmutableRecord( extra ) );
-	} );
+		return new ControlOption(label, value, new ImmutableRecord(extra));
+	});
 }

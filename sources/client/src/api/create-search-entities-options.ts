@@ -9,11 +9,11 @@ import Kensaku from '@types';
 import { Set } from '../models/set';
 import { searchEntitiesOptions } from './search-entities-options';
 
-export function createSearchEntitiesOptions< E >( type: string ) {
+export function createSearchEntitiesOptions<E>(type: string) {
 	return async (
 		phrase: string,
-		postTypes: Kensaku.Kind< string >,
+		postTypes: Kensaku.Kind<string>,
 		queryArguments?: Kensaku.QueryArguments
-	): Promise< Set< Kensaku.ControlOption< E > > > =>
-		searchEntitiesOptions( type, phrase, postTypes, queryArguments );
+	): Promise<Set<Kensaku.ControlOption<E>>> =>
+		searchEntitiesOptions(type, phrase, postTypes, queryArguments);
 }

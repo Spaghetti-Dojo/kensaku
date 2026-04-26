@@ -15,8 +15,8 @@ import { doAction } from '@wordpress/hooks';
  */
 import { Set } from '../models/set';
 
-type SearchPhrase = Parameters< Kensaku.SearchControl[ 'onChange' ] >[ 0 ];
-type SearchFunc = ( phrase: SearchPhrase ) => void;
+type SearchPhrase = Parameters<Kensaku.SearchControl['onChange']>[0];
+type SearchFunc = (phrase: SearchPhrase) => void;
 
 /**
  * Build a function to search the entities by a phrase
@@ -27,39 +27,39 @@ type SearchFunc = ( phrase: SearchPhrase ) => void;
  * @param entities       The entities to exclude from the search
  * @param dispatch       The dispatch function to update the state
  */
-export function useSearch< E, K >(
-	searchEntities: Kensaku.SearchEntitiesFunction< E, K >,
-	kind: Kensaku.Kind< K >,
-	entities: Kensaku.Entities< E >,
-	dispatch: React.Dispatch< Kensaku.StoreAction< E, K > >
+export function useSearch<E, K>(
+	searchEntities: Kensaku.SearchEntitiesFunction<E, K>,
+	kind: Kensaku.Kind<K>,
+	entities: Kensaku.Entities<E>,
+	dispatch: React.Dispatch<Kensaku.StoreAction<E, K>>
 ): SearchFunc {
 	return useThrottle(
-		( phrase: SearchPhrase ) => {
-			const _phrase = extractPhrase( phrase );
+		(phrase: SearchPhrase) => {
+			const _phrase = extractPhrase(phrase);
 
-			searchEntities( _phrase, kind, {
+			searchEntities(_phrase, kind, {
 				exclude: entities,
-			} )
-				.then( ( result ) =>
-					dispatch( {
+			})
+				.then((result) =>
+					dispatch({
 						type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 						currentEntitiesOptions: result,
-					} )
+					})
 				)
-				.catch( ( error ) => {
-					doAction( 'kensaku.on-search.error', error );
-					const emptySet = new Set< Kensaku.ControlOption< E > >();
-					dispatch( {
+				.catch((error) => {
+					doAction('kensaku.on-search.error', error);
+					const emptySet = new Set<Kensaku.ControlOption<E>>();
+					dispatch({
 						type: 'UPDATE_CURRENT_ENTITIES_OPTIONS',
 						currentEntitiesOptions: emptySet,
-					} );
+					});
 					return emptySet;
-				} )
-				.finally( () =>
-					dispatch( {
+				})
+				.finally(() =>
+					dispatch({
 						type: 'UPDATE_SEARCH_PHRASE',
 						searchPhrase: _phrase,
-					} )
+					})
 				);
 		},
 		300,
@@ -67,7 +67,7 @@ export function useSearch< E, K >(
 	);
 }
 
-function extractPhrase( phraseOrEvent: SearchPhrase ): string {
+function extractPhrase(phraseOrEvent: SearchPhrase): string {
 	const phrase =
 		typeof phraseOrEvent === 'string'
 			? phraseOrEvent

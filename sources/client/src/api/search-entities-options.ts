@@ -10,13 +10,13 @@ import { Set } from '../models/set';
 import { searchEntities } from './search-entities';
 import { convertEntitiesToControlOptions } from '../utils/convert-entities-to-control-options';
 
-export async function searchEntitiesOptions< E >(
+export async function searchEntitiesOptions<E>(
 	type: string,
 	phrase: string,
-	postTypes: Kensaku.Kind< string >,
+	postTypes: Kensaku.Kind<string>,
 	queryArguments?: Kensaku.QueryArguments
-): Promise< Set< Kensaku.ControlOption< E > > > {
-	const postsEntities = await searchEntities< Kensaku.SearchEntityFields >(
+): Promise<Set<Kensaku.ControlOption<E>>> {
+	const postsEntities = await searchEntities<Kensaku.SearchEntityFields>(
 		type,
 		postTypes,
 		phrase,
@@ -24,7 +24,7 @@ export async function searchEntitiesOptions< E >(
 	);
 
 	const { fields = [] } = queryArguments ?? {};
-	const [ label = 'title', value = 'id', ...extraFields ] = fields;
+	const [label = 'title', value = 'id', ...extraFields] = fields;
 
 	return convertEntitiesToControlOptions(
 		postsEntities,

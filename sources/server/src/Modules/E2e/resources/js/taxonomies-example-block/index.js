@@ -40,40 +40,37 @@ document.addEventListener('DOMContentLoaded', () => {
 				return createElement(Spinner);
 			}
 
-			const entitiesFinder = createSearchEntitiesOptions( 'term' );
+			const entitiesFinder = createSearchEntitiesOptions('term');
 
 			const TermTaxonomiesControllerElement = createElement(
-			  PresetEntitiesByKind,
-			  {
-				  entitiesFinder: entitiesFinder,
-				  entities: new Set(props.attributes.terms),
-				  onChangeEntities: (entities) =>
-					props.setAttributes({ terms: entities.toArray() }),
-				  entitiesComponent: ToggleControl,
+				PresetEntitiesByKind,
+				{
+					entitiesFinder: entitiesFinder,
+					entities: new Set(props.attributes.terms),
+					onChangeEntities: (entities) =>
+						props.setAttributes({ terms: entities.toArray() }),
+					entitiesComponent: ToggleControl,
 
-				  kind: new Set(props.attributes.taxonomy),
-				  kindOptions: convertEntitiesToControlOptions(
-					taxonomiesEntities.records(),
-					'name',
-					'slug'
-				  ),
-				  onChangeKind: (kind) =>
-					props.setAttributes({
-						taxonomy: kind.toArray(),
-					}),
-				  kindComponent: ToggleControl,
+					kind: new Set(props.attributes.taxonomy),
+					kindOptions: convertEntitiesToControlOptions(
+						taxonomiesEntities.records(),
+						'name',
+						'slug'
+					),
+					onChangeKind: (kind) =>
+						props.setAttributes({
+							taxonomy: kind.toArray(),
+						}),
+					kindComponent: ToggleControl,
 
-				  entitiesFields: [
-					  'title',
-					  'id',
-				  ]
-			  }
+					entitiesFields: ['title', 'id'],
+				}
 			);
 
 			return createElement(
-			  'div',
-			  blockProps,
-			  TermTaxonomiesControllerElement
+				'div',
+				blockProps,
+				TermTaxonomiesControllerElement
 			);
 		},
 		save: () => null,

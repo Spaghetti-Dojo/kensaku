@@ -18,74 +18,73 @@ import { SearchControl } from './search-control';
 import { Set } from '../models/set';
 
 type EntitiesValue = Kensaku.Value;
-type Entities = Kensaku.Entities< EntitiesValue >;
-type KindValue = Kensaku.Kind< string > | string;
+type Entities = Kensaku.Entities<EntitiesValue>;
+type KindValue = Kensaku.Kind<string> | string;
 
 type EntitiesFinder = (
 	phrase: string,
-	kind: Kensaku.Kind< string >,
+	kind: Kensaku.Kind<string>,
 	queryArguments?: Kensaku.QueryArguments
-) => Promise< Set< Kensaku.ControlOption< EntitiesValue > > >;
+) => Promise<Set<Kensaku.ControlOption<EntitiesValue>>>;
 
 type EntitiesComponent = React.ComponentType<
-	Kensaku.BaseControl< EntitiesValue >
+	Kensaku.BaseControl<EntitiesValue>
 >;
-type KindComponent = React.ComponentType< Kensaku.BaseControl< KindValue > >;
+type KindComponent = React.ComponentType<Kensaku.BaseControl<KindValue>>;
 
 type PublicComponentProps = {
 	entitiesFinder: EntitiesFinder;
 	className?: string;
 	entities: Entities;
-	onChangeEntities: ( values: Entities ) => void;
+	onChangeEntities: (values: Entities) => void;
 	entitiesComponent: EntitiesComponent;
 	kind: KindValue;
-	kindOptions: Kensaku.Options< string >;
-	onChangeKind: ( values: KindValue ) => void;
+	kindOptions: Kensaku.Options<string>;
+	onChangeKind: (values: KindValue) => void;
 	kindComponent: KindComponent;
-	entitiesFields?: Kensaku.QueryArguments[ 'fields' ];
+	entitiesFields?: Kensaku.QueryArguments['fields'];
 };
 
-interface PrivateComponentProps
-	extends Pick<
-		Kensaku.CompositeEntitiesKinds< EntitiesValue, string >,
-		'kind' | 'entities'
-	> {
+interface PrivateComponentProps extends Pick<
+	Kensaku.CompositeEntitiesKinds<EntitiesValue, string>,
+	'kind' | 'entities'
+> {
 	className?: string;
 	entitiesFinder: EntitiesFinder;
 	kindComponent: KindComponent;
 	entitiesComponent: EntitiesComponent;
 }
 
-function PrivateComponent( props: PrivateComponentProps ): JSX.Element {
-	const className = classnames( 'kensaku-preset-entities-by-kind', {
+function PrivateComponent(props: PrivateComponentProps): JSX.Element {
+	const className = classnames('kensaku-preset-entities-by-kind', {
 		// @ts-ignore
-		[ props.className ]: !! props.className,
-	} );
+		[props.className]: !!props.className,
+	});
 
 	return (
-		<div className={ className }>
+		<div className={className}>
 			<CompositeEntitiesByKind
-				entities={ props.entities }
-				kind={ props.kind }
-				searchEntities={ props.entitiesFinder }
+				entities={props.entities}
+				kind={props.kind}
+				searchEntities={props.entitiesFinder}
 			>
-				{ ( _entities, _kind, search ) => (
+				{(_entities, _kind, search) => (
 					<>
-						<props.kindComponent { ..._kind } />
-						<SearchControl onChange={ search } />
-						<props.entitiesComponent { ..._entities } />
+						<props.kindComponent {..._kind} />
+						<SearchControl onChange={search} />
+						<props.entitiesComponent {..._entities} />
 					</>
-				) }
+				)}
 			</CompositeEntitiesByKind>
 		</div>
 	);
 }
 
 const withDataBound = createHigherOrderComponent<
-	React.ComponentType< PrivateComponentProps >,
-	React.ComponentType< PublicComponentProps >
+	React.ComponentType<PrivateComponentProps>,
+	React.ComponentType<PublicComponentProps>
 >(
-	( Component ) => ( props ) => {
+	(Component) => (props) => {
 		const {
 			kind,
 			entities,
@@ -99,7 +98,7 @@ const withDataBound = createHigherOrderComponent<
 			..._props
 		} = props;
 
-		const kindValue = narrowKindValue( props.kind );
+		const kindValue = narrowKindValue(props.kind);
 
 		const _entities = {
 			value: entities,
@@ -119,12 +118,12 @@ const withDataBound = createHigherOrderComponent<
 
 		return (
 			<Component
-				entities={ _entities }
-				kind={ _kind }
-				entitiesFinder={ _entitiesFinder }
-				kindComponent={ kindComponent }
-				entitiesComponent={ entitiesComponent }
-				{ ..._props }
+				entities={_entities}
+				kind={_kind}
+				entitiesFinder={_entitiesFinder}
+				kindComponent={kindComponent}
+				entitiesComponent={entitiesComponent}
+				{..._props}
 			/>
 		);
 	},
@@ -133,24 +132,24 @@ const withDataBound = createHigherOrderComponent<
 
 function entitiesFinderWithExtraFields(
 	entitiesFinder: EntitiesFinder,
-	entitiesFields?: Kensaku.QueryArguments[ 'fields' ]
+	entitiesFields?: Kensaku.QueryArguments['fields']
 ): EntitiesFinder {
 	return (
 		phrase: string,
-		kind: Kensaku.Kind< string >,
+		kind: Kensaku.Kind<string>,
 		queryArguments?: Kensaku.QueryArguments
 	) =>
-		entitiesFinder( phrase, kind, {
+		entitiesFinder(phrase, kind, {
 			...queryArguments,
 			fields: [
-				...( queryArguments?.fields ?? [ 'title', 'id' ] ),
-				...( entitiesFields ?? [] ),
+				...(queryArguments?.fields ?? ['title', 'id']),
+				...(entitiesFields ?? []),
 			],
-		} );
+		});
 }
 
-function narrowKindValue( value: KindValue ): Kensaku.Kind< string > {
-	return typeof value === 'string' ? new Set( [ value ] ) : value;
+function narrowKindValue(value: KindValue): Kensaku.Kind<string> {
+	return typeof value === 'string' ? new Set([value]) : value;
 }
 
-export const PresetEntitiesByKind = withDataBound( PrivateComponent );
+export const PresetEntitiesByKind = withDataBound(PrivateComponent);

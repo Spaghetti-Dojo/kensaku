@@ -1,6 +1,6 @@
 module.exports = {
-	extends: [ 'plugin:@wordpress/eslint-plugin/recommended' ],
-	ignorePatterns: [ '**/sources/server/**/*.js' ],
+	extends: ['plugin:@wordpress/eslint-plugin/recommended'],
+	ignorePatterns: ['**/sources/server/**/*.js'],
 	rules: {
 		'@wordpress/dependency-group': 'error',
 		'@wordpress/i18n-text-domain': [
@@ -9,7 +9,7 @@ module.exports = {
 				allowedTextDomain: 'kensaku',
 			},
 		],
-		'@typescript-eslint/array-type': [ 'error', { default: 'generic' } ],
+		'@typescript-eslint/array-type': ['error', { default: 'generic' }],
 	},
 	settings: {
 		'import/resolver': {

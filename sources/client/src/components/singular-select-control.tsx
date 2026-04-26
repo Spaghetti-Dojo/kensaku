@@ -11,7 +11,7 @@ import React, { JSX } from 'react';
 import { NoOptionsMessage } from './no-options-message';
 
 export function SingularSelectControl(
-	props: Kensaku.SingularControl< string > & {
+	props: Kensaku.SingularControl<string> & {
 		className?: string;
 	}
 ): JSX.Element {
@@ -21,38 +21,34 @@ export function SingularSelectControl(
 		'kensaku-select-control--singular'
 	);
 
-	if ( props.options.length() <= 0 ) {
+	if (props.options.length() <= 0) {
 		return <NoOptionsMessage />;
 	}
 
-	const onChange = ( event: React.ChangeEvent< HTMLSelectElement > ) => {
+	const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		const { target } = event;
 		const valueOption = props.options.find(
-			( option ) => String( option.value ) === target.value
+			(option) => String(option.value) === target.value
 		);
 
-		if ( ! valueOption ) {
+		if (!valueOption) {
 			return;
 		}
 
-		props.onChange( valueOption.value );
+		props.onChange(valueOption.value);
 	};
 
 	return (
-		<select
-			className={ className }
-			value={ props?.value }
-			onChange={ onChange }
-		>
-			{ props.options.map( ( option ) => (
+		<select className={className} value={props?.value} onChange={onChange}>
+			{props.options.map((option) => (
 				<option
-					key={ option.value }
-					className={ `kensaku-select-control-item kensaku-select-control-item--${ option.value }` }
-					value={ option.value }
+					key={option.value}
+					className={`kensaku-select-control-item kensaku-select-control-item--${option.value}`}
+					value={option.value}
 				>
-					{ option.label }
+					{option.label}
 				</option>
-			) ) }
+			))}
 		</select>
 	);
 }

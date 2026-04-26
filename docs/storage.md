@@ -1,7 +1,5 @@
 ---
-title: Storage
-layout: post
-nav_order: 8
+sidebar_position: 8
 ---
 
 # Storage
@@ -17,5 +15,4 @@ There are circumstances where you want to create your own high level component, 
 In that case, you can use the `useEntitiesOptionsStorage` hook.
 
 For more information please read the [component](./components.md) section, or, alternatively have a look at the
-[CompositeEntitiesByKind](../sources/client/src/components/composite-entities-by-kind.tsx) component.
-
+[CompositeEntitiesByKind](https://github.com/spaghetti-dojo/kensaku/blob/main/sources/client/src/components/composite-entities-by-kind.tsx) component.
